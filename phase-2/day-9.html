@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Phase 2 · Day 9: Docker, part 2: Compose · DiGiKits Support Training</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">DiGiKits Support Training</a>
+<nav><a href="../index.html">Plan</a><a href="../lessons.html">Lessons</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a><a href="../board.html">Board</a></nav>
+</div></header>
+<main><div class="wrap">
+<p style="color:var(--muted);margin:0">Phase 2 · Day 9</p><h1>Docker, part 2: Compose</h1>
+<p class="lead">Describe a whole app in one file and start it with one command.</p>
+<h2>Why it matters</h2>
+<p>Real systems are several containers (web page, database, a worker). Compose keeps them together and restarts them after a reboot.</p>
+<h2>Practice</h2>
+<p>Create <code>~/dash/compose.yaml</code>:</p>
+<pre><code>services:
+  web:
+    image: nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./site:/usr/share/nginx/html:ro
+    restart: unless-stopped
+  uptime:
+    image: louislam/uptime-kuma:1
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./uptime-data:/app/data
+    restart: unless-stopped</code></pre>
+<pre><code>cd ~/dash
+docker compose up -d
+docker compose ps
+docker compose logs -f uptime
+docker compose pull &amp;&amp; docker compose up -d   # update</code></pre>
+<p>Open Uptime Kuma on port 3001 and add monitors for your Pis and your fake LED controller (port 5000).</p>
+<h2>Done when</h2>
+<ul class="check"><li>Both containers come back after <code>sudo reboot</code></li><li>Uptime Kuma shows red when you stop the fake controller</li></ul>
+<h2>Support drill</h2>
+<p>A container keeps restarting. Read its logs and find why.</p>
+<div class="pager"><a href="day-8.html">← Day 8: Docker, part 1</a><a href="day-10.html">Day 10: GitHub for teams →</a></div>
+<section class="board">
+<h2>Questions about this lesson</h2>
+<p class="quiet-note">Sign in with your GitHub account to post. Posts are public, so never share passwords or personal details.</p>
+<script src="https://giscus.app/client.js"
+ data-repo="wdigi/tony" data-repo-id="R_kgDOV5dORw"
+ data-category="Announcements" data-category-id="DIC_kwDOV5dOR84DL1hi"
+ data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0"
+ data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy"
+ crossorigin="anonymous" async></script>
+</section>
+</div></main>
+<footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Phase 2 · Day 4: The Big Screen, part 2: control · DiGiKits Support Training</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">DiGiKits Support Training</a>
+<nav><a href="../index.html">Plan</a><a href="../lessons.html">Lessons</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a><a href="../board.html">Board</a></nav>
+</div></header>
+<main><div class="wrap">
+<p style="color:var(--muted);margin:0">Phase 2 · Day 4</p><h1>The Big Screen, part 2: control</h1>
+<p class="lead">Turn the TV on and off from the Pi, and switch what it shows with a physical button.</p>
+<h2>Why it matters</h2>
+<p>Clients want screens to switch on at opening time and off at night, and staff want one button, not a keyboard.</p>
+<h2>TV control over HDMI (CEC)</h2>
+<pre><code>sudo apt install cec-utils
+echo 'scan' | cec-client -s -d 1        # what is connected?
+echo 'standby 0' | cec-client -s -d 1   # TV off
+echo 'on 0' | cec-client -s -d 1        # TV on</code></pre>
+<p>Not every TV supports CEC, and it may need turning on in the TV's menu (brands call it Anynet+, SimpLink, Bravia Sync and so on).</p>
+<h2>A mode button</h2>
+<p>Use your Day 7 button and LED: each press switches between two web pages, and the LED shows which mode is on. Python with <code>gpiozero</code> can restart the browser with a different address.</p>
+<h2>Schedule</h2>
+<p>Use a timer from Day 2 to switch the TV on at 9:00 and off at 18:00.</p>
+<h2>Done when</h2>
+<ul class="check"><li>The TV turns on and off from a command</li><li>A button press switches the page and the LED shows the mode</li></ul>
+<h2>Support drill</h2>
+<p>"The screen won't turn on in the morning." List five possible causes and how you'd test each one remotely.</p>
+<div class="pager"><a href="day-3.html">← Day 3: The Big Screen, part 1: kiosk mode</a><a href="day-5.html">Day 5: Network services and ports →</a></div>
+<section class="board">
+<h2>Questions about this lesson</h2>
+<p class="quiet-note">Sign in with your GitHub account to post. Posts are public, so never share passwords or personal details.</p>
+<script src="https://giscus.app/client.js"
+ data-repo="wdigi/tony" data-repo-id="R_kgDOV5dORw"
+ data-category="Announcements" data-category-id="DIC_kwDOV5dOR84DL1hi"
+ data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0"
+ data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy"
+ crossorigin="anonymous" async></script>
+</section>
+</div></main>
+<footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
+</body>
+</html>

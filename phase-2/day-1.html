@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Phase 2 · Day 1: Shell scripts · DiGiKits Support Training</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">DiGiKits Support Training</a>
+<nav><a href="../index.html">Plan</a><a href="../lessons.html">Lessons</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a><a href="../board.html">Board</a></nav>
+</div></header>
+<main><div class="wrap">
+<p style="color:var(--muted);margin:0">Phase 2 · Day 1</p><h1>Shell scripts</h1>
+<p class="lead">Turn commands you type into scripts that do the work for you.</p>
+<h2>Why it matters</h2>
+<p>Support work repeats. A script does the same check the same way every time, at 3 a.m. too.</p>
+<h2>Practice</h2>
+<p>Create <code>~/bin/health.sh</code>:</p>
+<pre><code>#!/bin/bash
+# health.sh - one-line health report for this Pi
+host=$(hostname)
+temp=$(vcgencmd measure_temp | cut -d= -f2)
+disk=$(df -h / | awk 'NR==2 {print $5}')
+power=$(vcgencmd get_throttled | cut -d= -f2)
+echo "$(date '+%F %T') $host temp=$temp disk=$disk power=$power"</code></pre>
+<pre><code>chmod +x ~/bin/health.sh
+~/bin/health.sh</code></pre>
+<p>Then add an <code>if</code>: print <code>WARNING</code> when the disk is over 80% full. Add a <code>for</code> loop that pings three addresses and prints which ones answer.</p>
+<h2>Done when</h2>
+<ul class="check"><li>Your script prints one clear line about the Pi</li><li>It warns when the disk is too full (test it by lowering the limit)</li></ul>
+<h2>Support drill</h2>
+<p>A script says "Permission denied" and another says "command not found". Fix both.</p>
+<div class="pager"><a href="index.html">← Phase 2</a><a href="day-2.html">Day 2: Scheduled jobs →</a></div>
+<section class="board">
+<h2>Questions about this lesson</h2>
+<p class="quiet-note">Sign in with your GitHub account to post. Posts are public, so never share passwords or personal details.</p>
+<script src="https://giscus.app/client.js"
+ data-repo="wdigi/tony" data-repo-id="R_kgDOV5dORw"
+ data-category="Announcements" data-category-id="DIC_kwDOV5dOR84DL1hi"
+ data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0"
+ data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy"
+ crossorigin="anonymous" async></script>
+</section>
+</div></main>
+<footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
+</body>
+</html>

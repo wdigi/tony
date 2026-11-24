@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Phase 2 · Day 8: Docker, part 1 · DiGiKits Support Training</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">DiGiKits Support Training</a>
+<nav><a href="../index.html">Plan</a><a href="../lessons.html">Lessons</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a><a href="../board.html">Board</a></nav>
+</div></header>
+<main><div class="wrap">
+<p style="color:var(--muted);margin:0">Phase 2 · Day 8</p><h1>Docker, part 1</h1>
+<p class="lead">Run software in containers: packaged apps that work the same on every machine.</p>
+<h2>Why it matters</h2>
+<p>DiGiKits software is shipped and updated as containers. "It worked on my machine" stops being a problem.</p>
+<h2>Practice</h2>
+<pre><code>curl -fsSL https://get.docker.com | sh
+sudo usermod -aG docker $USER     # then log out and back in
+docker run hello-world
+docker run -d --name web -p 8080:80 nginx
+docker ps
+docker logs web
+docker stop web &amp;&amp; docker rm web</code></pre>
+<p>Open <code>http://trainpi:8080</code> from your laptop while the container runs.</p>
+<p>Serve your own page: put an <code>index.html</code> in <code>~/site</code> and run</p>
+<pre><code>docker run -d --name web -p 8080:80 -v ~/site:/usr/share/nginx/html:ro nginx</code></pre>
+<h2>Learn the words</h2>
+<p>Image (the package), container (a running copy), port mapping (8080 outside → 80 inside), volume (a folder shared with the container).</p>
+<h2>Done when</h2>
+<ul class="check"><li>Your own page is served from a container</li><li>You can explain image, container, port and volume</li></ul>
+<h2>Support drill</h2>
+<p>"Port is already allocated." Find what's using it and fix it.</p>
+<div class="pager"><a href="day-7.html">← Day 7: Microcontrollers and MicroPython</a><a href="day-9.html">Day 9: Docker, part 2: Compose →</a></div>
+<section class="board">
+<h2>Questions about this lesson</h2>
+<p class="quiet-note">Sign in with your GitHub account to post. Posts are public, so never share passwords or personal details.</p>
+<script src="https://giscus.app/client.js"
+ data-repo="wdigi/tony" data-repo-id="R_kgDOV5dORw"
+ data-category="Announcements" data-category-id="DIC_kwDOV5dOR84DL1hi"
+ data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0"
+ data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy"
+ crossorigin="anonymous" async></script>
+</section>
+</div></main>
+<footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
+</body>
+</html>

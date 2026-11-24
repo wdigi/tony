@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Phase 4 · Day 6: 3D on the web, part 1 · DiGiKits Support Training</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">DiGiKits Support Training</a>
+<nav><a href="../index.html">Plan</a><a href="../lessons.html">Lessons</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a><a href="../board.html">Board</a></nav>
+</div></header>
+<main><div class="wrap">
+<p style="color:var(--muted);margin:0">Phase 4 · Day 6</p><h1>3D on the web, part 1</h1>
+<p class="lead">Show a 3D scene in a web browser, the way DiGiKits 3D showrooms and demos work.</p>
+<h2>Practice (Three.js)</h2>
+<p>Create <code>index.html</code> and open it through a simple local server (<code>python3 -m http.server</code>):</p>
+<pre><code>&lt;script type="importmap"&gt;
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js" } }
+&lt;/script&gt;
+&lt;script type="module"&gt;
+import * as THREE from "three";
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, 0.1, 100);
+camera.position.set(2, 2, 3); camera.lookAt(0, 0, 0);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(innerWidth, innerHeight);
+document.body.appendChild(renderer.domElement);
+scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+const sun = new THREE.DirectionalLight(0xffffff, 1); sun.position.set(3, 5, 2); scene.add(sun);
+const box = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshStandardMaterial({ color: 0x1f6feb }));
+scene.add(box);
+renderer.setAnimationLoop(() =&gt; { box.rotation.y += 0.01; renderer.render(scene, camera); });
+&lt;/script&gt;</code></pre>
+<h2>Done when</h2>
+<ul class="check"><li>A lit, rotating box in your browser</li><li>You changed its colour, size and the camera position</li></ul>
+<div class="pager"><a href="day-5.html">← Day 5: Script-driven 3D, part 2</a><a href="day-7.html">Day 7: 3D on the web, part 2 →</a></div>
+<section class="board">
+<h2>Questions about this lesson</h2>
+<p class="quiet-note">Sign in with your GitHub account to post. Posts are public, so never share passwords or personal details.</p>
+<script src="https://giscus.app/client.js"
+ data-repo="wdigi/tony" data-repo-id="R_kgDOV5dORw"
+ data-category="Announcements" data-category-id="DIC_kwDOV5dOR84DL1hi"
+ data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0"
+ data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy"
+ crossorigin="anonymous" async></script>
+</section>
+</div></main>
+<footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
+</body>
+</html>
