@@ -1,6 +1,20 @@
 /* Self-check questions for every lesson.
    Format per lesson: [question, [choices], index of the right choice, why]. */
 window.QUIZ = {
+"physical-ai/lesson-5.html": [
+ ["What is PWM?", ["A kind of battery", "Switching a pin on and off very fast so the average power sets brightness or speed", "A Wi-Fi protocol", "A type of sensor"], 1, "The share of time it's on (the duty cycle) sets the average."],
+ ["At 3.3 V and 50% duty cycle, what's the average voltage?", ["3.3 V", "1.65 V", "0.5 V", "5 V"], 1, "Half the time on gives half the voltage on average."],
+ ["What tells a hobby servo which angle to hold?", ["The colour of the wire", "The length of each pulse, about 1 to 2 ms", "The supply voltage", "How loud it is"], 1, "Pulse width means angle; check the servo's datasheet for its exact range."],
+ ["Why shouldn't a motor be wired straight to a GPIO pin?", ["Motors are too quiet", "A pin supplies only a tiny current; the motor needs a driver and its own supply", "GPIO pins are only for LEDs at night", "It's fine, nothing happens"], 1, "Use a driver, a separate supply, a common ground and a flyback diode."],
+ ["The Pi reboots every time the motor starts. First check?", ["Reinstall Linux", "Whether the motor is powered from the Pi instead of its own supply", "Change the Wi-Fi password", "Buy a faster SD card"], 1, "A motor's start-up current can drag the Pi's supply down; give it its own."]
+],
+"physical-ai/lesson-6.html": [
+ ["What is a protocol?", ["A brand of cable", "An agreed set of rules for how devices exchange bytes", "A type of motor", "A power supply"], 1, "Both sides must follow the same rules, like speaking the same language."],
+ ["In UART, what does the line do when nothing is being sent?", ["Rests low", "Rests high, then a low start bit begins each byte", "Flashes", "Turns off the Pi"], 1, "Idle high; start bit low; 8 data bits; stop bit high."],
+ ["A serial console shows garbage characters. Most likely cause?", ["The cable is too short", "The two sides use different baud rates", "The Pi has no RAM", "The LED strip is off"], 1, "Wrong speed means the receiver reads bits at the wrong moments."],
+ ["How does I²C know which device the Pi is talking to?", ["Each device has its own address, like 0x48", "Each device has its own Wi-Fi", "It talks to all of them and hopes", "By colour"], 0, "Only the device whose address is called answers."],
+ ["In MQTT, what does the broker do?", ["Repairs broken wires", "Passes published messages to everyone subscribed to that topic", "Stores the operating system", "Measures temperature"], 1, "It's the noticeboard between publishers and subscribers."]
+],
 "physical-ai/lesson-3.html": [
  ["How does the start/stop circuit keep the motor running after Start springs back?", ["The button is glued down", "The motor's output feeds back into the OR gate and holds itself on", "The CPU presses it again", "It doesn't; the motor stops"], 1, "Feedback is memory: the output keeps the input on until Stop breaks the loop."],
  ["What is a memory address?", ["The house where the computer lives", "The number of a memory box, usually written in hex", "The Wi-Fi password", "The size of the SD card"], 1, "Each byte of memory sits at a numbered address."],

@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Physical AI Systems · Lesson 5 · DiGiKits Support Training</title>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.demo{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:14px;margin:18px 0}
+.demo .d-title{font-weight:600;margin-bottom:6px}
+.demo svg{width:100%;height:auto;display:block}
+.demo .ctl{display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap}
+.demo .ctl label{min-width:150px;font-size:14px}
+.demo .ctl input[type=range]{flex:1;min-width:160px;accent-color:var(--accent)}
+.demo .ctl output{min-width:70px;font-weight:600;font-size:14px;text-align:right}
+.demo .readout{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+@media (max-width:560px){.demo .readout{grid-template-columns:repeat(2,1fr)}}
+.demo .rd{border:1px solid var(--line);border-radius:8px;padding:8px;text-align:center}
+.demo .rd span{display:block;font-size:12.5px;color:var(--muted)}
+.demo .rd strong{font-size:16px;font-family:ui-monospace,Menlo,Consolas,monospace}
+.demo .say{margin:8px 0 0;color:var(--muted);font-size:14px}
+.demo .sq{fill:none;stroke:var(--accent);stroke-width:3;stroke-linejoin:round}
+.demo .scroll{animation:scroll 1.2s linear infinite}
+.demo .fan{transform-box:fill-box;transform-origin:center;animation:spin 1s linear infinite;animation-play-state:paused}
+.demo .arm{transform-box:view-box;transition:transform .25s}
+@keyframes scroll{to{transform:translateX(-140px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){.demo .scroll{animation:none}.demo .fan{animation:none}}
+</style>
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">DiGiKits Support Training</a>
+<nav><a href="../index.html">Plan</a><a href="../lessons.html">Lessons</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a><a href="../board.html">Board</a><a href="../search.html">Search</a></nav>
+</div></header>
+<main><div class="wrap">
+<p style="color:var(--muted);margin:0">Physical AI Systems · Lesson 5</p><h1>Actuators: how numbers move the real world</h1>
+<p class="lead">Lesson 4 brought the world <em>into</em> the computer. This lesson sends it back <em>out</em>: lighting an LED, turning a motor, moving an arm. The parts that do this are called <strong>actuators</strong>, and the trick that controls most of them is called <strong>PWM</strong>. Move the sliders and watch.</p>
+<div class="card"><p style="margin:0"><strong>Self-paced, so go easy on yourself.</strong> Play with every slider; you can't break anything. If something stays confusing, write it on the board below. Your coach goes through more examples with you in the live session.</p></div>
+<p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
+
+<h2 id="closing-the-loop">Closing the loop</h2>
+<figure class="fig"><svg class="d" viewBox="0 0 680 110" role="img" aria-label="The Physical AI loop with Convert and Act highlighted"><defs><marker id="l5a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
+<rect x="10" y="20" width="118" height="54" rx="8" class="b" opacity=".55"/><text x="69" y="52" font-size="13.5" text-anchor="middle" class="q">1 · Sense</text>
+<rect x="146" y="20" width="118" height="54" rx="8" class="b" opacity=".55"/><text x="205" y="52" font-size="13.5" text-anchor="middle" class="q">2 · ADC</text>
+<rect x="282" y="20" width="118" height="54" rx="8" class="b" opacity=".55"/><text x="341" y="52" font-size="13.5" text-anchor="middle" class="q">3 · Process</text>
+<rect x="418" y="20" width="118" height="54" rx="8" class="b-w" stroke-width="3"/><text x="477" y="52" font-size="13.5" text-anchor="middle" font-weight="600">4 · PWM / DAC</text>
+<rect x="554" y="20" width="118" height="54" rx="8" class="b-g" stroke-width="3"/><text x="613" y="52" font-size="13.5" text-anchor="middle" font-weight="600">5 · Act</text>
+<line x1="129" y1="47" x2="143" y2="47" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l5a)"/><line x1="265" y1="47" x2="279" y2="47" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l5a)"/><line x1="401" y1="47" x2="415" y2="47" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l5a)"/><line x1="537" y1="47" x2="551" y2="47" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l5a)"/>
+<text x="340" y="100" font-size="12.5" text-anchor="middle" class="q">Lesson 0's loop. This lesson zooms in on steps 4 and 5.</text>
+</svg></figure>
+
+<div class="table-scroll"><table>
+<tr><th>Actuator</th><th>What it does</th><th>Where you'll meet it at DiGiKits</th></tr>
+<tr><td>LED</td><td>Makes light</td><td>Model lighting, status lights, LED strips</td></tr>
+<tr><td>DC motor</td><td>Spins; speed set by power</td><td>Fans, conveyors, moving carts</td></tr>
+<tr><td>Servo</td><td>Turns to an exact angle and holds it</td><td>Robot arms, robotic faces, small mechanisms</td></tr>
+<tr><td>Stepper motor</td><td>Turns in exact small steps</td><td>CNC machines, pick-and-place, 3D printers</td></tr>
+<tr><td>Relay or solenoid</td><td>Switches a big load, or pushes a pin</td><td>Control panels, locks, valves</td></tr>
+<tr><td>Speaker, screen</td><td>Makes sound, shows pictures</td><td>Big Screens, kiosks, alerts</td></tr>
+</table></div>
+
+<h2 id="pwm">PWM: dimming with only on and off</h2>
+<p>A GPIO pin can only be fully on (3.3 V) or fully off (0 V). So how do you make an LED glow at half brightness? You switch it on and off <strong>very fast</strong>, hundreds or thousands of times a second. Your eye, or the motor, can't follow the flicker and only feels the <strong>average</strong>. The share of time it's on is called the <strong>duty cycle</strong>. That's <strong>PWM</strong>: pulse-width modulation.</p>
+<div class="demo" id="pwm">
+<div class="d-title">PWM: drag the duty cycle</div>
+<svg viewBox="0 0 600 170" role="img" aria-label="A PWM square wave, an LED and a motor responding to the duty cycle">
+<defs><clipPath id="wclip"><rect x="20" y="10" width="380" height="110"/></clipPath><radialGradient id="glow"><stop offset="0" stop-color="#ffd84d"/><stop offset="1" stop-color="#ffd84d" stop-opacity="0"/></radialGradient></defs>
+<text x="20" y="13" font-size="12" fill="var(--muted)">3.3 V</text><text x="20" y="120" font-size="12" fill="var(--muted)">0 V</text>
+<line x1="20" y1="104" x2="400" y2="104" stroke="var(--line)"/>
+<line id="avg" x1="20" x2="400" y1="62" y2="62" stroke="var(--violet)" stroke-width="2" stroke-dasharray="6 5"/>
+<text id="avgT" x="398" y="56" font-size="12" text-anchor="end" fill="var(--violet)">average</text>
+<g clip-path="url(#wclip)"><g id="waveG" class="scroll"><path id="sq" class="sq" d=""/></g></g>
+<circle id="ledGlow" cx="460" cy="62" r="38" fill="url(#glow)" opacity=".5"/>
+<circle cx="460" cy="62" r="18" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2"/>
+<circle id="ledCore" cx="460" cy="62" r="16" fill="#f5c84b" opacity=".5"/>
+<text x="460" y="120" font-size="12.5" text-anchor="middle" fill="var(--muted)">LED</text>
+<circle cx="550" cy="62" r="26" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2"/>
+<g id="fan" class="fan"><path d="M550 62 L550 41 A9 9 0 0 1 559 56 Z M550 62 L568 72 A9 9 0 0 1 553 79 Z M550 62 L532 72 A9 9 0 0 1 537 55 Z" fill="var(--ink)"/></g>
+<text x="550" y="120" font-size="12.5" text-anchor="middle" fill="var(--muted)">Motor</text>
+<text x="300" y="150" font-size="12.5" text-anchor="middle" fill="var(--muted)">one period = one on-and-off cycle; the wave really repeats thousands of times per second</text>
+</svg>
+<div class="ctl"><label for="duty">Duty cycle</label><input id="duty" type="range" min="0" max="100" value="50"><output id="dutyO">50%</output></div>
+<div class="readout">
+<div class="rd"><span>Average voltage</span><strong id="oV">1.65 V</strong></div>
+<div class="rd"><span>8-bit value</span><strong id="oN">128</strong></div>
+<div class="rd"><span>Hex</span><strong id="oH">0x80</strong></div>
+<div class="rd"><span>Brightness</span><strong id="oB">half</strong></div>
+</div>
+<p class="say">Many LED controllers store brightness as one byte: 0 = off, 255 = full. That's the same byte from Lesson 1.</p>
+</div>
+<div class="card accent"><p style="margin:0"><strong>The other direction of Lesson 4.</strong> The ADC turned a smooth voltage into a number. PWM turns a number back into an average power. Some chips also have a <strong>DAC</strong> (digital-to-analog converter) that makes a true smooth voltage, used mostly for sound. For lights and motors, PWM is cheaper and works just as well.</p></div>
+
+<h2 id="servo">Servos: a pulse that means an angle</h2>
+<p>A hobby servo also listens to pulses, but it reads them differently: about 50 times a second it gets one pulse, and the <strong>length</strong> of that pulse tells it which angle to turn to and hold. Roughly 1 ms means one end, 2 ms means the other end. (Exact numbers vary by servo; check its datasheet.)</p>
+<div class="demo" id="servo">
+<div class="d-title">Servo: drag the angle</div>
+<svg class="d" viewBox="0 0 600 170" role="img" aria-label="A servo arm turning to match the pulse width">
+<text x="70" y="40" font-size="12" fill="var(--muted)">one 20 ms frame →</text>
+<line x1="20" y1="104" x2="360" y2="104" stroke="var(--line)"/>
+<path id="pulse" class="sq" d=""/>
+<text id="pulseT" x="20" y="130" font-size="12.5" fill="var(--muted)"></text>
+<rect x="420" y="70" width="120" height="60" rx="8" class="b-a"/>
+<g id="arm" class="arm"><rect x="476" y="20" width="8" height="64" rx="4" fill="var(--ink)"/></g>
+<circle cx="480" cy="84" r="10" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/>
+<text x="480" y="150" font-size="12.5" text-anchor="middle" fill="var(--muted)">servo</text>
+</svg>
+<div class="ctl"><label for="ang">Angle</label><input id="ang" type="range" min="0" max="180" value="90"><output id="angO">90°</output></div>
+</div>
+
+<h2 id="power">The pin gives the order; a driver does the lifting</h2>
+<p>A GPIO pin can only supply a tiny current, a few milliamps. That's enough for one small LED, but a motor, a strip of LEDs or a solenoid needs hundreds or thousands of times more. Connecting one straight to a pin can destroy the Pi or the microcontroller. So every real actuator sits behind a <strong>driver</strong>.</p>
+<figure class="fig"><svg class="d" viewBox="0 0 680 190" role="img" aria-label="The GPIO pin sends a small signal to a driver; the driver switches power from a separate supply to the motor; all grounds are joined"><defs><marker id="l5b" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
+<rect x="10" y="40" width="150" height="60" rx="8" class="b-a"/><text x="85" y="66" font-size="13.5" text-anchor="middle" font-weight="600">Pi / RP2350</text><text x="85" y="84" font-size="12" text-anchor="middle" class="q">GPIO: small signal</text>
+<rect x="250" y="40" width="160" height="60" rx="8" class="b-w"/><text x="330" y="66" font-size="13.5" text-anchor="middle" font-weight="600">Driver</text><text x="330" y="84" font-size="12" text-anchor="middle" class="q">MOSFET, motor driver</text>
+<rect x="500" y="40" width="160" height="60" rx="8" class="b-g"/><text x="580" y="66" font-size="13.5" text-anchor="middle" font-weight="600">Motor / LED strip</text><text x="580" y="84" font-size="12" text-anchor="middle" class="q">the heavy load</text>
+<rect x="250" y="130" width="160" height="44" rx="8" class="b-v"/><text x="330" y="157" font-size="13" text-anchor="middle" font-weight="600">Separate power supply</text>
+<line x1="161" y1="70" x2="247" y2="70" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l5b)"/><text x="204" y="62" font-size="12" text-anchor="middle" class="q">order</text>
+<line x1="411" y1="70" x2="497" y2="70" stroke="var(--wire-red)" stroke-width="3" marker-end="url(#l5b)"/><text x="454" y="62" font-size="12" text-anchor="middle" class="q">power</text>
+<line x1="330" y1="129" x2="330" y2="103" stroke="var(--wire-red)" stroke-width="3" marker-end="url(#l5b)"/>
+<path d="M85 101 V20 H580 V37" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="5 4"/><text x="340" y="15" font-size="12" text-anchor="middle" class="q">common ground: all the minus sides joined together</text>
+</svg><figcaption>Small order in, big power out. The grounds must be joined, or the order doesn't arrive.</figcaption></figure>
+<ul>
+<li><strong>Driver:</strong> a MOSFET, transistor or motor-driver board switches the heavy power on the pin's command.</li>
+<li><strong>Separate supply:</strong> the load gets its own power supply, sized for it; it doesn't take power from the Pi's 5 V pin.</li>
+<li><strong>Common ground:</strong> the minus side of every supply is joined, so the pin's signal has a reference.</li>
+<li><strong>Flyback diode:</strong> motors, relays and solenoids kick back a voltage spike when switched off. A diode across them (often built into driver boards) soaks it up.</li>
+</ul>
+<div class="card"><p style="margin:0"><strong>Smart LED strips are different.</strong> A WS2812 strip, like the one in <a href="../phase-1/day-8.html">Phase 1, Day 8</a>, has a tiny chip in every LED. The data wire carries colour bytes (a protocol, coming in Lesson 6), and each chip does its own PWM. The strip still needs its own power supply and a common ground.</p></div>
+
+<h2 id="faults">When it breaks</h2>
+<div class="table-scroll"><table>
+<tr><th>What the customer sees</th><th>Likely cause</th><th>First check</th></tr>
+<tr><td>Pi reboots when the motor starts</td><td>Motor powered from the Pi, or a weak shared supply</td><td>Give the motor its own supply; join the grounds</td></tr>
+<tr><td>Motor or strip does nothing, but the code runs</td><td>No common ground, or the driver isn't powered</td><td>Grounds joined? Driver supply on?</td></tr>
+<tr><td>LEDs flicker or a motor whines</td><td>PWM frequency too low or in the hearing range</td><td>Check the PWM frequency setting</td></tr>
+<tr><td>Servo jitters or buzzes</td><td>Weak power, or pulse widths outside its range</td><td>Separate servo supply; check its datasheet range</td></tr>
+<tr><td>Driver chip very hot, or a burnt smell</td><td>Load too big for the driver, or no heat sink</td><td>Power off now, then escalate</td></tr>
+</table></div>
+<div class="card accent"><p style="margin:0"><strong>Safety first:</strong> actuators move and get hot. Power off before touching wiring, keep fingers clear of motors and arms that might start, and never work on anything connected to mains (120 V wall power). That's for a licensed electrician; see <a href="../phase-2/day-14.html">Phase 2, Day 14</a>.</p></div>
+
+<h2 id="hands-on">Hands-on</h2>
+<h3 id="pwm-math">1. Duty cycle maths</h3>
+<p>At 3.3 V, what average voltage do you get at 25%, 50% and 75% duty? What 8-bit value is each? Check with the slider.</p>
+<h3 id="pwm-pi">2. Fade an LED on the Pi</h3>
+<p>With the LED on GPIO17 from <a href="../phase-1/day-7.html">Phase 1, Day 7</a>:</p>
+<pre><code>from gpiozero import PWMLED
+from time import sleep
+
+led = PWMLED(17)
+for step in range(0, 101, 10):
+    led.value = step / 100        # duty cycle from 0.0 to 1.0
+    print(step, "%")
+    sleep(0.5)
+led.pulse()                       # breathe in and out on its own
+input("Press Enter to stop")</code></pre>
+<h3 id="spot-actuators">3. Spot the actuators</h3>
+<p>Find three actuators at home (a phone vibrating, a car window, a fridge fan…). For each, guess whether it's on/off, PWM or an exact position. Post one on the board below.</p>
+
+<h2 id="done-when">Done when</h2>
+<ul class="check">
+<li>I can name four kinds of actuator and where DiGiKits uses them</li>
+<li>I can explain PWM and duty cycle in one sentence</li>
+<li>I can work out the average voltage and 8-bit value for a duty cycle</li>
+<li>I can explain why a motor needs a driver, its own supply and a common ground</li>
+<li>I faded an LED with PWM on the Pi</li>
+<li>I posted one “spot the actuators” example on the board</li>
+</ul>
+
+<div class="pager"><a href="lesson-4.html">← Lesson 4: Sensors and the ADC</a><a href="lesson-6.html">Lesson 6: Communication protocols →</a></div>
+<p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
+<section class="board">
+<h2 id="how-did-it-feel">How did this lesson feel?</h2>
+<div class="card feel"><p><strong>Too much, just right, or too easy?</strong> Tell me in a line or two below, and ask anything that wasn't clear. For example: <em>“Lesson 5: just right. My LED faded nicely.”</em></p><p>Be honest. If a lesson is too much, we change the lesson, not you. Take your time; there is no rush.</p><p class="sign">Your coach</p></div>
+<p class="quiet-note">Sign in with your GitHub account to post, or just tap a reaction. Posts are public, so never share passwords, keys, IP addresses or personal details.</p>
+<script src="https://giscus.app/client.js"
+ data-repo="wdigi/tony" data-repo-id="R_kgDOV5dORw"
+ data-category="Announcements" data-category-id="DIC_kwDOV5dOR84DL1hi"
+ data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0"
+ data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy"
+ crossorigin="anonymous" async></script>
+</section>
+</div></main>
+<footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var P = 140, HI = 20, LO = 104;
+  function pwm() {
+    var d = +$("duty").value / 100, path = "", x = 20;
+    for (var i = 0; i < 4; i++) {
+      var on = P * d;
+      if (d === 0) path += (i ? "L" : "M") + x + " " + LO + " H" + (x + P);
+      else if (d === 1) path += (i ? "L" : "M") + x + " " + HI + " H" + (x + P);
+      else path += (i ? "L" : "M") + x + " " + LO + " V" + HI + " H" + (x + on) + " V" + LO + " H" + (x + P);
+      x += P;
+    }
+    $("sq").setAttribute("d", path);
+    var ay = LO - d * (LO - HI); $("avg").setAttribute("y1", ay); $("avg").setAttribute("y2", ay); $("avgT").setAttribute("y", ay - 6);
+    $("dutyO").textContent = Math.round(d * 100) + "%";
+    var n = Math.round(d * 255);
+    $("oV").textContent = (d * 3.3).toFixed(2) + " V"; $("oN").textContent = n; $("oH").textContent = "0x" + n.toString(16).toUpperCase().padStart(2, "0");
+    $("oB").textContent = d === 0 ? "off" : d < 0.3 ? "dim" : d < 0.7 ? "half" : d < 1 ? "bright" : "full";
+    $("ledCore").setAttribute("opacity", (0.08 + d * 0.92).toFixed(2)); $("ledGlow").setAttribute("opacity", (d * 0.9).toFixed(2));
+    var fan = $("fan");
+    if (d < 0.05) fan.style.animationPlayState = "paused";
+    else { fan.style.animationDuration = (0.25 / d).toFixed(2) + "s"; fan.style.animationPlayState = "running"; }
+  }
+  function servo() {
+    var a = +$("ang").value, ms = 1 + a / 180, x0 = 30, scale = 340 / 20;
+    $("angO").textContent = a + "°";
+    $("pulse").setAttribute("d", "M20 104 H" + x0 + " V20 H" + (x0 + ms * scale).toFixed(1) + " V104 H360");
+    $("pulseT").textContent = "pulse " + ms.toFixed(2) + " ms, then off for the rest of the 20 ms";
+    $("arm").setAttribute("transform", "rotate(" + (a - 90) + " 480 84)");
+  }
+  $("duty").addEventListener("input", pwm); $("ang").addEventListener("input", servo); pwm(); servo();
+})();
+</script>
+<script src="../assets/quiz-data.js" defer></script>
+<script src="../assets/quiz.js" defer></script>
+<script src="../assets/progress-config.js" defer></script>
+<script src="../assets/account.js" defer></script>
+<script src="../assets/progress.js" defer></script>
+</body>
+</html>

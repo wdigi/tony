@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Physical AI Systems · Lesson 6 · DiGiKits Support Training</title>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.demo{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:14px;margin:18px 0}
+.demo .d-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.demo .d-title{font-weight:600}
+.demo .btns{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.demo button.b{font:inherit;font-size:14px;padding:6px 14px;border-radius:999px;border:1.5px solid var(--line-strong);background:var(--surface);color:var(--ink);cursor:pointer}
+.demo button.b[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.demo input.ch{font:inherit;width:3.2em;text-align:center;padding:5px;border:1.5px solid var(--line-strong);border-radius:8px;background:var(--surface);color:var(--ink)}
+.demo label.tg{font-size:14px;display:flex;gap:6px;align-items:center}
+.demo svg{width:100%;height:auto;display:block}
+.demo .say{margin:8px 0 0;color:var(--muted);font-size:14px;min-height:1.4em}
+.demo .sig{fill:none;stroke:var(--accent);stroke-width:3;stroke-linejoin:round}
+.demo .bitbox{fill:var(--surface);stroke:var(--line);stroke-width:1}
+.demo .bitbox.cur{fill:var(--accent-soft);stroke:var(--accent)}
+.demo .dev{cursor:pointer}
+.demo .dev rect{fill:var(--surface);stroke:var(--line-strong);stroke-width:1.5;transition:fill .2s}
+.demo .dev.on rect{fill:var(--good-soft);stroke:var(--good)}
+.demo .dev.no rect{opacity:.45}
+.demo .dev:focus{outline:none}.demo .dev:focus-visible rect{stroke:var(--accent);stroke-width:3}
+.demo .pkt{fill:var(--accent)}
+</style>
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">DiGiKits Support Training</a>
+<nav><a href="../index.html">Plan</a><a href="../lessons.html">Lessons</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a><a href="../board.html">Board</a><a href="../search.html">Search</a></nav>
+</div></header>
+<main><div class="wrap">
+<p style="color:var(--muted);margin:0">Physical AI Systems · Lesson 6</p><h1>Communication protocols: how the parts talk to each other</h1>
+<p class="lead">A Physical AI system is never one chip. Sensors, microcontrollers, a Pi, LED strips, a cloud server and a phone app all have to pass bytes to each other. A <strong>protocol</strong> is the agreed set of rules for doing that: which wire, how fast, what order, who speaks first. Watch a letter travel down a wire, then talk to devices on a bus.</p>
+<div class="card"><p style="margin:0"><strong>Self-paced, so go easy on yourself.</strong> There are many protocol names in this lesson; you don't need to memorise them all today. Play with the drawings, and write what's unclear on the board below. Your coach goes through more examples with you in the live session.</p></div>
+<p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
+
+<h2 id="agreement">A protocol is an agreement between people</h2>
+<p>Like a language, a protocol only works if both sides follow the same rules. Engineers wrote those rules down, gave them names, and every manufacturer builds to them. That's why a sensor made in one country works with a Pi made in another. Once again: <strong>by the people, for the people.</strong></p>
+
+<h2 id="three-distances">Three distances, three families</h2>
+<figure class="fig"><svg class="d" viewBox="0 0 680 250" role="img" aria-label="Protocols grouped by distance: on one board (UART, I2C, SPI), between boxes in a building (USB, RS-485, CAN), and across networks (Ethernet, Wi-Fi, MQTT, HTTP)">
+<rect x="10" y="20" width="200" height="200" rx="12" class="b-v"/><text x="110" y="46" font-size="14" text-anchor="middle" font-weight="600">On one board</text><text x="110" y="64" font-size="12" text-anchor="middle" class="q">centimetres</text>
+<g font-size="13" text-anchor="middle"><text x="110" y="100">UART (serial)</text><text x="110" y="126">I²C</text><text x="110" y="152">SPI</text><text x="110" y="178">LED data (WS2812)</text></g>
+<rect x="240" y="20" width="200" height="200" rx="12" class="b-w"/><text x="340" y="46" font-size="14" text-anchor="middle" font-weight="600">Box to box</text><text x="340" y="64" font-size="12" text-anchor="middle" class="q">metres, in a building</text>
+<g font-size="13" text-anchor="middle"><text x="340" y="100">USB</text><text x="340" y="126">RS-485 / Modbus</text><text x="340" y="152">CAN bus</text><text x="340" y="178">DMX (stage lighting)</text></g>
+<rect x="470" y="20" width="200" height="200" rx="12" class="b-a"/><text x="570" y="46" font-size="14" text-anchor="middle" font-weight="600">Across networks</text><text x="570" y="64" font-size="12" text-anchor="middle" class="q">anywhere in the world</text>
+<g font-size="13" text-anchor="middle"><text x="570" y="100">Ethernet, Wi-Fi</text><text x="570" y="126">TCP/IP</text><text x="570" y="152">MQTT</text><text x="570" y="178">HTTP (web, apps)</text></g>
+<text x="340" y="244" font-size="12.5" text-anchor="middle" class="q">The further the distance, the more rules are needed to survive noise, errors and many devices sharing the line.</text>
+</svg><figcaption>A real DiGiKits system uses all three families at once.</figcaption></figure>
+
+<h2 id="uart">Watch a letter travel: UART</h2>
+<p>UART, often just called <strong>serial</strong>, is the simplest. One wire carries bits one after another. The line rests <strong>high</strong>. A <strong>start bit</strong> (low) says “here comes a byte”, then 8 data bits (lowest bit first), then a <strong>stop bit</strong> (high). Both sides must agree on the speed, called the <strong>baud rate</strong>, such as 115200 bits per second.</p>
+<div class="demo" id="uart">
+<div class="d-head"><span class="d-title">UART: send one character</span><span class="btns"><label class="tg">Letter <input class="ch" id="uChar" maxlength="1" value="A" aria-label="Letter to send"></label><button class="b" id="uSend" type="button">▶ Send</button></span></div>
+<svg id="uSvg" viewBox="0 0 600 190" role="img" aria-label="A UART frame drawn bit by bit"></svg>
+<label class="tg"><input type="checkbox" id="uWrong"> Receiver set to the wrong baud rate</label>
+<p class="say" id="uSay" aria-live="polite"></p>
+</div>
+<div class="card"><p style="margin:0"><strong>Support tip:</strong> if a serial console shows garbage like <code>ÿ~€x</code>, the wires are usually fine. The baud rate is wrong. Tick the box above to see why: the receiver reads the bits at the wrong moments and gets a different byte.</p></div>
+
+<h2 id="i2c">Many devices on two wires: I²C</h2>
+<p><strong>I²C</strong> (say “I-squared-C”) lets one controller talk to many small devices over just two wires: <strong>SDA</strong> (data) and <strong>SCL</strong> (clock). Every device has an <strong>address</strong>, the hex numbers you met in Lessons 1 and 4. The Pi calls out an address; only that device answers. Click a device.</p>
+<div class="demo" id="i2c">
+<div class="d-head"><span class="d-title">I²C bus: the Pi calls a device</span></div>
+<svg class="d" viewBox="0 0 600 210" role="img" aria-label="A Raspberry Pi and three devices on an I2C bus">
+<rect x="10" y="40" width="110" height="70" rx="10" class="b-a"/><text x="65" y="72" font-size="13.5" text-anchor="middle" font-weight="600">Raspberry Pi</text><text x="65" y="90" font-size="12" text-anchor="middle" fill="var(--muted)">controller</text>
+<line x1="120" y1="62" x2="590" y2="62" stroke="var(--wire-data)" stroke-width="3"/><text x="128" y="56" font-size="12" fill="var(--muted)">SDA (data)</text>
+<line x1="120" y1="88" x2="590" y2="88" stroke="var(--wire-yel)" stroke-width="3"/><text x="128" y="104" font-size="12" fill="var(--muted)">SCL (clock)</text>
+<g id="devs"></g>
+<circle id="pkt" class="pkt" cx="120" cy="62" r="7" opacity="0"/>
+</svg>
+<p class="say" id="iSay" aria-live="polite">Click a device to have the Pi call its address.</p>
+</div>
+
+<h2 id="spi">Fast and simple: SPI</h2>
+<p><strong>SPI</strong> uses four wires: a clock, data out, data in, and a <strong>chip select</strong> wire for each device instead of an address. It's faster than I²C, so it's used for displays, memory chips and fast sensors. The cost is more wires.</p>
+
+<h2 id="longer">Longer distances and networks</h2>
+<div class="table-scroll"><table>
+<tr><th>Protocol</th><th>Wires / medium</th><th>Typical use at DiGiKits</th><th>Remember</th></tr>
+<tr><td>UART (serial)</td><td>2 (TX, RX) + ground</td><td>Debug consoles, GPS, Pi ↔ microcontroller</td><td>TX goes to RX; both sides same baud</td></tr>
+<tr><td>I²C</td><td>2 (SDA, SCL) + ground</td><td>Sensors, small displays, ADC chips</td><td>Each device needs a unique address</td></tr>
+<tr><td>SPI</td><td>4 + ground</td><td>Displays, memory, fast sensors</td><td>One chip-select wire per device</td></tr>
+<tr><td>WS2812 LED data</td><td>1 + ground</td><td>LED strips</td><td>Strict timing; one direction only</td></tr>
+<tr><td>USB</td><td>Cable</td><td>Pi ↔ microcontroller, cameras, keyboards</td><td>Also supplies power; some cables are charge-only</td></tr>
+<tr><td>RS-485 / Modbus</td><td>2 twisted + ground</td><td>Industrial controllers, long runs (hundreds of metres)</td><td>A 120 Ω terminator at each end of the line</td></tr>
+<tr><td>CAN bus</td><td>2 twisted</td><td>Vehicles, robots, motor controllers</td><td>Also needs 120 Ω terminators at both ends</td></tr>
+<tr><td>Ethernet / Wi-Fi + TCP/IP</td><td>Cable or radio</td><td>Everything on the network</td><td>IP addresses and ports (Phase 1, Day 6)</td></tr>
+<tr><td>MQTT</td><td>Runs over TCP/IP</td><td>Devices sending readings and receiving commands</td><td>Devices publish and subscribe through a broker</td></tr>
+<tr><td>HTTP</td><td>Runs over TCP/IP</td><td>Web pages, apps, cloud APIs</td><td>The protocol of every web page you open</td></tr>
+</table></div>
+
+<h2 id="mqtt">MQTT: the noticeboard for devices</h2>
+<p>Many DiGiKits systems use <strong>MQTT</strong> to connect devices over the network. Instead of talking to each other directly, devices go through a <strong>broker</strong>, like a noticeboard. A sensor <strong>publishes</strong> a reading to a <strong>topic</strong>; anything <strong>subscribed</strong> to that topic gets it.</p>
+<figure class="fig"><svg class="d" viewBox="0 0 680 170" role="img" aria-label="A temperature sensor publishes to a topic on the MQTT broker; a dashboard and an LED controller subscribed to it receive the message"><defs><marker id="l6a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
+<rect x="10" y="55" width="150" height="60" rx="8" class="b-v"/><text x="85" y="80" font-size="13.5" text-anchor="middle" font-weight="600">Temp sensor</text><text x="85" y="98" font-size="12" text-anchor="middle" class="q">publishes</text>
+<rect x="255" y="45" width="170" height="80" rx="10" class="b-w"/><text x="340" y="74" font-size="13.5" text-anchor="middle" font-weight="600">MQTT broker</text><text x="340" y="94" font-size="12" text-anchor="middle" class="q">topic: shop/temp</text><text x="340" y="110" font-size="12" text-anchor="middle" class="q">the noticeboard</text>
+<rect x="520" y="20" width="150" height="54" rx="8" class="b-g"/><text x="595" y="45" font-size="13.5" text-anchor="middle" font-weight="600">Dashboard</text><text x="595" y="62" font-size="12" text-anchor="middle" class="q">subscribed</text>
+<rect x="520" y="96" width="150" height="54" rx="8" class="b-g"/><text x="595" y="121" font-size="13.5" text-anchor="middle" font-weight="600">Fan controller</text><text x="595" y="138" font-size="12" text-anchor="middle" class="q">subscribed</text>
+<line x1="161" y1="85" x2="252" y2="85" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l6a)"/><text x="206" y="77" font-size="12" text-anchor="middle" class="q">“24.5”</text>
+<path d="M426 75 H470 V47 H517" fill="none" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l6a)"/><path d="M426 95 H470 V123 H517" fill="none" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l6a)"/>
+</svg><figcaption>Add a new device later and it just subscribes; nothing else needs changing.</figcaption></figure>
+
+<h2 id="faults">When it breaks</h2>
+<div class="table-scroll"><table>
+<tr><th>What you see</th><th>Likely cause</th><th>First check</th></tr>
+<tr><td>Serial console shows garbage characters</td><td>Wrong baud rate</td><td>Set both sides to the same speed (often 115200)</td></tr>
+<tr><td>Serial shows nothing at all</td><td>TX and RX not crossed, or no common ground</td><td>TX → RX, RX → TX, ground → ground</td></tr>
+<tr><td>I²C device missing</td><td>Wiring, power, wrong address, or I²C not enabled</td><td><code>i2cdetect -y 1</code>; enable I²C in <code>raspi-config</code></td></tr>
+<tr><td>Two I²C devices clash</td><td>Same address on the same bus</td><td>Change one device's address jumper, or use a second bus</td></tr>
+<tr><td>RS-485 or CAN errors on long runs</td><td>Missing terminators, untwisted cable</td><td>120 Ω at both ends; twisted-pair cable</td></tr>
+<tr><td>Device online but no MQTT messages</td><td>Broker down, wrong topic, wrong password</td><td>Is the broker running? Is the topic spelled exactly the same?</td></tr>
+</table></div>
+
+<h2 id="hands-on">Hands-on</h2>
+<h3 id="uart-play">1. Read a frame</h3>
+<p>Send your initial in the UART drawing. Write down its 10 bits (start, 8 data, stop). Then tick the wrong-baud box and note which character arrives instead.</p>
+<h3 id="i2c-pi">2. Scan the I²C bus</h3>
+<p>On the Pi, enable I²C (<code>sudo raspi-config</code> → Interface Options → I2C), then:</p>
+<pre><code>sudo apt install -y i2c-tools
+i2cdetect -y 1          # a grid of addresses; a number means a device answered</code></pre>
+<p>With nothing connected the grid is empty, and that's a correct result too. If your kit has an I²C sensor or display, connect it and scan again.</p>
+<h3 id="map-system">3. Map a system</h3>
+<p>Pick a DiGiKits system you know (like the Big Screen or the LED controller) or any smart device at home. Draw the boxes and label each link with the protocol you think it uses. Post your drawing or a description on the board below.</p>
+
+<h2 id="done-when">Done when</h2>
+<ul class="check">
+<li>I can explain what a protocol is and why both sides must follow the same rules</li>
+<li>I can name the three families by distance, with two examples each</li>
+<li>I can explain a UART frame and why a wrong baud rate gives garbage</li>
+<li>I can explain I²C addresses and use <code>i2cdetect</code></li>
+<li>I can explain MQTT publish, subscribe and broker</li>
+<li>I posted my system map on the board</li>
+</ul>
+
+<div class="pager"><a href="lesson-5.html">← Lesson 5: Actuators</a><a href="../lessons.html">All lessons →</a></div>
+<p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
+<section class="board">
+<h2 id="how-did-it-feel">How did this lesson feel?</h2>
+<div class="card feel"><p><strong>Too much, just right, or too easy?</strong> Tell me in a line or two below, and ask anything that wasn't clear. For example: <em>“Lesson 6: a lot of names, but the UART drawing made it click.”</em></p><p>Be honest. If a lesson is too much, we change the lesson, not you. Take your time; there is no rush.</p><p class="sign">Your coach</p></div>
+<p class="quiet-note">Sign in with your GitHub account to post, or just tap a reaction. Posts are public, so never share passwords, keys, IP addresses or personal details.</p>
+<script src="https://giscus.app/client.js"
+ data-repo="wdigi/tony" data-repo-id="R_kgDOV5dORw"
+ data-category="Announcements" data-category-id="DIC_kwDOV5dOR84DL1hi"
+ data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0"
+ data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy"
+ crossorigin="anonymous" async></script>
+</section>
+</div></main>
+<footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
+<script>
+/* UART frame */
+(function () {
+  var $ = function (id) { return document.getElementById(id); }, svg = $("uSvg"), timer = null;
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var X0 = 40, W = 50, HI = 40, LO = 100;
+  function frame(code) { var b = [0]; for (var i = 0; i < 8; i++) b.push(code >> i & 1); b.push(1); return b; }
+  function received(bits, k) {
+    var line = function (t) { var i = Math.floor(t); return i < 0 ? 1 : i < bits.length ? bits[i] : 1; }, v = 0;
+    for (var i = 0; i < 8; i++) v |= line((i + 1.5) * k) << i;
+    return v;
+  }
+  function show(c) { return (c >= 33 && c < 127) || c >= 161 ? "“" + String.fromCharCode(c) + "”" : "(an invisible control code)"; }
+  function draw(upto) {
+    var ch = ($("uChar").value || "A"), code = ch.charCodeAt(0) & 255, bits = frame(code), h = "";
+    var labels = ["start"].concat([0, 1, 2, 3, 4, 5, 6, 7].map(function (i) { return "b" + i; })).concat(["stop"]);
+    bits.forEach(function (b, i) {
+      var x = X0 + i * W;
+      h += '<rect class="bitbox' + (i === upto ? " cur" : "") + '" x="' + x + '" y="118" width="' + W + '" height="44"/>';
+      h += '<text x="' + (x + W / 2) + '" y="136" font-size="11.5" text-anchor="middle" fill="var(--muted)">' + labels[i] + '</text>';
+      if (i <= upto) h += '<text x="' + (x + W / 2) + '" y="155" font-size="15" font-weight="600" text-anchor="middle" fill="var(--ink)">' + b + '</text>';
+    });
+    var d = "M0 " + HI + " H" + X0, y = HI;
+    for (var i = 0; i <= Math.min(upto, bits.length - 1); i++) { var ny = bits[i] ? HI : LO; if (ny !== y) { d += " V" + ny; y = ny; } d += " H" + (X0 + (i + 1) * W); }
+    if (upto >= bits.length - 1) d += " H600";
+    h += '<text x="4" y="' + (HI - 8) + '" font-size="11.5" fill="var(--muted)">high = 1 (resting)</text><text x="4" y="' + (LO + 14) + '" font-size="11.5" fill="var(--muted)">low = 0</text>';
+    h += '<path class="sig" d="' + d + '"/>';
+    h += '<text x="300" y="184" font-size="12.5" text-anchor="middle" fill="var(--muted)">' + show(code) + " = " + code + " = 0x" + code.toString(16).toUpperCase().padStart(2, "0") + " = " + code.toString(2).padStart(8, "0") + " (sent lowest bit first)</text>";
+    svg.innerHTML = h;
+    if (upto >= bits.length - 1) {
+      var wrong = $("uWrong").checked, got = wrong ? received(bits, 2) : code;
+      $("uSay").textContent = wrong ? "Receiver at the wrong speed reads 0x" + got.toString(16).toUpperCase().padStart(2, "0") + " " + show(got) + " instead of " + show(code) + ". Same wire, wrong agreement."
+        : "Received 0x" + got.toString(16).toUpperCase().padStart(2, "0") + " " + show(got) + ". Both sides agreed on the speed, so the byte arrived intact.";
+    } else $("uSay").textContent = "Sending bit " + (upto + 1) + " of 10…";
+  }
+  function send() {
+    if (timer) clearInterval(timer);
+    if (reduce) { draw(9); return; }
+    var i = 0; draw(0); timer = setInterval(function () { i++; draw(i); if (i >= 9) { clearInterval(timer); timer = null; } }, 380);
+  }
+  $("uSend").addEventListener("click", send);
+  $("uChar").addEventListener("input", function () { draw(9); });
+  $("uWrong").addEventListener("change", function () { draw(9); });
+  draw(9);
+})();
+/* I2C bus */
+(function () {
+  var $ = function (id) { return document.getElementById(id); }, reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var devs = [{ x: 190, addr: "0x3C", name: "Display", reply: "shows the text the Pi sends" }, { x: 330, addr: "0x48", name: "ADC chip", reply: "replies with a reading, e.g. 0x0800" }, { x: 470, addr: "0x76", name: "Temp sensor", reply: "replies with the temperature" }];
+  var g = $("devs"), h = "";
+  devs.forEach(function (d, i) {
+    h += '<line x1="' + (d.x + 40) + '" y1="62" x2="' + (d.x + 40) + '" y2="140" stroke="var(--wire-data)" stroke-width="2"/><line x1="' + (d.x + 52) + '" y1="88" x2="' + (d.x + 52) + '" y2="140" stroke="var(--wire-yel)" stroke-width="2"/>';
+    h += '<g class="dev" data-i="' + i + '" tabindex="0" role="button" aria-label="Call ' + d.name + ' at ' + d.addr + '"><rect x="' + d.x + '" y="140" width="100" height="56" rx="8"/><text x="' + (d.x + 50) + '" y="164" font-size="13" font-weight="600" text-anchor="middle" fill="var(--ink)">' + d.name + '</text><text x="' + (d.x + 50) + '" y="183" font-size="13" text-anchor="middle" fill="var(--muted)">' + d.addr + '</text></g>';
+  });
+  g.innerHTML = h;
+  var els = g.querySelectorAll(".dev"), pkt = $("pkt"), anim = null;
+  function call(i) {
+    var d = devs[i];
+    els.forEach(function (e) { e.classList.remove("on", "no"); });
+    $("iSay").textContent = "Pi: “Device " + d.addr + ", are you there?” Every device hears it…";
+    var t0 = null, dur = 900, xEnd = d.x + 40;
+    function done() {
+      els.forEach(function (e, j) { e.classList.add(j === i ? "on" : "no"); });
+      $("iSay").textContent = "…but only " + d.name + " at " + d.addr + " answers, and it " + d.reply + ". The others ignore a call that isn't their address.";
+      pkt.setAttribute("opacity", 0);
+    }
+    if (reduce) { done(); return; }
+    if (anim) cancelAnimationFrame(anim);
+    pkt.setAttribute("opacity", 1);
+    function step(t) { if (!t0) t0 = t; var p = Math.min(1, (t - t0) / dur); pkt.setAttribute("cx", 120 + (xEnd - 120) * p); if (p < 1) anim = requestAnimationFrame(step); else done(); }
+    anim = requestAnimationFrame(step);
+  }
+  els.forEach(function (e, i) {
+    e.addEventListener("click", function () { call(i); });
+    e.addEventListener("keydown", function (ev) { if (ev.key === " " || ev.key === "Enter") { ev.preventDefault(); call(i); } });
+  });
+})();
+</script>
+<script src="../assets/quiz-data.js" defer></script>
+<script src="../assets/quiz.js" defer></script>
+<script src="../assets/progress-config.js" defer></script>
+<script src="../assets/account.js" defer></script>
+<script src="../assets/progress.js" defer></script>
+</body>
+</html>
