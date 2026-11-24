@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Extra session · The DiGiKits pipeline and CI/CD · DiGiKits Support Training</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">DiGiKits Support Training</a>
+<nav><a href="../index.html">Plan</a><a href="../lessons.html">Lessons</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a><a href="../board.html">Board</a><a href="../search.html">Search</a></nav>
+</div></header>
+<main><div class="wrap">
+<p style="color:var(--muted);margin:0">Extra session · Deployment</p><h1>The DiGiKits pipeline and CI/CD</h1>
+<p class="lead">How an idea becomes running software at DiGiKits: small tasks, a branch, a pull request, automatic checks, a person's review, then an automatic deploy. Take this after <a href="deploy.html">Deploy an app to a cloud server</a>. For the coach too: work through it side by side.</p>
+<div class="card"><p><strong>Who this session is for</strong></p>
+<p><strong>Support track (Phases 1–4):</strong> this session is not part of your training right now. It is future training, maybe in about a year. Read it for interest if you like, but there's no need to tick the boxes yet.</p>
+<p style="margin:0"><strong>Software track:</strong> this one is for you.</p></div>
+<p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
+
+<h2 id="the-pipeline">The pipeline: eight steps from idea to live</h2>
+<p>Every change, big or small, takes the same road. Nothing reaches the live server without passing automatic checks and a person's review.</p>
+<figure class="fig"><svg class="d" viewBox="0 0 680 206" role="img" aria-label="Eight steps: plan, issue, branch and code, pull request, CI checks, review, merge, deploy"><defs><marker id="pp1" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
+<rect x="14" y="20" width="148" height="56" rx="8" class="b-v"/><text x="88" y="44" font-size="13.5" text-anchor="middle" font-weight="600">1 · Plan</text><text x="88" y="61" font-size="12.5" text-anchor="middle" class="q">person decides</text>
+<rect x="184" y="20" width="148" height="56" rx="8" class="b-v"/><text x="258" y="44" font-size="13.5" text-anchor="middle" font-weight="600">2 · Issue</text><text x="258" y="61" font-size="12.5" text-anchor="middle" class="q">one small task</text>
+<rect x="354" y="20" width="148" height="56" rx="8" class="b-a"/><text x="428" y="44" font-size="13.5" text-anchor="middle" font-weight="600">3 · Branch + code</text><text x="428" y="61" font-size="12.5" text-anchor="middle" class="q">AI drafts, you test</text>
+<rect x="524" y="20" width="148" height="56" rx="8" class="b-a"/><text x="598" y="44" font-size="13.5" text-anchor="middle" font-weight="600">4 · Pull request</text><text x="598" y="61" font-size="12.5" text-anchor="middle" class="q">ask to merge</text>
+<rect x="14" y="112" width="148" height="56" rx="8" class="b-w"/><text x="88" y="136" font-size="13.5" text-anchor="middle" font-weight="600">5 · CI checks</text><text x="88" y="153" font-size="12.5" text-anchor="middle" class="q">tests run by themselves</text>
+<rect x="184" y="112" width="148" height="56" rx="8" class="b-v"/><text x="258" y="136" font-size="13.5" text-anchor="middle" font-weight="600">6 · Review</text><text x="258" y="153" font-size="12.5" text-anchor="middle" class="q">a person reads it</text>
+<rect x="354" y="112" width="148" height="56" rx="8" class="b-g"/><text x="428" y="136" font-size="13.5" text-anchor="middle" font-weight="600">7 · Merge</text><text x="428" y="153" font-size="12.5" text-anchor="middle" class="q">into main</text>
+<rect x="524" y="112" width="148" height="56" rx="8" class="b-g"/><text x="598" y="136" font-size="13.5" text-anchor="middle" font-weight="600">8 · Deploy</text><text x="598" y="153" font-size="12.5" text-anchor="middle" class="q">CD to the server</text>
+<line x1="163" y1="48" x2="181" y2="48" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#pp1)"/><line x1="333" y1="48" x2="351" y2="48" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#pp1)"/><line x1="503" y1="48" x2="521" y2="48" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#pp1)"/>
+<path d="M598 77 L598 94 L88 94 L88 108" fill="none" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#pp1)"/>
+<line x1="163" y1="140" x2="181" y2="140" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#pp1)"/><line x1="333" y1="140" x2="351" y2="140" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#pp1)"/><line x1="503" y1="140" x2="521" y2="140" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#pp1)"/>
+<rect x="120" y="186" width="12" height="12" rx="3" class="b-v"/><text x="138" y="196" font-size="12.5" class="q">person</text>
+<rect x="210" y="186" width="12" height="12" rx="3" class="b-a"/><text x="228" y="196" font-size="12.5" class="q">code</text>
+<rect x="290" y="186" width="12" height="12" rx="3" class="b-w"/><text x="308" y="196" font-size="12.5" class="q">automatic checks</text>
+<rect x="430" y="186" width="12" height="12" rx="3" class="b-g"/><text x="448" y="196" font-size="12.5" class="q">release</text>
+</svg><figcaption>People decide (purple), code gets written (blue), machines check (amber), and only then it goes live (green).</figcaption></figure>
+
+<h2 id="who-does-what">Who does what</h2>
+<div class="table-scroll"><table>
+<tr><th>Who</th><th>Their job in the pipeline</th></tr>
+<tr><td>The planner (a person)</td><td>Decides what to build next and splits it into small issues</td></tr>
+<tr><td>The AI (Claude)</td><td>Drafts code, tests and README changes in a branch, and explains errors</td></tr>
+<tr><td>The developer (a person)</td><td>Runs it, tests it on real hardware when needed, opens the pull request</td></tr>
+<tr><td>CI (GitHub Actions)</td><td>Runs the tests and builds on every pull request, every time, without forgetting</td></tr>
+<tr><td>The reviewer (a person)</td><td>Reads the change and decides whether it merges</td></tr>
+<tr><td>CD (GitHub Actions)</td><td>Deploys main to the server and checks it's healthy</td></tr>
+</table></div>
+<p>The same rule as everywhere at DiGiKits: the AI drafts, people decide, and the tests and the hardware have the final word.</p>
+
+<h2 id="ci-and-cd">CI and CD in one picture</h2>
+<p><strong>CI (continuous integration)</strong> means every change is tested automatically before it can join main. <strong>CD (continuous deployment)</strong> means that once it joins main, it goes to the server automatically, exactly the way you did by hand in the deploy session.</p>
+<figure class="fig"><svg class="d" viewBox="0 0 680 132" role="img" aria-label="A GitHub Actions run: trigger, test job, deploy job, server"><defs><marker id="pp2" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
+<rect x="14" y="20" width="148" height="60" rx="8" class="b"/><text x="88" y="46" font-size="13.5" text-anchor="middle" font-weight="600">Trigger</text><text x="88" y="63" font-size="12.5" text-anchor="middle" class="q">push or pull request</text>
+<rect x="184" y="20" width="148" height="60" rx="8" class="b-w"/><text x="258" y="46" font-size="13.5" text-anchor="middle" font-weight="600">Job: test (CI)</text><text x="258" y="63" font-size="12.5" text-anchor="middle" class="q">install, test, build</text>
+<rect x="354" y="20" width="148" height="60" rx="8" class="b-g"/><text x="428" y="46" font-size="13.5" text-anchor="middle" font-weight="600">Job: deploy (CD)</text><text x="428" y="63" font-size="12.5" text-anchor="middle" class="q">main only</text>
+<rect x="524" y="20" width="148" height="60" rx="8" class="b-a"/><text x="598" y="46" font-size="13.5" text-anchor="middle" font-weight="600">Server</text><text x="598" y="63" font-size="12.5" text-anchor="middle" class="q">pull, compose up</text>
+<line x1="163" y1="50" x2="181" y2="50" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#pp2)"/><line x1="333" y1="50" x2="351" y2="50" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#pp2)"/><line x1="503" y1="50" x2="521" y2="50" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#pp2)"/>
+<text x="340" y="112" font-size="12.5" text-anchor="middle" class="q">If the test job fails, the deploy job never runs. A red X means "stop and fix".</text>
+</svg><figcaption>One workflow file in the repo describes the whole run.</figcaption></figure>
+
+<h2 id="template">Every product starts from one template</h2>
+<p>DiGiKits keeps a <strong>template repo</strong>. Each new product repo is copied from it, so every project already has the same folders, a <code>Dockerfile</code>, a <code>docker-compose.yml</code>, an <code>.env.example</code>, a README, and the workflow file below. Nobody sets up CI from scratch twice.</p>
+<pre><code>my-product/
+├── .github/workflows/ci.yml    ← the pipeline
+├── src/                        ← the app
+├── tests/                      ← the checks CI runs
+├── Dockerfile
+├── docker-compose.yml
+├── .env.example                ← names only, no secrets
+└── README.md</code></pre>
+
+<h2 id="workflow-file">The workflow file, line by line</h2>
+<p>GitHub Actions reads any <code>.yml</code> file in <code>.github/workflows/</code>. This example is for a small Node app; other languages swap the install and test lines. Use the newest major version of each <code>actions/…</code> step when you copy it.</p>
+<pre><code>name: CI
+on:
+  pull_request:                 # CI: on every pull request
+  push:
+    branches: [main]            # CD: when something merges into main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - run: npm ci             # install exactly what package-lock says
+      - run: npm test           # the checks
+      - run: docker build -t app .   # prove the image still builds
+
+  deploy:
+    needs: test                 # only if test passed
+    if: github.event_name == 'push' &amp;&amp; github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production     # can require a person to approve
+    steps:
+      - name: Deploy over SSH
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          HOST: ${{ secrets.DEPLOY_HOST }}
+        run: |
+          install -m 600 /dev/null key &amp;&amp; echo "$SSH_KEY" &gt; key
+          ssh -i key -o StrictHostKeyChecking=accept-new deploy@"$HOST" \
+            'cd app &amp;&amp; git pull &amp;&amp; docker compose up -d --build'
+          curl -fsS https://app.example.com/health</code></pre>
+<div class="card accent"><p style="margin:0"><strong>Secrets again:</strong> the SSH key and server address are stored in the repo's <strong>Settings → Secrets and variables → Actions</strong>, never in the file. GitHub hides them in logs. Give the deploy key its own server user with only the access it needs.</p></div>
+
+<h2 id="guard-rails">Guard rails on main</h2>
+<ul>
+<li><strong>Protect main</strong> (Settings → Branches): no direct pushes; every change goes through a pull request.</li>
+<li><strong>Require checks to pass</strong> before the merge button turns green.</li>
+<li><strong>Require one review</strong> by a person who didn't write the change.</li>
+<li><strong>Small pull requests:</strong> one issue, one branch, one pull request. Small changes are easy to review and easy to undo.</li>
+</ul>
+
+<h2 id="hands-on">Hands-on</h2>
+<h3 id="step-1">1. A practice repo with CI only</h3>
+<p>Make a new practice repo (or copy the template your coach shows you), add a tiny app with one test, and add the workflow file <em>without</em> the deploy job. Push it and open the <strong>Actions</strong> tab: watch your first run go green. GitHub Actions is free for this.</p>
+<h3 id="step-2">2. Break it on purpose</h3>
+<p>Open an issue, make a branch, change the code so the test fails, and open a pull request. Watch CI turn red and block the merge. Fix it, push again, and watch it turn green.</p>
+<pre><code>git switch -c fix-greeting
+# edit, commit
+git push -u origin fix-greeting   # then open the pull request on GitHub</code></pre>
+<h3 id="step-3">3. Protect main</h3>
+<p>Turn on branch protection with required checks. Try to push straight to main and see it refused.</p>
+<h3 id="step-4">4. Add CD (with your coach)</h3>
+<p>Using the practice server from the deploy session, add the deploy job and the two secrets. Merge a small change and watch it reach the server on its own. Then make a change that fails the health check and practise the rollback: revert the pull request on GitHub, and the pipeline deploys the previous version.</p>
+
+<h2 id="when-it-breaks">When it breaks</h2>
+<div class="table-scroll"><table>
+<tr><th>What you see</th><th>Likely cause</th><th>Try this</th></tr>
+<tr><td>Workflow never starts</td><td>File not in <code>.github/workflows/</code>, or a YAML indent mistake</td><td>Check the path; YAML uses spaces, never tabs</td></tr>
+<tr><td>Test passes on your computer, fails in CI</td><td>Missing install step, or a file that's only on your machine</td><td>Read the failed step's log from the top</td></tr>
+<tr><td>Deploy job skipped</td><td>It was a pull request, not a push to main</td><td>That's correct: deploy runs only after merge</td></tr>
+<tr><td>"Permission denied (publickey)"</td><td>Deploy key secret wrong, or its public half not on the server</td><td>Check the server user's <code>authorized_keys</code></td></tr>
+<tr><td>Deployed, but the site is broken</td><td>A bug the tests didn't catch</td><td>Revert the pull request, then add a test that would have caught it</td></tr>
+</table></div>
+
+<h2 id="done-when">Done when</h2>
+<ul class="check">
+<li>I can draw the eight-step pipeline from memory and say who does each step</li>
+<li>My practice repo has a green CI run</li>
+<li>I opened a pull request that CI blocked, then fixed it</li>
+<li>main is protected with required checks</li>
+<li>With my coach: a merge deployed itself to the practice server</li>
+<li>I practised a rollback by reverting a pull request</li>
+<li>No secrets anywhere in the repo or its history</li>
+</ul>
+<div class="pager"><a href="deploy.html">← Deploy an app to a cloud server</a><a href="../lessons.html">All lessons →</a></div>
+<p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
+<section class="board">
+<h2 id="how-did-it-feel">How did this lesson feel?</h2>
+<div class="card feel"><p><strong>Too much, just right, or too easy?</strong> Tell me in a line or two below, and ask anything that wasn't clear. For example: <em>“Pipeline session: just right. The YAML was confusing at first.”</em></p><p>Be honest. If a lesson is too much, we change the lesson, not you. Take your time; there is no rush.</p><p class="sign">Your coach</p></div>
+<p class="quiet-note">Sign in with your GitHub account to post, or just tap a reaction. Posts are public, so never share passwords, keys, IP addresses or personal details.</p>
+<script src="https://giscus.app/client.js"
+ data-repo="wdigi/tony" data-repo-id="R_kgDOV5dORw"
+ data-category="Announcements" data-category-id="DIC_kwDOV5dOR84DL1hi"
+ data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0"
+ data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy"
+ crossorigin="anonymous" async></script>
+</section>
+</div></main>
+<footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
+<script src="../assets/quiz-data.js" defer></script>
+<script src="../assets/quiz.js" defer></script>
+<script src="../assets/progress-config.js" defer></script>
+<script src="../assets/account.js" defer></script>
+<script src="../assets/progress.js" defer></script>
+</body>
+</html>

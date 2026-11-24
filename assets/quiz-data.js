@@ -1,6 +1,13 @@
 /* Self-check questions for every lesson.
    Format per lesson: [question, [choices], index of the right choice, why]. */
 window.QUIZ = {
+"extra/pipeline.html": [
+ ["What does CI (continuous integration) do?", ["Deploys to the server", "Tests every change automatically before it can join main", "Writes the code", "Backs up the database"], 1, "CI runs the checks on every pull request so broken code can't slip into main."],
+ ["When does the deploy job run in the example workflow?", ["On every pull request", "Only after the test job passes on a push to main", "Every night", "Whenever someone opens an issue"], 1, "needs: test plus the main-only condition means it deploys only merged, tested code."],
+ ["Where does the server's SSH key go?", ["In ci.yml", "In the README", "In the repo's Actions secrets", "In a comment on the pull request"], 2, "Secrets live in Settings → Secrets and variables → Actions, never in the file."],
+ ["In the DiGiKits pipeline, who decides whether a change merges?", ["The AI", "CI decides alone", "A person reviewing the pull request", "Nobody, it merges by itself"], 2, "The AI drafts and CI checks, but a person reviews and decides."],
+ ["A merged change broke the live site. What's the calm fix?", ["SSH in and edit files on the server", "Revert the pull request so the pipeline deploys the previous version", "Turn off CI", "Delete the repo"], 1, "Revert through the pipeline, then add a test that would have caught the bug."]
+],
 "extra/deploy.html": [
  ["What does deploying an app mean?", ["Writing the code", "Copying it to an always-on computer, starting it, and making it reachable", "Deleting old versions", "Printing the README"], 1, "Deploying puts the code on a server, runs it, and gives people a way to reach it."],
  ["What does the DNS A record do?", ["Encrypts the website", "Turns a name like app.example.com into the server's IP address", "Starts Docker", "Blocks hackers"], 1, "DNS is the phone book: the A record points the name at the server's IP."],
