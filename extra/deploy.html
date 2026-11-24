@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Extra session · Deploy an app to a cloud server · DiGiKits Support Training</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">DiGiKits Support Training</a>
+<nav><a href="../index.html">Plan</a><a href="../lessons.html">Lessons</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a><a href="../board.html">Board</a><a href="../search.html">Search</a></nav>
+</div></header>
+<main><div class="wrap">
+<p style="color:var(--muted);margin:0">Extra session · Deployment</p><h1>Deploy an app to a cloud server</h1>
+<p class="lead">Take a small web app from GitHub and get it running on a cloud server with its own web address and HTTPS. This is the same job DiGiKits does every time a tool goes live. Best done after Phase 2 Days 5, 8 and 9 (ports and Docker). For the coach too: work through it side by side.</p>
+<p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
+
+<h2 id="what-deploy-means">What "deploy" means</h2>
+<p>Code on GitHub does nothing by itself. <strong>Deploying</strong> means copying it to a computer that is always on, starting it, and giving people a way to reach it. That always-on computer is a <strong>cloud server</strong>. DigitalOcean calls one a <strong>Droplet</strong>: a Linux computer in a data centre that you rent by the month and reach over SSH, just like your Pi.</p>
+<figure class="fig"><svg class="d" viewBox="0 0 680 150" role="img" aria-label="Code on GitHub is copied to a cloud server, which users reach in a browser"><defs><marker id="dp1" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
+<rect x="14" y="24" width="190" height="70" rx="8" class="b-v"/><text x="109" y="55.5" font-size="14.5" text-anchor="middle" font-weight="600">Your code</text><text x="109" y="72" font-size="12.5" text-anchor="middle" class="q">GitHub repo</text>
+<rect x="245" y="24" width="190" height="70" rx="8" class="b-a"/><text x="340" y="55.5" font-size="14.5" text-anchor="middle" font-weight="600">Cloud server</text><text x="340" y="72" font-size="12.5" text-anchor="middle" class="q">DigitalOcean Droplet</text>
+<rect x="476" y="24" width="190" height="70" rx="8" class="b-g"/><text x="571" y="55.5" font-size="14.5" text-anchor="middle" font-weight="600">Users</text><text x="571" y="72" font-size="12.5" text-anchor="middle" class="q">a web browser</text>
+<line x1="206" y1="59" x2="241" y2="59" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#dp1)"/><line x1="437" y1="59" x2="472" y2="59" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#dp1)"/>
+<text x="109" y="118" font-size="12.5" text-anchor="middle" class="q mono">git push</text><text x="340" y="118" font-size="12.5" text-anchor="middle" class="q mono">git clone, docker compose</text><text x="571" y="118" font-size="12.5" text-anchor="middle" class="q mono">https://app.example.com</text>
+</svg><figcaption>Where the code lives, where it runs, and who uses it.</figcaption></figure>
+
+<h2 id="the-parts">The five parts of a deployment</h2>
+<div class="table-scroll"><table><tr><th>Part</th><th>What it does</th><th>You met it in</th></tr>
+<tr><td>Droplet</td><td>The always-on Linux computer</td><td>Phase 1 (Linux, SSH)</td></tr>
+<tr><td>Domain + DNS</td><td>Turns a name like <code>app.example.com</code> into the server's IP address</td><td>Phase 1 Day 6</td></tr>
+<tr><td>Firewall</td><td>Only lets in SSH (22), web (80) and secure web (443)</td><td>Phase 2 Day 5</td></tr>
+<tr><td>Docker Compose</td><td>Starts the app and keeps it running after a reboot</td><td>Phase 2 Days 8–9</td></tr>
+<tr><td>Reverse proxy</td><td>Caddy takes web traffic, adds HTTPS for free, and passes it to the app</td><td>New today</td></tr>
+</table></div>
+<figure class="fig"><svg class="d" viewBox="0 0 680 262" role="img" aria-label="Inside the server: traffic passes the firewall, then Caddy, then the app container, which reads secrets from .env and saves to a data folder"><defs><marker id="dp2" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
+<rect x="14" y="95" width="120" height="60" rx="8" class="b"/><text x="74" y="121" font-size="14.5" text-anchor="middle" font-weight="600">Internet</text><text x="74" y="138" font-size="12.5" text-anchor="middle" class="q">users</text>
+<rect x="160" y="14" width="506" height="234" rx="12" class="b dash" style="fill:none"/><text x="178" y="38" font-size="12.5" class="q">Cloud server · Docker Compose</text>
+<rect x="180" y="95" width="110" height="60" rx="8" class="b-r"/><text x="235" y="121" font-size="14.5" text-anchor="middle" font-weight="600">Firewall</text><text x="235" y="138" font-size="12.5" text-anchor="middle" class="q mono">22 · 80 · 443</text>
+<rect x="312" y="95" width="140" height="60" rx="8" class="b-a"/><text x="382" y="121" font-size="14.5" text-anchor="middle" font-weight="600">Caddy</text><text x="382" y="138" font-size="12.5" text-anchor="middle" class="q">adds HTTPS</text>
+<rect x="474" y="95" width="172" height="60" rx="8" class="b-g"/><text x="560" y="121" font-size="14.5" text-anchor="middle" font-weight="600">App container</text><text x="560" y="138" font-size="12.5" text-anchor="middle" class="q mono">port 8080</text>
+<rect x="312" y="182" width="140" height="50" rx="8" class="b-w"/><text x="382" y="203" font-size="14.5" text-anchor="middle" font-weight="600">.env file</text><text x="382" y="220" font-size="12.5" text-anchor="middle" class="q">secrets, not in Git</text>
+<rect x="474" y="182" width="172" height="50" rx="8" class="b-v"/><text x="560" y="203" font-size="14.5" text-anchor="middle" font-weight="600">data/ folder</text><text x="560" y="220" font-size="12.5" text-anchor="middle" class="q">back this up</text>
+<line x1="136" y1="125" x2="176" y2="125" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#dp2)"/><line x1="292" y1="125" x2="308" y2="125" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#dp2)"/><line x1="454" y1="125" x2="470" y2="125" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#dp2)"/>
+<line x1="454" y1="207" x2="470" y2="207" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#dp2)"/><line x1="560" y1="157" x2="560" y2="178" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#dp2)"/>
+</svg><figcaption>A request comes in from the left. Only Caddy faces the internet; the app itself listens only inside the server.</figcaption></figure>
+
+<h2 id="secrets">The one rule: secrets never go in Git</h2>
+<div class="card accent"><p>Passwords, API keys and login secrets go in a file called <code>.env</code> on the server only. The repo holds a <code>.env.example</code> with the names and empty values, and <code>.gitignore</code> lists <code>.env</code> so it can never be committed by accident.</p><p style="margin:0">If a secret ever lands on GitHub, even for a minute, treat it as stolen: make a new one and delete the old one. Never paste secrets into chats, the message board, or an AI.</p></div>
+<pre><code># .env.example  (this one IS in Git: names only, no values)
+DOMAIN=app.example.com
+APP_SECRET=
+</code></pre>
+
+<h2 id="practice-first">Practise for free first</h2>
+<p>A Droplet costs money every month it exists. Do the whole session once on your Pi at home (steps 3 to 6 work the same on Raspberry Pi OS). Skip the domain and HTTPS, and open <code>http://&lt;pi-ip&gt;:8080</code> instead. Only rent a Droplet when your coach says so, and <strong>destroy it when you're done practising</strong>.</p>
+
+<h2 id="hands-on">Hands-on: the deployment, step by step</h2>
+<p>The example uses made-up names: the server <code>203.0.113.10</code>, the domain <code>app.example.com</code>, and a practice repo your coach gives you. Swap in the real ones your coach gives you.</p>
+
+<h3 id="step-1">1. Create the Droplet</h3>
+<p>In the DigitalOcean control panel: <strong>Create → Droplets</strong>. Pick Ubuntu LTS, the smallest plan, the Toronto region, and <strong>SSH key</strong> login (paste your <em>public</em> key from Phase 1 Day 4, never the private one). Write down the IP address it gives you.</p>
+
+<h3 id="step-2">2. Point a name at it (DNS)</h3>
+<p>At the company that manages the domain, add an <strong>A record</strong>: name <code>app</code>, value = the Droplet's IP. It can take a few minutes to an hour to spread. Check it from your Pi:</p>
+<pre><code>dig +short app.example.com     # should print 203.0.113.10</code></pre>
+
+<h3 id="step-3">3. Log in and lock the door</h3>
+<pre><code>ssh root@203.0.113.10
+adduser deploy                      # a normal user for daily work
+usermod -aG sudo deploy
+rsync -a ~/.ssh /home/deploy/ &amp;&amp; chown -R deploy:deploy /home/deploy/.ssh
+ufw allow OpenSSH
+ufw allow 80,443/tcp
+ufw enable
+exit
+ssh deploy@203.0.113.10             # from now on, log in as deploy</code></pre>
+
+<h3 id="step-4">4. Install Docker</h3>
+<pre><code>curl -fsSL https://get.docker.com | sudo sh
+sudo usermod -aG docker deploy
+exit                                # log out and back in so the group takes effect
+ssh deploy@203.0.113.10
+docker run --rm hello-world         # "Hello from Docker!" means it works</code></pre>
+
+<h3 id="step-5">5. Get the app and its secrets</h3>
+<pre><code>git clone https://github.com/&lt;owner&gt;/&lt;practice-app&gt;.git
+cd &lt;practice-app&gt;
+cp .env.example .env
+openssl rand -hex 32                # makes a random secret
+nano .env                           # paste it in, fill the other values, save</code></pre>
+
+<h3 id="step-6">6. Start it and check it</h3>
+<pre><code>docker compose up -d --build        # build and start in the background
+docker compose ps                   # every service should say "running"
+docker compose logs -f              # watch it start; Ctrl+C to stop watching
+curl https://app.example.com/health</code></pre>
+<p>Caddy asks for an HTTPS certificate the first time someone visits. That only works once DNS (step 2) points at this server and ports 80 and 443 are open.</p>
+
+<h2 id="updates">Updating, and undoing a bad update</h2>
+<figure class="fig"><svg class="d" viewBox="0 0 680 128" role="img" aria-label="Update cycle: change code, push to GitHub, git pull on the server, compose up, check health"><defs><marker id="dp3" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
+<rect x="14" y="24" width="118" height="56" rx="8" class="b-v"/><text x="73" y="48" font-size="13.5" text-anchor="middle" font-weight="600">Change</text><text x="73" y="64" font-size="12.5" text-anchor="middle" class="q">the code</text>
+<rect x="144" y="24" width="118" height="56" rx="8" class="b-v"/><text x="203" y="48" font-size="13.5" text-anchor="middle" font-weight="600">Push</text><text x="203" y="64" font-size="12.5" text-anchor="middle" class="q">to GitHub</text>
+<rect x="274" y="24" width="118" height="56" rx="8" class="b-a"/><text x="333" y="48" font-size="13.5" text-anchor="middle" font-weight="600">git pull</text><text x="333" y="64" font-size="12.5" text-anchor="middle" class="q">on the server</text>
+<rect x="404" y="24" width="118" height="56" rx="8" class="b-a"/><text x="463" y="48" font-size="13.5" text-anchor="middle" font-weight="600">compose up</text><text x="463" y="64" font-size="12.5" text-anchor="middle" class="q mono">-d --build</text>
+<rect x="534" y="24" width="132" height="56" rx="8" class="b-g"/><text x="600" y="48" font-size="13.5" text-anchor="middle" font-weight="600">Check</text><text x="600" y="64" font-size="12.5" text-anchor="middle" class="q mono">/health</text>
+<line x1="133" y1="52" x2="141" y2="52" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#dp3)"/><line x1="263" y1="52" x2="271" y2="52" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#dp3)"/><line x1="393" y1="52" x2="401" y2="52" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#dp3)"/><line x1="523" y1="52" x2="531" y2="52" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#dp3)"/>
+<text x="340" y="110" font-size="12.5" text-anchor="middle" class="q">Broken? Go back to the last good commit and run compose up again.</text>
+</svg><figcaption>Every update is the same five steps. Always finish with the check.</figcaption></figure>
+<pre><code>cd &lt;practice-app&gt;
+git pull
+docker compose up -d --build
+
+# Undo: go back one commit, rebuild, then fix the code calmly
+git log --oneline -5                # find the last good commit
+git checkout &lt;good-commit&gt;
+docker compose up -d --build</code></pre>
+
+<h2 id="backups">Backups</h2>
+<ul>
+<li><strong>The data:</strong> everything the app saves lives in its <code>data/</code> folder. Copy it off the server regularly: <code>scp -r deploy@203.0.113.10:~/&lt;practice-app&gt;/data ./backup-$(date +%F)</code></li>
+<li><strong>The whole server:</strong> DigitalOcean can take snapshots or weekly backups for a small fee. Take a snapshot before any big change.</li>
+<li><strong>The code and setup</strong> are already safe on GitHub. The <code>.env</code> is not, so your coach keeps the secrets in a password manager.</li>
+</ul>
+
+<h2 id="when-it-breaks">When it breaks</h2>
+<div class="table-scroll"><table>
+<tr><th>What you see</th><th>Likely cause</th><th>Try this</th></tr>
+<tr><td>Site doesn't load at all</td><td>DNS not pointing here yet</td><td><code>dig +short app.example.com</code> and compare with the Droplet IP</td></tr>
+<tr><td>HTTPS certificate error</td><td>DNS was wrong when Caddy first asked, or port 80 is blocked</td><td>Fix DNS or <code>ufw status</code>, then <code>docker compose restart caddy</code></td></tr>
+<tr><td>"port is already allocated"</td><td>Another web server already uses 80/443</td><td><code>sudo ss -tlnp | grep -E ':80|:443'</code>; ask your coach before stopping anything</td></tr>
+<tr><td>Container keeps restarting</td><td>The app crashes on start, often a missing <code>.env</code> value</td><td><code>docker compose logs app</code> and read the last lines</td></tr>
+<tr><td>Can't SSH in</td><td>Firewall enabled without OpenSSH, or wrong key</td><td>Use the Droplet's web console in the control panel</td></tr>
+</table></div>
+<p>Use the fault-finding method from Phase 3 Day 2: one change at a time, and read the logs before guessing.</p>
+
+<h2 id="ai-helper">Where AI helps, and where it doesn't</h2>
+<p>Claude is good at writing the Dockerfile, the compose file and the README, and at explaining an error message you paste in. You still run the commands, read what comes back, and decide. Keep secrets, IP addresses and customer details out of anything you paste into an AI.</p>
+
+<h2 id="done-when">Done when</h2>
+<ul class="check">
+<li>Practice app running on my Pi with Docker Compose</li>
+<li>I can explain the five parts (Droplet, DNS, firewall, Compose, reverse proxy) without notes</li>
+<li>My .env is on the server only; .env.example is in Git</li>
+<li>Deployed to a Droplet with my coach, with HTTPS working</li>
+<li>Made one update and one undo (rollback)</li>
+<li>Copied the data folder off the server as a backup</li>
+<li>Practice Droplet destroyed (or handed to my coach)</li>
+</ul>
+<div class="pager"><a href="../lessons.html">← All lessons</a><a href="../phase-2/day-9.html">Review: Docker Compose →</a></div>
+<p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
+<section class="board">
+<h2 id="how-did-it-feel">How did this lesson feel?</h2>
+<div class="card feel"><p><strong>Too much, just right, or too easy?</strong> Tell me in a line or two below, and ask anything that wasn't clear. For example: <em>“Deploy session: just right. DNS took me a while to understand.”</em></p><p>Be honest. If a lesson is too much, we change the lesson, not you. Take your time; there is no rush.</p><p class="sign">Your coach</p></div>
+<p class="quiet-note">Sign in with your GitHub account to post, or just tap a reaction. Posts are public, so never share passwords, IP addresses or personal details.</p>
+<script src="https://giscus.app/client.js"
+ data-repo="wdigi/tony" data-repo-id="R_kgDOV5dORw"
+ data-category="Announcements" data-category-id="DIC_kwDOV5dOR84DL1hi"
+ data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0"
+ data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy"
+ crossorigin="anonymous" async></script>
+</section>
+</div></main>
+<footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
+<script src="../assets/quiz-data.js" defer></script>
+<script src="../assets/quiz.js" defer></script>
+<script src="../assets/progress-config.js" defer></script>
+<script src="../assets/account.js" defer></script>
+<script src="../assets/progress.js" defer></script>
+</body>
+</html>

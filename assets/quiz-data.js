@@ -1,6 +1,13 @@
 /* Self-check questions for every lesson.
    Format per lesson: [question, [choices], index of the right choice, why]. */
 window.QUIZ = {
+"extra/deploy.html": [
+ ["What does deploying an app mean?", ["Writing the code", "Copying it to an always-on computer, starting it, and making it reachable", "Deleting old versions", "Printing the README"], 1, "Deploying puts the code on a server, runs it, and gives people a way to reach it."],
+ ["What does the DNS A record do?", ["Encrypts the website", "Turns a name like app.example.com into the server's IP address", "Starts Docker", "Blocks hackers"], 1, "DNS is the phone book: the A record points the name at the server's IP."],
+ ["Where do the app's passwords and keys go?", ["In the GitHub repo so the team can see them", "In the .env file on the server only", "On the message board", "In the README"], 1, "Secrets live in .env on the server. Git only holds .env.example with empty values."],
+ ["Caddy can't get an HTTPS certificate. What do you check first?", ["Reinstall Ubuntu", "That DNS points at this server and ports 80 and 443 are open", "Buy a bigger Droplet", "Change the app's colours"], 1, "Caddy needs the name to reach this server on ports 80/443 before it can get a certificate."],
+ ["An update broke the site. What's the calm fix?", ["Destroy the Droplet", "Check out the last good commit and run docker compose up -d --build", "Wait and hope", "Delete the data folder"], 1, "Roll back to the last good commit first, then fix the code without pressure."]
+],
 "phase-1/day-1.html": [
  ["What is the DiGiKits motto?", ["Build fast, break things", "From thoughts to things", "Hardware is hard", "AI for everyone"], 1, "From thoughts to things: an idea becomes a real, working product."],
  ["In Thought → Design → Test → Build, where does most support work live?", ["Thought", "Design", "Test", "Build"], 2, "Test is where real machines must keep running, so that's where support lives."],

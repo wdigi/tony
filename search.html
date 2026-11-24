@@ -84,7 +84,7 @@
     const h1 = wrap.querySelector("h1");
     const title = h1 ? h1.textContent.trim() : (doc.title || url);
     const first = wrap.firstElementChild;
-    const where = first && first.tagName === "P" && !first.className && /Phase|Day/.test(first.textContent) ? first.textContent.trim()
+    const where = first && first.tagName === "P" && !first.className && /Phase|Day|Extra/.test(first.textContent) ? first.textContent.trim()
                 : url.startsWith("phase-") ? "Phase " + url[6] : "";
     const out = [];
     let cur = { url, title, where, head: "", id: "", text: "", draw: "" };

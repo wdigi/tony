@@ -4,6 +4,7 @@ Training materials for DiGiKits technical support, published with GitHub Pages.
 
 - `index.html` — plan and roadmap
 - `phase-1/` — Raspberry Pi and Linux, one page per week
+- `extra/` — stand-alone sessions (e.g. `deploy.html`: deploy an app to a cloud server)
 - `kit.html` — starter kit
 - `tools.html` — support note template, AI sidebar tip, command cheat sheet
 - `coach.html` — coach view of every trainee's tick boxes (coaches only)
