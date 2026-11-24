@@ -5,7 +5,7 @@
   function shuffled(arr, s) { const a = arr.slice(); let x = seed(s) || 1; for (let i = a.length - 1; i > 0; i--) { x = (Math.imul(x, 1103515245) + 12345) >>> 0; const j = x % (i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; }
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
-  const m = location.pathname.match(/((?:phase-\d+\/day-\d+|extra\/[\w-]+)\.html)$/);
+  const m = location.pathname.match(/((?:phase-\d+\/day-\d+|physical-ai\/lesson-\d+|extra\/[\w-]+)\.html)$/);
   if (m && window.QUIZ && QUIZ[m[1]]) render(m[1], QUIZ[m[1]]);
   if (/lessons\.html$/.test(location.pathname)) ticks();
 

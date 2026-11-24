@@ -1,6 +1,13 @@
 /* Self-check questions for every lesson.
    Format per lesson: [question, [choices], index of the right choice, why]. */
 window.QUIZ = {
+"physical-ai/lesson-0.html": [
+ ["Inside a chip, what physically carries a 0 or a 1?", ["A tiny printed number", "A low or high voltage on a wire", "A sound", "A colour"], 1, "The medium is voltage; binary is the code we agree it stands for."],
+ ["Why do computers use two states instead of ten?", ["Ten would be too expensive to print", "Two states tolerate noise and make simple, reliable switches", "Engineers only know two numbers", "Binary is faster to type"], 1, "A slightly wobbly signal still clearly reads as high or low."],
+ ["The letter A is code number 65. Which byte is it?", ["01000001", "00000065", "10000010", "11111111"], 0, "64 + 1 = 65, so the 64 bit and the 1 bit are on: 01000001."],
+ ["Which part turns a sensor's analog voltage into binary numbers?", ["The DAC", "The ADC (analog-to-digital converter)", "The power supply", "The Wi-Fi chip"], 1, "ADC brings the world in; DAC or PWM sends it back out."],
+ ["What is the real 'language' a processor runs?", ["English", "Python", "Its machine code: instructions written as bit patterns", "Morse code"], 2, "Binary is the alphabet; machine code is the language, and it differs between ARM and Intel chips."]
+],
 "extra/pipeline.html": [
  ["What does CI (continuous integration) do?", ["Deploys to the server", "Tests every change automatically before it can join main", "Writes the code", "Backs up the database"], 1, "CI runs the checks on every pull request so broken code can't slip into main."],
  ["When does the deploy job run in the example workflow?", ["On every pull request", "Only after the test job passes on a push to main", "Every night", "Whenever someone opens an issue"], 1, "needs: test plus the main-only condition means it deploys only merged, tested code."],

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Physical AI Systems · Lesson 0 · DiGiKits Support Training</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">DiGiKits Support Training</a>
+<nav><a href="../index.html">Plan</a><a href="../lessons.html">Lessons</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a><a href="../board.html">Board</a><a href="../search.html">Search</a></nav>
+</div></header>
+<main><div class="wrap">
+<p style="color:var(--muted);margin:0">Physical AI Systems · Lesson 0</p><h1>How it all began: the real “language” computers use</h1>
+<p class="lead">Every computer, every Raspberry Pi, every LED controller and every AI (Claude included) comes down to the same simple thing: tiny switches that are either on or off. This lesson shows how electricity becomes 0s and 1s, and how 0s and 1s become the things a Physical AI system senses and does.</p>
+<p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
+
+<h2 id="medium-and-message">Electricity is the medium, binary is the code</h2>
+<p>People often say “computers think in electrical pulses” or “computers speak binary.” Both are half true, and the two halves fit together:</p>
+<ul>
+<li><strong>Electricity is the medium.</strong> Inside the chip, data is a voltage on a wire: high or low. The voltage is the physical thing you could measure with a meter.</li>
+<li><strong>Binary is the code.</strong> We agree that a high voltage means <strong>1</strong> and a low voltage means <strong>0</strong>. Each 0 or 1 is called a <strong>bit</strong>; eight bits make a <strong>byte</strong>.</li>
+</ul>
+<p>So the medium is electricity, and the information it carries is written in binary. Outside the chip, the same bits can travel in other media too: as light in an optical fibre, as radio waves in Wi-Fi, or as tiny magnetic spots on an old hard drive.</p>
+
+<figure class="fig"><svg class="d" viewBox="0 0 680 210" role="img" aria-label="A digital signal over time: high voltage means 1, low voltage means 0, with a grey zone between">
+<rect x="70" y="40" width="590" height="34" class="b-g" rx="4"/><text x="60" y="62" font-size="12.5" text-anchor="end" class="q">high = 1</text>
+<rect x="70" y="84" width="590" height="34" class="b-q" rx="4"/><text x="60" y="106" font-size="12.5" text-anchor="end" class="q">grey zone</text>
+<rect x="70" y="128" width="590" height="34" class="b-v" rx="4"/><text x="60" y="150" font-size="12.5" text-anchor="end" class="q">low = 0</text>
+<path d="M80 145 H150 V57 H290 V145 H360 V57 H430 V145 H570 V57 H650" fill="none" stroke="var(--ink)" stroke-width="2.5"/>
+<g font-size="14" font-weight="600" text-anchor="middle"><text x="115" y="190">0</text><text x="185" y="190">1</text><text x="255" y="190">1</text><text x="325" y="190">0</text><text x="395" y="190">1</text><text x="465" y="190">0</text><text x="535" y="190">0</text><text x="610" y="190">1</text></g>
+<g stroke="var(--line-strong)" stroke-dasharray="3 4"><line x1="150" y1="30" x2="150" y2="172"/><line x1="220" y1="30" x2="220" y2="172"/><line x1="290" y1="30" x2="290" y2="172"/><line x1="360" y1="30" x2="360" y2="172"/><line x1="430" y1="30" x2="430" y2="172"/><line x1="500" y1="30" x2="500" y2="172"/><line x1="570" y1="30" x2="570" y2="172"/></g>
+<text x="365" y="22" font-size="12.5" text-anchor="middle" class="q">time → (the dashed lines are clock ticks; the chip reads the wire once per tick)</text>
+</svg><figcaption>A wire is never exactly 0 V or exactly 3.3 V. Anything near the top counts as 1, anything near the bottom counts as 0, and the grey zone between is avoided.</figcaption></figure>
+
+<h2 id="why-two">Why only two states?</h2>
+<p>A transistor works best as a switch: fully on or fully off. Using just two states has big advantages:</p>
+<ul>
+<li><strong>Noise doesn't matter much.</strong> A signal can sag or wobble a little and still clearly read as high or low. With ten levels (for decimal digits) a small wobble would turn a 6 into a 7.</li>
+<li><strong>It's electrically simple and reliable.</strong> On/off switches are easy to build, tiny, and use little power.</li>
+<li><strong>It scales.</strong> A modern chip holds billions of transistors switching billions of times per second.</li>
+</ul>
+<p>Everything else, like numbers, letters, colours, sound and pictures, must be <strong>encoded</strong> into binary before the hardware can work with it.</p>
+
+<h2 id="layers">From a letter to a voltage</h2>
+<p>Here is what happens to the letter <strong>A</strong> when you type it:</p>
+<figure class="fig"><svg class="d" viewBox="0 0 680 140" role="img" aria-label="Letter A becomes the number 65, then the bits 01000001, then eight voltages"><defs><marker id="l0a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
+<rect x="14" y="24" width="140" height="62" rx="8" class="b-v"/><text x="84" y="52" font-size="22" text-anchor="middle" font-weight="600">A</text><text x="84" y="74" font-size="12.5" text-anchor="middle" class="q">what you see</text>
+<rect x="182" y="24" width="140" height="62" rx="8" class="b-a"/><text x="252" y="52" font-size="20" text-anchor="middle" font-weight="600">65</text><text x="252" y="74" font-size="12.5" text-anchor="middle" class="q">its code number</text>
+<rect x="350" y="24" width="150" height="62" rx="8" class="b-w"/><text x="425" y="52" font-size="16" text-anchor="middle" font-weight="600">01000001</text><text x="425" y="74" font-size="12.5" text-anchor="middle" class="q">one byte, 8 bits</text>
+<rect x="528" y="24" width="140" height="62" rx="8" class="b-g"/><path d="M542 60 H554 V36 H566 V60 H626 V36 H638 V60 H652" fill="none" stroke="var(--ink)" stroke-width="2"/><text x="598" y="80" font-size="12.5" text-anchor="middle" class="q">low/high voltages</text>
+<line x1="155" y1="55" x2="179" y2="55" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l0a)"/><line x1="323" y1="55" x2="347" y2="55" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l0a)"/><line x1="501" y1="55" x2="525" y2="55" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l0a)"/>
+<text x="340" y="112" font-size="12.5" text-anchor="middle" class="q">The code number comes from an agreed table (ASCII / Unicode).</text><text x="340" y="130" font-size="12.5" text-anchor="middle" class="q">Every computer uses the same table, so an “A” stays an “A”.</text>
+</svg><figcaption>Letters become numbers, numbers become bits, bits become voltages.</figcaption></figure>
+
+<div class="card accent"><p style="margin:0"><strong>Binary is the alphabet, not the whole language.</strong> The 0s and 1s are like letters. The real “language” a processor understands is its <strong>machine code</strong>: a fixed set of instructions (add these, compare those, jump there), each one written as a pattern of bits. A Raspberry Pi's ARM processor and a laptop's Intel processor use different machine codes, which is why a program built for one won't run on the other without being rebuilt.</p></div>
+
+<h2 id="physical-ai-loop">How it works in a Physical AI system</h2>
+<p>The real world is mostly <strong>analog</strong>: temperature, light, sound and position change smoothly, not in steps. A Physical AI system has to cross the border between the analog world and the digital computer twice, once coming in and once going out.</p>
+<figure class="fig"><svg class="d" viewBox="0 0 680 190" role="img" aria-label="Sense, convert to digital, process, convert back, act: the Physical AI loop"><defs><marker id="l0b" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
+<rect x="10" y="30" width="118" height="70" rx="8" class="b-v"/><text x="69" y="56" font-size="13.5" text-anchor="middle" font-weight="600">1 · Sense</text><text x="69" y="74" font-size="12" text-anchor="middle" class="q">sensor, mic,</text><text x="69" y="89" font-size="12" text-anchor="middle" class="q">camera</text>
+<rect x="146" y="30" width="118" height="70" rx="8" class="b-w"/><text x="205" y="56" font-size="13.5" text-anchor="middle" font-weight="600">2 · Convert</text><text x="205" y="74" font-size="12" text-anchor="middle" class="q">ADC: analog</text><text x="205" y="89" font-size="12" text-anchor="middle" class="q">→ binary</text>
+<rect x="282" y="30" width="118" height="70" rx="8" class="b-a"/><text x="341" y="56" font-size="13.5" text-anchor="middle" font-weight="600">3 · Process</text><text x="341" y="74" font-size="12" text-anchor="middle" class="q">CPU / AI works</text><text x="341" y="89" font-size="12" text-anchor="middle" class="q">on the bits</text>
+<rect x="418" y="30" width="118" height="70" rx="8" class="b-w"/><text x="477" y="56" font-size="13.5" text-anchor="middle" font-weight="600">4 · Convert</text><text x="477" y="74" font-size="12" text-anchor="middle" class="q">DAC or PWM:</text><text x="477" y="89" font-size="12" text-anchor="middle" class="q">binary → power</text>
+<rect x="554" y="30" width="118" height="70" rx="8" class="b-g"/><text x="613" y="56" font-size="13.5" text-anchor="middle" font-weight="600">5 · Act</text><text x="613" y="74" font-size="12" text-anchor="middle" class="q">LED, motor,</text><text x="613" y="89" font-size="12" text-anchor="middle" class="q">speaker, screen</text>
+<line x1="129" y1="65" x2="143" y2="65" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l0b)"/><line x1="265" y1="65" x2="279" y2="65" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l0b)"/><line x1="401" y1="65" x2="415" y2="65" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l0b)"/><line x1="537" y1="65" x2="551" y2="65" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l0b)"/>
+<path d="M613 101 V140 H69 V104" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#l0b)"/>
+<text x="341" y="160" font-size="12.5" text-anchor="middle" class="q">The action changes the world, the sensor notices, and the loop runs again.</text>
+<text x="341" y="180" font-size="12.5" text-anchor="middle" class="q">Purple and green are the analog world · amber is the border · blue is pure binary</text>
+</svg><figcaption>Sense, convert, process, convert back, act. That loop is what “Physical AI” means at DiGiKits.</figcaption></figure>
+<ol>
+<li><strong>Sense.</strong> A sensor such as a microphone, thermometer or light sensor produces an analog voltage that rises and falls with the real world. (A keyboard or mouse is different: it already sends digital data over USB or Bluetooth.)</li>
+<li><strong>Convert in.</strong> An <strong>analog-to-digital converter (ADC)</strong> measures that voltage many times per second and turns each measurement into a binary number.</li>
+<li><strong>Process.</strong> The processor's logic gates work on those binary numbers, all carried as high and low voltages through the circuit. This is where a program, or an AI, decides what to do.</li>
+<li><strong>Convert out.</strong> A <strong>digital-to-analog converter (DAC)</strong>, or a fast on/off trick called <strong>PWM</strong>, turns binary back into something the world can feel: a sound wave, a motor speed, an LED brightness.</li>
+<li><strong>Act.</strong> The speaker plays, the motor turns, the LED glows. You'll do exactly this with the LED strip in <a href="../phase-1/day-8.html">Phase 1, Day 8</a>.</li>
+</ol>
+
+<h2 id="hands-on">Hands-on</h2>
+<h3 id="count-on-fingers">1. Count to 31 on one hand</h3>
+<p>Each finger is a bit: up = 1, down = 0. Thumb is worth 1, index 2, middle 4, ring 8, little finger 16. Show 5 (thumb + middle), then 19, then 31. Two hands go up to 1023.</p>
+<h3 id="your-initial">2. Your initial in binary</h3>
+<p>Look up your first initial in an ASCII table (search “ASCII table”). Write its code number, then its 8 bits. Check yourself on the Pi or any Linux terminal:</p>
+<pre><code>echo -n A | xxd -b      # shows 01000001
+printf '%d\n' "'A"       # shows 65</code></pre>
+<h3 id="spot-the-border">3. Spot the border</h3>
+<p>Pick three gadgets at home (a phone, a fridge, a car, a smart speaker…). For each, name one thing it senses, where it converts analog to digital, and one thing it does in the real world. Post one of them on the board below.</p>
+
+<h2 id="done-when">Done when</h2>
+<ul class="check">
+<li>I can explain in one sentence the difference between the medium (voltage) and the code (binary)</li>
+<li>I can say why computers use two states instead of ten</li>
+<li>I counted to 31 on one hand</li>
+<li>I wrote my initial in binary and checked it in the terminal</li>
+<li>I can draw the five-step Physical AI loop from memory</li>
+<li>I posted one “spot the border” gadget on the board</li>
+</ul>
+
+<h2 id="further-reading">Further reading</h2>
+<ul>
+<li><a href="https://nondevelopers.com/computers-understand-0-1/">How computers understand 0 and 1</a> (Non-Developers)</li>
+<li><a href="https://dev.to/kathirvel-s/how-computers-actually-run-using-0-and-1-binary-explained-simply-31a6">How computers actually run using 0 and 1</a> (DEV Community)</li>
+<li><a href="https://www.geeksforgeeks.org/computer-organization-architecture/what-is-binary-code/">What is binary code?</a> (GeeksForGeeks)</li>
+</ul>
+
+<div class="pager"><a href="../lessons.html">← All lessons</a><a href="../phase-1/day-1.html">Phase 1, Day 1 →</a></div>
+<p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
+<section class="board">
+<h2 id="how-did-it-feel">How did this lesson feel?</h2>
+<div class="card feel"><p><strong>Too much, just right, or too easy?</strong> Tell me in a line or two below, and ask anything that wasn't clear. For example: <em>“Lesson 0: just right. My initial T is 01010100.”</em></p><p>Be honest. If a lesson is too much, we change the lesson, not you. Take your time; there is no rush.</p><p class="sign">Your coach</p></div>
+<p class="quiet-note">Sign in with your GitHub account to post, or just tap a reaction. Posts are public, so never share passwords, keys, IP addresses or personal details.</p>
+<script src="https://giscus.app/client.js"
+ data-repo="wdigi/tony" data-repo-id="R_kgDOV5dORw"
+ data-category="Announcements" data-category-id="DIC_kwDOV5dOR84DL1hi"
+ data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0"
+ data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy"
+ crossorigin="anonymous" async></script>
+</section>
+</div></main>
+<footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
+<script src="../assets/quiz-data.js" defer></script>
+<script src="../assets/quiz.js" defer></script>
+<script src="../assets/progress-config.js" defer></script>
+<script src="../assets/account.js" defer></script>
+<script src="../assets/progress.js" defer></script>
+</body>
+</html>

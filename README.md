@@ -3,6 +3,7 @@
 Training materials for DiGiKits technical support, published with GitHub Pages.
 
 - `index.html` — plan and roadmap
+- `physical-ai/` — Physical AI Systems series (`lesson-0.html`: how computers use binary)
 - `phase-1/` — Raspberry Pi and Linux, one page per week
 - `extra/` — stand-alone sessions (e.g. `deploy.html`: deploy an app to a cloud server)
 - `kit.html` — starter kit
