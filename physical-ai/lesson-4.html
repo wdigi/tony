@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Physical AI Systems · Lesson 4 · DiGiKits Support Training</title>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.demo{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:14px;margin:18px 0}
+.demo .d-title{font-weight:600;margin-bottom:6px}
+.demo svg{width:100%;height:auto;display:block}
+.demo .ctl{display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap}
+.demo .ctl label{min-width:170px;font-size:14px}
+.demo .ctl input[type=range]{flex:1;min-width:160px;accent-color:var(--accent)}
+.demo .ctl output{min-width:90px;font-weight:600;font-size:14px;text-align:right}
+.demo .readout{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+@media (max-width:560px){.demo .readout{grid-template-columns:repeat(2,1fr)}}
+.demo .rd{border:1px solid var(--line);border-radius:8px;padding:8px;text-align:center}
+.demo .rd span{display:block;font-size:12.5px;color:var(--muted)}
+.demo .rd strong{font-size:16px;font-family:ui-monospace,Menlo,Consolas,monospace}
+.demo .say{margin:8px 0 0;color:var(--muted);font-size:14px}
+.demo .wave{fill:none;stroke:var(--muted);stroke-width:2;stroke-dasharray:4 4}
+.demo .stairs{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linejoin:round}
+.demo .dot{fill:var(--accent)}
+.demo .grid{stroke:var(--line);stroke-width:1}
+.demo .pulse{animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.35}}
+@media (prefers-reduced-motion: reduce){.demo .pulse{animation:none}}
+</style>
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">DiGiKits Support Training</a>
+<nav><a href="../index.html">Plan</a><a href="../lessons.html">Lessons</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a><a href="../board.html">Board</a><a href="../search.html">Search</a></nav>
+</div></header>
+<main><div class="wrap">
+<p style="color:var(--muted);margin:0">Physical AI Systems · Lesson 4</p><h1>Sensors and the ADC: how the real world becomes numbers</h1>
+<p class="lead">A Physical AI system starts by <strong>sensing</strong>: how warm is it, how bright, how far, how fast? The world gives smooth, analog answers. The computer only understands numbers made of bits. The part that crosses that border is the <strong>analog-to-digital converter</strong>, or <strong>ADC</strong>. Move the sliders and watch it work.</p>
+<div class="card"><p style="margin:0"><strong>Self-paced, so go easy on yourself.</strong> Play with every slider; you can't break anything. If something stays confusing, write it on the board below. Your coach goes through more examples with you in the live session.</p></div>
+<p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
+
+<h2 id="where-we-are">Where this fits in the loop</h2>
+<figure class="fig"><svg class="d" viewBox="0 0 680 110" role="img" aria-label="The Physical AI loop with Sense and Convert highlighted"><defs><marker id="l4a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
+<rect x="10" y="20" width="118" height="54" rx="8" class="b-v" stroke-width="3"/><text x="69" y="52" font-size="13.5" text-anchor="middle" font-weight="600">1 · Sense</text>
+<rect x="146" y="20" width="118" height="54" rx="8" class="b-w" stroke-width="3"/><text x="205" y="52" font-size="13.5" text-anchor="middle" font-weight="600">2 · ADC</text>
+<rect x="282" y="20" width="118" height="54" rx="8" class="b" opacity=".55"/><text x="341" y="52" font-size="13.5" text-anchor="middle" class="q">3 · Process</text>
+<rect x="418" y="20" width="118" height="54" rx="8" class="b" opacity=".55"/><text x="477" y="52" font-size="13.5" text-anchor="middle" class="q">4 · Convert</text>
+<rect x="554" y="20" width="118" height="54" rx="8" class="b" opacity=".55"/><text x="613" y="52" font-size="13.5" text-anchor="middle" class="q">5 · Act</text>
+<line x1="129" y1="47" x2="143" y2="47" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l4a)"/><line x1="265" y1="47" x2="279" y2="47" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l4a)"/><line x1="401" y1="47" x2="415" y2="47" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l4a)"/><line x1="537" y1="47" x2="551" y2="47" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l4a)"/>
+<text x="340" y="100" font-size="12.5" text-anchor="middle" class="q">Lesson 0's loop. This lesson zooms in on steps 1 and 2.</text>
+</svg></figure>
+
+<h2 id="sensor-to-number">From a voltage to a number</h2>
+<p>Many sensors turn what they measure into a <strong>voltage</strong>. A light sensor might give 0 V in the dark and 3.3 V in bright sun. The ADC measures that voltage and gives back a whole number. A <strong>12-bit</strong> ADC, like the one in the RP2350 microcontroller, gives numbers from 0 to 4095.</p>
+<div class="demo" id="adc">
+<div class="d-title">Light sensor → 12-bit ADC</div>
+<svg viewBox="0 0 600 150" role="img" aria-label="A sensor voltage meter and the matching ADC number">
+<text x="20" y="22" font-size="12.5" class="q" fill="var(--muted)">Sensor voltage</text>
+<rect x="20" y="32" width="560" height="26" rx="6" fill="var(--chip)" opacity=".18"/>
+<rect id="vBar" x="20" y="32" width="0" height="26" rx="6" fill="var(--violet)" opacity=".75"/>
+<text x="20" y="74" font-size="12" fill="var(--muted)">0 V</text><text x="580" y="74" font-size="12" text-anchor="end" fill="var(--muted)">3.3 V</text>
+<text x="20" y="100" font-size="12.5" fill="var(--muted)">ADC number</text>
+<rect x="20" y="110" width="560" height="26" rx="6" fill="var(--chip)" opacity=".18"/>
+<rect id="nBar" x="20" y="110" width="0" height="26" rx="6" fill="var(--accent)" opacity=".85"/>
+<text x="580" y="100" font-size="12" text-anchor="end" fill="var(--muted)">4095</text>
+</svg>
+<div class="ctl"><label for="light">Brightness (drag me)</label><input id="light" type="range" min="0" max="100" value="50"><output id="lightO">50%</output></div>
+<div class="readout">
+<div class="rd"><span>Voltage</span><strong id="oV">1.65 V</strong></div>
+<div class="rd"><span>ADC number</span><strong id="oN">2048</strong></div>
+<div class="rd"><span>Binary (12 bits)</span><strong id="oB" style="font-size:13px">1000 0000 0000</strong></div>
+<div class="rd"><span>Hex</span><strong id="oH">0x800</strong></div>
+</div>
+<p class="say">ADC number = voltage ÷ 3.3 × 4095. The program never sees the voltage, only this number.</p>
+</div>
+
+<h2 id="sampling">Two choices every ADC makes</h2>
+<p>An ADC can't watch a signal continuously. It takes a <strong>sample</strong> (one measurement) again and again. Two settings decide how good the copy is:</p>
+<ul>
+<li><strong>Sample rate:</strong> how many measurements per second. Too few, and fast changes are missed.</li>
+<li><strong>Resolution (bits):</strong> how many steps it can tell apart. 3 bits give 8 steps; 12 bits give 4096.</li>
+</ul>
+<p>The dashed line is the real signal. The blue staircase is what the computer gets. Make it terrible, then make it good.</p>
+<div class="demo" id="samp">
+<div class="d-title">Sampling explorer</div>
+<svg id="sampSvg" viewBox="0 0 600 220" role="img" aria-label="A smooth signal, its samples, and the stepped digital copy"></svg>
+<div class="ctl"><label for="rate">Samples per window</label><input id="rate" type="range" min="4" max="60" value="12"><output id="rateO">12</output></div>
+<div class="ctl"><label for="bits">Resolution</label><input id="bits" type="range" min="2" max="12" value="3"><output id="bitsO">3 bits</output></div>
+<p class="say" id="sampSay"></p>
+</div>
+<div class="card accent"><p style="margin:0"><strong>Same idea everywhere.</strong> A phone microphone samples sound about 48,000 times per second at 16 bits or more. A thermostat might sample once a second, because room temperature changes slowly. Choosing “fast enough and fine enough, but no more” is an everyday engineering decision.</p></div>
+
+<h2 id="pi-and-adc">Important for support: the Pi has no ADC</h2>
+<p>A Raspberry Pi's GPIO pins are <strong>digital only</strong>: each one reads just high or low. To read an analog sensor, a DiGiKits system uses one of three routes:</p>
+<figure class="fig"><svg class="d" viewBox="0 0 680 230" role="img" aria-label="Three ways to get an analog reading into a Raspberry Pi: an ADC chip over I2C, a microcontroller with a built-in ADC, or a digital sensor with its own ADC inside"><defs><marker id="l4b" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
+<g font-size="13">
+<rect x="10" y="14" width="150" height="50" rx="8" class="b-v"/><text x="85" y="44" text-anchor="middle" font-weight="600">Analog sensor</text>
+<rect x="230" y="14" width="200" height="50" rx="8" class="b-w"/><text x="330" y="36" text-anchor="middle" font-weight="600">ADC chip</text><text x="330" y="54" text-anchor="middle" font-size="12" class="q">e.g. ADS1115, I²C 0x48</text>
+<rect x="10" y="88" width="150" height="50" rx="8" class="b-v"/><text x="85" y="118" text-anchor="middle" font-weight="600">Analog sensor</text>
+<rect x="230" y="88" width="200" height="50" rx="8" class="b-w"/><text x="330" y="110" text-anchor="middle" font-weight="600">Microcontroller</text><text x="330" y="128" text-anchor="middle" font-size="12" class="q">RP2350 / Pico, ADC built in</text>
+<rect x="10" y="162" width="420" height="50" rx="8" class="b-w"/><text x="220" y="184" text-anchor="middle" font-weight="600">Digital sensor (ADC inside the sensor)</text><text x="220" y="202" text-anchor="middle" font-size="12" class="q">e.g. a temperature and humidity sensor on I²C 0x76</text>
+<rect x="520" y="70" width="150" height="90" rx="10" class="b-a"/><text x="595" y="112" text-anchor="middle" font-weight="600">Raspberry Pi</text><text x="595" y="130" text-anchor="middle" font-size="12" class="q">digital only</text>
+</g>
+<g stroke="var(--muted)" stroke-width="1.5" fill="none"><line x1="161" y1="39" x2="227" y2="39" marker-end="url(#l4b)"/><line x1="161" y1="113" x2="227" y2="113" marker-end="url(#l4b)"/>
+<path d="M431 39 H480 V95 H516" marker-end="url(#l4b)"/><line x1="431" y1="113" x2="516" y2="113" marker-end="url(#l4b)"/><path d="M431 187 H480 V135 H516" marker-end="url(#l4b)"/></g>
+<g font-size="12" class="q"><text x="194" y="32" text-anchor="middle">volts</text><text x="194" y="106" text-anchor="middle">volts</text><text x="474" y="30">I²C</text><text x="438" y="106">USB/serial</text><text x="438" y="180">I²C</text></g>
+</svg><figcaption>Something has to do the analog-to-digital step before the Pi sees a number.</figcaption></figure>
+<div class="table-scroll"><table>
+<tr><th>What the customer sees</th><th>Likely cause</th><th>First check</th></tr>
+<tr><td>Reading stuck at 0</td><td>Sensor not powered, or signal wire loose</td><td>Power and wiring; measure the voltage with a meter</td></tr>
+<tr><td>Reading stuck at maximum (4095 or 65535)</td><td>Signal wire touching the supply, or the sensor's ground wire missing</td><td>Wiring and ground; measure the signal voltage with a meter</td></tr>
+<tr><td>Reading jumps around a lot</td><td>Signal wire disconnected (a “floating” input), electrical noise, long wires</td><td>Shorter wires, common ground, average several samples</td></tr>
+<tr><td>“No device” on the I²C bus</td><td>Wrong address or wiring (SDA/SCL swapped)</td><td><code>i2cdetect -y 1</code> on the Pi to list addresses</td></tr>
+</table></div>
+<div class="card"><p style="margin:0"><strong>Safety for the hardware:</strong> never connect more than 3.3 V to an ADC or GPIO pin on a Pi, Pico or RP2350. A 5 V or 12 V sensor needs a voltage divider or a level shifter first, or the pin (and sometimes the whole chip) is damaged.</p></div>
+
+<h2 id="hands-on">Hands-on</h2>
+<h3 id="calc">1. Do the ADC's job</h3>
+<p>For a 12-bit ADC with a 3.3 V range, work out the number for 0 V, 0.825 V, 1.65 V and 3.3 V. Then check with the slider above. (Hint: they're a quarter apart.)</p>
+<h3 id="break-it">2. Break the copy</h3>
+<p>In the sampling explorer, find the lowest sample rate and the fewest bits where you can still recognise the wave. Post your two numbers on the board below.</p>
+<h3 id="micropython">3. Read a real sensor (with your coach or after Phase 2, Day 7)</h3>
+<p>On a Pico or RP2350 board with a knob (potentiometer) wired to pin GP26, in MicroPython:</p>
+<pre><code>from machine import ADC
+import time
+
+knob = ADC(26)                     # GP26 is ADC input 0
+while True:
+    raw = knob.read_u16()          # MicroPython scales it to 0–65535
+    volts = raw * 3.3 / 65535
+    print(raw, round(volts, 2), "V")
+    time.sleep(0.5)</code></pre>
+<p>Turn the knob and watch the numbers follow.</p>
+
+<h2 id="done-when">Done when</h2>
+<ul class="check">
+<li>I can explain what an ADC does in one sentence</li>
+<li>I can work out a 12-bit ADC number from a voltage</li>
+<li>I can explain sample rate and resolution, and what happens when each is too low</li>
+<li>I know the Pi has no ADC, and the three ways DiGiKits reads analog sensors</li>
+<li>I know never to put more than 3.3 V on an ADC or GPIO pin</li>
+<li>I posted my “break the copy” numbers on the board</li>
+</ul>
+
+<div class="pager"><a href="lesson-3.html">← Lesson 3: Memory and the CPU</a><a href="../lessons.html">All lessons →</a></div>
+<p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
+<section class="board">
+<h2 id="how-did-it-feel">How did this lesson feel?</h2>
+<div class="card feel"><p><strong>Too much, just right, or too easy?</strong> Tell me in a line or two below, and ask anything that wasn't clear. For example: <em>“Lesson 4: just right. I could still see the wave at 8 samples and 3 bits.”</em></p><p>Be honest. If a lesson is too much, we change the lesson, not you. Take your time; there is no rush.</p><p class="sign">Your coach</p></div>
+<p class="quiet-note">Sign in with your GitHub account to post, or just tap a reaction. Posts are public, so never share passwords, keys, IP addresses or personal details.</p>
+<script src="https://giscus.app/client.js"
+ data-repo="wdigi/tony" data-repo-id="R_kgDOV5dORw"
+ data-category="Announcements" data-category-id="DIC_kwDOV5dOR84DL1hi"
+ data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0"
+ data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy"
+ crossorigin="anonymous" async></script>
+</section>
+</div></main>
+<footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
+<script>
+/* Light sensor → 12-bit ADC */
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  function upd() {
+    var p = +$("light").value / 100, v = p * 3.3, n = Math.round(v / 3.3 * 4095);
+    $("lightO").textContent = Math.round(p * 100) + "%";
+    $("vBar").setAttribute("width", (560 * p).toFixed(1)); $("nBar").setAttribute("width", (560 * n / 4095).toFixed(1));
+    $("oV").textContent = v.toFixed(2) + " V"; $("oN").textContent = n;
+    $("oB").textContent = n.toString(2).padStart(12, "0").replace(/(\d{4})(?=\d)/g, "$1 ");
+    $("oH").textContent = "0x" + n.toString(16).toUpperCase().padStart(3, "0");
+  }
+  $("light").addEventListener("input", upd); upd();
+})();
+/* Sampling explorer */
+(function () {
+  var $ = function (id) { return document.getElementById(id); }, svg = $("sampSvg");
+  var X0 = 20, X1 = 580, Y0 = 20, Y1 = 190;
+  function sig(t) { return 0.5 + 0.32 * Math.sin(2 * Math.PI * 1.5 * t) + 0.14 * Math.sin(2 * Math.PI * 5 * t + 0.6); }
+  function X(t) { return X0 + t * (X1 - X0); } function Y(v) { return Y1 - v * (Y1 - Y0); }
+  function draw() {
+    var n = +$("rate").value, bits = +$("bits").value, levels = Math.pow(2, bits);
+    $("rateO").textContent = n; $("bitsO").textContent = bits + " bits";
+    var h = "";
+    if (levels <= 32) for (var k = 0; k <= levels; k++) { var gy = Y(k / levels); h += '<line class="grid" x1="' + X0 + '" x2="' + X1 + '" y1="' + gy.toFixed(1) + '" y2="' + gy.toFixed(1) + '"/>'; }
+    var d = ""; for (var i = 0; i <= 300; i++) { var t = i / 300; d += (i ? "L" : "M") + X(t).toFixed(1) + " " + Y(sig(t)).toFixed(1); }
+    h += '<path class="wave" d="' + d + '"/>';
+    var st = "", dots = "";
+    for (var j = 0; j < n; j++) {
+      var t0 = j / n, t1 = (j + 1) / n, q = Math.min(levels - 1, Math.floor(sig(t0) * levels)), qy = Y((q + 0.5) / levels);
+      st += (j ? "L" : "M") + X(t0).toFixed(1) + " " + qy.toFixed(1) + " L" + X(t1).toFixed(1) + " " + qy.toFixed(1);
+      dots += '<circle class="dot" cx="' + X(t0).toFixed(1) + '" cy="' + Y(sig(t0)).toFixed(1) + '" r="3.5"/>';
+    }
+    h += '<path class="stairs" d="' + st + '"/>' + dots;
+    h += '<text x="' + X0 + '" y="212" font-size="12" fill="var(--muted)">time →</text><text x="' + X1 + '" y="212" font-size="12" text-anchor="end" fill="var(--muted)">' + levels + " possible levels</text>";
+    svg.innerHTML = h;
+    var verdict = (n < 10 || bits < 4) ? "Rough copy: the computer would miss real detail." : (n >= 30 && bits >= 8) ? "Very close copy: almost nothing is lost." : "Usable copy: the shape is there, some detail is lost.";
+    $("sampSay").textContent = n + " samples, " + bits + " bits (" + levels + " levels). " + verdict;
+  }
+  $("rate").addEventListener("input", draw); $("bits").addEventListener("input", draw); draw();
+})();
+</script>
+<script src="../assets/quiz-data.js" defer></script>
+<script src="../assets/quiz.js" defer></script>
+<script src="../assets/progress-config.js" defer></script>
+<script src="../assets/account.js" defer></script>
+<script src="../assets/progress.js" defer></script>
+</body>
+</html>

@@ -1,6 +1,20 @@
 /* Self-check questions for every lesson.
    Format per lesson: [question, [choices], index of the right choice, why]. */
 window.QUIZ = {
+"physical-ai/lesson-3.html": [
+ ["How does the start/stop circuit keep the motor running after Start springs back?", ["The button is glued down", "The motor's output feeds back into the OR gate and holds itself on", "The CPU presses it again", "It doesn't; the motor stops"], 1, "Feedback is memory: the output keeps the input on until Stop breaks the loop."],
+ ["What is a memory address?", ["The house where the computer lives", "The number of a memory box, usually written in hex", "The Wi-Fi password", "The size of the SD card"], 1, "Each byte of memory sits at a numbered address."],
+ ["The power goes off. What happens to RAM and to the SD card?", ["Both keep everything", "RAM forgets; the SD card keeps its files", "RAM keeps; the SD card forgets", "Both forget"], 1, "RAM is fast working memory that needs power; storage keeps data without power."],
+ ["What three steps does a CPU repeat?", ["Plan, build, ship", "Fetch, decode, execute", "Read, write, delete", "Sense, act, sleep"], 1, "Fetch the instruction, work out what it means, do it, then move on."],
+ ["What does the program counter hold?", ["How many programs are installed", "The address of the next instruction", "The CPU temperature", "The count of LED blinks"], 1, "It remembers where the CPU is in the program."]
+],
+"physical-ai/lesson-4.html": [
+ ["What does an ADC do?", ["Turns a smooth voltage into a number", "Turns numbers into sound", "Stores files", "Connects to Wi-Fi"], 0, "Analog in, digital number out."],
+ ["A 12-bit ADC with a 3.3 V range reads 1.65 V. About what number does it give?", ["165", "1024", "2048", "4095"], 2, "Half of 3.3 V is half of 4095, about 2048."],
+ ["You lower the resolution from 12 bits to 3 bits. What happens?", ["It can tell only 8 steps apart, so detail is lost", "It samples faster", "Nothing changes", "The voltage goes up"], 0, "3 bits give 2³ = 8 levels instead of 4096."],
+ ["A customer wired an analog light sensor straight to a Pi GPIO pin. Why won't it give a reading?", ["The Pi's GPIO pins are digital only; it has no ADC", "The sensor needs Wi-Fi", "GPIO pins only work at night", "The Pi needs more RAM"], 0, "Use an ADC chip, a microcontroller, or a digital sensor."],
+ ["What's the highest voltage you may connect to an ADC or GPIO pin on a Pi or Pico?", ["12 V", "5 V", "3.3 V", "Any voltage"], 2, "Above 3.3 V can damage the pin or the chip; use a divider or level shifter."]
+],
 "physical-ai/lesson-2.html": [
  ["Two switches wired in series behave like which gate?", ["OR", "AND", "NOT", "None"], 1, "Current must pass through both, so both must be closed: AND."],
  ["An OR gate has A = 0 and B = 1. What is the output?", ["0", "1", "It depends on the clock", "Both"], 1, "OR needs only one input on."],
