@@ -1,56 +1,56 @@
 /* Self-check questions for every lesson.
    Format per lesson: [question, [choices], index of the right choice, why]. */
 window.QUIZ = {
-"physical-ai/lesson-7.html": [
+"physical-ai/lesson-0.html": [
  ["Which order did computer switches come in?", ["Tubes, relays, chips, transistors", "Relays, vacuum tubes, transistors, integrated circuits", "Transistors, relays, tubes, chips", "Chips, tubes, relays, transistors"], 1, "Relays (Z3, 1941) came first, then tubes (Colossus, ENIAC), then transistors (1947), then chips (1958–59)."],
  ["How did punched cards store a program?", ["With magnets", "A hole or no hole meant 1 or 0", "With colours", "By weight"], 1, "The same idea as binary: two states, hole or no hole."],
  ["What was the Intel 4004 (1971)?", ["The first microcontroller", "The first commercial microprocessor: a CPU on one chip", "The first transistor", "The first smartphone"], 1, "A microcontroller also puts memory and I/O on the chip; early ones were the TI TMS1000 and Intel 8048."],
  ["Which was the first widely used high-level programming language?", ["Python", "C", "FORTRAN", "HTML"], 2, "IBM's FORTRAN (1957); COBOL followed in 1959, C in 1972, Python in 1991."],
  ["What idea from 2017 do most AI models like Claude build on?", ["The vacuum tube", "The transformer", "The punched card", "The relay"], 1, "“Attention Is All You Need” described the transformer."]
 ],
-"physical-ai/lesson-5.html": [
+"physical-ai/lesson-6.html": [
  ["What is PWM?", ["A kind of battery", "Switching a pin on and off very fast so the average power sets brightness or speed", "A Wi-Fi protocol", "A type of sensor"], 1, "The share of time it's on (the duty cycle) sets the average."],
  ["At 3.3 V and 50% duty cycle, what's the average voltage?", ["3.3 V", "1.65 V", "0.5 V", "5 V"], 1, "Half the time on gives half the voltage on average."],
  ["What tells a hobby servo which angle to hold?", ["The colour of the wire", "The length of each pulse, about 1 to 2 ms", "The supply voltage", "How loud it is"], 1, "Pulse width means angle; check the servo's datasheet for its exact range."],
  ["Why shouldn't a motor be wired straight to a GPIO pin?", ["Motors are too quiet", "A pin supplies only a tiny current; the motor needs a driver and its own supply", "GPIO pins are only for LEDs at night", "It's fine, nothing happens"], 1, "Use a driver, a separate supply, a common ground and a flyback diode."],
  ["The Pi reboots every time the motor starts. First check?", ["Reinstall Linux", "Whether the motor is powered from the Pi instead of its own supply", "Change the Wi-Fi password", "Buy a faster SD card"], 1, "A motor's start-up current can drag the Pi's supply down; give it its own."]
 ],
-"physical-ai/lesson-6.html": [
+"physical-ai/lesson-7.html": [
  ["What is a protocol?", ["A brand of cable", "An agreed set of rules for how devices exchange bytes", "A type of motor", "A power supply"], 1, "Both sides must follow the same rules, like speaking the same language."],
  ["In UART, what does the line do when nothing is being sent?", ["Rests low", "Rests high, then a low start bit begins each byte", "Flashes", "Turns off the Pi"], 1, "Idle high; start bit low; 8 data bits; stop bit high."],
  ["A serial console shows garbage characters. Most likely cause?", ["The cable is too short", "The two sides use different baud rates", "The Pi has no RAM", "The LED strip is off"], 1, "Wrong speed means the receiver reads bits at the wrong moments."],
  ["How does I²C know which device the Pi is talking to?", ["Each device has its own address, like 0x48", "Each device has its own Wi-Fi", "It talks to all of them and hopes", "By colour"], 0, "Only the device whose address is called answers."],
  ["In MQTT, what does the broker do?", ["Repairs broken wires", "Passes published messages to everyone subscribed to that topic", "Stores the operating system", "Measures temperature"], 1, "It's the noticeboard between publishers and subscribers."]
 ],
-"physical-ai/lesson-3.html": [
+"physical-ai/lesson-4.html": [
  ["How does the start/stop circuit keep the motor running after Start springs back?", ["The button is glued down", "The motor's output feeds back into the OR gate and holds itself on", "The CPU presses it again", "It doesn't; the motor stops"], 1, "Feedback is memory: the output keeps the input on until Stop breaks the loop."],
  ["What is a memory address?", ["The house where the computer lives", "The number of a memory box, usually written in hex", "The Wi-Fi password", "The size of the SD card"], 1, "Each byte of memory sits at a numbered address."],
  ["The power goes off. What happens to RAM and to the SD card?", ["Both keep everything", "RAM forgets; the SD card keeps its files", "RAM keeps; the SD card forgets", "Both forget"], 1, "RAM is fast working memory that needs power; storage keeps data without power."],
  ["What three steps does a CPU repeat?", ["Plan, build, ship", "Fetch, decode, execute", "Read, write, delete", "Sense, act, sleep"], 1, "Fetch the instruction, work out what it means, do it, then move on."],
  ["What does the program counter hold?", ["How many programs are installed", "The address of the next instruction", "The CPU temperature", "The count of LED blinks"], 1, "It remembers where the CPU is in the program."]
 ],
-"physical-ai/lesson-4.html": [
+"physical-ai/lesson-5.html": [
  ["What does an ADC do?", ["Turns a smooth voltage into a number", "Turns numbers into sound", "Stores files", "Connects to Wi-Fi"], 0, "Analog in, digital number out."],
  ["A 12-bit ADC with a 3.3 V range reads 1.65 V. About what number does it give?", ["165", "1024", "2048", "4095"], 2, "Half of 3.3 V is half of 4095, about 2048."],
  ["You lower the resolution from 12 bits to 3 bits. What happens?", ["It can tell only 8 steps apart, so detail is lost", "It samples faster", "Nothing changes", "The voltage goes up"], 0, "3 bits give 2³ = 8 levels instead of 4096."],
  ["A customer wired an analog light sensor straight to a Pi GPIO pin. Why won't it give a reading?", ["The Pi's GPIO pins are digital only; it has no ADC", "The sensor needs Wi-Fi", "GPIO pins only work at night", "The Pi needs more RAM"], 0, "Use an ADC chip, a microcontroller, or a digital sensor."],
  ["What's the highest voltage you may connect to an ADC or GPIO pin on a Pi or Pico?", ["12 V", "5 V", "3.3 V", "Any voltage"], 2, "Above 3.3 V can damage the pin or the chip; use a divider or level shifter."]
 ],
-"physical-ai/lesson-2.html": [
+"physical-ai/lesson-3.html": [
  ["Two switches wired in series behave like which gate?", ["OR", "AND", "NOT", "None"], 1, "Current must pass through both, so both must be closed: AND."],
  ["An OR gate has A = 0 and B = 1. What is the output?", ["0", "1", "It depends on the clock", "Both"], 1, "OR needs only one input on."],
  ["What does a NOT gate do?", ["Adds two bits", "Flips its input: 1 becomes 0 and 0 becomes 1", "Stores a bit", "Turns the computer off"], 1, "NOT is the opposite; the small circle on the symbol means flip."],
  ["Motor rule: Start AND Guard closed AND NOT E-stop. Which single input always stops the motor when it's on?", ["Start", "Guard closed", "E-stop", "None of them"], 2, "With NOT in front, E-stop on makes that input 0, and AND then outputs 0 no matter what."],
  ["What is a truth table?", ["A list of every possible input with the output you get", "A table of true facts about computers", "A spreadsheet of prices", "The CPU's memory"], 0, "Truth tables describe what a circuit must do for every input."]
 ],
-"physical-ai/lesson-1.html": [
+"physical-ai/lesson-2.html": [
  ["Who are programming languages really made for?", ["The CPU", "People, so they can tell the computer what to do more easily", "The power supply", "Only AI"], 1, "The chip only sees voltages; every language is a translation layer invented for humans."],
  ["What is 00101101 in decimal?", ["45", "101", "2D", "13"], 0, "32 + 8 + 4 + 1 = 45."],
  ["How many bits does one hex digit stand for?", ["2", "4", "8", "16"], 1, "One hex digit = 4 bits, so one byte = exactly two hex digits."],
  ["An LED colour is #FF0000. What is it?", ["Blue", "Green", "Red at full brightness", "Off"], 2, "Red FF (255), green 00, blue 00: full red. Check the strip's colour order if it shows green."],
  ["What does a compiler do?", ["Runs Python line by line", "Translates a whole program into machine code before it runs", "Draws the circuit", "Checks spelling"], 1, "Compilers (C, C++) translate ahead of time; interpreters (Python) translate while running."]
 ],
-"physical-ai/lesson-0.html": [
+"physical-ai/lesson-1.html": [
  ["Inside a chip, what physically carries a 0 or a 1?", ["A tiny printed number", "A low or high voltage on a wire", "A sound", "A colour"], 1, "The medium is voltage; binary is the code we agree it stands for."],
  ["Why do computers use two states instead of ten?", ["Ten would be too expensive to print", "Two states tolerate noise and make simple, reliable switches", "Engineers only know two numbers", "Binary is faster to type"], 1, "A slightly wobbly signal still clearly reads as high or low."],
  ["The letter A is code number 65. Which byte is it?", ["01000001", "00000065", "10000010", "11111111"], 0, "64 + 1 = 65, so the 64 bit and the 1 bit are on: 01000001."],

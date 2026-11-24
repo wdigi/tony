@@ -8,25 +8,51 @@
 <link rel="stylesheet" href="../assets/style.css">
 <style>
 .demo{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:14px;margin:18px 0}
-.demo .d-title{font-weight:600;margin-bottom:6px}
+.demo .d-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.demo .d-title{font-weight:600}
+.demo .btns{display:flex;gap:8px;flex-wrap:wrap}
+.demo button.b{font:inherit;font-size:14px;padding:6px 14px;border-radius:999px;border:1.5px solid var(--line-strong);background:var(--surface);color:var(--ink);cursor:pointer}
+.demo button.b[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
 .demo svg{width:100%;height:auto;display:block}
-.demo .ctl{display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap}
-.demo .ctl label{min-width:170px;font-size:14px}
-.demo .ctl input[type=range]{flex:1;min-width:160px;accent-color:var(--accent)}
-.demo .ctl output{min-width:90px;font-weight:600;font-size:14px;text-align:right}
-.demo .readout{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
-@media (max-width:560px){.demo .readout{grid-template-columns:repeat(2,1fr)}}
-.demo .rd{border:1px solid var(--line);border-radius:8px;padding:8px;text-align:center}
-.demo .rd span{display:block;font-size:12.5px;color:var(--muted)}
-.demo .rd strong{font-size:16px;font-family:ui-monospace,Menlo,Consolas,monospace}
-.demo .say{margin:8px 0 0;color:var(--muted);font-size:14px}
-.demo .wave{fill:none;stroke:var(--muted);stroke-width:2;stroke-dasharray:4 4}
-.demo .stairs{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linejoin:round}
-.demo .dot{fill:var(--accent)}
-.demo .grid{stroke:var(--line);stroke-width:1}
-.demo .pulse{animation:pulse 1.2s ease-in-out infinite}
-@keyframes pulse{50%{opacity:.35}}
-@media (prefers-reduced-motion: reduce){.demo .pulse{animation:none}}
+.demo .say{margin:8px 0 0;color:var(--muted);font-size:14px;min-height:1.4em}
+.demo .w{fill:none;stroke:var(--line-strong);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s}
+.demo .w.on{stroke:var(--accent);stroke-dasharray:10 7;animation:flow .6s linear infinite}
+.demo .body{fill:var(--violet-soft);stroke:var(--violet);stroke-width:2}
+.demo .body-t{fill:var(--ink);font-size:14px;font-weight:700}
+.demo .bub{fill:var(--surface);stroke:var(--violet);stroke-width:2}
+.demo .pb{cursor:pointer}
+.demo .pb rect{fill:var(--surface);stroke:var(--line-strong);stroke-width:1.5;transition:fill .15s}
+.demo .pb text{fill:var(--ink);font-size:13px;font-weight:600}
+.demo .pb.on rect{fill:var(--accent);stroke:var(--accent)}
+.demo .pb.on text{fill:#fff}
+.demo .pb.stop rect{stroke:var(--bad)}
+.demo .pb.stop.on rect{fill:var(--bad);stroke:var(--bad)}
+.demo .pb:focus{outline:none}.demo .pb:focus-visible rect{stroke:var(--accent);stroke-width:3}
+.demo .lamp{fill:var(--surface);stroke:var(--line-strong);stroke-width:2;transition:fill .25s}
+.demo .lamp.on{fill:#f5c84b;stroke:#d9a520;filter:drop-shadow(0 0 10px #f5c84b)}
+.demo .fan{transform-box:fill-box;transform-origin:center}
+.demo .fan.on{animation:spin .8s linear infinite}
+.demo .lbl{fill:var(--muted);font-size:12.5px}
+.demo .lbl.on{fill:var(--ink);font-weight:600}
+.cpu{display:grid;grid-template-columns:1.1fr 1fr .7fr;gap:12px;align-items:start}
+@media (max-width:640px){.cpu{grid-template-columns:1fr}}
+.cpu .box{border:1px solid var(--line);border-radius:10px;padding:10px}
+.cpu .box h4{margin:0 0 6px;font-size:14px}
+.cpu table{width:100%;font-size:13.5px;margin:0}
+.cpu td{padding:4px 6px}
+.cpu tr.pc td{background:var(--accent-soft);font-weight:600}
+.cpu .reg{display:flex;justify-content:space-between;gap:8px;font-size:14px;padding:3px 0;border-bottom:1px dashed var(--line)}
+.cpu .reg code{font-size:13px}
+.cpu .phases{display:flex;gap:6px;margin:8px 0 2px}
+.cpu .ph{flex:1;text-align:center;font-size:12.5px;padding:4px 0;border-radius:6px;border:1px solid var(--line);color:var(--muted)}
+.cpu .ph.on{background:var(--amber-soft);border-color:var(--amber);color:var(--ink);font-weight:600}
+.cpu .ir{font-size:13.5px;margin-top:6px;min-height:2.6em}
+.cpu .ledwrap{text-align:center}
+.cpu .led{width:64px;height:64px;border-radius:50%;margin:8px auto;border:2px solid var(--line-strong);background:var(--surface);transition:background .2s}
+.cpu .led.on{background:#f5c84b;border-color:#d9a520;box-shadow:0 0 18px #f5c84b}
+@keyframes flow{to{stroke-dashoffset:-17}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){.demo .w.on{animation:none;stroke-dasharray:none}.demo .fan.on{animation:none}}
 </style>
 </head>
 <body>
@@ -35,119 +61,108 @@
 <nav><a href="../index.html">Plan</a><a href="../lessons.html">Lessons</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a><a href="../board.html">Board</a><a href="../search.html">Search</a></nav>
 </div></header>
 <main><div class="wrap">
-<p style="color:var(--muted);margin:0">Physical AI Systems · Lesson 4</p><h1>Sensors and the ADC: how the real world becomes numbers</h1>
-<p class="lead">A Physical AI system starts by <strong>sensing</strong>: how warm is it, how bright, how far, how fast? The world gives smooth, analog answers. The computer only understands numbers made of bits. The part that crosses that border is the <strong>analog-to-digital converter</strong>, or <strong>ADC</strong>. Move the sliders and watch it work.</p>
-<div class="card"><p style="margin:0"><strong>Self-paced, so go easy on yourself.</strong> Play with every slider; you can't break anything. If something stays confusing, write it on the board below. Your coach goes through more examples with you in the live session.</p></div>
+<p style="color:var(--muted);margin:0">Physical AI Systems · Lesson 4</p><h1>Memory and the CPU: how gates remember and follow instructions</h1>
+<p class="lead">Gates can decide. But a computer also has to <em>remember</em> things and work through a list of instructions, one after another. In this lesson you'll see both: a loop of gates that remembers, and a tiny pretend processor that runs a program you can watch step by step.</p>
+<div class="card"><p style="margin:0"><strong>Self-paced, so go easy on yourself.</strong> Play with every drawing; you can't break anything. If something stays confusing, write it on the board below. Your coach goes through more examples with you in the live session.</p></div>
 <p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
 
-<h2 id="where-we-are">Where this fits in the loop</h2>
-<figure class="fig"><svg class="d" viewBox="0 0 680 110" role="img" aria-label="The Physical AI loop with Sense and Convert highlighted"><defs><marker id="l4a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
-<rect x="10" y="20" width="118" height="54" rx="8" class="b-v" stroke-width="3"/><text x="69" y="52" font-size="13.5" text-anchor="middle" font-weight="600">1 · Sense</text>
-<rect x="146" y="20" width="118" height="54" rx="8" class="b-w" stroke-width="3"/><text x="205" y="52" font-size="13.5" text-anchor="middle" font-weight="600">2 · ADC</text>
-<rect x="282" y="20" width="118" height="54" rx="8" class="b" opacity=".55"/><text x="341" y="52" font-size="13.5" text-anchor="middle" class="q">3 · Process</text>
-<rect x="418" y="20" width="118" height="54" rx="8" class="b" opacity=".55"/><text x="477" y="52" font-size="13.5" text-anchor="middle" class="q">4 · Convert</text>
-<rect x="554" y="20" width="118" height="54" rx="8" class="b" opacity=".55"/><text x="613" y="52" font-size="13.5" text-anchor="middle" class="q">5 · Act</text>
-<line x1="129" y1="47" x2="143" y2="47" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l4a)"/><line x1="265" y1="47" x2="279" y2="47" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l4a)"/><line x1="401" y1="47" x2="415" y2="47" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l4a)"/><line x1="537" y1="47" x2="551" y2="47" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l4a)"/>
-<text x="340" y="100" font-size="12.5" text-anchor="middle" class="q">Lesson 0's loop. This lesson zooms in on steps 1 and 2.</text>
-</svg></figure>
-
-<h2 id="sensor-to-number">From a voltage to a number</h2>
-<p>Many sensors turn what they measure into a <strong>voltage</strong>. A light sensor might give 0 V in the dark and 3.3 V in bright sun. The ADC measures that voltage and gives back a whole number. A <strong>12-bit</strong> ADC, like the one in the RP2350 microcontroller, gives numbers from 0 to 4095.</p>
-<div class="demo" id="adc">
-<div class="d-title">Light sensor → 12-bit ADC</div>
-<svg viewBox="0 0 600 150" role="img" aria-label="A sensor voltage meter and the matching ADC number">
-<text x="20" y="22" font-size="12.5" class="q" fill="var(--muted)">Sensor voltage</text>
-<rect x="20" y="32" width="560" height="26" rx="6" fill="var(--chip)" opacity=".18"/>
-<rect id="vBar" x="20" y="32" width="0" height="26" rx="6" fill="var(--violet)" opacity=".75"/>
-<text x="20" y="74" font-size="12" fill="var(--muted)">0 V</text><text x="580" y="74" font-size="12" text-anchor="end" fill="var(--muted)">3.3 V</text>
-<text x="20" y="100" font-size="12.5" fill="var(--muted)">ADC number</text>
-<rect x="20" y="110" width="560" height="26" rx="6" fill="var(--chip)" opacity=".18"/>
-<rect id="nBar" x="20" y="110" width="0" height="26" rx="6" fill="var(--accent)" opacity=".85"/>
-<text x="580" y="100" font-size="12" text-anchor="end" fill="var(--muted)">4095</text>
+<h2 id="remembering">Gates that remember</h2>
+<p>A push button springs back the moment you let go. So how does a machine keep running after you release Start? The trick is to feed the output <strong>back</strong> into the input. Once the motor is on, it holds itself on, until Stop breaks the loop.</p>
+<p>Control panel builders know this as a <strong>start/stop “seal-in” circuit</strong>. In chips, the same idea is called a <strong>latch</strong>, and it's how every bit of memory works.</p>
+<div class="demo" id="latch">
+<div class="d-head"><span class="d-title">Motor = (Start OR Motor) AND NOT Stop</span></div>
+<svg viewBox="0 0 600 210" role="img" aria-label="Start/stop latch: the motor output feeds back into the OR gate, so it stays on after Start is released until Stop is pressed">
+<path class="w" id="wStart" d="M150 50 H212"/>
+<path class="w" id="wFb" d="M480 100 V190 H180 V90 H212"/>
+<path class="body" d="M205 30 Q250 30 298 70 Q250 110 205 110 Q228 70 205 30 Z"/><text class="body-t" x="245" y="75" text-anchor="middle">OR</text>
+<path class="w" id="wOr" d="M298 70 H350"/>
+<path class="w" id="wStop" d="M150 130 H333"/><circle class="bub" cx="342" cy="130" r="7"/>
+<path class="body" d="M350 50 H400 A50 50 0 0 1 400 150 H350 Z"/><text class="body-t" x="390" y="105" text-anchor="middle">AND</text>
+<path class="w" id="wOut" d="M450 100 H514"/>
+<circle class="lamp" id="motor" cx="540" cy="100" r="24"/>
+<g class="fan" id="fan"><path d="M540 100 L540 80 A9 9 0 0 1 549 95 Z M540 100 L557 110 A9 9 0 0 1 542 116 Z M540 100 L523 110 A9 9 0 0 1 528 93 Z" fill="var(--ink)"/></g>
+<text class="lbl" id="motorT" x="540" y="145" text-anchor="middle">Motor stopped</text>
+<text class="lbl" x="330" y="205" text-anchor="middle">← the memory loop: the output feeds itself back</text>
+<g class="pb" id="bStart" tabindex="0" role="button" aria-label="Push Start"><rect x="10" y="33" width="140" height="34" rx="8"/><text x="80" y="55" text-anchor="middle">Start (push)</text></g>
+<g class="pb stop" id="bStop" tabindex="0" role="button" aria-label="Push Stop"><rect x="10" y="113" width="140" height="34" rx="8"/><text x="80" y="135" text-anchor="middle">Stop (push)</text></g>
 </svg>
-<div class="ctl"><label for="light">Brightness (drag me)</label><input id="light" type="range" min="0" max="100" value="50"><output id="lightO">50%</output></div>
-<div class="readout">
-<div class="rd"><span>Voltage</span><strong id="oV">1.65 V</strong></div>
-<div class="rd"><span>ADC number</span><strong id="oN">2048</strong></div>
-<div class="rd"><span>Binary (12 bits)</span><strong id="oB" style="font-size:13px">1000 0000 0000</strong></div>
-<div class="rd"><span>Hex</span><strong id="oH">0x800</strong></div>
+<p class="say" id="latchSay" aria-live="polite">Push Start, then watch what happens when the button springs back.</p>
 </div>
-<p class="say">ADC number = voltage ÷ 3.3 × 4095. The program never sees the voltage, only this number.</p>
-</div>
+<p>That one loop stores <strong>one bit</strong>: running (1) or stopped (0). Put eight of them side by side and you can store a byte. Put billions together and you have the memory in a Raspberry Pi.</p>
 
-<h2 id="sampling">Two choices every ADC makes</h2>
-<p>An ADC can't watch a signal continuously. It takes a <strong>sample</strong> (one measurement) again and again. Two settings decide how good the copy is:</p>
-<ul>
-<li><strong>Sample rate:</strong> how many measurements per second. Too few, and fast changes are missed.</li>
-<li><strong>Resolution (bits):</strong> how many steps it can tell apart. 3 bits give 8 steps; 12 bits give 4096.</li>
-</ul>
-<p>The dashed line is the real signal. The blue staircase is what the computer gets. Make it terrible, then make it good.</p>
-<div class="demo" id="samp">
-<div class="d-title">Sampling explorer</div>
-<svg id="sampSvg" viewBox="0 0 600 220" role="img" aria-label="A smooth signal, its samples, and the stepped digital copy"></svg>
-<div class="ctl"><label for="rate">Samples per window</label><input id="rate" type="range" min="4" max="60" value="12"><output id="rateO">12</output></div>
-<div class="ctl"><label for="bits">Resolution</label><input id="bits" type="range" min="2" max="12" value="3"><output id="bitsO">3 bits</output></div>
-<p class="say" id="sampSay"></p>
-</div>
-<div class="card accent"><p style="margin:0"><strong>Same idea everywhere.</strong> A phone microphone samples sound about 48,000 times per second at 16 bits or more. A thermostat might sample once a second, because room temperature changes slowly. Choosing “fast enough and fine enough, but no more” is an everyday engineering decision.</p></div>
-
-<h2 id="pi-and-adc">Important for support: the Pi has no ADC</h2>
-<p>A Raspberry Pi's GPIO pins are <strong>digital only</strong>: each one reads just high or low. To read an analog sensor, a DiGiKits system uses one of three routes:</p>
-<figure class="fig"><svg class="d" viewBox="0 0 680 230" role="img" aria-label="Three ways to get an analog reading into a Raspberry Pi: an ADC chip over I2C, a microcontroller with a built-in ADC, or a digital sensor with its own ADC inside"><defs><marker id="l4b" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
-<g font-size="13">
-<rect x="10" y="14" width="150" height="50" rx="8" class="b-v"/><text x="85" y="44" text-anchor="middle" font-weight="600">Analog sensor</text>
-<rect x="230" y="14" width="200" height="50" rx="8" class="b-w"/><text x="330" y="36" text-anchor="middle" font-weight="600">ADC chip</text><text x="330" y="54" text-anchor="middle" font-size="12" class="q">e.g. ADS1115, I²C 0x48</text>
-<rect x="10" y="88" width="150" height="50" rx="8" class="b-v"/><text x="85" y="118" text-anchor="middle" font-weight="600">Analog sensor</text>
-<rect x="230" y="88" width="200" height="50" rx="8" class="b-w"/><text x="330" y="110" text-anchor="middle" font-weight="600">Microcontroller</text><text x="330" y="128" text-anchor="middle" font-size="12" class="q">RP2350 / Pico, ADC built in</text>
-<rect x="10" y="162" width="420" height="50" rx="8" class="b-w"/><text x="220" y="184" text-anchor="middle" font-weight="600">Digital sensor (ADC inside the sensor)</text><text x="220" y="202" text-anchor="middle" font-size="12" class="q">e.g. a temperature and humidity sensor on I²C 0x76</text>
-<rect x="520" y="70" width="150" height="90" rx="10" class="b-a"/><text x="595" y="112" text-anchor="middle" font-weight="600">Raspberry Pi</text><text x="595" y="130" text-anchor="middle" font-size="12" class="q">digital only</text>
-</g>
-<g stroke="var(--muted)" stroke-width="1.5" fill="none"><line x1="161" y1="39" x2="227" y2="39" marker-end="url(#l4b)"/><line x1="161" y1="113" x2="227" y2="113" marker-end="url(#l4b)"/>
-<path d="M431 39 H480 V95 H516" marker-end="url(#l4b)"/><line x1="431" y1="113" x2="516" y2="113" marker-end="url(#l4b)"/><path d="M431 187 H480 V135 H516" marker-end="url(#l4b)"/></g>
-<g font-size="12" class="q"><text x="194" y="32" text-anchor="middle">volts</text><text x="194" y="106" text-anchor="middle">volts</text><text x="474" y="30">I²C</text><text x="438" y="106">USB/serial</text><text x="438" y="180">I²C</text></g>
-</svg><figcaption>Something has to do the analog-to-digital step before the Pi sees a number.</figcaption></figure>
+<h2 id="memory-boxes">Memory is a row of numbered boxes</h2>
+<p>Think of memory as a very long street of boxes. Each box holds one byte, and each box has a number, its <strong>address</strong>, usually written in hex. The CPU says “give me box 0x0004” or “put 0x2D into box 0x0005”.</p>
+<figure class="fig"><svg class="d" viewBox="0 0 680 140" role="img" aria-label="Memory as numbered boxes: each address holds one byte">
+<g font-size="12.5" text-anchor="middle" class="q"><text x="70" y="24">0x0000</text><text x="160" y="24">0x0001</text><text x="250" y="24">0x0002</text><text x="340" y="24">0x0003</text><text x="430" y="24">0x0004</text><text x="520" y="24">0x0005</text><text x="615" y="24">…</text></g>
+<g><rect x="30" y="32" width="80" height="54" rx="8" class="b-w"/><rect x="120" y="32" width="80" height="54" rx="8" class="b-w"/><rect x="210" y="32" width="80" height="54" rx="8" class="b-w"/><rect x="300" y="32" width="80" height="54" rx="8" class="b-w"/><rect x="390" y="32" width="80" height="54" rx="8" class="b-w"/><rect x="480" y="32" width="80" height="54" rx="8" class="b-g"/></g>
+<g font-size="17" font-weight="600" text-anchor="middle"><text x="70" y="65">0x41</text><text x="160" y="65">0x11</text><text x="250" y="65">0x21</text><text x="340" y="65">0x10</text><text x="430" y="65">0x30</text><text x="520" y="65">0x2D</text><text x="615" y="65">…</text></g>
+<text x="340" y="112" font-size="12.5" text-anchor="middle" class="q">Address on top (where), byte inside (what). The same bytes can be a letter, a number or an instruction;</text>
+<text x="340" y="130" font-size="12.5" text-anchor="middle" class="q">it depends on how the program uses them. 0x41 is “A” from Lesson 1; 0x2D is 45 from Lesson 2.</text>
+</svg><figcaption>Addresses in hex, one byte per box.</figcaption></figure>
 <div class="table-scroll"><table>
-<tr><th>What the customer sees</th><th>Likely cause</th><th>First check</th></tr>
-<tr><td>Reading stuck at 0</td><td>Sensor not powered, or signal wire loose</td><td>Power and wiring; measure the voltage with a meter</td></tr>
-<tr><td>Reading stuck at maximum (4095 or 65535)</td><td>Signal wire touching the supply, or the sensor's ground wire missing</td><td>Wiring and ground; measure the signal voltage with a meter</td></tr>
-<tr><td>Reading jumps around a lot</td><td>Signal wire disconnected (a “floating” input), electrical noise, long wires</td><td>Shorter wires, common ground, average several samples</td></tr>
-<tr><td>“No device” on the I²C bus</td><td>Wrong address or wiring (SDA/SCL swapped)</td><td><code>i2cdetect -y 1</code> on the Pi to list addresses</td></tr>
+<tr><th>Kind of memory</th><th>On a Raspberry Pi</th><th>Power off?</th><th>Used for</th></tr>
+<tr><td><strong>RAM</strong> (working memory)</td><td>The memory chip, e.g. 4 GB or 8 GB</td><td>Forgets everything</td><td>Programs while they run; fast</td></tr>
+<tr><td><strong>Storage</strong></td><td>The SD card or SSD</td><td>Keeps everything</td><td>Files, the operating system, logs; slower</td></tr>
 </table></div>
-<div class="card"><p style="margin:0"><strong>Safety for the hardware:</strong> never connect more than 3.3 V to an ADC or GPIO pin on a Pi, Pico or RP2350. A 5 V or 12 V sensor needs a voltage divider or a level shifter first, or the pin (and sometimes the whole chip) is damaged.</p></div>
+<div class="card"><p style="margin:0"><strong>Support tip:</strong> “It worked until the power cut, now my setting is gone” usually means the setting lived only in RAM and was never saved to storage. And pulling the power on a Pi while it's writing to the SD card can corrupt the card. That's why you shut down with <code>sudo shutdown now</code> first.</p></div>
+
+<h2 id="the-cpu">The CPU: fetch, decode, execute</h2>
+<p>The processor (CPU) does one simple loop, over and over, forever:</p>
+<ol>
+<li><strong>Fetch:</strong> read the next instruction from memory. A small counter called the <strong>program counter</strong> remembers where it is.</li>
+<li><strong>Decode:</strong> work out what the instruction means.</li>
+<li><strong>Execute:</strong> do it, then move the program counter on.</li>
+</ol>
+<p>Here's a <strong>toy CPU</strong> running a 4-line program that blinks an LED and counts the blinks. Press <strong>Step</strong> to go one phase at a time, or <strong>Run</strong> to watch it go.</p>
+<div class="demo" id="cpu">
+<div class="d-head"><span class="d-title">Toy CPU: blink and count</span><span class="btns"><button class="b" id="cStep" type="button">Step</button><button class="b" id="cRun" type="button" aria-pressed="false">▶ Run</button><button class="b" id="cReset" type="button">Reset</button></span></div>
+<div class="cpu">
+<div class="box"><h4>Memory (the program)</h4><table id="cMem">
+<tr><td><code>0x00</code></td><td><code>0x11</code></td><td>LED ON</td></tr>
+<tr><td><code>0x01</code></td><td><code>0x21</code></td><td>ADD 1 to COUNT</td></tr>
+<tr><td><code>0x02</code></td><td><code>0x10</code></td><td>LED OFF</td></tr>
+<tr><td><code>0x03</code></td><td><code>0x30</code></td><td>JUMP to 0x00</td></tr>
+</table><p class="quiet-note" style="margin:6px 0 0">Middle column: the toy machine code, in hex.</p></div>
+<div class="box"><h4>CPU</h4>
+<div class="phases"><span class="ph" id="pF">Fetch</span><span class="ph" id="pD">Decode</span><span class="ph" id="pE">Execute</span></div>
+<div class="reg"><span>Program counter</span><code id="rPC">0x00</code></div>
+<div class="reg"><span>COUNT (decimal)</span><code id="rC">0</code></div>
+<div class="reg"><span>COUNT (binary)</span><code id="rCb">00000000</code></div>
+<div class="reg"><span>COUNT (hex)</span><code id="rCh">0x00</code></div>
+<div class="ir" id="rIR">Ready. Press Step.</div></div>
+<div class="box ledwrap"><h4>LED</h4><div class="led" id="cLed"></div><span class="lbl" id="cLedT" style="font-size:13px;color:var(--muted)">off</span></div>
+</div>
+<p class="say" id="cpuSay" aria-live="polite">One phase per press. A real CPU does this billions of times per second.</p>
+</div>
+<p>This toy runs about one phase per second so you can follow it. A Raspberry Pi 5 ticks about <strong>2.4 billion</strong> times per second, on four cores at once. It's the same simple loop; only the speed is unimaginable.</p>
+<div class="card accent"><p style="margin:0"><strong>Notice the layers again.</strong> The program is stored as bytes (<code>0x11</code>, <code>0x21</code>…), which are bits, which are latches holding voltages. The words “LED ON” are only there for us. By the people, for the people.</p></div>
 
 <h2 id="hands-on">Hands-on</h2>
-<h3 id="calc">1. Do the ADC's job</h3>
-<p>For a 12-bit ADC with a 3.3 V range, work out the number for 0 V, 0.825 V, 1.65 V and 3.3 V. Then check with the slider above. (Hint: they're a quarter apart.)</p>
-<h3 id="break-it">2. Break the copy</h3>
-<p>In the sampling explorer, find the lowest sample rate and the fewest bits where you can still recognise the wave. Post your two numbers on the board below.</p>
-<h3 id="micropython">3. Read a real sensor (with your coach or after Phase 2, Day 7)</h3>
-<p>On a Pico or RP2350 board with a knob (potentiometer) wired to pin GP26, in MicroPython:</p>
-<pre><code>from machine import ADC
-import time
-
-knob = ADC(26)                     # GP26 is ADC input 0
-while True:
-    raw = knob.read_u16()          # MicroPython scales it to 0–65535
-    volts = raw * 3.3 / 65535
-    print(raw, round(volts, 2), "V")
-    time.sleep(0.5)</code></pre>
-<p>Turn the knob and watch the numbers follow.</p>
+<h3 id="latch-test">1. Break the loop</h3>
+<p>In the start/stop drawing: start the motor, then hold your eye on the dashed feedback wire while you press Stop. Explain in one sentence why the motor stays off after Stop springs back.</p>
+<h3 id="cpu-test">2. Count in binary</h3>
+<p>Run the toy CPU until COUNT reaches 10. Before each blink, predict the binary and hex, then check.</p>
+<h3 id="pi-look">3. Look inside your Pi</h3>
+<pre><code>lscpu          # the CPU: model, number of cores, speed
+free -h        # RAM: total, used, free
+df -h          # storage: how full the SD card is</code></pre>
+<p>Write down your Pi's number of cores, total RAM and SD card size. Post them on the board below.</p>
 
 <h2 id="done-when">Done when</h2>
 <ul class="check">
-<li>I can explain what an ADC does in one sentence</li>
-<li>I can work out a 12-bit ADC number from a voltage</li>
-<li>I can explain sample rate and resolution, and what happens when each is too low</li>
-<li>I know the Pi has no ADC, and the three ways DiGiKits reads analog sensors</li>
-<li>I know never to put more than 3.3 V on an ADC or GPIO pin</li>
-<li>I posted my “break the copy” numbers on the board</li>
+<li>I can explain how a feedback loop lets gates remember one bit</li>
+<li>I can say what an address is and why it's written in hex</li>
+<li>I know the difference between RAM and storage, and what happens to each at power off</li>
+<li>I can name the three steps the CPU repeats: fetch, decode, execute</li>
+<li>I ran the toy CPU to COUNT 10 and predicted the binary</li>
+<li>I posted my Pi's cores, RAM and storage on the board</li>
 </ul>
 
-<div class="pager"><a href="lesson-3.html">← Lesson 3: Memory and the CPU</a><a href="lesson-5.html">Lesson 5: Actuators →</a></div>
+<div class="pager"><a href="lesson-3.html">← Lesson 3: Logic gates</a><a href="lesson-5.html">Lesson 5: Sensors and the ADC →</a></div>
 <p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
 <section class="board">
 <h2 id="how-did-it-feel">How did this lesson feel?</h2>
-<div class="card feel"><p><strong>Too much, just right, or too easy?</strong> Tell me in a line or two below, and ask anything that wasn't clear. For example: <em>“Lesson 4: just right. I could still see the wave at 8 samples and 3 bits.”</em></p><p>Be honest. If a lesson is too much, we change the lesson, not you. Take your time; there is no rush.</p><p class="sign">Your coach</p></div>
+<div class="card feel"><p><strong>Too much, just right, or too easy?</strong> Tell me in a line or two below, and ask anything that wasn't clear. For example: <em>“Lesson 4: just right. My Pi has 4 cores and 4 GB of RAM.”</em></p><p>Be honest. If a lesson is too much, we change the lesson, not you. Take your time; there is no rush.</p><p class="sign">Your coach</p></div>
 <p class="quiet-note">Sign in with your GitHub account to post, or just tap a reaction. Posts are public, so never share passwords, keys, IP addresses or personal details.</p>
 <script src="https://giscus.app/client.js"
  data-repo="wdigi/tony" data-repo-id="R_kgDOV5dORw"
@@ -159,45 +174,68 @@ while True:
 </div></main>
 <footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
 <script>
-/* Light sensor → 12-bit ADC */
+/* Start/stop latch */
+(function () {
+  var start = false, stop = false, q = false, $ = function (id) { return document.getElementById(id); };
+  function render(msg) {
+    q = (start || q) && !stop;
+    $("wStart").classList.toggle("on", start); $("wStop").classList.toggle("on", stop);
+    $("wOr").classList.toggle("on", start || q); $("wFb").classList.toggle("on", q); $("wOut").classList.toggle("on", q);
+    $("motor").classList.toggle("on", q); $("fan").classList.toggle("on", q);
+    $("motorT").textContent = q ? "Motor running" : "Motor stopped"; $("motorT").classList.toggle("on", q);
+    $("bStart").classList.toggle("on", start); $("bStop").classList.toggle("on", stop);
+    if (msg) $("latchSay").textContent = msg;
+  }
+  function push(which) {
+    if (which === "start") { start = true; render("Start pressed: the motor turns on, and its output starts feeding back into the OR gate."); }
+    else { stop = true; render("Stop pressed: NOT Stop becomes 0, the AND gate outputs 0, and the loop is broken."); }
+    setTimeout(function () {
+      if (which === "start") { start = false; render(q ? "Start released, but the motor keeps running: the feedback loop remembers." : "Start released."); }
+      else { stop = false; render("Stop released, and the motor stays off: there's nothing left in the loop to hold it on."); }
+    }, 700);
+  }
+  [["bStart", "start"], ["bStop", "stop"]].forEach(function (p) {
+    var el = $(p[0]);
+    el.addEventListener("click", function () { push(p[1]); });
+    el.addEventListener("keydown", function (e) { if (e.key === " " || e.key === "Enter") { e.preventDefault(); push(p[1]); } });
+  });
+  render();
+})();
+/* Toy CPU */
 (function () {
   var $ = function (id) { return document.getElementById(id); };
-  function upd() {
-    var p = +$("light").value / 100, v = p * 3.3, n = Math.round(v / 3.3 * 4095);
-    $("lightO").textContent = Math.round(p * 100) + "%";
-    $("vBar").setAttribute("width", (560 * p).toFixed(1)); $("nBar").setAttribute("width", (560 * n / 4095).toFixed(1));
-    $("oV").textContent = v.toFixed(2) + " V"; $("oN").textContent = n;
-    $("oB").textContent = n.toString(2).padStart(12, "0").replace(/(\d{4})(?=\d)/g, "$1 ");
-    $("oH").textContent = "0x" + n.toString(16).toUpperCase().padStart(3, "0");
+  var prog = [
+    { code: "0x11", text: "LED ON", say: "Turn the LED on.", run: function (s) { s.led = true; } },
+    { code: "0x21", text: "ADD 1 to COUNT", say: "Add 1 to COUNT.", run: function (s) { s.count = (s.count + 1) & 255; } },
+    { code: "0x10", text: "LED OFF", say: "Turn the LED off.", run: function (s) { s.led = false; } },
+    { code: "0x30", text: "JUMP to 0x00", say: "Set the program counter back to 0x00.", run: function (s) { s.pc = -1; } }
+  ];
+  var s, timer = null;
+  function hex(n) { return "0x" + n.toString(16).toUpperCase().padStart(2, "0"); }
+  function reset() { stopRun(); s = { pc: 0, phase: -1, count: 0, led: false }; render("Ready. Press Step."); }
+  function render(ir) {
+    $("rPC").textContent = hex(s.pc); $("rC").textContent = s.count;
+    $("rCb").textContent = s.count.toString(2).padStart(8, "0"); $("rCh").textContent = hex(s.count);
+    ["pF", "pD", "pE"].forEach(function (id, i) { $(id).classList.toggle("on", s.phase === i); });
+    Array.prototype.forEach.call($("cMem").rows, function (r, i) { r.classList.toggle("pc", i === s.pc && s.phase >= 0); });
+    $("cLed").classList.toggle("on", s.led); $("cLedT").textContent = s.led ? "on" : "off";
+    if (ir) $("rIR").textContent = ir;
   }
-  $("light").addEventListener("input", upd); upd();
-})();
-/* Sampling explorer */
-(function () {
-  var $ = function (id) { return document.getElementById(id); }, svg = $("sampSvg");
-  var X0 = 20, X1 = 580, Y0 = 20, Y1 = 190;
-  function sig(t) { return 0.5 + 0.32 * Math.sin(2 * Math.PI * 1.5 * t) + 0.14 * Math.sin(2 * Math.PI * 5 * t + 0.6); }
-  function X(t) { return X0 + t * (X1 - X0); } function Y(v) { return Y1 - v * (Y1 - Y0); }
-  function draw() {
-    var n = +$("rate").value, bits = +$("bits").value, levels = Math.pow(2, bits);
-    $("rateO").textContent = n; $("bitsO").textContent = bits + " bits";
-    var h = "";
-    if (levels <= 32) for (var k = 0; k <= levels; k++) { var gy = Y(k / levels); h += '<line class="grid" x1="' + X0 + '" x2="' + X1 + '" y1="' + gy.toFixed(1) + '" y2="' + gy.toFixed(1) + '"/>'; }
-    var d = ""; for (var i = 0; i <= 300; i++) { var t = i / 300; d += (i ? "L" : "M") + X(t).toFixed(1) + " " + Y(sig(t)).toFixed(1); }
-    h += '<path class="wave" d="' + d + '"/>';
-    var st = "", dots = "";
-    for (var j = 0; j < n; j++) {
-      var t0 = j / n, t1 = (j + 1) / n, q = Math.min(levels - 1, Math.floor(sig(t0) * levels)), qy = Y((q + 0.5) / levels);
-      st += (j ? "L" : "M") + X(t0).toFixed(1) + " " + qy.toFixed(1) + " L" + X(t1).toFixed(1) + " " + qy.toFixed(1);
-      dots += '<circle class="dot" cx="' + X(t0).toFixed(1) + '" cy="' + Y(sig(t0)).toFixed(1) + '" r="3.5"/>';
-    }
-    h += '<path class="stairs" d="' + st + '"/>' + dots;
-    h += '<text x="' + X0 + '" y="212" font-size="12" fill="var(--muted)">time →</text><text x="' + X1 + '" y="212" font-size="12" text-anchor="end" fill="var(--muted)">' + levels + " possible levels</text>";
-    svg.innerHTML = h;
-    var verdict = (n < 10 || bits < 4) ? "Rough copy: the computer would miss real detail." : (n >= 30 && bits >= 8) ? "Very close copy: almost nothing is lost." : "Usable copy: the shape is there, some detail is lost.";
-    $("sampSay").textContent = n + " samples, " + bits + " bits (" + levels + " levels). " + verdict;
+  function step() {
+    s.phase = (s.phase + 1) % 3; var ins = prog[s.pc];
+    if (s.phase === 0) render("Fetch: read the byte at " + hex(s.pc) + " → " + ins.code);
+    else if (s.phase === 1) render("Decode: " + ins.code + " means “" + ins.text + "”");
+    else { ins.run(s); s.pc = s.pc + 1; render("Execute: " + ins.say + " Program counter moves to " + hex(s.pc) + "."); }
   }
-  $("rate").addEventListener("input", draw); $("bits").addEventListener("input", draw); draw();
+  function stopRun() { if (timer) { clearInterval(timer); timer = null; } $("cRun").setAttribute("aria-pressed", "false"); $("cRun").textContent = "▶ Run"; }
+  $("cStep").addEventListener("click", function () { stopRun(); step(); });
+  $("cReset").addEventListener("click", reset);
+  $("cRun").addEventListener("click", function () {
+    if (timer) { stopRun(); return; }
+    $("cRun").setAttribute("aria-pressed", "true"); $("cRun").textContent = "⏸ Pause";
+    step(); timer = setInterval(step, 900);
+  });
+  reset();
 })();
 </script>
 <script src="../assets/quiz-data.js" defer></script>

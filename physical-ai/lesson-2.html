@@ -6,40 +6,6 @@
 <meta name="robots" content="noindex">
 <title>Physical AI Systems · Lesson 2 · DiGiKits Support Training</title>
 <link rel="stylesheet" href="../assets/style.css">
-<style>
-.gate-demo{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:14px 14px 10px;margin:18px 0}
-.gate-demo .gd-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px}
-.gate-demo .gd-title{font-weight:600}
-.gate-demo .gd-play{font:inherit;font-size:14px;padding:6px 14px;border-radius:999px;border:1.5px solid var(--line-strong);background:var(--surface);color:var(--ink);cursor:pointer}
-.gate-demo .gd-play[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
-.gate-demo svg{width:100%;height:auto;display:block}
-.gate-demo .sw{cursor:pointer}
-.gate-demo .sw:focus{outline:none}
-.gate-demo .sw:focus-visible rect{stroke:var(--accent);stroke-width:3}
-.gate-demo .sw rect{fill:var(--surface);stroke:var(--line-strong);stroke-width:1.5;transition:fill .2s}
-.gate-demo .sw text{fill:var(--ink);font-size:13px;font-weight:600}
-.gate-demo .sw.on rect{fill:var(--accent);stroke:var(--accent)}
-.gate-demo .sw.on text{fill:#fff}
-.gate-demo .w{fill:none;stroke:var(--line-strong);stroke-width:4;stroke-linecap:round;transition:stroke .2s}
-.gate-demo .w.on{stroke:var(--accent);stroke-dasharray:10 7;animation:flow .6s linear infinite}
-.gate-demo .body{fill:var(--violet-soft);stroke:var(--violet);stroke-width:2}
-.gate-demo .body-t{fill:var(--ink);font-size:15px;font-weight:700}
-.gate-demo .bub{fill:var(--surface);stroke:var(--violet);stroke-width:2}
-.gate-demo .lamp{fill:var(--surface);stroke:var(--line-strong);stroke-width:2;transition:fill .25s}
-.gate-demo .lamp.on{fill:#f5c84b;stroke:#d9a520;filter:drop-shadow(0 0 10px #f5c84b)}
-.gate-demo .out-t{fill:var(--muted);font-size:13px}
-.gate-demo .out-t.on{fill:var(--ink);font-weight:600}
-.gate-demo .fan{transform-box:fill-box;transform-origin:center}
-.gate-demo .fan.on{animation:spin .8s linear infinite}
-.gate-demo table{margin:6px 0 0;font-size:14px}
-.gate-demo td,.gate-demo th{text-align:center;padding:4px 10px}
-.gate-demo tr.row{cursor:pointer}
-.gate-demo tr.row.cur td{background:var(--accent-soft);font-weight:600}
-.gate-demo .gd-say{margin:8px 0 2px;color:var(--muted);font-size:14px;min-height:1.4em}
-@keyframes flow{to{stroke-dashoffset:-17}}
-@keyframes spin{to{transform:rotate(360deg)}}
-@media (prefers-reduced-motion: reduce){.gate-demo .w.on{animation:none;stroke-dasharray:none}.gate-demo .fan.on{animation:none}}
-</style>
 </head>
 <body>
 <header class="site"><div class="wrap">
@@ -47,93 +13,130 @@
 <nav><a href="../index.html">Plan</a><a href="../lessons.html">Lessons</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a><a href="../board.html">Board</a><a href="../search.html">Search</a></nav>
 </div></header>
 <main><div class="wrap">
-<p style="color:var(--muted);margin:0">Physical AI Systems · Lesson 2</p><h1>Logic gates: how switches make decisions</h1>
-<p class="lead">You know that a computer is made of on/off switches and that 0s and 1s are just high and low voltages. But how do switches <em>decide</em> anything? The answer is logic gates: switches wired together in simple patterns. Click the switches below and watch.</p>
-<div class="card"><p style="margin:0"><strong>Self-paced, so go easy on yourself.</strong> Play with every drawing on this page; you can't break anything. If something stays confusing, write it on the board below. Your coach goes through more examples with you in the live session.</p></div>
+<p style="color:var(--muted);margin:0">Physical AI Systems · Lesson 2</p><h1>Binary, hex and programming languages</h1>
+<p class="lead">In Lesson 1 you saw that, at the bottom, a computer is billions of switches going high and low. This lesson climbs the ladder from those switches up to the languages people actually write in, and shows you the two number systems, binary and hex, that you'll meet every day in DiGiKits support work.</p>
+<div class="card"><p style="margin:0"><strong>Self-paced, so go easy on yourself.</strong> This is a lot of new ideas at once, and it's normal to find it confusing the first time. Read it at your own pace, try the hands-on, and write what's unclear on the board below. Your coach goes through more examples with you in the live session.</p></div>
 <p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
 
-<h2 id="switches-first">Start with plain switches</h2>
-<p>Before chips existed, people built logic out of ordinary switches and relays in control panels. Two simple wiring patterns already make two decisions:</p>
-<figure class="fig"><svg class="d" viewBox="0 0 680 190" role="img" aria-label="Two switches in series light the lamp only if both are closed (AND). Two switches in parallel light it if either is closed (OR).">
-<g font-size="13.5" font-weight="600" text-anchor="middle"><text x="170" y="22">In series = AND</text><text x="510" y="22">In parallel = OR</text></g>
-<g fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round">
-<path d="M40 100 H80"/><circle cx="84" cy="100" r="4"/><path d="M88 100 L126 82"/><circle cx="130" cy="100" r="4"/>
-<path d="M134 100 H170"/><circle cx="174" cy="100" r="4"/><path d="M178 100 L216 82"/><circle cx="220" cy="100" r="4"/><path d="M224 100 H262"/>
-<path d="M380 100 H410 V70 H436"/><circle cx="440" cy="70" r="4"/><path d="M444 70 L482 52"/><circle cx="486" cy="70" r="4"/><path d="M490 70 H520 V100"/>
-<path d="M410 100 V130 H436"/><circle cx="440" cy="130" r="4"/><path d="M444 130 L482 112"/><circle cx="486" cy="130" r="4"/><path d="M490 130 H520 V100 H600"/>
+<h2 id="the-big-idea">The big idea: languages are for people</h2>
+<p>Every “computer language” was invented by people, for people. The hardware never reads Python or C. It only ever sees bits switching inside the chip. Everything above that is a ladder of translations, each rung made so that humans can think and work more easily.</p>
+<figure class="fig"><svg class="d" viewBox="0 0 680 400" role="img" aria-label="The ladder from human idea down to voltages: idea, AI prompt, high-level language, compiler or interpreter, assembly, machine code, voltages">
+<defs><marker id="l1a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
+<g font-size="13.5">
+<rect x="150" y="10" width="380" height="42" rx="8" class="b-v"/><text x="170" y="36" font-weight="600">Your idea</text><text x="510" y="36" text-anchor="end" class="q">“make the strip glow orange”</text>
+<rect x="150" y="62" width="380" height="42" rx="8" class="b-v"/><text x="170" y="88" font-weight="600">Plain English to an AI</text><text x="510" y="88" text-anchor="end" class="q">a prompt to Claude</text>
+<rect x="150" y="114" width="380" height="42" rx="8" class="b-a"/><text x="170" y="140" font-weight="600">High-level language</text><text x="510" y="140" text-anchor="end" class="q">Python, JavaScript</text>
+<rect x="150" y="166" width="380" height="42" rx="8" class="b-a"/><text x="170" y="192" font-weight="600">Lower-level language</text><text x="510" y="192" text-anchor="end" class="q">C, C++ (firmware)</text>
+<rect x="150" y="218" width="380" height="42" rx="8" class="b-w"/><text x="170" y="244" font-weight="600">Assembly</text><text x="510" y="244" text-anchor="end" class="q">one line per CPU step</text>
+<rect x="150" y="270" width="380" height="42" rx="8" class="b-w"/><text x="170" y="296" font-weight="600">Machine code</text><text x="510" y="296" text-anchor="end" class="q">bit patterns, shown as hex</text>
+<rect x="150" y="322" width="380" height="42" rx="8" class="b-g"/><text x="170" y="348" font-weight="600">Voltages switching</text><text x="510" y="348" text-anchor="end" class="q">the only thing the chip “sees”</text>
 </g>
-<circle cx="285" cy="100" r="22" class="b-w"/><text x="285" y="105" font-size="12.5" text-anchor="middle">lamp</text>
-<circle cx="622" cy="100" r="22" class="b-w"/><text x="622" y="105" font-size="12.5" text-anchor="middle">lamp</text>
-<g font-size="12.5" text-anchor="middle" class="q"><text x="107" y="128">A</text><text x="197" y="128">B</text><text x="463" y="58">A</text><text x="463" y="152">B</text>
-<text x="170" y="170">Current must pass A <tspan font-weight="600">and</tspan> B</text><text x="510" y="178">Current can pass A <tspan font-weight="600">or</tspan> B</text></g>
-</svg><figcaption>A chip does exactly this with tiny transistor switches instead of metal ones, billions of times over.</figcaption></figure>
+<line x1="110" y1="16" x2="110" y2="360" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l1a)"/>
+<text x="100" y="110" font-size="12.5" text-anchor="end" class="q">easy for</text><text x="100" y="126" font-size="12.5" text-anchor="end" class="q">people</text>
+<text x="100" y="300" font-size="12.5" text-anchor="end" class="q">exact for</text><text x="100" y="316" font-size="12.5" text-anchor="end" class="q">the chip</text>
+<text x="560" y="140" font-size="12.5" class="q">interpreter or</text><text x="560" y="156" font-size="12.5" class="q">compiler</text><text x="560" y="172" font-size="12.5" class="q">translates down</text>
+<text x="340" y="390" font-size="12.5" text-anchor="middle" class="q">Purple: human words · Blue: programming languages · Amber: the CPU's own code · Green: physics</text>
+</svg><figcaption>Each rung is translated into the rung below it, automatically, until only voltages are left.</figcaption></figure>
+<div class="card accent"><p style="margin:0"><strong>The newest rung: plain English.</strong> Until recently the top of the ladder for most people was a programming language. Now an AI like Claude can take plain English and write the Python or C for you. That's how DiGiKits builds software today. But the lower rungs don't disappear. When something breaks, a support person still has to read an error, a log line or a hex value from further down the ladder, and that's what this lesson prepares you for.</p></div>
 
-<h2 id="and">The AND gate</h2>
-<p>The lamp lights only when <strong>A and B</strong> are both on. Press <strong>Play</strong> to step through every combination, or click the switches yourself.</p>
-<div class="gate-demo" data-gate="and" data-title="AND: both must be on"></div>
+<h2 id="binary">Binary: counting with only 0 and 1</h2>
+<p>We count in <strong>decimal</strong> (base 10) because we have ten fingers: each place is worth ten times the place to its right (ones, tens, hundreds). <strong>Binary</strong> (base 2) works the same way, but each place is worth <strong>two</strong> times the place to its right.</p>
+<figure class="fig"><svg class="d" viewBox="0 0 680 170" role="img" aria-label="The byte 00101101 with place values 128 to 1; 32 plus 8 plus 4 plus 1 equals 45">
+<g font-size="12.5" text-anchor="middle" class="q"><text x="95" y="28">128</text><text x="165" y="28">64</text><text x="235" y="28">32</text><text x="305" y="28">16</text><text x="375" y="28">8</text><text x="445" y="28">4</text><text x="515" y="28">2</text><text x="585" y="28">1</text></g>
+<g><rect x="65" y="38" width="60" height="56" rx="8" class="b"/><rect x="135" y="38" width="60" height="56" rx="8" class="b"/><rect x="205" y="38" width="60" height="56" rx="8" class="b-g"/><rect x="275" y="38" width="60" height="56" rx="8" class="b"/><rect x="345" y="38" width="60" height="56" rx="8" class="b-g"/><rect x="415" y="38" width="60" height="56" rx="8" class="b-g"/><rect x="485" y="38" width="60" height="56" rx="8" class="b"/><rect x="555" y="38" width="60" height="56" rx="8" class="b-g"/></g>
+<g font-size="22" font-weight="600" text-anchor="middle"><text x="95" y="74">0</text><text x="165" y="74">0</text><text x="235" y="74">1</text><text x="305" y="74">0</text><text x="375" y="74">1</text><text x="445" y="74">1</text><text x="515" y="74">0</text><text x="585" y="74">1</text></g>
+<text x="340" y="126" font-size="15" text-anchor="middle" font-weight="600">32 + 8 + 4 + 1 = 45</text>
+<text x="340" y="154" font-size="12.5" text-anchor="middle" class="q">Add up the place values wherever there's a 1. Eight bits (one byte) can count from 0 to 255.</text>
+</svg><figcaption>The binary number 00101101 is 45 in decimal.</figcaption></figure>
+<p>Binary is perfect for the chip but hard for people: <code>11111111</code> is easy to misread, and a 32-bit number is a wall of 32 digits. So people invented a shorthand.</p>
 
-<h2 id="or">The OR gate</h2>
-<p>The lamp lights when <strong>A or B</strong> is on, or both.</p>
-<div class="gate-demo" data-gate="or" data-title="OR: either one is enough"></div>
+<h2 id="hex">Hex: a shorthand for binary</h2>
+<p><strong>Hexadecimal</strong>, or <strong>hex</strong> (base 16), uses sixteen digits: <code>0–9</code>, then <code>A B C D E F</code> for 10 to 15. The magic is that <strong>one hex digit is exactly four bits</strong>. So one byte is always exactly two hex digits, and you can convert in your head, four bits at a time.</p>
+<figure class="fig"><svg class="d" viewBox="0 0 680 210" role="img" aria-label="Splitting the byte 00101101 into two groups of four bits, 0010 and 1101, which become hex 2 and D, written 0x2D">
+<defs><marker id="l1b" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
+<rect x="150" y="16" width="170" height="50" rx="8" class="b-w"/><text x="235" y="48" font-size="20" font-weight="600" text-anchor="middle">0010</text>
+<rect x="360" y="16" width="170" height="50" rx="8" class="b-w"/><text x="445" y="48" font-size="20" font-weight="600" text-anchor="middle">1101</text>
+<text x="235" y="88" font-size="12.5" text-anchor="middle" class="q">0+0+2+0 = 2</text><text x="445" y="88" font-size="12.5" text-anchor="middle" class="q">8+4+0+1 = 13 = D</text>
+<line x1="235" y1="96" x2="235" y2="118" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l1b)"/><line x1="445" y1="96" x2="445" y2="118" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l1b)"/>
+<rect x="190" y="122" width="90" height="50" rx="8" class="b-a"/><text x="235" y="155" font-size="22" font-weight="600" text-anchor="middle">2</text>
+<rect x="400" y="122" width="90" height="50" rx="8" class="b-a"/><text x="445" y="155" font-size="22" font-weight="600" text-anchor="middle">D</text>
+<text x="340" y="154" font-size="16" text-anchor="middle" class="q">→  0x2D</text>
+<text x="340" y="198" font-size="12.5" text-anchor="middle" class="q">The “0x” in front just means “this is hex”. 0x2D = 45 = 00101101: three ways to write the same number.</text>
+</svg><figcaption>Split the byte in half; each half becomes one hex digit.</figcaption></figure>
+<div class="card accent"><p style="margin:0"><strong>Hex is binary in disguise.</strong> Behind the scenes, hex <em>is</em> binary: <code>0x2D</code> and <code>00101101</code> are exactly the same bits in the chip. Nothing is converted and nothing changes. We write it as hex only because two characters are easier for people to read and type than eight. It's one more layer made for humans. As you work your way towards Physical AI you'll meet many more layers like this, and the logic behind every one of them is simple: <strong>by the people, for the people.</strong></p></div>
 
-<h2 id="not">The NOT gate</h2>
-<p>NOT flips its input: on becomes off, off becomes on. The small circle on the drawing means “flip”.</p>
-<div class="gate-demo" data-gate="not" data-title="NOT: the opposite"></div>
+<div class="table-scroll"><table>
+<tr><th>Decimal</th><th>Binary</th><th>Hex</th><th>Decimal</th><th>Binary</th><th>Hex</th></tr>
+<tr><td>0</td><td><code>0000</code></td><td><code>0</code></td><td>8</td><td><code>1000</code></td><td><code>8</code></td></tr>
+<tr><td>1</td><td><code>0001</code></td><td><code>1</code></td><td>9</td><td><code>1001</code></td><td><code>9</code></td></tr>
+<tr><td>2</td><td><code>0010</code></td><td><code>2</code></td><td>10</td><td><code>1010</code></td><td><code>A</code></td></tr>
+<tr><td>3</td><td><code>0011</code></td><td><code>3</code></td><td>11</td><td><code>1011</code></td><td><code>B</code></td></tr>
+<tr><td>4</td><td><code>0100</code></td><td><code>4</code></td><td>12</td><td><code>1100</code></td><td><code>C</code></td></tr>
+<tr><td>5</td><td><code>0101</code></td><td><code>5</code></td><td>13</td><td><code>1101</code></td><td><code>D</code></td></tr>
+<tr><td>6</td><td><code>0110</code></td><td><code>6</code></td><td>14</td><td><code>1110</code></td><td><code>E</code></td></tr>
+<tr><td>7</td><td><code>0111</code></td><td><code>7</code></td><td>15</td><td><code>1111</code></td><td><code>F</code></td></tr>
+</table></div>
 
-<h2 id="truth-tables">Truth tables</h2>
-<p>The little table under each gate is called a <strong>truth table</strong>. It lists every possible input and the output you get. Engineers use truth tables to describe what a circuit must do before anyone builds it, and support people use them to check whether a circuit is doing what it should.</p>
+<h2 id="hex-at-work">Where you'll meet hex at DiGiKits</h2>
+<div class="table-scroll"><table>
+<tr><th>Where</th><th>Example</th><th>What it means</th></tr>
+<tr><td>LED colours</td><td><code>#FF8800</code></td><td>Three bytes: red FF (255), green 88 (136), blue 00 (0) = orange</td></tr>
+<tr><td>I²C sensor addresses</td><td><code>0x3C</code>, <code>0x76</code></td><td>The “house number” of a small display or sensor on the bus</td></tr>
+<tr><td>Network cards</td><td><code>d8:3a:dd:12:34:56</code></td><td>A MAC address: six bytes, each written as two hex digits</td></tr>
+<tr><td>Error codes and logs</td><td><code>0x80070005</code></td><td>Error numbers are often printed in hex; search for them as written</td></tr>
+<tr><td>Memory and files</td><td><code>xxd</code>, <code>hexdump</code></td><td>Tools that show a file's raw bytes in hex</td></tr>
+</table></div>
+<div class="card"><p style="margin:0"><strong>Support tip:</strong> many LED strips (like the WS2812 strip you'll use) expect colours in <strong>green, red, blue</strong> order, not red, green, blue. If a customer asks for red and gets green, the colour order setting is the first thing to check.</p></div>
 
-<h2 id="machine-rule">Gates at work: a real machine rule</h2>
-<p>Here's a rule you'd find on almost every DiGiKits machine or control panel:</p>
-<p style="font-size:1.05em"><strong>The motor may run if Start is pressed AND the guard is closed AND NOT the emergency stop.</strong></p>
-<p>That one sentence is three gates. Try to make the motor spin, then hit the E-stop.</p>
-<div class="gate-demo" data-gate="machine" data-title="Motor safety rule"></div>
-<div class="card accent"><p style="margin:0"><strong>Safety note for real machines:</strong> in a real control panel, the emergency stop also cuts power through its own hard-wired safety circuit, not only through software or a logic chip. Logic decides; the safety circuit makes sure. You'll learn more about this in <a href="../phase-2/day-14.html">Phase 2, Day 14</a>.</p></div>
-
-<h2 id="gates-to-computers">From gates to computers</h2>
-<p>AND, OR and NOT are enough to build anything a computer does. A few gates wired together can add two bits. A few more can remember a bit. Millions of them make a processor. It's the same idea as the layers in Lesson 1: simple pieces, stacked up, with each layer hiding the one below so people can think bigger.</p>
-<figure class="fig"><svg class="d" viewBox="0 0 680 120" role="img" aria-label="Switches build gates, gates build adders and memory, those build a processor, which runs your program and AI"><defs><marker id="l2a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
-<rect x="10" y="26" width="118" height="56" rx="8" class="b-g"/><text x="69" y="50" font-size="13.5" text-anchor="middle" font-weight="600">Switches</text><text x="69" y="67" font-size="12" text-anchor="middle" class="q">transistors</text>
-<rect x="146" y="26" width="118" height="56" rx="8" class="b-v"/><text x="205" y="50" font-size="13.5" text-anchor="middle" font-weight="600">Gates</text><text x="205" y="67" font-size="12" text-anchor="middle" class="q">AND, OR, NOT</text>
-<rect x="282" y="26" width="118" height="56" rx="8" class="b-w"/><text x="341" y="50" font-size="13.5" text-anchor="middle" font-weight="600">Building blocks</text><text x="341" y="67" font-size="12" text-anchor="middle" class="q">adders, memory</text>
-<rect x="418" y="26" width="118" height="56" rx="8" class="b-a"/><text x="477" y="50" font-size="13.5" text-anchor="middle" font-weight="600">Processor</text><text x="477" y="67" font-size="12" text-anchor="middle" class="q">runs machine code</text>
-<rect x="554" y="26" width="118" height="56" rx="8" class="b-v"/><text x="613" y="50" font-size="13.5" text-anchor="middle" font-weight="600">Programs, AI</text><text x="613" y="67" font-size="12" text-anchor="middle" class="q">by the people</text>
-<line x1="129" y1="54" x2="143" y2="54" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l2a)"/><line x1="265" y1="54" x2="279" y2="54" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l2a)"/><line x1="401" y1="54" x2="415" y2="54" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l2a)"/><line x1="537" y1="54" x2="551" y2="54" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l2a)"/>
-<text x="340" y="108" font-size="12.5" text-anchor="middle" class="q">Each layer is built from the one on its left, and hides it, so people can think bigger.</text>
-</svg><figcaption>From one switch to Claude: the same layers idea, all the way up.</figcaption></figure>
+<h2 id="same-job-four-ways">One job, four rungs</h2>
+<p>Here's the same job, “turn on the LED on pin 17,” written on different rungs of the ladder. Notice how each step down is longer and closer to the hardware.</p>
+<div class="table-scroll"><table>
+<tr><th>Rung</th><th>What it looks like</th><th>Who writes it</th></tr>
+<tr><td>Plain English</td><td><em>“Turn on the LED on pin 17.”</em></td><td>You, to Claude</td></tr>
+<tr><td>Python (on the Pi)</td><td><code>LED(17).on()</code></td><td>People or AI; run by the Python interpreter</td></tr>
+<tr><td>C (firmware on a microcontroller)</td><td><code>gpio_put(17, 1);</code></td><td>People or AI; turned into machine code by a compiler</td></tr>
+<tr><td>Assembly (simplified)</td><td><code>MOV r0, #1</code> … <code>STR r0, [r1]</code></td><td>Rarely written by hand now; produced by the compiler</td></tr>
+<tr><td>Machine code</td><td>bytes like <code>01 20 08 60</code> (illustration; real examples in the live session)</td><td>Never written by hand; this is what the CPU reads</td></tr>
+</table></div>
+<p>Two ways to go down the ladder:</p>
+<ul>
+<li><strong>Compiler</strong> (C, C++): translates the whole program into machine code <em>before</em> it runs. Fast, and the result runs only on the chip family it was built for.</li>
+<li><strong>Interpreter</strong> (Python): reads and runs your program line by line <em>while</em> it runs. Easier to change and test, a bit slower.</li>
+</ul>
 
 <h2 id="hands-on">Hands-on</h2>
-<h3 id="predict">1. Predict, then click</h3>
-<p>For each gate above, cover the truth table, say out loud what the lamp will do, then click to check. Do the motor rule the same way: which one switch always stops the motor?</p>
-<h3 id="hallway-light">2. Design a hallway light</h3>
-<p>Write the rule and the truth table for: <em>“The hallway light turns on if motion is detected OR the wall switch is on, but only when it's dark.”</em> Which gates did you use? Post your answer on the board below.</p>
-<h3 id="python-logic">3. Gates in Python</h3>
-<p>Python has the same three gates built in. On the Pi, type <code>python3</code> and try:</p>
-<pre><code>&gt;&gt;&gt; True and False
-False
-&gt;&gt;&gt; True or False
-True
-&gt;&gt;&gt; not True
-False
-&gt;&gt;&gt; start, guard, estop = True, True, False
-&gt;&gt;&gt; start and guard and not estop
-True</code></pre>
+<h3 id="convert-by-hand">1. Convert by hand</h3>
+<p>Without a computer: write 45, 100 and 255 in binary, then in hex. Then go the other way: what decimal numbers are <code>0x3C</code> and <code>0xFF</code>?</p>
+<h3 id="check-with-python">2. Check with Python</h3>
+<p>Open a terminal on the Pi, type <code>python3</code>, and try:</p>
+<pre><code>&gt;&gt;&gt; bin(45)
+'0b101101'
+&gt;&gt;&gt; hex(45)
+'0x2d'
+&gt;&gt;&gt; int('ff', 16)
+255
+&gt;&gt;&gt; int('00101101', 2)
+45</code></pre>
+<p>Type <code>exit()</code> to leave Python.</p>
+<h3 id="colour-detective">3. Colour detective</h3>
+<p>Search “colour picker”, pick any colour you like, and read its hex code (like <code>#1E90FF</code>). Split it into red, green and blue bytes and work out each one in decimal. Post your colour and the three numbers on the board below.</p>
 
 <h2 id="done-when">Done when</h2>
 <ul class="check">
-<li>I can explain AND and OR using switches in series and in parallel</li>
-<li>I can say what NOT does</li>
-<li>I can read a truth table</li>
-<li>I made the motor spin and stopped it with the E-stop</li>
-<li>I designed the hallway light and posted it on the board</li>
-<li>I tried the three gates in Python</li>
+<li>I can explain why programming languages exist (they're for people, not for the chip)</li>
+<li>I can name the rungs of the ladder from plain English down to voltages</li>
+<li>I converted 45, 100 and 255 to binary and hex by hand</li>
+<li>I checked my answers with Python</li>
+<li>I can read a hex colour like <code>#FF8800</code> as three bytes</li>
+<li>I can say the difference between a compiler and an interpreter</li>
+<li>I posted my colour detective result on the board</li>
 </ul>
 
-<div class="pager"><a href="lesson-1.html">← Lesson 1: Binary, hex and programming languages</a><a href="lesson-3.html">Lesson 3: Memory and the CPU →</a></div>
+<div class="pager"><a href="lesson-1.html">← Lesson 1: The real “language” computers use</a><a href="lesson-3.html">Lesson 3: Logic gates →</a></div>
 <p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
 <section class="board">
 <h2 id="how-did-it-feel">How did this lesson feel?</h2>
-<div class="card feel"><p><strong>Too much, just right, or too easy?</strong> Tell me in a line or two below, and ask anything that wasn't clear. For example: <em>“Lesson 2: just right. Hallway light = (motion OR switch) AND dark.”</em></p><p>Be honest. If a lesson is too much, we change the lesson, not you. Take your time; there is no rush.</p><p class="sign">Your coach</p></div>
+<div class="card feel"><p><strong>Too much, just right, or too easy?</strong> Tell me in a line or two below, and ask anything that wasn't clear. For example: <em>“Lesson 2: just right. My colour #1E90FF is 30, 144, 255.”</em></p><p>Be honest. If a lesson is too much, we change the lesson, not you. Take your time; there is no rush.</p><p class="sign">Your coach</p></div>
 <p class="quiet-note">Sign in with your GitHub account to post, or just tap a reaction. Posts are public, so never share passwords, keys, IP addresses or personal details.</p>
 <script src="https://giscus.app/client.js"
  data-repo="wdigi/tony" data-repo-id="R_kgDOV5dORw"
@@ -144,84 +147,6 @@ True</code></pre>
 </section>
 </div></main>
 <footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
-<script>
-/* Interactive logic gates: click a switch, or press Play to step through the truth table. */
-(function () {
-  var GATES = {
-    and: { inputs: ["A", "B"], f: function (v) { return v[0] && v[1]; }, out: "Lamp", word: "AND" },
-    or: { inputs: ["A", "B"], f: function (v) { return v[0] || v[1]; }, out: "Lamp", word: "OR" },
-    not: { inputs: ["A"], f: function (v) { return !v[0]; }, out: "Lamp", word: "NOT" },
-    machine: { inputs: ["Start", "Guard closed", "E-stop"], f: function (v) { return v[0] && v[1] && !v[2]; }, out: "Motor", word: "AND", invert: [2] }
-  };
-  var GX = 250, LAMP_X = 500;
-  function ys(n) { return n === 1 ? [90] : n === 2 ? [65, 115] : [48, 90, 132]; }
-  function body(type) {
-    var g = GX;
-    if (type === "and") return { d: "M" + g + " 40 H" + (g + 50) + " A50 50 0 0 1 " + (g + 50) + " 140 H" + g + " Z", out: g + 100, inEnd: g, tx: g + 42 };
-    if (type === "or") return { d: "M" + (g - 5) + " 40 Q" + (g + 40) + " 40 " + (g + 92) + " 90 Q" + (g + 40) + " 140 " + (g - 5) + " 140 Q" + (g + 20) + " 90 " + (g - 5) + " 40 Z", out: g + 92, inEnd: g + 12, tx: g + 40 };
-    if (type === "not") return { d: "M" + g + " 50 L" + (g + 80) + " 90 L" + g + " 130 Z", out: g + 96, inEnd: g, tx: g + 30, bubble: g + 88 };
-    return { d: "M" + g + " 26 H" + (g + 40) + " A64 64 0 0 1 " + (g + 40) + " 154 H" + g + " Z", out: g + 104, inEnd: g, tx: g + 46 };
-  }
-  function build(el) {
-    var type = el.getAttribute("data-gate"), G = GATES[type], n = G.inputs.length, Y = ys(n), b = body(type);
-    var state = G.inputs.map(function () { return false; });
-    var svg = '<svg viewBox="0 0 560 180" role="img" aria-label="Interactive ' + G.word + ' gate">';
-    Y.forEach(function (y, i) {
-      var inv = G.invert && G.invert.indexOf(i) >= 0, end = inv ? b.inEnd - 15 : b.inEnd;
-      svg += '<path class="w in" data-i="' + i + '" d="M164 ' + y + ' H' + end + '"/>';
-      if (inv) svg += '<circle class="bub" cx="' + (b.inEnd - 8) + '" cy="' + y + '" r="7"/>';
-    });
-    svg += '<path class="body" d="' + b.d + '"/><text class="body-t" x="' + b.tx + '" y="95" text-anchor="middle">' + G.word + '</text>';
-    if (b.bubble) svg += '<circle class="bub" cx="' + b.bubble + '" cy="90" r="8"/>';
-    svg += '<path class="w outw" d="M' + b.out + ' 90 H' + (LAMP_X - 26) + '"/>';
-    if (type === "machine") {
-      svg += '<circle class="lamp" cx="' + LAMP_X + '" cy="90" r="26"/><g class="fan"><path d="M' + LAMP_X + ' 90 L' + LAMP_X + ' 68 A10 10 0 0 1 ' + (LAMP_X + 10) + ' 84 Z M' + LAMP_X + ' 90 L' + (LAMP_X + 19) + ' 101 A10 10 0 0 1 ' + (LAMP_X + 2) + ' 108 Z M' + LAMP_X + ' 90 L' + (LAMP_X - 19) + ' 101 A10 10 0 0 1 ' + (LAMP_X - 14) + ' 83 Z" fill="var(--ink)"/></g>';
-    } else {
-      svg += '<circle class="lamp" cx="' + LAMP_X + '" cy="90" r="24"/>';
-    }
-    svg += '<text class="out-t" x="' + LAMP_X + '" y="140" text-anchor="middle">' + G.out + ' off</text>';
-    Y.forEach(function (y, i) {
-      svg += '<g class="sw" data-i="' + i + '" tabindex="0" role="switch" aria-checked="false" aria-label="' + G.inputs[i] + '"><rect x="10" y="' + (y - 17) + '" width="154" height="34" rx="17"/><text x="87" y="' + (y + 5) + '" text-anchor="middle">' + G.inputs[i] + ' · OFF</text></g>';
-    });
-    svg += "</svg>";
-    var rows = [], total = 1 << n;
-    for (var r = 0; r < total; r++) { var v = []; for (var k = 0; k < n; k++) v.push(!!(r >> (n - 1 - k) & 1)); rows.push(v); }
-    var tbl = '<div class="table-scroll"><table><tr>' + G.inputs.map(function (x) { return "<th>" + x + "</th>"; }).join("") + "<th>" + G.out + "</th></tr>";
-    rows.forEach(function (v, ri) { tbl += '<tr class="row" data-r="' + ri + '">' + v.map(function (x) { return "<td>" + (x ? 1 : 0) + "</td>"; }).join("") + "<td><strong>" + (G.f(v) ? 1 : 0) + "</strong></td></tr>"; });
-    tbl += "</table></div>";
-    el.innerHTML = '<div class="gd-head"><span class="gd-title">' + el.getAttribute("data-title") + '</span><button class="gd-play" type="button" aria-pressed="false">▶ Play</button></div>' + svg + '<p class="gd-say" aria-live="polite"></p>' + tbl;
-    var timer = null, step = 0, play = el.querySelector(".gd-play");
-    function render() {
-      var out = !!G.f(state);
-      el.querySelectorAll(".sw").forEach(function (s) { var i = +s.getAttribute("data-i"); s.classList.toggle("on", state[i]); s.setAttribute("aria-checked", state[i]); s.querySelector("text").textContent = G.inputs[i] + " · " + (state[i] ? "ON" : "OFF"); });
-      el.querySelectorAll(".w.in").forEach(function (w) { w.classList.toggle("on", state[+w.getAttribute("data-i")]); });
-      el.querySelector(".outw").classList.toggle("on", out);
-      el.querySelector(".lamp").classList.toggle("on", out && type !== "machine");
-      if (type === "machine") { el.querySelector(".lamp").classList.toggle("on", out); el.querySelector(".fan").classList.toggle("on", out); }
-      var t = el.querySelector(".out-t"); t.textContent = G.out + (out ? (type === "machine" ? " running" : " on") : (type === "machine" ? " stopped" : " off")); t.classList.toggle("on", out);
-      var idx = state.reduce(function (a, x) { return a * 2 + (x ? 1 : 0); }, 0);
-      el.querySelectorAll("tr.row").forEach(function (tr) { tr.classList.toggle("cur", +tr.getAttribute("data-r") === idx); });
-      el.querySelector(".gd-say").textContent = G.inputs.map(function (x, i) { return x + " " + (state[i] ? "on" : "off"); }).join(", ") + " → " + t.textContent.toLowerCase() + ".";
-    }
-    function stop() { if (timer) { clearInterval(timer); timer = null; play.setAttribute("aria-pressed", "false"); play.textContent = "▶ Play"; } }
-    function toggle(i) { stop(); state[i] = !state[i]; render(); }
-    el.querySelectorAll(".sw").forEach(function (s) {
-      var i = +s.getAttribute("data-i");
-      s.addEventListener("click", function () { toggle(i); });
-      s.addEventListener("keydown", function (e) { if (e.key === " " || e.key === "Enter") { e.preventDefault(); toggle(i); } });
-    });
-    el.querySelectorAll("tr.row").forEach(function (tr) { tr.addEventListener("click", function () { stop(); state = rows[+tr.getAttribute("data-r")].slice(); render(); }); });
-    play.addEventListener("click", function () {
-      if (timer) { stop(); return; }
-      play.setAttribute("aria-pressed", "true"); play.textContent = "⏸ Pause";
-      function tick() { state = rows[step % total].slice(); step++; render(); }
-      tick(); timer = setInterval(tick, 1400);
-    });
-    render();
-  }
-  document.querySelectorAll(".gate-demo").forEach(build);
-})();
-</script>
 <script src="../assets/quiz-data.js" defer></script>
 <script src="../assets/quiz.js" defer></script>
 <script src="../assets/progress-config.js" defer></script>

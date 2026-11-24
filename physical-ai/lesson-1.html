@@ -13,130 +13,104 @@
 <nav><a href="../index.html">Plan</a><a href="../lessons.html">Lessons</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a><a href="../board.html">Board</a><a href="../search.html">Search</a></nav>
 </div></header>
 <main><div class="wrap">
-<p style="color:var(--muted);margin:0">Physical AI Systems · Lesson 1</p><h1>Binary, hex and programming languages</h1>
-<p class="lead">In Lesson 0 you saw that, at the bottom, a computer is billions of switches going high and low. This lesson climbs the ladder from those switches up to the languages people actually write in, and shows you the two number systems, binary and hex, that you'll meet every day in DiGiKits support work.</p>
-<div class="card"><p style="margin:0"><strong>Self-paced, so go easy on yourself.</strong> This is a lot of new ideas at once, and it's normal to find it confusing the first time. Read it at your own pace, try the hands-on, and write what's unclear on the board below. Your coach goes through more examples with you in the live session.</p></div>
+<p style="color:var(--muted);margin:0">Physical AI Systems · Lesson 1</p><h1>The real “language” computers use</h1>
+<p class="lead">Every computer, every Raspberry Pi, every LED controller and every AI (Claude included) comes down to the same simple thing: tiny switches that are either on or off. This lesson shows how electricity becomes 0s and 1s, and how 0s and 1s become the things a Physical AI system senses and does.</p>
+<div class="card"><p style="margin:0"><strong>Self-paced, so go easy on yourself.</strong> New ideas can feel strange at first, and it's normal to find it confusing the first time. Read it at your own pace, try the hands-on, and write what's unclear on the board below. Your coach goes through more examples with you in the live session.</p></div>
 <p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
 
-<h2 id="the-big-idea">The big idea: languages are for people</h2>
-<p>Every “computer language” was invented by people, for people. The hardware never reads Python or C. It only ever sees bits switching inside the chip. Everything above that is a ladder of translations, each rung made so that humans can think and work more easily.</p>
-<figure class="fig"><svg class="d" viewBox="0 0 680 400" role="img" aria-label="The ladder from human idea down to voltages: idea, AI prompt, high-level language, compiler or interpreter, assembly, machine code, voltages">
-<defs><marker id="l1a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
-<g font-size="13.5">
-<rect x="150" y="10" width="380" height="42" rx="8" class="b-v"/><text x="170" y="36" font-weight="600">Your idea</text><text x="510" y="36" text-anchor="end" class="q">“make the strip glow orange”</text>
-<rect x="150" y="62" width="380" height="42" rx="8" class="b-v"/><text x="170" y="88" font-weight="600">Plain English to an AI</text><text x="510" y="88" text-anchor="end" class="q">a prompt to Claude</text>
-<rect x="150" y="114" width="380" height="42" rx="8" class="b-a"/><text x="170" y="140" font-weight="600">High-level language</text><text x="510" y="140" text-anchor="end" class="q">Python, JavaScript</text>
-<rect x="150" y="166" width="380" height="42" rx="8" class="b-a"/><text x="170" y="192" font-weight="600">Lower-level language</text><text x="510" y="192" text-anchor="end" class="q">C, C++ (firmware)</text>
-<rect x="150" y="218" width="380" height="42" rx="8" class="b-w"/><text x="170" y="244" font-weight="600">Assembly</text><text x="510" y="244" text-anchor="end" class="q">one line per CPU step</text>
-<rect x="150" y="270" width="380" height="42" rx="8" class="b-w"/><text x="170" y="296" font-weight="600">Machine code</text><text x="510" y="296" text-anchor="end" class="q">bit patterns, shown as hex</text>
-<rect x="150" y="322" width="380" height="42" rx="8" class="b-g"/><text x="170" y="348" font-weight="600">Voltages switching</text><text x="510" y="348" text-anchor="end" class="q">the only thing the chip “sees”</text>
-</g>
-<line x1="110" y1="16" x2="110" y2="360" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l1a)"/>
-<text x="100" y="110" font-size="12.5" text-anchor="end" class="q">easy for</text><text x="100" y="126" font-size="12.5" text-anchor="end" class="q">people</text>
-<text x="100" y="300" font-size="12.5" text-anchor="end" class="q">exact for</text><text x="100" y="316" font-size="12.5" text-anchor="end" class="q">the chip</text>
-<text x="560" y="140" font-size="12.5" class="q">interpreter or</text><text x="560" y="156" font-size="12.5" class="q">compiler</text><text x="560" y="172" font-size="12.5" class="q">translates down</text>
-<text x="340" y="390" font-size="12.5" text-anchor="middle" class="q">Purple: human words · Blue: programming languages · Amber: the CPU's own code · Green: physics</text>
-</svg><figcaption>Each rung is translated into the rung below it, automatically, until only voltages are left.</figcaption></figure>
-<div class="card accent"><p style="margin:0"><strong>The newest rung: plain English.</strong> Until recently the top of the ladder for most people was a programming language. Now an AI like Claude can take plain English and write the Python or C for you. That's how DiGiKits builds software today. But the lower rungs don't disappear. When something breaks, a support person still has to read an error, a log line or a hex value from further down the ladder, and that's what this lesson prepares you for.</p></div>
-
-<h2 id="binary">Binary: counting with only 0 and 1</h2>
-<p>We count in <strong>decimal</strong> (base 10) because we have ten fingers: each place is worth ten times the place to its right (ones, tens, hundreds). <strong>Binary</strong> (base 2) works the same way, but each place is worth <strong>two</strong> times the place to its right.</p>
-<figure class="fig"><svg class="d" viewBox="0 0 680 170" role="img" aria-label="The byte 00101101 with place values 128 to 1; 32 plus 8 plus 4 plus 1 equals 45">
-<g font-size="12.5" text-anchor="middle" class="q"><text x="95" y="28">128</text><text x="165" y="28">64</text><text x="235" y="28">32</text><text x="305" y="28">16</text><text x="375" y="28">8</text><text x="445" y="28">4</text><text x="515" y="28">2</text><text x="585" y="28">1</text></g>
-<g><rect x="65" y="38" width="60" height="56" rx="8" class="b"/><rect x="135" y="38" width="60" height="56" rx="8" class="b"/><rect x="205" y="38" width="60" height="56" rx="8" class="b-g"/><rect x="275" y="38" width="60" height="56" rx="8" class="b"/><rect x="345" y="38" width="60" height="56" rx="8" class="b-g"/><rect x="415" y="38" width="60" height="56" rx="8" class="b-g"/><rect x="485" y="38" width="60" height="56" rx="8" class="b"/><rect x="555" y="38" width="60" height="56" rx="8" class="b-g"/></g>
-<g font-size="22" font-weight="600" text-anchor="middle"><text x="95" y="74">0</text><text x="165" y="74">0</text><text x="235" y="74">1</text><text x="305" y="74">0</text><text x="375" y="74">1</text><text x="445" y="74">1</text><text x="515" y="74">0</text><text x="585" y="74">1</text></g>
-<text x="340" y="126" font-size="15" text-anchor="middle" font-weight="600">32 + 8 + 4 + 1 = 45</text>
-<text x="340" y="154" font-size="12.5" text-anchor="middle" class="q">Add up the place values wherever there's a 1. Eight bits (one byte) can count from 0 to 255.</text>
-</svg><figcaption>The binary number 00101101 is 45 in decimal.</figcaption></figure>
-<p>Binary is perfect for the chip but hard for people: <code>11111111</code> is easy to misread, and a 32-bit number is a wall of 32 digits. So people invented a shorthand.</p>
-
-<h2 id="hex">Hex: a shorthand for binary</h2>
-<p><strong>Hexadecimal</strong>, or <strong>hex</strong> (base 16), uses sixteen digits: <code>0–9</code>, then <code>A B C D E F</code> for 10 to 15. The magic is that <strong>one hex digit is exactly four bits</strong>. So one byte is always exactly two hex digits, and you can convert in your head, four bits at a time.</p>
-<figure class="fig"><svg class="d" viewBox="0 0 680 210" role="img" aria-label="Splitting the byte 00101101 into two groups of four bits, 0010 and 1101, which become hex 2 and D, written 0x2D">
-<defs><marker id="l1b" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
-<rect x="150" y="16" width="170" height="50" rx="8" class="b-w"/><text x="235" y="48" font-size="20" font-weight="600" text-anchor="middle">0010</text>
-<rect x="360" y="16" width="170" height="50" rx="8" class="b-w"/><text x="445" y="48" font-size="20" font-weight="600" text-anchor="middle">1101</text>
-<text x="235" y="88" font-size="12.5" text-anchor="middle" class="q">0+0+2+0 = 2</text><text x="445" y="88" font-size="12.5" text-anchor="middle" class="q">8+4+0+1 = 13 = D</text>
-<line x1="235" y1="96" x2="235" y2="118" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l1b)"/><line x1="445" y1="96" x2="445" y2="118" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l1b)"/>
-<rect x="190" y="122" width="90" height="50" rx="8" class="b-a"/><text x="235" y="155" font-size="22" font-weight="600" text-anchor="middle">2</text>
-<rect x="400" y="122" width="90" height="50" rx="8" class="b-a"/><text x="445" y="155" font-size="22" font-weight="600" text-anchor="middle">D</text>
-<text x="340" y="154" font-size="16" text-anchor="middle" class="q">→  0x2D</text>
-<text x="340" y="198" font-size="12.5" text-anchor="middle" class="q">The “0x” in front just means “this is hex”. 0x2D = 45 = 00101101: three ways to write the same number.</text>
-</svg><figcaption>Split the byte in half; each half becomes one hex digit.</figcaption></figure>
-<div class="card accent"><p style="margin:0"><strong>Hex is binary in disguise.</strong> Behind the scenes, hex <em>is</em> binary: <code>0x2D</code> and <code>00101101</code> are exactly the same bits in the chip. Nothing is converted and nothing changes. We write it as hex only because two characters are easier for people to read and type than eight. It's one more layer made for humans. As you work your way towards Physical AI you'll meet many more layers like this, and the logic behind every one of them is simple: <strong>by the people, for the people.</strong></p></div>
-
-<div class="table-scroll"><table>
-<tr><th>Decimal</th><th>Binary</th><th>Hex</th><th>Decimal</th><th>Binary</th><th>Hex</th></tr>
-<tr><td>0</td><td><code>0000</code></td><td><code>0</code></td><td>8</td><td><code>1000</code></td><td><code>8</code></td></tr>
-<tr><td>1</td><td><code>0001</code></td><td><code>1</code></td><td>9</td><td><code>1001</code></td><td><code>9</code></td></tr>
-<tr><td>2</td><td><code>0010</code></td><td><code>2</code></td><td>10</td><td><code>1010</code></td><td><code>A</code></td></tr>
-<tr><td>3</td><td><code>0011</code></td><td><code>3</code></td><td>11</td><td><code>1011</code></td><td><code>B</code></td></tr>
-<tr><td>4</td><td><code>0100</code></td><td><code>4</code></td><td>12</td><td><code>1100</code></td><td><code>C</code></td></tr>
-<tr><td>5</td><td><code>0101</code></td><td><code>5</code></td><td>13</td><td><code>1101</code></td><td><code>D</code></td></tr>
-<tr><td>6</td><td><code>0110</code></td><td><code>6</code></td><td>14</td><td><code>1110</code></td><td><code>E</code></td></tr>
-<tr><td>7</td><td><code>0111</code></td><td><code>7</code></td><td>15</td><td><code>1111</code></td><td><code>F</code></td></tr>
-</table></div>
-
-<h2 id="hex-at-work">Where you'll meet hex at DiGiKits</h2>
-<div class="table-scroll"><table>
-<tr><th>Where</th><th>Example</th><th>What it means</th></tr>
-<tr><td>LED colours</td><td><code>#FF8800</code></td><td>Three bytes: red FF (255), green 88 (136), blue 00 (0) = orange</td></tr>
-<tr><td>I²C sensor addresses</td><td><code>0x3C</code>, <code>0x76</code></td><td>The “house number” of a small display or sensor on the bus</td></tr>
-<tr><td>Network cards</td><td><code>d8:3a:dd:12:34:56</code></td><td>A MAC address: six bytes, each written as two hex digits</td></tr>
-<tr><td>Error codes and logs</td><td><code>0x80070005</code></td><td>Error numbers are often printed in hex; search for them as written</td></tr>
-<tr><td>Memory and files</td><td><code>xxd</code>, <code>hexdump</code></td><td>Tools that show a file's raw bytes in hex</td></tr>
-</table></div>
-<div class="card"><p style="margin:0"><strong>Support tip:</strong> many LED strips (like the WS2812 strip you'll use) expect colours in <strong>green, red, blue</strong> order, not red, green, blue. If a customer asks for red and gets green, the colour order setting is the first thing to check.</p></div>
-
-<h2 id="same-job-four-ways">One job, four rungs</h2>
-<p>Here's the same job, “turn on the LED on pin 17,” written on different rungs of the ladder. Notice how each step down is longer and closer to the hardware.</p>
-<div class="table-scroll"><table>
-<tr><th>Rung</th><th>What it looks like</th><th>Who writes it</th></tr>
-<tr><td>Plain English</td><td><em>“Turn on the LED on pin 17.”</em></td><td>You, to Claude</td></tr>
-<tr><td>Python (on the Pi)</td><td><code>LED(17).on()</code></td><td>People or AI; run by the Python interpreter</td></tr>
-<tr><td>C (firmware on a microcontroller)</td><td><code>gpio_put(17, 1);</code></td><td>People or AI; turned into machine code by a compiler</td></tr>
-<tr><td>Assembly (simplified)</td><td><code>MOV r0, #1</code> … <code>STR r0, [r1]</code></td><td>Rarely written by hand now; produced by the compiler</td></tr>
-<tr><td>Machine code</td><td>bytes like <code>01 20 08 60</code> (illustration; real examples in the live session)</td><td>Never written by hand; this is what the CPU reads</td></tr>
-</table></div>
-<p>Two ways to go down the ladder:</p>
+<h2 id="medium-and-message">Electricity is the medium, binary is the code</h2>
+<p>People often say “computers think in electrical pulses” or “computers speak binary.” Both are half true, and the two halves fit together:</p>
 <ul>
-<li><strong>Compiler</strong> (C, C++): translates the whole program into machine code <em>before</em> it runs. Fast, and the result runs only on the chip family it was built for.</li>
-<li><strong>Interpreter</strong> (Python): reads and runs your program line by line <em>while</em> it runs. Easier to change and test, a bit slower.</li>
+<li><strong>Electricity is the medium.</strong> Inside the chip, data is a voltage on a wire: high or low. The voltage is the physical thing you could measure with a meter.</li>
+<li><strong>Binary is the code.</strong> We agree that a high voltage means <strong>1</strong> and a low voltage means <strong>0</strong>. Each 0 or 1 is called a <strong>bit</strong>; eight bits make a <strong>byte</strong>.</li>
 </ul>
+<p>So the medium is electricity, and the information it carries is written in binary. Outside the chip, the same bits can travel in other media too: as light in an optical fibre, as radio waves in Wi-Fi, or as tiny magnetic spots on an old hard drive.</p>
+
+<figure class="fig"><svg class="d" viewBox="0 0 680 210" role="img" aria-label="A digital signal over time: high voltage means 1, low voltage means 0, with a grey zone between">
+<rect x="70" y="40" width="590" height="34" class="b-g" rx="4"/><text x="60" y="62" font-size="12.5" text-anchor="end" class="q">high = 1</text>
+<rect x="70" y="84" width="590" height="34" class="b-q" rx="4"/><text x="60" y="106" font-size="12.5" text-anchor="end" class="q">grey zone</text>
+<rect x="70" y="128" width="590" height="34" class="b-v" rx="4"/><text x="60" y="150" font-size="12.5" text-anchor="end" class="q">low = 0</text>
+<path d="M80 145 H150 V57 H290 V145 H360 V57 H430 V145 H570 V57 H650" fill="none" stroke="var(--ink)" stroke-width="2.5"/>
+<g font-size="14" font-weight="600" text-anchor="middle"><text x="115" y="190">0</text><text x="185" y="190">1</text><text x="255" y="190">1</text><text x="325" y="190">0</text><text x="395" y="190">1</text><text x="465" y="190">0</text><text x="535" y="190">0</text><text x="610" y="190">1</text></g>
+<g stroke="var(--line-strong)" stroke-dasharray="3 4"><line x1="150" y1="30" x2="150" y2="172"/><line x1="220" y1="30" x2="220" y2="172"/><line x1="290" y1="30" x2="290" y2="172"/><line x1="360" y1="30" x2="360" y2="172"/><line x1="430" y1="30" x2="430" y2="172"/><line x1="500" y1="30" x2="500" y2="172"/><line x1="570" y1="30" x2="570" y2="172"/></g>
+<text x="365" y="22" font-size="12.5" text-anchor="middle" class="q">time → (the dashed lines are clock ticks; the chip reads the wire once per tick)</text>
+</svg><figcaption>A wire is never exactly 0 V or exactly 3.3 V. Anything near the top counts as 1, anything near the bottom counts as 0, and the grey zone between is avoided.</figcaption></figure>
+
+<h2 id="why-two">Why only two states?</h2>
+<p>A transistor works best as a switch: fully on or fully off. Using just two states has big advantages:</p>
+<ul>
+<li><strong>Noise doesn't matter much.</strong> A signal can sag or wobble a little and still clearly read as high or low. With ten levels (for decimal digits) a small wobble would turn a 6 into a 7.</li>
+<li><strong>It's electrically simple and reliable.</strong> On/off switches are easy to build, tiny, and use little power.</li>
+<li><strong>It scales.</strong> A modern chip holds billions of transistors switching billions of times per second.</li>
+</ul>
+<p>Everything else, like numbers, letters, colours, sound and pictures, must be <strong>encoded</strong> into binary before the hardware can work with it.</p>
+
+<h2 id="layers">From a letter to a voltage</h2>
+<p>Here is what happens to the letter <strong>A</strong> when you type it:</p>
+<figure class="fig"><svg class="d" viewBox="0 0 680 140" role="img" aria-label="Letter A becomes the number 65, then the bits 01000001, then eight voltages"><defs><marker id="l0a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
+<rect x="14" y="24" width="140" height="62" rx="8" class="b-v"/><text x="84" y="52" font-size="22" text-anchor="middle" font-weight="600">A</text><text x="84" y="74" font-size="12.5" text-anchor="middle" class="q">what you see</text>
+<rect x="182" y="24" width="140" height="62" rx="8" class="b-a"/><text x="252" y="52" font-size="20" text-anchor="middle" font-weight="600">65</text><text x="252" y="74" font-size="12.5" text-anchor="middle" class="q">its code number</text>
+<rect x="350" y="24" width="150" height="62" rx="8" class="b-w"/><text x="425" y="52" font-size="16" text-anchor="middle" font-weight="600">01000001</text><text x="425" y="74" font-size="12.5" text-anchor="middle" class="q">one byte, 8 bits</text>
+<rect x="528" y="24" width="140" height="62" rx="8" class="b-g"/><path d="M542 60 H554 V36 H566 V60 H626 V36 H638 V60 H652" fill="none" stroke="var(--ink)" stroke-width="2"/><text x="598" y="80" font-size="12.5" text-anchor="middle" class="q">low/high voltages</text>
+<line x1="155" y1="55" x2="179" y2="55" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l0a)"/><line x1="323" y1="55" x2="347" y2="55" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l0a)"/><line x1="501" y1="55" x2="525" y2="55" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l0a)"/>
+<text x="340" y="112" font-size="12.5" text-anchor="middle" class="q">The code number comes from an agreed table (ASCII / Unicode).</text><text x="340" y="130" font-size="12.5" text-anchor="middle" class="q">Every computer uses the same table, so an “A” stays an “A”.</text>
+</svg><figcaption>Letters become numbers, numbers become bits, bits become voltages.</figcaption></figure>
+
+<div class="card accent"><p style="margin:0"><strong>Binary is the alphabet, not the whole language.</strong> The 0s and 1s are like letters. The real “language” a processor understands is its <strong>machine code</strong>: a fixed set of instructions (add these, compare those, jump there), each one written as a pattern of bits. A Raspberry Pi's ARM processor and a laptop's Intel processor use different machine codes, which is why a program built for one won't run on the other without being rebuilt.</p></div>
+
+<h2 id="physical-ai-loop">How it works in a Physical AI system</h2>
+<p>The real world is mostly <strong>analog</strong>: temperature, light, sound and position change smoothly, not in steps. A Physical AI system has to cross the border between the analog world and the digital computer twice, once coming in and once going out.</p>
+<figure class="fig"><svg class="d" viewBox="0 0 680 190" role="img" aria-label="Sense, convert to digital, process, convert back, act: the Physical AI loop"><defs><marker id="l0b" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
+<rect x="10" y="30" width="118" height="70" rx="8" class="b-v"/><text x="69" y="56" font-size="13.5" text-anchor="middle" font-weight="600">1 · Sense</text><text x="69" y="74" font-size="12" text-anchor="middle" class="q">sensor, mic,</text><text x="69" y="89" font-size="12" text-anchor="middle" class="q">camera</text>
+<rect x="146" y="30" width="118" height="70" rx="8" class="b-w"/><text x="205" y="56" font-size="13.5" text-anchor="middle" font-weight="600">2 · Convert</text><text x="205" y="74" font-size="12" text-anchor="middle" class="q">ADC: analog</text><text x="205" y="89" font-size="12" text-anchor="middle" class="q">→ binary</text>
+<rect x="282" y="30" width="118" height="70" rx="8" class="b-a"/><text x="341" y="56" font-size="13.5" text-anchor="middle" font-weight="600">3 · Process</text><text x="341" y="74" font-size="12" text-anchor="middle" class="q">CPU / AI works</text><text x="341" y="89" font-size="12" text-anchor="middle" class="q">on the bits</text>
+<rect x="418" y="30" width="118" height="70" rx="8" class="b-w"/><text x="477" y="56" font-size="13.5" text-anchor="middle" font-weight="600">4 · Convert</text><text x="477" y="74" font-size="12" text-anchor="middle" class="q">DAC or PWM:</text><text x="477" y="89" font-size="12" text-anchor="middle" class="q">binary → power</text>
+<rect x="554" y="30" width="118" height="70" rx="8" class="b-g"/><text x="613" y="56" font-size="13.5" text-anchor="middle" font-weight="600">5 · Act</text><text x="613" y="74" font-size="12" text-anchor="middle" class="q">LED, motor,</text><text x="613" y="89" font-size="12" text-anchor="middle" class="q">speaker, screen</text>
+<line x1="129" y1="65" x2="143" y2="65" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l0b)"/><line x1="265" y1="65" x2="279" y2="65" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l0b)"/><line x1="401" y1="65" x2="415" y2="65" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l0b)"/><line x1="537" y1="65" x2="551" y2="65" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l0b)"/>
+<path d="M613 101 V140 H69 V104" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#l0b)"/>
+<text x="341" y="160" font-size="12.5" text-anchor="middle" class="q">The action changes the world, the sensor notices, and the loop runs again.</text>
+<text x="341" y="180" font-size="12.5" text-anchor="middle" class="q">Purple and green are the analog world · amber is the border · blue is pure binary</text>
+</svg><figcaption>Sense, convert, process, convert back, act. That loop is what “Physical AI” means at DiGiKits.</figcaption></figure>
+<ol>
+<li><strong>Sense.</strong> A sensor such as a microphone, thermometer or light sensor produces an analog voltage that rises and falls with the real world. (A keyboard or mouse is different: it already sends digital data over USB or Bluetooth.)</li>
+<li><strong>Convert in.</strong> An <strong>analog-to-digital converter (ADC)</strong> measures that voltage many times per second and turns each measurement into a binary number.</li>
+<li><strong>Process.</strong> The processor's logic gates work on those binary numbers, all carried as high and low voltages through the circuit. This is where a program, or an AI, decides what to do.</li>
+<li><strong>Convert out.</strong> A <strong>digital-to-analog converter (DAC)</strong>, or a fast on/off trick called <strong>PWM</strong>, turns binary back into something the world can feel: a sound wave, a motor speed, an LED brightness.</li>
+<li><strong>Act.</strong> The speaker plays, the motor turns, the LED glows. You'll do exactly this with the LED strip in <a href="../phase-1/day-8.html">Phase 1, Day 8</a>.</li>
+</ol>
 
 <h2 id="hands-on">Hands-on</h2>
-<h3 id="convert-by-hand">1. Convert by hand</h3>
-<p>Without a computer: write 45, 100 and 255 in binary, then in hex. Then go the other way: what decimal numbers are <code>0x3C</code> and <code>0xFF</code>?</p>
-<h3 id="check-with-python">2. Check with Python</h3>
-<p>Open a terminal on the Pi, type <code>python3</code>, and try:</p>
-<pre><code>&gt;&gt;&gt; bin(45)
-'0b101101'
-&gt;&gt;&gt; hex(45)
-'0x2d'
-&gt;&gt;&gt; int('ff', 16)
-255
-&gt;&gt;&gt; int('00101101', 2)
-45</code></pre>
-<p>Type <code>exit()</code> to leave Python.</p>
-<h3 id="colour-detective">3. Colour detective</h3>
-<p>Search “colour picker”, pick any colour you like, and read its hex code (like <code>#1E90FF</code>). Split it into red, green and blue bytes and work out each one in decimal. Post your colour and the three numbers on the board below.</p>
+<h3 id="count-on-fingers">1. Count to 31 on one hand</h3>
+<p>Each finger is a bit: up = 1, down = 0. Thumb is worth 1, index 2, middle 4, ring 8, little finger 16. Show 5 (thumb + middle), then 19, then 31. Two hands go up to 1023.</p>
+<h3 id="your-initial">2. Your initial in binary</h3>
+<p>Look up your first initial in an ASCII table (search “ASCII table”). Write its code number, then its 8 bits. Check yourself on the Pi or any Linux terminal:</p>
+<pre><code>echo -n A | xxd -b      # shows 01000001
+printf '%d\n' "'A"       # shows 65</code></pre>
+<h3 id="spot-the-border">3. Spot the border</h3>
+<p>Pick three gadgets at home (a phone, a fridge, a car, a smart speaker…). For each, name one thing it senses, where it converts analog to digital, and one thing it does in the real world. Post one of them on the board below.</p>
 
 <h2 id="done-when">Done when</h2>
 <ul class="check">
-<li>I can explain why programming languages exist (they're for people, not for the chip)</li>
-<li>I can name the rungs of the ladder from plain English down to voltages</li>
-<li>I converted 45, 100 and 255 to binary and hex by hand</li>
-<li>I checked my answers with Python</li>
-<li>I can read a hex colour like <code>#FF8800</code> as three bytes</li>
-<li>I can say the difference between a compiler and an interpreter</li>
-<li>I posted my colour detective result on the board</li>
+<li>I can explain in one sentence the difference between the medium (voltage) and the code (binary)</li>
+<li>I can say why computers use two states instead of ten</li>
+<li>I counted to 31 on one hand</li>
+<li>I wrote my initial in binary and checked it in the terminal</li>
+<li>I can draw the five-step Physical AI loop from memory</li>
+<li>I posted one “spot the border” gadget on the board</li>
 </ul>
 
-<div class="pager"><a href="lesson-0.html">← Lesson 0: How it all began</a><a href="lesson-2.html">Lesson 2: Logic gates →</a></div>
+<h2 id="further-reading">Further reading</h2>
+<ul>
+<li><a href="https://nondevelopers.com/computers-understand-0-1/">How computers understand 0 and 1</a> (Non-Developers)</li>
+<li><a href="https://dev.to/kathirvel-s/how-computers-actually-run-using-0-and-1-binary-explained-simply-31a6">How computers actually run using 0 and 1</a> (DEV Community)</li>
+<li><a href="https://www.geeksforgeeks.org/computer-organization-architecture/what-is-binary-code/">What is binary code?</a> (GeeksForGeeks)</li>
+</ul>
+
+<div class="pager"><a href="lesson-0.html">← Lesson 0: How it all began</a><a href="lesson-2.html">Lesson 2: Binary, hex and programming languages →</a></div>
 <p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
 <section class="board">
 <h2 id="how-did-it-feel">How did this lesson feel?</h2>
-<div class="card feel"><p><strong>Too much, just right, or too easy?</strong> Tell me in a line or two below, and ask anything that wasn't clear. For example: <em>“Lesson 1: just right. My colour #1E90FF is 30, 144, 255.”</em></p><p>Be honest. If a lesson is too much, we change the lesson, not you. Take your time; there is no rush.</p><p class="sign">Your coach</p></div>
+<div class="card feel"><p><strong>Too much, just right, or too easy?</strong> Tell me in a line or two below, and ask anything that wasn't clear. For example: <em>“Lesson 1: just right. My initial T is 01010100.”</em></p><p>Be honest. If a lesson is too much, we change the lesson, not you. Take your time; there is no rush.</p><p class="sign">Your coach</p></div>
 <p class="quiet-note">Sign in with your GitHub account to post, or just tap a reaction. Posts are public, so never share passwords, keys, IP addresses or personal details.</p>
 <script src="https://giscus.app/client.js"
  data-repo="wdigi/tony" data-repo-id="R_kgDOV5dORw"

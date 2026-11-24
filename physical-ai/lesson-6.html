@@ -8,24 +8,25 @@
 <link rel="stylesheet" href="../assets/style.css">
 <style>
 .demo{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:14px;margin:18px 0}
-.demo .d-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
-.demo .d-title{font-weight:600}
-.demo .btns{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.demo button.b{font:inherit;font-size:14px;padding:6px 14px;border-radius:999px;border:1.5px solid var(--line-strong);background:var(--surface);color:var(--ink);cursor:pointer}
-.demo button.b[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
-.demo input.ch{font:inherit;width:3.2em;text-align:center;padding:5px;border:1.5px solid var(--line-strong);border-radius:8px;background:var(--surface);color:var(--ink)}
-.demo label.tg{font-size:14px;display:flex;gap:6px;align-items:center}
+.demo .d-title{font-weight:600;margin-bottom:6px}
 .demo svg{width:100%;height:auto;display:block}
-.demo .say{margin:8px 0 0;color:var(--muted);font-size:14px;min-height:1.4em}
-.demo .sig{fill:none;stroke:var(--accent);stroke-width:3;stroke-linejoin:round}
-.demo .bitbox{fill:var(--surface);stroke:var(--line);stroke-width:1}
-.demo .bitbox.cur{fill:var(--accent-soft);stroke:var(--accent)}
-.demo .dev{cursor:pointer}
-.demo .dev rect{fill:var(--surface);stroke:var(--line-strong);stroke-width:1.5;transition:fill .2s}
-.demo .dev.on rect{fill:var(--good-soft);stroke:var(--good)}
-.demo .dev.no rect{opacity:.45}
-.demo .dev:focus{outline:none}.demo .dev:focus-visible rect{stroke:var(--accent);stroke-width:3}
-.demo .pkt{fill:var(--accent)}
+.demo .ctl{display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap}
+.demo .ctl label{min-width:150px;font-size:14px}
+.demo .ctl input[type=range]{flex:1;min-width:160px;accent-color:var(--accent)}
+.demo .ctl output{min-width:70px;font-weight:600;font-size:14px;text-align:right}
+.demo .readout{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+@media (max-width:560px){.demo .readout{grid-template-columns:repeat(2,1fr)}}
+.demo .rd{border:1px solid var(--line);border-radius:8px;padding:8px;text-align:center}
+.demo .rd span{display:block;font-size:12.5px;color:var(--muted)}
+.demo .rd strong{font-size:16px;font-family:ui-monospace,Menlo,Consolas,monospace}
+.demo .say{margin:8px 0 0;color:var(--muted);font-size:14px}
+.demo .sq{fill:none;stroke:var(--accent);stroke-width:3;stroke-linejoin:round}
+.demo .scroll{animation:scroll 1.2s linear infinite}
+.demo .fan{transform-box:fill-box;transform-origin:center;animation:spin 1s linear infinite;animation-play-state:paused}
+.demo .arm{transform-box:view-box;transition:transform .25s}
+@keyframes scroll{to{transform:translateX(-140px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){.demo .scroll{animation:none}.demo .fan{animation:none}}
 </style>
 </head>
 <body>
@@ -34,127 +35,144 @@
 <nav><a href="../index.html">Plan</a><a href="../lessons.html">Lessons</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a><a href="../board.html">Board</a><a href="../search.html">Search</a></nav>
 </div></header>
 <main><div class="wrap">
-<p style="color:var(--muted);margin:0">Physical AI Systems · Lesson 6</p><h1>Communication protocols: how the parts talk to each other</h1>
-<p class="lead">A Physical AI system is never one chip. Sensors, microcontrollers, a Pi, LED strips, a cloud server and a phone app all have to pass bytes to each other. A <strong>protocol</strong> is the agreed set of rules for doing that: which wire, how fast, what order, who speaks first. Watch a letter travel down a wire, then talk to devices on a bus.</p>
-<div class="card"><p style="margin:0"><strong>Self-paced, so go easy on yourself.</strong> There are many protocol names in this lesson; you don't need to memorise them all today. Play with the drawings, and write what's unclear on the board below. Your coach goes through more examples with you in the live session.</p></div>
+<p style="color:var(--muted);margin:0">Physical AI Systems · Lesson 6</p><h1>Actuators: how numbers move the real world</h1>
+<p class="lead">Lesson 5 brought the world <em>into</em> the computer. This lesson sends it back <em>out</em>: lighting an LED, turning a motor, moving an arm. The parts that do this are called <strong>actuators</strong>, and the trick that controls most of them is called <strong>PWM</strong>. Move the sliders and watch.</p>
+<div class="card"><p style="margin:0"><strong>Self-paced, so go easy on yourself.</strong> Play with every slider; you can't break anything. If something stays confusing, write it on the board below. Your coach goes through more examples with you in the live session.</p></div>
 <p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
 
-<h2 id="agreement">A protocol is an agreement between people</h2>
-<p>Like a language, a protocol only works if both sides follow the same rules. Engineers wrote those rules down, gave them names, and every manufacturer builds to them. That's why a sensor made in one country works with a Pi made in another. Once again: <strong>by the people, for the people.</strong></p>
+<h2 id="closing-the-loop">Closing the loop</h2>
+<figure class="fig"><svg class="d" viewBox="0 0 680 110" role="img" aria-label="The Physical AI loop with Convert and Act highlighted"><defs><marker id="l5a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
+<rect x="10" y="20" width="118" height="54" rx="8" class="b" opacity=".55"/><text x="69" y="52" font-size="13.5" text-anchor="middle" class="q">1 · Sense</text>
+<rect x="146" y="20" width="118" height="54" rx="8" class="b" opacity=".55"/><text x="205" y="52" font-size="13.5" text-anchor="middle" class="q">2 · ADC</text>
+<rect x="282" y="20" width="118" height="54" rx="8" class="b" opacity=".55"/><text x="341" y="52" font-size="13.5" text-anchor="middle" class="q">3 · Process</text>
+<rect x="418" y="20" width="118" height="54" rx="8" class="b-w" stroke-width="3"/><text x="477" y="52" font-size="13.5" text-anchor="middle" font-weight="600">4 · PWM / DAC</text>
+<rect x="554" y="20" width="118" height="54" rx="8" class="b-g" stroke-width="3"/><text x="613" y="52" font-size="13.5" text-anchor="middle" font-weight="600">5 · Act</text>
+<line x1="129" y1="47" x2="143" y2="47" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l5a)"/><line x1="265" y1="47" x2="279" y2="47" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l5a)"/><line x1="401" y1="47" x2="415" y2="47" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l5a)"/><line x1="537" y1="47" x2="551" y2="47" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l5a)"/>
+<text x="340" y="100" font-size="12.5" text-anchor="middle" class="q">Lesson 1's loop. This lesson zooms in on steps 4 and 5.</text>
+</svg></figure>
 
-<h2 id="three-distances">Three distances, three families</h2>
-<figure class="fig"><svg class="d" viewBox="0 0 680 250" role="img" aria-label="Protocols grouped by distance: on one board (UART, I2C, SPI), between boxes in a building (USB, RS-485, CAN), and across networks (Ethernet, Wi-Fi, MQTT, HTTP)">
-<rect x="10" y="20" width="200" height="200" rx="12" class="b-v"/><text x="110" y="46" font-size="14" text-anchor="middle" font-weight="600">On one board</text><text x="110" y="64" font-size="12" text-anchor="middle" class="q">centimetres</text>
-<g font-size="13" text-anchor="middle"><text x="110" y="100">UART (serial)</text><text x="110" y="126">I²C</text><text x="110" y="152">SPI</text><text x="110" y="178">LED data (WS2812)</text></g>
-<rect x="240" y="20" width="200" height="200" rx="12" class="b-w"/><text x="340" y="46" font-size="14" text-anchor="middle" font-weight="600">Box to box</text><text x="340" y="64" font-size="12" text-anchor="middle" class="q">metres, in a building</text>
-<g font-size="13" text-anchor="middle"><text x="340" y="100">USB</text><text x="340" y="126">RS-485 / Modbus</text><text x="340" y="152">CAN bus</text><text x="340" y="178">DMX (stage lighting)</text></g>
-<rect x="470" y="20" width="200" height="200" rx="12" class="b-a"/><text x="570" y="46" font-size="14" text-anchor="middle" font-weight="600">Across networks</text><text x="570" y="64" font-size="12" text-anchor="middle" class="q">anywhere in the world</text>
-<g font-size="13" text-anchor="middle"><text x="570" y="100">Ethernet, Wi-Fi</text><text x="570" y="126">TCP/IP</text><text x="570" y="152">MQTT</text><text x="570" y="178">HTTP (web, apps)</text></g>
-<text x="340" y="244" font-size="12.5" text-anchor="middle" class="q">The further the distance, the more rules are needed to survive noise, errors and many devices sharing the line.</text>
-</svg><figcaption>A real DiGiKits system uses all three families at once.</figcaption></figure>
-
-<h2 id="uart">Watch a letter travel: UART</h2>
-<p>UART, often just called <strong>serial</strong>, is the simplest. One wire carries bits one after another. The line rests <strong>high</strong>. A <strong>start bit</strong> (low) says “here comes a byte”, then 8 data bits (lowest bit first), then a <strong>stop bit</strong> (high). Both sides must agree on the speed, called the <strong>baud rate</strong>, such as 115200 bits per second.</p>
-<div class="demo" id="uart">
-<div class="d-head"><span class="d-title">UART: send one character</span><span class="btns"><label class="tg">Letter <input class="ch" id="uChar" maxlength="1" value="A" aria-label="Letter to send"></label><button class="b" id="uSend" type="button">▶ Send</button></span></div>
-<svg id="uSvg" viewBox="0 0 600 190" role="img" aria-label="A UART frame drawn bit by bit"></svg>
-<label class="tg"><input type="checkbox" id="uWrong"> Receiver set to the wrong baud rate</label>
-<p class="say" id="uSay" aria-live="polite"></p>
-</div>
-<div class="card"><p style="margin:0"><strong>Support tip:</strong> if a serial console shows garbage like <code>ÿ~€x</code>, the wires are usually fine. The baud rate is wrong. Tick the box above to see why: the receiver reads the bits at the wrong moments and gets a different byte.</p></div>
-
-<h2 id="i2c">Many devices on two wires: I²C</h2>
-<p><strong>I²C</strong> (say “I-squared-C”) lets one controller talk to many small devices over just two wires: <strong>SDA</strong> (data) and <strong>SCL</strong> (clock). Every device has an <strong>address</strong>, the hex numbers you met in Lessons 1 and 4. The Pi calls out an address; only that device answers. Click a device.</p>
-<div class="demo" id="i2c">
-<div class="d-head"><span class="d-title">I²C bus: the Pi calls a device</span></div>
-<svg class="d" viewBox="0 0 600 210" role="img" aria-label="A Raspberry Pi and three devices on an I2C bus">
-<rect x="10" y="40" width="110" height="70" rx="10" class="b-a"/><text x="65" y="72" font-size="13.5" text-anchor="middle" font-weight="600">Raspberry Pi</text><text x="65" y="90" font-size="12" text-anchor="middle" fill="var(--muted)">controller</text>
-<line x1="120" y1="62" x2="590" y2="62" stroke="var(--wire-data)" stroke-width="3"/><text x="128" y="56" font-size="12" fill="var(--muted)">SDA (data)</text>
-<line x1="120" y1="88" x2="590" y2="88" stroke="var(--wire-yel)" stroke-width="3"/><text x="128" y="104" font-size="12" fill="var(--muted)">SCL (clock)</text>
-<g id="devs"></g>
-<circle id="pkt" class="pkt" cx="120" cy="62" r="7" opacity="0"/>
-</svg>
-<p class="say" id="iSay" aria-live="polite">Click a device to have the Pi call its address.</p>
-</div>
-
-<h2 id="spi">Fast and simple: SPI</h2>
-<p><strong>SPI</strong> uses four wires: a clock, data out, data in, and a <strong>chip select</strong> wire for each device instead of an address. It's faster than I²C, so it's used for displays, memory chips and fast sensors. The cost is more wires.</p>
-
-<h2 id="longer">Longer distances and networks</h2>
 <div class="table-scroll"><table>
-<tr><th>Protocol</th><th>Wires / medium</th><th>Typical use at DiGiKits</th><th>Remember</th></tr>
-<tr><td>UART (serial)</td><td>2 (TX, RX) + ground</td><td>Debug consoles, GPS, Pi ↔ microcontroller</td><td>TX goes to RX; both sides same baud</td></tr>
-<tr><td>I²C</td><td>2 (SDA, SCL) + ground</td><td>Sensors, small displays, ADC chips</td><td>Each device needs a unique address</td></tr>
-<tr><td>SPI</td><td>4 + ground</td><td>Displays, memory, fast sensors</td><td>One chip-select wire per device</td></tr>
-<tr><td>WS2812 LED data</td><td>1 + ground</td><td>LED strips</td><td>Strict timing; one direction only</td></tr>
-<tr><td>USB</td><td>Cable</td><td>Pi ↔ microcontroller, cameras, keyboards</td><td>Also supplies power; some cables are charge-only</td></tr>
-<tr><td>RS-485 / Modbus</td><td>2 twisted + ground</td><td>Industrial controllers, long runs (hundreds of metres)</td><td>A 120 Ω terminator at each end of the line</td></tr>
-<tr><td>CAN bus</td><td>2 twisted</td><td>Vehicles, robots, motor controllers</td><td>Also needs 120 Ω terminators at both ends</td></tr>
-<tr><td>Ethernet / Wi-Fi + TCP/IP</td><td>Cable or radio</td><td>Everything on the network</td><td>IP addresses and ports (Phase 1, Day 6)</td></tr>
-<tr><td>MQTT</td><td>Runs over TCP/IP</td><td>Devices sending readings and receiving commands</td><td>Devices publish and subscribe through a broker</td></tr>
-<tr><td>HTTP</td><td>Runs over TCP/IP</td><td>Web pages, apps, cloud APIs</td><td>The protocol of every web page you open</td></tr>
+<tr><th>Actuator</th><th>What it does</th><th>Where you'll meet it at DiGiKits</th></tr>
+<tr><td>LED</td><td>Makes light</td><td>Model lighting, status lights, LED strips</td></tr>
+<tr><td>DC motor</td><td>Spins; speed set by power</td><td>Fans, conveyors, moving carts</td></tr>
+<tr><td>Servo</td><td>Turns to an exact angle and holds it</td><td>Robot arms, robotic faces, small mechanisms</td></tr>
+<tr><td>Stepper motor</td><td>Turns in exact small steps</td><td>CNC machines, pick-and-place, 3D printers</td></tr>
+<tr><td>Relay or solenoid</td><td>Switches a big load, or pushes a pin</td><td>Control panels, locks, valves</td></tr>
+<tr><td>Speaker, screen</td><td>Makes sound, shows pictures</td><td>Big Screens, kiosks, alerts</td></tr>
 </table></div>
 
-<div class="card"><p style="margin:0"><strong>Take a breath.</strong> This table has a lot of names, and nobody expects you to remember them all. For now, know three well: <strong>UART</strong>, <strong>I²C</strong> and <strong>MQTT</strong>. That's what you'll meet most in support. The rest, like RS-485 and CAN, your coach will show you on real equipment in the live session, and this table will always be here to look things up.</p></div>
+<h2 id="pwm">PWM: dimming with only on and off</h2>
+<p>A GPIO pin can only be fully on (3.3 V) or fully off (0 V). So how do you make an LED glow at half brightness? You switch it on and off <strong>very fast</strong>, hundreds or thousands of times a second. Your eye, or the motor, can't follow the flicker and only feels the <strong>average</strong>. The share of time it's on is called the <strong>duty cycle</strong>. That's <strong>PWM</strong>: pulse-width modulation.</p>
+<div class="demo" id="pwm">
+<div class="d-title">PWM: drag the duty cycle</div>
+<svg viewBox="0 0 600 170" role="img" aria-label="A PWM square wave, an LED and a motor responding to the duty cycle">
+<defs><clipPath id="wclip"><rect x="20" y="10" width="380" height="110"/></clipPath><radialGradient id="glow"><stop offset="0" stop-color="#ffd84d"/><stop offset="1" stop-color="#ffd84d" stop-opacity="0"/></radialGradient></defs>
+<text x="20" y="13" font-size="12" fill="var(--muted)">3.3 V</text><text x="20" y="120" font-size="12" fill="var(--muted)">0 V</text>
+<line x1="20" y1="104" x2="400" y2="104" stroke="var(--line)"/>
+<line id="avg" x1="20" x2="400" y1="62" y2="62" stroke="var(--violet)" stroke-width="2" stroke-dasharray="6 5"/>
+<text id="avgT" x="398" y="56" font-size="12" text-anchor="end" fill="var(--violet)">average</text>
+<g clip-path="url(#wclip)"><g id="waveG" class="scroll"><path id="sq" class="sq" d=""/></g></g>
+<circle id="ledGlow" cx="460" cy="62" r="38" fill="url(#glow)" opacity=".5"/>
+<circle cx="460" cy="62" r="18" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2"/>
+<circle id="ledCore" cx="460" cy="62" r="16" fill="#f5c84b" opacity=".5"/>
+<text x="460" y="120" font-size="12.5" text-anchor="middle" fill="var(--muted)">LED</text>
+<circle cx="550" cy="62" r="26" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2"/>
+<g id="fan" class="fan"><path d="M550 62 L550 41 A9 9 0 0 1 559 56 Z M550 62 L568 72 A9 9 0 0 1 553 79 Z M550 62 L532 72 A9 9 0 0 1 537 55 Z" fill="var(--ink)"/></g>
+<text x="550" y="120" font-size="12.5" text-anchor="middle" fill="var(--muted)">Motor</text>
+<text x="300" y="150" font-size="12.5" text-anchor="middle" fill="var(--muted)">one period = one on-and-off cycle; the wave really repeats thousands of times per second</text>
+</svg>
+<div class="ctl"><label for="duty">Duty cycle</label><input id="duty" type="range" min="0" max="100" value="50"><output id="dutyO">50%</output></div>
+<div class="readout">
+<div class="rd"><span>Average voltage</span><strong id="oV">1.65 V</strong></div>
+<div class="rd"><span>8-bit value</span><strong id="oN">128</strong></div>
+<div class="rd"><span>Hex</span><strong id="oH">0x80</strong></div>
+<div class="rd"><span>Brightness</span><strong id="oB">half</strong></div>
+</div>
+<p class="say">Many LED controllers store brightness as one byte: 0 = off, 255 = full. That's the same byte from Lesson 2.</p>
+</div>
+<div class="card accent"><p style="margin:0"><strong>The other direction of Lesson 5.</strong> The ADC turned a smooth voltage into a number. PWM turns a number back into an average power. Some chips also have a <strong>DAC</strong> (digital-to-analog converter) that makes a true smooth voltage, used mostly for sound. For lights and motors, PWM is cheaper and works just as well.</p></div>
 
-<h2 id="mqtt">MQTT: the noticeboard for devices</h2>
-<p>Many DiGiKits systems use <strong>MQTT</strong> to connect devices over the network. Instead of talking to each other directly, devices go through a <strong>broker</strong>, like a noticeboard. A sensor <strong>publishes</strong> a reading to a <strong>topic</strong>; anything <strong>subscribed</strong> to that topic gets it.</p>
-<figure class="fig"><svg class="d" viewBox="0 0 680 170" role="img" aria-label="A temperature sensor publishes to a topic on the MQTT broker; a dashboard and an LED controller subscribed to it receive the message"><defs><marker id="l6a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
-<rect x="10" y="55" width="150" height="60" rx="8" class="b-v"/><text x="85" y="80" font-size="13.5" text-anchor="middle" font-weight="600">Temp sensor</text><text x="85" y="98" font-size="12" text-anchor="middle" class="q">publishes</text>
-<rect x="255" y="45" width="170" height="80" rx="10" class="b-w"/><text x="340" y="74" font-size="13.5" text-anchor="middle" font-weight="600">MQTT broker</text><text x="340" y="94" font-size="12" text-anchor="middle" class="q">topic: shop/temp</text><text x="340" y="110" font-size="12" text-anchor="middle" class="q">the noticeboard</text>
-<rect x="520" y="20" width="150" height="54" rx="8" class="b-g"/><text x="595" y="45" font-size="13.5" text-anchor="middle" font-weight="600">Dashboard</text><text x="595" y="62" font-size="12" text-anchor="middle" class="q">subscribed</text>
-<rect x="520" y="96" width="150" height="54" rx="8" class="b-g"/><text x="595" y="121" font-size="13.5" text-anchor="middle" font-weight="600">Fan controller</text><text x="595" y="138" font-size="12" text-anchor="middle" class="q">subscribed</text>
-<line x1="161" y1="85" x2="252" y2="85" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l6a)"/><text x="206" y="77" font-size="12" text-anchor="middle" class="q">“24.5”</text>
-<path d="M426 75 H470 V47 H517" fill="none" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l6a)"/><path d="M426 95 H470 V123 H517" fill="none" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l6a)"/>
-</svg><figcaption>Add a new device later and it just subscribes; nothing else needs changing.</figcaption></figure>
+<h2 id="servo">Servos: a pulse that means an angle</h2>
+<p>A hobby servo also listens to pulses, but it reads them differently: about 50 times a second it gets one pulse, and the <strong>length</strong> of that pulse tells it which angle to turn to and hold. Roughly 1 ms means one end, 2 ms means the other end. (Exact numbers vary by servo; check its datasheet.)</p>
+<div class="demo" id="servo">
+<div class="d-title">Servo: drag the angle</div>
+<svg class="d" viewBox="0 0 600 170" role="img" aria-label="A servo arm turning to match the pulse width">
+<text x="70" y="40" font-size="12" fill="var(--muted)">one 20 ms frame →</text>
+<line x1="20" y1="104" x2="360" y2="104" stroke="var(--line)"/>
+<path id="pulse" class="sq" d=""/>
+<text id="pulseT" x="20" y="130" font-size="12.5" fill="var(--muted)"></text>
+<rect x="420" y="70" width="120" height="60" rx="8" class="b-a"/>
+<g id="arm" class="arm"><rect x="476" y="20" width="8" height="64" rx="4" fill="var(--ink)"/></g>
+<circle cx="480" cy="84" r="10" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/>
+<text x="480" y="150" font-size="12.5" text-anchor="middle" fill="var(--muted)">servo</text>
+</svg>
+<div class="ctl"><label for="ang">Angle</label><input id="ang" type="range" min="0" max="180" value="90"><output id="angO">90°</output></div>
+</div>
+
+<h2 id="power">The pin gives the order; a driver does the lifting</h2>
+<p>A GPIO pin can only supply a tiny current, a few milliamps. That's enough for one small LED, but a motor, a strip of LEDs or a solenoid needs hundreds or thousands of times more. Connecting one straight to a pin can destroy the Pi or the microcontroller. So every real actuator sits behind a <strong>driver</strong>.</p>
+<figure class="fig"><svg class="d" viewBox="0 0 680 190" role="img" aria-label="The GPIO pin sends a small signal to a driver; the driver switches power from a separate supply to the motor; all grounds are joined"><defs><marker id="l5b" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
+<rect x="10" y="40" width="150" height="60" rx="8" class="b-a"/><text x="85" y="66" font-size="13.5" text-anchor="middle" font-weight="600">Pi / RP2350</text><text x="85" y="84" font-size="12" text-anchor="middle" class="q">GPIO: small signal</text>
+<rect x="250" y="40" width="160" height="60" rx="8" class="b-w"/><text x="330" y="66" font-size="13.5" text-anchor="middle" font-weight="600">Driver</text><text x="330" y="84" font-size="12" text-anchor="middle" class="q">MOSFET, motor driver</text>
+<rect x="500" y="40" width="160" height="60" rx="8" class="b-g"/><text x="580" y="66" font-size="13.5" text-anchor="middle" font-weight="600">Motor / LED strip</text><text x="580" y="84" font-size="12" text-anchor="middle" class="q">the heavy load</text>
+<rect x="250" y="130" width="160" height="44" rx="8" class="b-v"/><text x="330" y="157" font-size="13" text-anchor="middle" font-weight="600">Separate power supply</text>
+<line x1="161" y1="70" x2="247" y2="70" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l5b)"/><text x="204" y="62" font-size="12" text-anchor="middle" class="q">order</text>
+<line x1="411" y1="70" x2="497" y2="70" stroke="var(--wire-red)" stroke-width="3" marker-end="url(#l5b)"/><text x="454" y="62" font-size="12" text-anchor="middle" class="q">power</text>
+<line x1="330" y1="129" x2="330" y2="103" stroke="var(--wire-red)" stroke-width="3" marker-end="url(#l5b)"/>
+<path d="M85 101 V20 H580 V37" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="5 4"/><text x="340" y="15" font-size="12" text-anchor="middle" class="q">common ground: all the minus sides joined together</text>
+</svg><figcaption>Small order in, big power out. The grounds must be joined, or the order doesn't arrive.</figcaption></figure>
+<ul>
+<li><strong>Driver:</strong> a MOSFET, transistor or motor-driver board switches the heavy power on the pin's command.</li>
+<li><strong>Separate supply:</strong> the load gets its own power supply, sized for it; it doesn't take power from the Pi's 5 V pin.</li>
+<li><strong>Common ground:</strong> the minus side of every supply is joined, so the pin's signal has a reference.</li>
+<li><strong>Flyback diode:</strong> motors, relays and solenoids kick back a voltage spike when switched off. A diode across them (often built into driver boards) soaks it up.</li>
+</ul>
+<div class="card"><p style="margin:0"><strong>Smart LED strips are different.</strong> A WS2812 strip, like the one in <a href="../phase-1/day-8.html">Phase 1, Day 8</a>, has a tiny chip in every LED. The data wire carries colour bytes (a protocol, coming in Lesson 7), and each chip does its own PWM. The strip still needs its own power supply and a common ground.</p></div>
 
 <h2 id="faults">When it breaks</h2>
 <div class="table-scroll"><table>
-<tr><th>What you see</th><th>Likely cause</th><th>First check</th></tr>
-<tr><td>Serial console shows garbage characters</td><td>Wrong baud rate</td><td>Set both sides to the same speed (often 115200)</td></tr>
-<tr><td>Serial shows nothing at all</td><td>TX and RX not crossed, or no common ground</td><td>TX → RX, RX → TX, ground → ground</td></tr>
-<tr><td>I²C device missing</td><td>Wiring, power, wrong address, or I²C not enabled</td><td><code>i2cdetect -y 1</code>; enable I²C in <code>raspi-config</code></td></tr>
-<tr><td>Two I²C devices clash</td><td>Same address on the same bus</td><td>Change one device's address jumper, or use a second bus</td></tr>
-<tr><td>RS-485 or CAN errors on long runs</td><td>Missing terminators, untwisted cable</td><td>120 Ω at both ends; twisted-pair cable</td></tr>
-<tr><td>Device online but no MQTT messages</td><td>Broker down, wrong topic, wrong password</td><td>Is the broker running? Is the topic spelled exactly the same?</td></tr>
+<tr><th>What the customer sees</th><th>Likely cause</th><th>First check</th></tr>
+<tr><td>Pi reboots when the motor starts</td><td>Motor powered from the Pi, or a weak shared supply</td><td>Give the motor its own supply; join the grounds</td></tr>
+<tr><td>Motor or strip does nothing, but the code runs</td><td>No common ground, or the driver isn't powered</td><td>Grounds joined? Driver supply on?</td></tr>
+<tr><td>LEDs flicker or a motor whines</td><td>PWM frequency too low or in the hearing range</td><td>Check the PWM frequency setting</td></tr>
+<tr><td>Servo jitters or buzzes</td><td>Weak power, or pulse widths outside its range</td><td>Separate servo supply; check its datasheet range</td></tr>
+<tr><td>Driver chip very hot, or a burnt smell</td><td>Load too big for the driver, or no heat sink</td><td>Power off now, then escalate</td></tr>
 </table></div>
+<div class="card accent"><p style="margin:0"><strong>Safety first:</strong> actuators move and get hot. Power off before touching wiring, keep fingers clear of motors and arms that might start, and never work on anything connected to mains (120 V wall power). That's for a licensed electrician; see <a href="../phase-2/day-14.html">Phase 2, Day 14</a>.</p></div>
 
 <h2 id="hands-on">Hands-on</h2>
-<h3 id="uart-play">1. Read a frame</h3>
-<p>Send your initial in the UART drawing. Write down its 10 bits (start, 8 data, stop). Then tick the wrong-baud box and note which character arrives instead.</p>
-<h3 id="i2c-pi">2. Scan the I²C bus</h3>
-<p>On the Pi, enable I²C (<code>sudo raspi-config</code> → Interface Options → I2C), then:</p>
-<pre><code>sudo apt install -y i2c-tools
-i2cdetect -y 1          # a grid of addresses; a number means a device answered</code></pre>
-<p>With nothing connected the grid is empty, and that's a correct result too. If your kit has an I²C sensor or display, connect it and scan again.</p>
-<h3 id="map-system">3. Map a system</h3>
-<p>Pick a DiGiKits system you know (like the Big Screen or the LED controller) or any smart device at home. Draw the boxes and label each link with the protocol you think it uses. Post your drawing or a description on the board below.</p>
+<h3 id="pwm-math">1. Duty cycle maths</h3>
+<p>At 3.3 V, what average voltage do you get at 25%, 50% and 75% duty? What 8-bit value is each? Check with the slider.</p>
+<h3 id="pwm-pi">2. Fade an LED on the Pi</h3>
+<p>With the LED on GPIO17 from <a href="../phase-1/day-7.html">Phase 1, Day 7</a>:</p>
+<pre><code>from gpiozero import PWMLED
+from time import sleep
 
-<h2 id="series-gate">The series gate</h2>
-<div class="card accent"><p><strong>You've finished the core lessons of Physical AI Systems.</strong> To pass the gate, pick one DiGiKits system (the Big Screen, an LED controller, or one your coach suggests) and:</p>
-<ol style="margin:0 0 0 1.2em">
-<li>Draw the full loop: what it senses, how that becomes numbers, what decides, and what it does in the real world.</li>
-<li>Label every link with its protocol (for example, “I²C”, “UART”, “MQTT over Wi-Fi”).</li>
-<li>Explain it to your coach in your own words, in under ten minutes.</li>
-</ol>
-<p style="margin:10px 0 0">A photo of a hand drawing is perfect. Post it on the board below and book the explanation with your coach.</p></div>
+led = PWMLED(17)
+for step in range(0, 101, 10):
+    led.value = step / 100        # duty cycle from 0.0 to 1.0
+    print(step, "%")
+    sleep(0.5)
+led.pulse()                       # breathe in and out on its own
+input("Press Enter to stop")</code></pre>
+<h3 id="spot-actuators">3. Spot the actuators</h3>
+<p>Find three actuators at home (a phone vibrating, a car window, a fridge fan…). For each, guess whether it's on/off, PWM or an exact position. Post one on the board below.</p>
 
 <h2 id="done-when">Done when</h2>
 <ul class="check">
-<li>I can explain what a protocol is and why both sides must follow the same rules</li>
-<li>I can name the three families by distance, with two examples each</li>
-<li>I can explain a UART frame and why a wrong baud rate gives garbage</li>
-<li>I can explain I²C addresses and use <code>i2cdetect</code></li>
-<li>I can explain MQTT publish, subscribe and broker</li>
-<li>I posted my system map on the board</li>
-<li>Gate: I drew the full loop for one DiGiKits system and explained it to my coach</li>
+<li>I can name four kinds of actuator and where DiGiKits uses them</li>
+<li>I can explain PWM and duty cycle in one sentence</li>
+<li>I can work out the average voltage and 8-bit value for a duty cycle</li>
+<li>I can explain why a motor needs a driver, its own supply and a common ground</li>
+<li>I faded an LED with PWM on the Pi</li>
+<li>I posted one “spot the actuators” example on the board</li>
 </ul>
 
-<div class="pager"><a href="lesson-5.html">← Lesson 5: Actuators</a><a href="lesson-7.html">Lesson 7: The history of computers →</a></div>
+<div class="pager"><a href="lesson-5.html">← Lesson 5: Sensors and the ADC</a><a href="lesson-7.html">Lesson 7: Communication protocols →</a></div>
 <p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
 <section class="board">
 <h2 id="how-did-it-feel">How did this lesson feel?</h2>
-<div class="card feel"><p><strong>Too much, just right, or too easy?</strong> Tell me in a line or two below, and ask anything that wasn't clear. For example: <em>“Lesson 6: a lot of names, but the UART drawing made it click.”</em></p><p>Be honest. If a lesson is too much, we change the lesson, not you. Take your time; there is no rush.</p><p class="sign">Your coach</p></div>
+<div class="card feel"><p><strong>Too much, just right, or too easy?</strong> Tell me in a line or two below, and ask anything that wasn't clear. For example: <em>“Lesson 6: just right. My LED faded nicely.”</em></p><p>Be honest. If a lesson is too much, we change the lesson, not you. Take your time; there is no rush.</p><p class="sign">Your coach</p></div>
 <p class="quiet-note">Sign in with your GitHub account to post, or just tap a reaction. Posts are public, so never share passwords, keys, IP addresses or personal details.</p>
 <script src="https://giscus.app/client.js"
  data-repo="wdigi/tony" data-repo-id="R_kgDOV5dORw"
@@ -166,81 +184,37 @@ i2cdetect -y 1          # a grid of addresses; a number means a device answered<
 </div></main>
 <footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
 <script>
-/* UART frame */
 (function () {
-  var $ = function (id) { return document.getElementById(id); }, svg = $("uSvg"), timer = null;
-  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var X0 = 40, W = 50, HI = 40, LO = 100;
-  function frame(code) { var b = [0]; for (var i = 0; i < 8; i++) b.push(code >> i & 1); b.push(1); return b; }
-  function received(bits, k) {
-    var line = function (t) { var i = Math.floor(t); return i < 0 ? 1 : i < bits.length ? bits[i] : 1; }, v = 0;
-    for (var i = 0; i < 8; i++) v |= line((i + 1.5) * k) << i;
-    return v;
-  }
-  function show(c) { return (c >= 33 && c < 127) || c >= 161 ? "“" + String.fromCharCode(c) + "”" : "(an invisible control code)"; }
-  function draw(upto) {
-    var ch = ($("uChar").value || "A"), code = ch.charCodeAt(0) & 255, bits = frame(code), h = "";
-    var labels = ["start"].concat([0, 1, 2, 3, 4, 5, 6, 7].map(function (i) { return "b" + i; })).concat(["stop"]);
-    bits.forEach(function (b, i) {
-      var x = X0 + i * W;
-      h += '<rect class="bitbox' + (i === upto ? " cur" : "") + '" x="' + x + '" y="118" width="' + W + '" height="44"/>';
-      h += '<text x="' + (x + W / 2) + '" y="136" font-size="11.5" text-anchor="middle" fill="var(--muted)">' + labels[i] + '</text>';
-      if (i <= upto) h += '<text x="' + (x + W / 2) + '" y="155" font-size="15" font-weight="600" text-anchor="middle" fill="var(--ink)">' + b + '</text>';
-    });
-    var d = "M0 " + HI + " H" + X0, y = HI;
-    for (var i = 0; i <= Math.min(upto, bits.length - 1); i++) { var ny = bits[i] ? HI : LO; if (ny !== y) { d += " V" + ny; y = ny; } d += " H" + (X0 + (i + 1) * W); }
-    if (upto >= bits.length - 1) d += " H600";
-    h += '<text x="4" y="' + (HI - 8) + '" font-size="11.5" fill="var(--muted)">high = 1 (resting)</text><text x="4" y="' + (LO + 14) + '" font-size="11.5" fill="var(--muted)">low = 0</text>';
-    h += '<path class="sig" d="' + d + '"/>';
-    h += '<text x="300" y="184" font-size="12.5" text-anchor="middle" fill="var(--muted)">' + show(code) + " = " + code + " = 0x" + code.toString(16).toUpperCase().padStart(2, "0") + " = " + code.toString(2).padStart(8, "0") + " (sent lowest bit first)</text>";
-    svg.innerHTML = h;
-    if (upto >= bits.length - 1) {
-      var wrong = $("uWrong").checked, got = wrong ? received(bits, 2) : code;
-      $("uSay").textContent = wrong ? "Receiver at the wrong speed reads 0x" + got.toString(16).toUpperCase().padStart(2, "0") + " " + show(got) + " instead of " + show(code) + ". Same wire, wrong agreement."
-        : "Received 0x" + got.toString(16).toUpperCase().padStart(2, "0") + " " + show(got) + ". Both sides agreed on the speed, so the byte arrived intact.";
-    } else $("uSay").textContent = "Sending bit " + (upto + 1) + " of 10…";
-  }
-  function send() {
-    if (timer) clearInterval(timer);
-    if (reduce) { draw(9); return; }
-    var i = 0; draw(0); timer = setInterval(function () { i++; draw(i); if (i >= 9) { clearInterval(timer); timer = null; } }, 380);
-  }
-  $("uSend").addEventListener("click", send);
-  $("uChar").addEventListener("input", function () { draw(9); });
-  $("uWrong").addEventListener("change", function () { draw(9); });
-  draw(9);
-})();
-/* I2C bus */
-(function () {
-  var $ = function (id) { return document.getElementById(id); }, reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var devs = [{ x: 190, addr: "0x3C", name: "Display", reply: "shows the text the Pi sends" }, { x: 330, addr: "0x48", name: "ADC chip", reply: "replies with a reading, e.g. 0x0800" }, { x: 470, addr: "0x76", name: "Temp sensor", reply: "replies with the temperature" }];
-  var g = $("devs"), h = "";
-  devs.forEach(function (d, i) {
-    h += '<line x1="' + (d.x + 40) + '" y1="62" x2="' + (d.x + 40) + '" y2="140" stroke="var(--wire-data)" stroke-width="2"/><line x1="' + (d.x + 52) + '" y1="88" x2="' + (d.x + 52) + '" y2="140" stroke="var(--wire-yel)" stroke-width="2"/>';
-    h += '<g class="dev" data-i="' + i + '" tabindex="0" role="button" aria-label="Call ' + d.name + ' at ' + d.addr + '"><rect x="' + d.x + '" y="140" width="100" height="56" rx="8"/><text x="' + (d.x + 50) + '" y="164" font-size="13" font-weight="600" text-anchor="middle" fill="var(--ink)">' + d.name + '</text><text x="' + (d.x + 50) + '" y="183" font-size="13" text-anchor="middle" fill="var(--muted)">' + d.addr + '</text></g>';
-  });
-  g.innerHTML = h;
-  var els = g.querySelectorAll(".dev"), pkt = $("pkt"), anim = null;
-  function call(i) {
-    var d = devs[i];
-    els.forEach(function (e) { e.classList.remove("on", "no"); });
-    $("iSay").textContent = "Pi: “Device " + d.addr + ", are you there?” Every device hears it…";
-    var t0 = null, dur = 900, xEnd = d.x + 40;
-    function done() {
-      els.forEach(function (e, j) { e.classList.add(j === i ? "on" : "no"); });
-      $("iSay").textContent = "…but only " + d.name + " at " + d.addr + " answers, and it " + d.reply + ". The others ignore a call that isn't their address.";
-      pkt.setAttribute("opacity", 0);
+  var $ = function (id) { return document.getElementById(id); };
+  var P = 140, HI = 20, LO = 104;
+  function pwm() {
+    var d = +$("duty").value / 100, path = "", x = 20;
+    for (var i = 0; i < 4; i++) {
+      var on = P * d;
+      if (d === 0) path += (i ? "L" : "M") + x + " " + LO + " H" + (x + P);
+      else if (d === 1) path += (i ? "L" : "M") + x + " " + HI + " H" + (x + P);
+      else path += (i ? "L" : "M") + x + " " + LO + " V" + HI + " H" + (x + on) + " V" + LO + " H" + (x + P);
+      x += P;
     }
-    if (reduce) { done(); return; }
-    if (anim) cancelAnimationFrame(anim);
-    pkt.setAttribute("opacity", 1);
-    function step(t) { if (!t0) t0 = t; var p = Math.min(1, (t - t0) / dur); pkt.setAttribute("cx", 120 + (xEnd - 120) * p); if (p < 1) anim = requestAnimationFrame(step); else done(); }
-    anim = requestAnimationFrame(step);
+    $("sq").setAttribute("d", path);
+    var ay = LO - d * (LO - HI); $("avg").setAttribute("y1", ay); $("avg").setAttribute("y2", ay); $("avgT").setAttribute("y", ay - 6);
+    $("dutyO").textContent = Math.round(d * 100) + "%";
+    var n = Math.round(d * 255);
+    $("oV").textContent = (d * 3.3).toFixed(2) + " V"; $("oN").textContent = n; $("oH").textContent = "0x" + n.toString(16).toUpperCase().padStart(2, "0");
+    $("oB").textContent = d === 0 ? "off" : d < 0.3 ? "dim" : d < 0.7 ? "half" : d < 1 ? "bright" : "full";
+    $("ledCore").setAttribute("opacity", (0.08 + d * 0.92).toFixed(2)); $("ledGlow").setAttribute("opacity", (d * 0.9).toFixed(2));
+    var fan = $("fan");
+    if (d < 0.05) fan.style.animationPlayState = "paused";
+    else { fan.style.animationDuration = (0.25 / d).toFixed(2) + "s"; fan.style.animationPlayState = "running"; }
   }
-  els.forEach(function (e, i) {
-    e.addEventListener("click", function () { call(i); });
-    e.addEventListener("keydown", function (ev) { if (ev.key === " " || ev.key === "Enter") { ev.preventDefault(); call(i); } });
-  });
+  function servo() {
+    var a = +$("ang").value, ms = 1 + a / 180, x0 = 30, scale = 340 / 20;
+    $("angO").textContent = a + "°";
+    $("pulse").setAttribute("d", "M20 104 H" + x0 + " V20 H" + (x0 + ms * scale).toFixed(1) + " V104 H360");
+    $("pulseT").textContent = "pulse " + ms.toFixed(2) + " ms, then off for the rest of the 20 ms";
+    $("arm").setAttribute("transform", "rotate(" + (a - 90) + " 480 84)");
+  }
+  $("duty").addEventListener("input", pwm); $("ang").addEventListener("input", servo); pwm(); servo();
 })();
 </script>
 <script src="../assets/quiz-data.js" defer></script>

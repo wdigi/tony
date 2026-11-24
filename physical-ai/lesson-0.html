@@ -6,6 +6,39 @@
 <meta name="robots" content="noindex">
 <title>Physical AI Systems · Lesson 0 · DiGiKits Support Training</title>
 <link rel="stylesheet" href="../assets/style.css">
+<style>
+.demo{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:14px;margin:18px 0}
+.demo .d-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.demo .d-title{font-weight:600}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chips button{font:inherit;font-size:13.5px;padding:5px 12px;border-radius:999px;border:1.5px solid var(--line-strong);background:var(--surface);color:var(--ink);cursor:pointer}
+.chips button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.tl{list-style:none;margin:0;padding:0 0 0 22px;border-left:3px solid var(--line-strong)}
+.tl li{position:relative;margin:0 0 12px;padding:0}
+.tl li::before{content:"";position:absolute;left:-31px;top:6px;width:13px;height:13px;border-radius:50%;background:var(--surface);border:3px solid var(--accent)}
+.tl li.hidden{display:none}
+.tl .yr{font-weight:700;font-family:ui-monospace,Menlo,Consolas,monospace;margin-right:8px}
+.tl .ev{font-weight:600}
+.tl details{margin:0}
+.tl summary{cursor:pointer;list-style:none}
+.tl summary::-webkit-details-marker{display:none}
+.tl summary::after{content:" +";color:var(--muted)}
+.tl details[open] summary::after{content:" −"}
+.tl .more{margin:4px 0 0;color:var(--ink);font-size:15px}
+.tl .tag{display:inline-block;font-size:12px;padding:1px 8px;border-radius:999px;margin-left:6px;vertical-align:1px}
+.tag.sw{background:var(--violet-soft);color:var(--ink)}.tag.hw{background:var(--amber-soft);color:var(--ink)}.tag.ai{background:var(--good-soft);color:var(--ink)}
+.prog{display:grid;grid-template-columns:1fr;gap:10px}
+.prog .stage{border:1px solid var(--line);border-radius:10px;padding:12px;min-height:180px}
+.prog .stage h4{margin:0 0 4px}
+.prog .stage .when{color:var(--muted);font-size:13.5px;margin:0 0 8px}
+.prog pre{margin:8px 0 0}
+.prog .nav{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.prog .dots{display:flex;gap:6px}
+.prog .dots span{width:10px;height:10px;border-radius:50%;background:var(--line-strong)}
+.prog .dots span.on{background:var(--accent)}
+.demo button.b{font:inherit;font-size:14px;padding:6px 14px;border-radius:999px;border:1.5px solid var(--line-strong);background:var(--surface);color:var(--ink);cursor:pointer}
+.demo button.b:disabled{opacity:.4;cursor:default}
+</style>
 </head>
 <body>
 <header class="site"><div class="wrap">
@@ -13,107 +46,114 @@
 <nav><a href="../index.html">Plan</a><a href="../lessons.html">Lessons</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a><a href="../board.html">Board</a><a href="../search.html">Search</a></nav>
 </div></header>
 <main><div class="wrap">
-<p style="color:var(--muted);margin:0">Physical AI Systems · Lesson 0</p><h1>How it all began: the real “language” computers use</h1>
-<p class="lead">Every computer, every Raspberry Pi, every LED controller and every AI (Claude included) comes down to the same simple thing: tiny switches that are either on or off. This lesson shows how electricity becomes 0s and 1s, and how 0s and 1s become the things a Physical AI system senses and does.</p>
+<p style="color:var(--muted);margin:0">Physical AI Systems · Lesson 0</p><h1>How it all began: the history of computers</h1>
+<p class="lead">Everything you will learn in this series was invented by people, one step at a time, over about 80 years. This first lesson tells that story: from wartime machines that filled a room, to the chip in a Raspberry Pi, to AI you can talk to in plain English. Click the events to read more.</p>
 <div class="card accent"><p><strong>How to learn in the AI era.</strong> In this AI era, you only need to understand a bit of each concept and the big picture. Then add a lot of imagination, and do a lot of brainstorming with AI.</p>
 <p style="margin:0">A live lesson will walk you through real case studies to show that, once you get the concept and the big picture, it's surprisingly easy to come up with a Physical AI system. Some of these designs can be finished in a few hours with our software and hardware tools. The founder of DiGiKits Inc. has already put together a system to make your job easy.</p>
 <p style="margin:10px 0 0"><strong>One balance to keep:</strong> for design and brainstorming, the big picture is enough. For customer support and safety, know the basics cold, because a customer with a stopped machine needs a right answer, not a guess. Most support and software roles at DiGiKits won't do much field or hardware work themselves, and DiGiKits builds internal tools to do the heavy lifting. But you still need to understand the hardware side, so you can help customers clearly and talk easily with the hardware team.</p></div>
-<div class="card"><p style="margin:0"><strong>Self-paced, so go easy on yourself.</strong> New ideas can feel strange at first, and it's normal to find it confusing the first time. Read it at your own pace, try the hands-on, and write what's unclear on the board below. Your coach goes through more examples with you in the live session.</p></div>
+<div class="card"><p style="margin:0"><strong>Self-paced, so go easy on yourself.</strong> This is a story lesson. You don't need to memorise dates; aim to understand how each step made the next one possible. Write your favourite surprise on the board below. Your coach shares more stories in the live session.</p></div>
 <p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
 
-<h2 id="medium-and-message">Electricity is the medium, binary is the code</h2>
-<p>People often say “computers think in electrical pulses” or “computers speak binary.” Both are half true, and the two halves fit together:</p>
-<ul>
-<li><strong>Electricity is the medium.</strong> Inside the chip, data is a voltage on a wire: high or low. The voltage is the physical thing you could measure with a meter.</li>
-<li><strong>Binary is the code.</strong> We agree that a high voltage means <strong>1</strong> and a low voltage means <strong>0</strong>. Each 0 or 1 is called a <strong>bit</strong>; eight bits make a <strong>byte</strong>.</li>
-</ul>
-<p>So the medium is electricity, and the information it carries is written in binary. Outside the chip, the same bits can travel in other media too: as light in an optical fibre, as radio waves in Wi-Fi, or as tiny magnetic spots on an old hard drive.</p>
+<h2 id="four-switches">Four kinds of switch</h2>
+<p>Here is the key idea of this whole series: a computer is a huge number of switches (Lesson 1 shows how). The whole history of computers is mostly the story of the <strong>switch</strong> getting smaller, faster, cheaper and more reliable.</p>
+<figure class="fig"><svg class="d" viewBox="0 0 680 200" role="img" aria-label="Four generations of switch: relay, vacuum tube, transistor, integrated circuit, each smaller and faster">
+<defs><marker id="l7a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
+<g text-anchor="middle">
+<rect x="14" y="16" width="150" height="120" rx="10" class="b-w"/><text x="89" y="40" font-size="14" font-weight="600">Relay</text><text x="89" y="58" font-size="12" class="q">1930s–40s</text>
+<rect x="59" y="72" width="60" height="30" rx="3" fill="none" stroke="var(--ink)" stroke-width="2"/><path d="M66 87 h14 l12 -8" fill="none" stroke="var(--ink)" stroke-width="2"/><text x="89" y="124" font-size="12" class="q">moving metal contact</text>
+<rect x="184" y="16" width="150" height="120" rx="10" class="b-a"/><text x="259" y="40" font-size="14" font-weight="600">Vacuum tube</text><text x="259" y="58" font-size="12" class="q">1940s–50s</text>
+<path d="M245 108 V82 a14 14 0 0 1 28 0 V108 Z" fill="none" stroke="var(--ink)" stroke-width="2"/><line x1="252" y1="108" x2="252" y2="114" stroke="var(--ink)" stroke-width="2"/><line x1="266" y1="108" x2="266" y2="114" stroke="var(--ink)" stroke-width="2"/><text x="259" y="128" font-size="12" class="q">glowing glass bulb</text>
+<rect x="354" y="16" width="150" height="120" rx="10" class="b-v"/><text x="429" y="40" font-size="14" font-weight="600">Transistor</text><text x="429" y="58" font-size="12" class="q">1950s–60s</text>
+<path d="M417 96 a12 12 0 0 1 24 0 V100 H417 Z" fill="none" stroke="var(--ink)" stroke-width="2"/><line x1="422" y1="100" x2="420" y2="114" stroke="var(--ink)" stroke-width="2"/><line x1="429" y1="100" x2="429" y2="114" stroke="var(--ink)" stroke-width="2"/><line x1="436" y1="100" x2="438" y2="114" stroke="var(--ink)" stroke-width="2"/><text x="429" y="128" font-size="12" class="q">solid, no moving parts</text>
+<rect x="524" y="16" width="150" height="120" rx="10" class="b-g"/><text x="599" y="40" font-size="14" font-weight="600">Integrated circuit</text><text x="599" y="58" font-size="12" class="q">1960s–today</text>
+<rect x="581" y="76" width="36" height="28" rx="3" fill="var(--ink)"/><g stroke="var(--ink)" stroke-width="2"><line x1="586" y1="70" x2="586" y2="76"/><line x1="595" y1="70" x2="595" y2="76"/><line x1="604" y1="70" x2="604" y2="76"/><line x1="613" y1="70" x2="613" y2="76"/><line x1="586" y1="104" x2="586" y2="110"/><line x1="595" y1="104" x2="595" y2="110"/><line x1="604" y1="104" x2="604" y2="110"/><line x1="613" y1="104" x2="613" y2="110"/></g><text x="599" y="128" font-size="12" class="q">billions on one chip</text>
+</g>
+<line x1="20" y1="160" x2="660" y2="160" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l7a)"/>
+<text x="340" y="184" font-size="12.5" text-anchor="middle" class="q">smaller · faster · cheaper · more reliable · less power</text>
+</svg><figcaption>Every one of them does the same job: on or off, 1 or 0.</figcaption></figure>
 
-<figure class="fig"><svg class="d" viewBox="0 0 680 210" role="img" aria-label="A digital signal over time: high voltage means 1, low voltage means 0, with a grey zone between">
-<rect x="70" y="40" width="590" height="34" class="b-g" rx="4"/><text x="60" y="62" font-size="12.5" text-anchor="end" class="q">high = 1</text>
-<rect x="70" y="84" width="590" height="34" class="b-q" rx="4"/><text x="60" y="106" font-size="12.5" text-anchor="end" class="q">grey zone</text>
-<rect x="70" y="128" width="590" height="34" class="b-v" rx="4"/><text x="60" y="150" font-size="12.5" text-anchor="end" class="q">low = 0</text>
-<path d="M80 145 H150 V57 H290 V145 H360 V57 H430 V145 H570 V57 H650" fill="none" stroke="var(--ink)" stroke-width="2.5"/>
-<g font-size="14" font-weight="600" text-anchor="middle"><text x="115" y="190">0</text><text x="185" y="190">1</text><text x="255" y="190">1</text><text x="325" y="190">0</text><text x="395" y="190">1</text><text x="465" y="190">0</text><text x="535" y="190">0</text><text x="610" y="190">1</text></g>
-<g stroke="var(--line-strong)" stroke-dasharray="3 4"><line x1="150" y1="30" x2="150" y2="172"/><line x1="220" y1="30" x2="220" y2="172"/><line x1="290" y1="30" x2="290" y2="172"/><line x1="360" y1="30" x2="360" y2="172"/><line x1="430" y1="30" x2="430" y2="172"/><line x1="500" y1="30" x2="500" y2="172"/><line x1="570" y1="30" x2="570" y2="172"/></g>
-<text x="365" y="22" font-size="12.5" text-anchor="middle" class="q">time → (the dashed lines are clock ticks; the chip reads the wire once per tick)</text>
-</svg><figcaption>A wire is never exactly 0 V or exactly 3.3 V. Anything near the top counts as 1, anything near the bottom counts as 0, and the grey zone between is avoided.</figcaption></figure>
-
-<h2 id="why-two">Why only two states?</h2>
-<p>A transistor works best as a switch: fully on or fully off. Using just two states has big advantages:</p>
-<ul>
-<li><strong>Noise doesn't matter much.</strong> A signal can sag or wobble a little and still clearly read as high or low. With ten levels (for decimal digits) a small wobble would turn a 6 into a 7.</li>
-<li><strong>It's electrically simple and reliable.</strong> On/off switches are easy to build, tiny, and use little power.</li>
-<li><strong>It scales.</strong> A modern chip holds billions of transistors switching billions of times per second.</li>
-</ul>
-<p>Everything else, like numbers, letters, colours, sound and pictures, must be <strong>encoded</strong> into binary before the hardware can work with it.</p>
-
-<h2 id="layers">From a letter to a voltage</h2>
-<p>Here is what happens to the letter <strong>A</strong> when you type it:</p>
-<figure class="fig"><svg class="d" viewBox="0 0 680 140" role="img" aria-label="Letter A becomes the number 65, then the bits 01000001, then eight voltages"><defs><marker id="l0a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
-<rect x="14" y="24" width="140" height="62" rx="8" class="b-v"/><text x="84" y="52" font-size="22" text-anchor="middle" font-weight="600">A</text><text x="84" y="74" font-size="12.5" text-anchor="middle" class="q">what you see</text>
-<rect x="182" y="24" width="140" height="62" rx="8" class="b-a"/><text x="252" y="52" font-size="20" text-anchor="middle" font-weight="600">65</text><text x="252" y="74" font-size="12.5" text-anchor="middle" class="q">its code number</text>
-<rect x="350" y="24" width="150" height="62" rx="8" class="b-w"/><text x="425" y="52" font-size="16" text-anchor="middle" font-weight="600">01000001</text><text x="425" y="74" font-size="12.5" text-anchor="middle" class="q">one byte, 8 bits</text>
-<rect x="528" y="24" width="140" height="62" rx="8" class="b-g"/><path d="M542 60 H554 V36 H566 V60 H626 V36 H638 V60 H652" fill="none" stroke="var(--ink)" stroke-width="2"/><text x="598" y="80" font-size="12.5" text-anchor="middle" class="q">low/high voltages</text>
-<line x1="155" y1="55" x2="179" y2="55" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l0a)"/><line x1="323" y1="55" x2="347" y2="55" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l0a)"/><line x1="501" y1="55" x2="525" y2="55" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l0a)"/>
-<text x="340" y="112" font-size="12.5" text-anchor="middle" class="q">The code number comes from an agreed table (ASCII / Unicode).</text><text x="340" y="130" font-size="12.5" text-anchor="middle" class="q">Every computer uses the same table, so an “A” stays an “A”.</text>
-</svg><figcaption>Letters become numbers, numbers become bits, bits become voltages.</figcaption></figure>
-
-<div class="card accent"><p style="margin:0"><strong>Binary is the alphabet, not the whole language.</strong> The 0s and 1s are like letters. The real “language” a processor understands is its <strong>machine code</strong>: a fixed set of instructions (add these, compare those, jump there), each one written as a pattern of bits. A Raspberry Pi's ARM processor and a laptop's Intel processor use different machine codes, which is why a program built for one won't run on the other without being rebuilt.</p></div>
-
-<h2 id="physical-ai-loop">How it works in a Physical AI system</h2>
-<p>The real world is mostly <strong>analog</strong>: temperature, light, sound and position change smoothly, not in steps. A Physical AI system has to cross the border between the analog world and the digital computer twice, once coming in and once going out.</p>
-<figure class="fig"><svg class="d" viewBox="0 0 680 190" role="img" aria-label="Sense, convert to digital, process, convert back, act: the Physical AI loop"><defs><marker id="l0b" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
-<rect x="10" y="30" width="118" height="70" rx="8" class="b-v"/><text x="69" y="56" font-size="13.5" text-anchor="middle" font-weight="600">1 · Sense</text><text x="69" y="74" font-size="12" text-anchor="middle" class="q">sensor, mic,</text><text x="69" y="89" font-size="12" text-anchor="middle" class="q">camera</text>
-<rect x="146" y="30" width="118" height="70" rx="8" class="b-w"/><text x="205" y="56" font-size="13.5" text-anchor="middle" font-weight="600">2 · Convert</text><text x="205" y="74" font-size="12" text-anchor="middle" class="q">ADC: analog</text><text x="205" y="89" font-size="12" text-anchor="middle" class="q">→ binary</text>
-<rect x="282" y="30" width="118" height="70" rx="8" class="b-a"/><text x="341" y="56" font-size="13.5" text-anchor="middle" font-weight="600">3 · Process</text><text x="341" y="74" font-size="12" text-anchor="middle" class="q">CPU / AI works</text><text x="341" y="89" font-size="12" text-anchor="middle" class="q">on the bits</text>
-<rect x="418" y="30" width="118" height="70" rx="8" class="b-w"/><text x="477" y="56" font-size="13.5" text-anchor="middle" font-weight="600">4 · Convert</text><text x="477" y="74" font-size="12" text-anchor="middle" class="q">DAC or PWM:</text><text x="477" y="89" font-size="12" text-anchor="middle" class="q">binary → power</text>
-<rect x="554" y="30" width="118" height="70" rx="8" class="b-g"/><text x="613" y="56" font-size="13.5" text-anchor="middle" font-weight="600">5 · Act</text><text x="613" y="74" font-size="12" text-anchor="middle" class="q">LED, motor,</text><text x="613" y="89" font-size="12" text-anchor="middle" class="q">speaker, screen</text>
-<line x1="129" y1="65" x2="143" y2="65" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l0b)"/><line x1="265" y1="65" x2="279" y2="65" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l0b)"/><line x1="401" y1="65" x2="415" y2="65" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l0b)"/><line x1="537" y1="65" x2="551" y2="65" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#l0b)"/>
-<path d="M613 101 V140 H69 V104" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#l0b)"/>
-<text x="341" y="160" font-size="12.5" text-anchor="middle" class="q">The action changes the world, the sensor notices, and the loop runs again.</text>
-<text x="341" y="180" font-size="12.5" text-anchor="middle" class="q">Purple and green are the analog world · amber is the border · blue is pure binary</text>
-</svg><figcaption>Sense, convert, process, convert back, act. That loop is what “Physical AI” means at DiGiKits.</figcaption></figure>
-<ol>
-<li><strong>Sense.</strong> A sensor such as a microphone, thermometer or light sensor produces an analog voltage that rises and falls with the real world. (A keyboard or mouse is different: it already sends digital data over USB or Bluetooth.)</li>
-<li><strong>Convert in.</strong> An <strong>analog-to-digital converter (ADC)</strong> measures that voltage many times per second and turns each measurement into a binary number.</li>
-<li><strong>Process.</strong> The processor's logic gates work on those binary numbers, all carried as high and low voltages through the circuit. This is where a program, or an AI, decides what to do.</li>
-<li><strong>Convert out.</strong> A <strong>digital-to-analog converter (DAC)</strong>, or a fast on/off trick called <strong>PWM</strong>, turns binary back into something the world can feel: a sound wave, a motor speed, an LED brightness.</li>
-<li><strong>Act.</strong> The speaker plays, the motor turns, the LED glows. You'll do exactly this with the LED strip in <a href="../phase-1/day-8.html">Phase 1, Day 8</a>.</li>
+<h2 id="timeline">The timeline</h2>
+<div class="demo" id="tlDemo">
+<div class="d-head"><span class="d-title">Click any event to read more</span>
+<div class="chips" id="chips" role="group" aria-label="Filter by era">
+<button type="button" data-era="all" aria-pressed="true">All</button><button type="button" data-era="pre">Before 1940</button><button type="button" data-era="early">1940–1960</button><button type="button" data-era="chip">1960–1980</button><button type="button" data-era="pc">1980–2005</button><button type="button" data-era="now">2005–today</button></div></div>
+<ol class="tl" id="tl">
+<li data-era="pre"><details><summary><span class="yr">1804</span><span class="ev">Punched cards control a weaving loom</span><span class="tag hw">idea</span></summary><p class="more">Joseph-Marie Jacquard's loom in France read a chain of cards with holes. A hole or no hole decided whether a thread was lifted. That's a 1 or a 0, more than 100 years before computers.</p></details></li>
+<li data-era="pre"><details><summary><span class="yr">1830s–40s</span><span class="ev">Babbage and Lovelace imagine a programmable machine</span><span class="tag sw">software</span></summary><p class="more">Charles Babbage designed the Analytical Engine, a mechanical computer that would read punched cards. It was never finished. Ada Lovelace wrote what's often called the first computer program for it, and saw that such machines could one day work with music and pictures, not only numbers.</p></details></li>
+<li data-era="pre"><details><summary><span class="yr">1890</span><span class="ev">Punched cards count the US census</span><span class="tag hw">hardware</span></summary><p class="more">Herman Hollerith's card-reading machines sped up the census. His company later became part of IBM, and punched cards stayed the main way to feed computers until the 1970s.</p></details></li>
+<li data-era="pre"><details><summary><span class="yr">1936</span><span class="ev">Alan Turing describes a universal machine</span><span class="tag sw">idea</span></summary><p class="more">Turing showed on paper that one machine, following simple rules from a tape, could do any calculation that can be written as steps. Every computer since is a “universal machine” in his sense.</p></details></li>
+<li data-era="early"><details><summary><span class="yr">1941</span><span class="ev">Z3: a programmable computer built from relays</span><span class="tag hw">relays</span></summary><p class="more">Konrad Zuse in Germany built the Z3 from about 2,600 telephone relays, the same kind of switch you will meet in Lesson 3. It read its program from holes punched in old movie film.</p></details></li>
+<li data-era="early"><details><summary><span class="yr">1943–44</span><span class="ev">Colossus: electronic code-breaking in WWII</span><span class="tag hw">tubes</span></summary><p class="more">At Bletchley Park in Britain, Tommy Flowers built Colossus from about 1,600 vacuum tubes (later versions about 2,400) to help break German codes. It read messages from punched paper tape at high speed. It was kept secret until the 1970s, so for years few people knew it existed.</p></details></li>
+<li data-era="early"><details><summary><span class="yr">1944</span><span class="ev">Harvard Mark I: a 15-metre relay machine</span><span class="tag hw">relays</span></summary><p class="more">An electromechanical calculator about 15 metres long, fed by punched paper tape. Grace Hopper was one of its first programmers.</p></details></li>
+<li data-era="early"><details><summary><span class="yr">1945–46</span><span class="ev">ENIAC: the first general-purpose electronic computer</span><span class="tag hw">tubes</span></summary><p class="more">Built in the USA for wartime calculations and finished just after the war. It had about 17,500 vacuum tubes, weighed about 27 tonnes and filled a large room. It was programmed by plugging cables and setting switches by hand, a job done mostly by six women programmers. Changing the program could take days.</p></details></li>
+<li data-era="early"><details><summary><span class="yr">1947</span><span class="ev">The transistor is invented, and the first “bug”</span><span class="tag hw">transistor</span></summary><p class="more">At Bell Labs, Bardeen, Brattain and Shockley made the first transistor: a switch with no moving parts and no glowing bulb. The same year, operators of the Harvard Mark II taped a moth found in a relay into their logbook as the “first actual case of bug being found”.</p></details></li>
+<li data-era="early"><details><summary><span class="yr">1950s</span><span class="ev">Transistor computers replace tubes</span><span class="tag hw">transistor</span></summary><p class="more">Transistors were smaller, cooler and far more reliable than tubes, which burned out like light bulbs. By the late 1950s, big commercial computers were built from them.</p></details></li>
+<li data-era="early"><details><summary><span class="yr">1952–57</span><span class="ev">Compilers and FORTRAN: the first popular high-level language</span><span class="tag sw">software</span></summary><p class="more">Grace Hopper built one of the first compilers (1952), proving a computer could translate human-friendly code into machine code. IBM's FORTRAN (1957), led by John Backus, became the first widely used high-level language. COBOL followed in 1959. This is the first rung up the ladder you will see in Lesson 2.</p></details></li>
+<li data-era="chip"><details><summary><span class="yr">1958–59</span><span class="ev">The integrated circuit: many transistors on one chip</span><span class="tag hw">chip</span></summary><p class="more">Jack Kilby at Texas Instruments and Robert Noyce at Fairchild separately found ways to build several transistors and their wiring on one piece of material. Every chip today descends from this.</p></details></li>
+<li data-era="chip"><details><summary><span class="yr">1965</span><span class="ev">Moore's law</span><span class="tag hw">idea</span></summary><p class="more">Gordon Moore noticed the number of transistors on a chip was doubling regularly, and predicted it would continue. It held, roughly every two years, for decades. See the chart below.</p></details></li>
+<li data-era="chip"><details><summary><span class="yr">1969</span><span class="ev">ARPANET and Unix</span><span class="tag sw">software</span></summary><p class="more">ARPANET, the network that grew into the Internet, sent its first message. The same year, work began on Unix at Bell Labs. Linux, which runs on your Pi, follows Unix's ideas.</p></details></li>
+<li data-era="chip"><details><summary><span class="yr">1971</span><span class="ev">Intel 4004: the first commercial microprocessor</span><span class="tag hw">chip</span></summary><p class="more">A whole CPU on one chip, with about 2,300 transistors, made for a calculator. It needed separate memory chips around it.</p></details></li>
+<li data-era="chip"><details><summary><span class="yr">1972</span><span class="ev">The C language</span><span class="tag sw">software</span></summary><p class="more">Dennis Ritchie created C at Bell Labs to write Unix. Most firmware for microcontrollers is still written in C today.</p></details></li>
+<li data-era="chip"><details><summary><span class="yr">1974–76</span><span class="ev">Microcontrollers: a computer on one chip</span><span class="tag hw">chip</span></summary><p class="more">Texas Instruments' TMS1000 (1974) put CPU, memory and input/output on one chip: the first widely sold microcontroller (MCU). Intel's 8048 (1976) and 8051 (1980) followed and were used in billions of products. The RP2350 on DiGiKits boards is their great-grandchild.</p></details></li>
+<li data-era="chip"><details><summary><span class="yr">1976</span><span class="ev">Single-board computers with a keypad</span><span class="tag hw">hardware</span></summary><p class="more">Boards like the KIM-1 had a hex keypad and a row of 7-segment LED digits. You typed your program in, byte by byte, in hex machine code, and read the results on the LEDs. See the “programming through the ages” drawing below.</p></details></li>
+<li data-era="chip"><details><summary><span class="yr">1977</span><span class="ev">Personal computers arrive at home</span><span class="tag hw">hardware</span></summary><p class="more">The Apple II, Commodore PET and TRS-80 came with a keyboard and a screen, and the BASIC language built in. For the first time, ordinary people could program at home.</p></details></li>
+<li data-era="pc"><details><summary><span class="yr">1981–84</span><span class="ev">The IBM PC and the mouse-driven Macintosh</span><span class="tag hw">hardware</span></summary><p class="more">The IBM PC (1981) set the standard most office computers followed. The Macintosh (1984) made windows, icons and a mouse popular, ideas first developed at Xerox PARC.</p></details></li>
+<li data-era="pc"><details><summary><span class="yr">1989–91</span><span class="ev">The World Wide Web</span><span class="tag sw">software</span></summary><p class="more">Tim Berners-Lee at CERN invented web pages, links and HTTP, one of the protocols in Lesson 7. The web opened to the public in 1991.</p></details></li>
+<li data-era="pc"><details><summary><span class="yr">1991</span><span class="ev">Linux and Python</span><span class="tag sw">software</span></summary><p class="more">Linus Torvalds released Linux, the free operating system on your Pi. Guido van Rossum released Python, the language you use in these lessons. Both are free and open source.</p></details></li>
+<li data-era="now"><details><summary><span class="yr">2005</span><span class="ev">Arduino</span><span class="tag hw">hardware</span></summary><p class="more">A cheap, friendly microcontroller board from Italy that made electronics easy for students and makers. It started the maker movement DiGiKits grew up in.</p></details></li>
+<li data-era="now"><details><summary><span class="yr">2007</span><span class="ev">The smartphone era</span><span class="tag hw">hardware</span></summary><p class="more">The iPhone, and Android soon after, put a powerful computer, a camera, GPS and sensors in every pocket.</p></details></li>
+<li data-era="now"><details><summary><span class="yr">2012</span><span class="ev">Raspberry Pi, and the deep-learning breakthrough</span><span class="tag ai">AI</span></summary><p class="more">The Raspberry Pi launched as a $35 computer for learning. The same year, a neural network called AlexNet won an image-recognition contest by a wide margin, starting the modern AI boom.</p></details></li>
+<li data-era="now"><details><summary><span class="yr">2017</span><span class="ev">The transformer</span><span class="tag ai">AI</span></summary><p class="more">Google researchers published “Attention Is All You Need”, describing the transformer. Almost every large language model today, Claude included, is built on this idea.</p></details></li>
+<li data-era="now"><details><summary><span class="yr">2021–24</span><span class="ev">Raspberry Pi's own chips: RP2040 and RP2350</span><span class="tag hw">chip</span></summary><p class="more">Raspberry Pi designed its own microcontrollers: the RP2040 on the Pico (2021) and the RP2350 (2024), used in DiGiKits designs.</p></details></li>
+<li data-era="now"><details><summary><span class="yr">2022–23</span><span class="ev">AI you can talk to</span><span class="tag ai">AI</span></summary><p class="more">ChatGPT (late 2022) and Claude (2023) let anyone use AI in plain English. The top rung of the ladder in Lesson 2 arrived: you describe what you want, and AI writes the code.</p></details></li>
+<li data-era="now"><details><summary><span class="yr">Today</span><span class="ev">Physical AI</span><span class="tag ai">AI</span></summary><p class="more">AI is moving off the screen and into machines that sense and act in the real world: robots, smart controllers, inspection cameras. That's the loop you will learn in Lesson 1, and it's what DiGiKits builds. You're joining the story right here.</p></details></li>
 </ol>
+</div>
+
+<h2 id="moores-law">How many switches? A chart</h2>
+<p>Each step on this chart is about ten times more than the one below it. A chart like this, where each line is ten times the last, is called a <strong>log scale</strong>; without it the early machines would be invisible.</p>
+<figure class="fig"><svg class="d" id="mchart" viewBox="0 0 680 320" role="img" aria-label="Number of switches per computer or chip, from about 1,600 tubes in Colossus to about 19 billion transistors in a 2023 phone chip, on a log scale"></svg><figcaption>Counts are approximate. From about 1,600 switches in 1944 to about 19 billion in a 2023 phone chip.</figcaption></figure>
+<div class="table-scroll"><table>
+<tr><th></th><th>ENIAC (1946)</th><th>Raspberry Pi 5 (2023)</th></tr>
+<tr><td>Size</td><td>A large room</td><td>A credit card</td></tr>
+<tr><td>Weight</td><td>About 27 tonnes</td><td>About 50 grams</td></tr>
+<tr><td>Power</td><td>About 150 kilowatts (enough for many houses)</td><td>A few watts (a phone charger)</td></tr>
+<tr><td>Programming</td><td>Plug cables by hand, for days</td><td>Type, or ask an AI, in seconds</td></tr>
+</table></div>
+
+<h2 id="programming-ages">Programming through the ages</h2>
+<p>Here's the same tiny job, <strong>add 2 and 3</strong>, done the way each generation did it. Step through and watch programming climb, one layer at a time. (Lesson 2 explains these layers.)</p>
+<div class="demo prog" id="prog">
+<div class="nav"><button class="b" id="pPrev" type="button">← Earlier</button><span class="dots" id="pDots"></span><button class="b" id="pNext" type="button">Later →</button></div>
+<div class="stage" id="pStage" aria-live="polite"></div>
+</div>
+
+<h2 id="lesson">The big lesson from history</h2>
+<div class="card accent"><p style="margin:0">Every generation took the hard, low-level work and hid it under a new layer, so the next generation could think bigger. Relays became tubes, tubes became transistors, transistors became chips. Plugboards became punched cards, cards became hex keypads, keypads became FORTRAN, FORTRAN became Python, and Python is becoming plain English. <strong>By the people, for the people</strong>, all the way through. In the AI era, your job is to understand the layers well enough to imagine what to build next.</p></div>
 
 <h2 id="hands-on">Hands-on</h2>
-<h3 id="count-on-fingers">1. Count to 31 on one hand</h3>
-<p>Each finger is a bit: up = 1, down = 0. Thumb is worth 1, index 2, middle 4, ring 8, little finger 16. Show 5 (thumb + middle), then 19, then 31. Two hands go up to 1023.</p>
-<h3 id="your-initial">2. Your initial in binary</h3>
-<p>Look up your first initial in an ASCII table (search “ASCII table”). Write its code number, then its 8 bits. Check yourself on the Pi or any Linux terminal:</p>
-<pre><code>echo -n A | xxd -b      # shows 01000001
-printf '%d\n' "'A"       # shows 65</code></pre>
-<h3 id="spot-the-border">3. Spot the border</h3>
-<p>Pick three gadgets at home (a phone, a fridge, a car, a smart speaker…). For each, name one thing it senses, where it converts analog to digital, and one thing it does in the real world. Post one of them on the board below.</p>
+<h3 id="favourite">1. Pick your favourite moment</h3>
+<p>Choose one event from the timeline that surprised you. Ask Claude to tell you more about it, and post two sentences about it on the board below.</p>
+<h3 id="your-layer">2. Find the layers in your Pi</h3>
+<p>On the Pi, run <code>cat /proc/cpuinfo</code> and <code>python3 --version</code>. Name which events on the timeline made each thing you see possible (the chip, Linux, Python).</p>
+<h3 id="next-step">3. Imagine the next step</h3>
+<p>The next rung after plain English might be… what? Talking to machines with gestures? Machines that design other machines? Write one idea on the board. There's no wrong answer.</p>
 
 <h2 id="done-when">Done when</h2>
 <ul class="check">
-<li>I can explain in one sentence the difference between the medium (voltage) and the code (binary)</li>
-<li>I can say why computers use two states instead of ten</li>
-<li>I counted to 31 on one hand</li>
-<li>I wrote my initial in binary and checked it in the terminal</li>
-<li>I can draw the five-step Physical AI loop from memory</li>
-<li>I posted one “spot the border” gadget on the board</li>
+<li>I can name the four kinds of switch in order: relay, vacuum tube, transistor, integrated circuit</li>
+<li>I can explain how punched cards and paper tape were 1s and 0s</li>
+<li>I know the difference between a microprocessor (Intel 4004) and a microcontroller (TMS1000, RP2350)</li>
+<li>I stepped through “programming through the ages”</li>
+<li>I can explain how each layer in history made the next one possible</li>
+<li>I posted my favourite moment and my “next step” idea on the board</li>
 </ul>
 
-<h2 id="further-reading">Further reading</h2>
-<ul>
-<li><a href="https://nondevelopers.com/computers-understand-0-1/">How computers understand 0 and 1</a> (Non-Developers)</li>
-<li><a href="https://dev.to/kathirvel-s/how-computers-actually-run-using-0-and-1-binary-explained-simply-31a6">How computers actually run using 0 and 1</a> (DEV Community)</li>
-<li><a href="https://www.geeksforgeeks.org/computer-organization-architecture/what-is-binary-code/">What is binary code?</a> (GeeksForGeeks)</li>
-</ul>
-
-<div class="pager"><a href="../lessons.html">← All lessons</a><a href="lesson-1.html">Lesson 1: Binary, hex and programming languages →</a></div>
+<div class="pager"><a href="../lessons.html">← All lessons</a><a href="lesson-1.html">Lesson 1: The real “language” computers use →</a></div>
 <p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
 <section class="board">
 <h2 id="how-did-it-feel">How did this lesson feel?</h2>
-<div class="card feel"><p><strong>Too much, just right, or too easy?</strong> Tell me in a line or two below, and ask anything that wasn't clear. For example: <em>“Lesson 0: just right. My initial T is 01010100.”</em></p><p>Be honest. If a lesson is too much, we change the lesson, not you. Take your time; there is no rush.</p><p class="sign">Your coach</p></div>
+<div class="card feel"><p><strong>Too much, just right, or too easy?</strong> Tell me in a line or two below, and ask anything that wasn't clear. For example: <em>“Lesson 0: just right. I can't believe ENIAC weighed 27 tonnes.”</em></p><p>Be honest. If a lesson is too much, we change the lesson, not you. Take your time; there is no rush.</p><p class="sign">Your coach</p></div>
 <p class="quiet-note">Sign in with your GitHub account to post, or just tap a reaction. Posts are public, so never share passwords, keys, IP addresses or personal details.</p>
 <script src="https://giscus.app/client.js"
  data-repo="wdigi/tony" data-repo-id="R_kgDOV5dORw"
@@ -124,6 +164,71 @@ printf '%d\n' "'A"       # shows 65</code></pre>
 </section>
 </div></main>
 <footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
+<script>
+/* Timeline filter */
+(function () {
+  var chips = document.querySelectorAll("#chips button"), items = document.querySelectorAll("#tl li");
+  chips.forEach(function (c) {
+    c.addEventListener("click", function () {
+      var era = c.getAttribute("data-era");
+      chips.forEach(function (x) { x.setAttribute("aria-pressed", x === c ? "true" : "false"); });
+      items.forEach(function (li) { li.classList.toggle("hidden", era !== "all" && li.getAttribute("data-era") !== era); });
+    });
+  });
+})();
+/* Log-scale chart of switch counts */
+(function () {
+  var data = [
+    ["Colossus", 1944, 1600, "tubes"], ["ENIAC", 1946, 17500, "tubes"], ["Intel 4004", 1971, 2300, "transistors"],
+    ["Intel 8086", 1978, 29000, "transistors"], ["Pentium", 1993, 3100000, "transistors"],
+    ["Core 2 Duo", 2006, 291000000, "transistors"], ["Phone chip", 2023, 19000000000, "transistors"]
+  ];
+  var X0 = 80, X1 = 650, Y0 = 20, Y1 = 270, lo = 3, hi = 11;
+  function X(y) { return X0 + (y - 1940) / (2025 - 1940) * (X1 - X0); }
+  function Y(n) { return Y1 - (Math.log10(n) - lo) / (hi - lo) * (Y1 - Y0); }
+  var names = { 3: "1 thousand", 4: "10 thousand", 5: "100 thousand", 6: "1 million", 7: "10 million", 8: "100 million", 9: "1 billion", 10: "10 billion", 11: "100 billion" }, h = "";
+  for (var e = lo; e <= hi; e++) {
+    var y = Y(Math.pow(10, e));
+    h += '<line x1="' + X0 + '" x2="' + X1 + '" y1="' + y + '" y2="' + y + '" stroke="var(--line)"/>';
+    h += '<text x="' + (X0 - 8) + '" y="' + (y + 4) + '" font-size="11.5" text-anchor="end" class="q">' + names[e] + "</text>";
+  }
+  [1940, 1960, 1980, 2000, 2020].forEach(function (yr) { h += '<text x="' + X(yr) + '" y="' + (Y1 + 20) + '" font-size="11.5" text-anchor="middle" class="q">' + yr + "</text>"; });
+  var pts = data.filter(function (d) { return d[3] === "transistors"; }).map(function (d) { return X(d[1]).toFixed(1) + "," + Y(d[2]).toFixed(1); });
+  h += '<polyline points="' + pts.join(" ") + '" fill="none" stroke="var(--violet)" stroke-width="2" stroke-dasharray="5 4"/>';
+  data.forEach(function (d, i) {
+    var x = X(d[1]), y = Y(d[2]), tube = d[3] === "tubes";
+    h += '<circle cx="' + x + '" cy="' + y + '" r="6" fill="' + (tube ? "var(--amber)" : "var(--accent)") + '"/>';
+    var lx = x + (i === data.length - 1 ? -10 : 10), anchor = i === data.length - 1 ? "end" : "start", ly = y + (i === 1 ? -8 : 4);
+    h += '<text x="' + lx + '" y="' + ly + '" font-size="12" text-anchor="' + anchor + '" font-weight="600">' + d[0] + " (" + d[1] + ")</text>";
+  });
+  h += '<circle cx="' + (X0 + 10) + '" cy="300" r="5" fill="var(--amber)"/><text x="' + (X0 + 20) + '" y="304" font-size="12" class="q">vacuum tubes</text>';
+  h += '<circle cx="' + (X0 + 130) + '" cy="300" r="5" fill="var(--accent)"/><text x="' + (X0 + 140) + '" y="304" font-size="12" class="q">transistors on one chip</text>';
+  document.getElementById("mchart").innerHTML = h;
+})();
+/* Programming through the ages */
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var stages = [
+    { t: "Plugboards and switches", w: "1940s · ENIAC", h: "<p>No keyboard and no screen. Programmers worked out the steps on paper, then wired them in by plugging cables between units and turning dials. To “add 2 and 3”, you'd set 2 and 3 on switch panels and connect them to an adding unit. A new program meant re-wiring, which could take days.</p>" },
+    { t: "Punched cards and paper tape", w: "1950s–70s", h: '<p>Each line of a program was typed onto its own card with a punching machine. A hole is a 1, no hole is a 0. You handed the deck to an operator and came back hours later for your printout. Drop the deck and you re-sort it by hand!</p><svg class="d" viewBox="0 0 520 120" role="img" aria-label="Illustration of a punched card"><rect x="10" y="10" width="500" height="100" rx="6" fill="var(--amber-soft)" stroke="var(--amber)"/><path d="M10 10 L30 10 L10 30 Z" fill="var(--surface)"/><text x="40" y="30" font-size="13" font-family="ui-monospace,monospace">I = 2 + 3</text>' + (function () { var s = ""; for (var c = 0; c < 9; c++) for (var r = 0; r < 4; r++) if ((c * 7 + r * 3) % 5 === 0 || (c + r) % 4 === 1) s += '<rect x="' + (42 + c * 11.5) + '" y="' + (44 + r * 15) + '" width="5" height="10" fill="var(--ink)"/>'; return s; })() + '<text x="300" y="80" font-size="12" class="q">one card = one line of program</text><text x="300" y="96" font-size="12" class="q">(hole pattern is an illustration)</text></svg>' },
+    { t: "Hex keypad, line by line", w: "1970s · KIM-1 and similar boards", h: "<p>You typed each byte of machine code on a hex keypad and read the answer on 7-segment LEDs. These are real codes for the 6502 chip in the KIM-1:</p><pre><code>A9 02   load 2 into the accumulator\n18      clear the carry flag\n69 03   add 3          (accumulator is now 5)\n85 10   store the answer in memory box 0x10\n00      stop</code></pre><p>Eight bytes, each typed by hand. One wrong key and nothing works.</p>" },
+    { t: "A high-level language", w: "1957 onwards · FORTRAN", h: "<p>Now you write something close to maths, and a compiler turns it into machine code for you:</p><pre><code>I = 2 + 3\nPRINT *, I</code></pre><p>(Modern Fortran style.) One line for people becomes many bytes for the chip.</p>" },
+    { t: "Python", w: "1991 onwards", h: "<p>Shorter and friendlier still, and you can try it right now on your Pi:</p><pre><code>print(2 + 3)</code></pre>" },
+    { t: "Plain English to an AI", w: "2022 onwards · Claude and others", h: "<p>You just ask:</p><p style=\"font-size:1.1em\"><em>“What's 2 plus 3? And write me a Python program that adds any two numbers I type in.”</em></p><p>The AI answers and writes the code. Every layer below still runs, all the way down to switches going high and low, but you never have to touch them unless something breaks. That's where support people come in.</p>" }
+  ];
+  var i = 0, dots = $("pDots");
+  stages.forEach(function () { dots.appendChild(document.createElement("span")); });
+  function show() {
+    var s = stages[i];
+    $("pStage").innerHTML = "<h4>" + (i + 1) + " · " + s.t + '</h4><p class="when">' + s.w + "</p>" + s.h;
+    Array.prototype.forEach.call(dots.children, function (d, k) { d.classList.toggle("on", k === i); });
+    $("pPrev").disabled = i === 0; $("pNext").disabled = i === stages.length - 1;
+  }
+  $("pPrev").addEventListener("click", function () { if (i > 0) { i--; show(); } });
+  $("pNext").addEventListener("click", function () { if (i < stages.length - 1) { i++; show(); } });
+  show();
+})();
+</script>
 <script src="../assets/quiz-data.js" defer></script>
 <script src="../assets/quiz.js" defer></script>
 <script src="../assets/progress-config.js" defer></script>
