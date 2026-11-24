@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Physical AI Systems · Lesson 8 · DiGiKits Support Training</title>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.demo{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:14px;margin:18px 0}
+.demo .d-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.demo .d-title{font-weight:600}
+.demo button.b{font:inherit;font-size:14px;padding:6px 14px;border-radius:999px;border:1.5px solid var(--line-strong);background:var(--surface);color:var(--ink);cursor:pointer}
+.demo button.b[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.demo svg{width:100%;height:auto;display:block}
+.demo .detail{border-top:1px solid var(--line);margin-top:10px;padding-top:10px;min-height:7.5em}
+.demo .detail h4{margin:0 0 4px}
+.demo .detail p{margin:0 0 6px}
+.demo .step{cursor:pointer}
+.demo .step rect{fill:var(--surface);stroke:var(--line-strong);stroke-width:1.5;transition:fill .25s,stroke .25s}
+.demo .step.on rect{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2.5}
+.demo .step text{fill:var(--ink)}
+.demo .step:focus{outline:none}.demo .step:focus-visible rect{stroke:var(--accent);stroke-width:3}
+.demo .node{cursor:pointer}
+.demo .node circle{fill:var(--surface);stroke:var(--line-strong);stroke-width:2;transition:fill .25s,stroke .25s}
+.demo .node.on circle{fill:var(--accent-soft);stroke:var(--accent);stroke-width:3}
+.demo .node text{fill:var(--ink)}
+.demo .node:focus{outline:none}.demo .node:focus-visible circle{stroke:var(--accent);stroke-width:3.5}
+.demo .runner{fill:var(--accent)}
+</style>
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">DiGiKits Support Training</a>
+<nav><a href="../index.html">Plan</a><a href="../lessons.html">Lessons</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a><a href="../board.html">Board</a><a href="../search.html">Search</a></nav>
+</div></header>
+<main><div class="wrap">
+<p style="color:var(--muted);margin:0">Physical AI Systems · Lesson 8</p><h1>How DiGiKits uses Claude: making tools that make tools</h1>
+<p class="lead">You've seen how computers grew, layer by layer, from switches to plain English. This lesson shows how DiGiKits works on the very top layer every day: the founder and the team work <em>with</em> Claude, an AI made by Anthropic, as a teammate. And the most powerful habit isn't asking Claude to do a job once. It's using Claude to build <strong>tools</strong>, and then tools that build more tools.</p>
+<div class="card"><p style="margin:0"><strong>Self-paced, so go easy on yourself.</strong> This lesson is about a way of working, not facts to memorise. Try the drawings, then try the hands-on with Claude yourself. The live session shows real examples of DiGiKits tools in action.</p></div>
+<p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
+
+<h2 id="teammate">Claude as a teammate</h2>
+<p>At DiGiKits, people and AI have different jobs. The founder works as the <strong>planner and product manager</strong>: deciding what to build, for whom, and why. Claude works like a tireless <strong>developer, system architect and team leader</strong> who is available at any hour: drafting code, designs, documents and plans, and asking hard questions back.</p>
+<div class="table-scroll"><table>
+<tr><th>People decide</th><th>Claude drafts and helps</th><th>Tests and hardware have the final word</th></tr>
+<tr><td>What to build and why</td><td>Code, firmware, scripts</td><td>Does it pass the automatic checks?</td></tr>
+<tr><td>What customers are promised</td><td>Designs, mock-ups, 3D concepts</td><td>Does it work on the real board?</td></tr>
+<tr><td>Safety, money and anything that can't be undone</td><td>Documents, guides, training (like this site)</td><td>Does a person who checked it agree?</td></tr>
+</table></div>
+<div class="card accent"><p style="margin:0"><strong>Claude is told to push back.</strong> A good teammate doesn't just say yes. DiGiKits asks Claude to question ideas, point out mistakes and suggest what's been missed, even the founder's. Many lessons on this site were improved exactly that way: the founder wrote a draft, and Claude corrected facts and added what was missing.</p></div>
+
+<h2 id="tools-to-make-tools">The big idea: tools that make tools</h2>
+<p>There are four levels of using AI. Most people stay on level 1. DiGiKits works mostly on levels 3 and 4, because that's where one hour of work keeps paying back for years. Click each step, or press Play.</p>
+<div class="demo" id="ladder">
+<div class="d-head"><span class="d-title">Four levels of using AI</span><button class="b" id="lPlay" type="button" aria-pressed="false">▶ Play</button></div>
+<svg viewBox="0 0 600 230" role="img" aria-label="A staircase of four levels: ask once, build a tool, capture the method, tools that build tools">
+<g id="steps"></g>
+<text x="20" y="222" font-size="12" fill="var(--muted)">effort once →</text><text x="580" y="222" font-size="12" text-anchor="end" fill="var(--muted)">→ pays back again and again</text>
+</svg>
+<div class="detail" id="lDetail" aria-live="polite"></div>
+</div>
+<p>Notice it's the same pattern as the history of computers in Lesson 0: each level hides the work of the level below, so people can think bigger. Building tools that build tools is simply the newest layer. By the people, for the people.</p>
+
+<h2 id="daily-loop">The DiGiKits working loop</h2>
+<p>Every idea, big or small, goes around the same loop. Click any stop to see what happens there, or watch the dot go round.</p>
+<div class="demo" id="loop">
+<div class="d-head"><span class="d-title">From an idea to something that works</span><button class="b" id="cPlay" type="button" aria-pressed="false">▶ Play</button></div>
+<svg viewBox="0 0 600 340" role="img" aria-label="A circle of seven stops: idea, capture, brainstorm, concept, build, check, keep">
+<circle cx="300" cy="165" r="122" fill="none" stroke="var(--line-strong)" stroke-width="2" stroke-dasharray="6 6"/>
+<g id="nodes"></g>
+<circle id="runner" class="runner" r="7" cx="300" cy="43" opacity="0"/>
+<text x="300" y="160" font-size="15" font-weight="700" text-anchor="middle" fill="var(--ink)">people + Claude</text>
+<text x="300" y="180" font-size="12" text-anchor="middle" fill="var(--muted)">round and round</text>
+</svg>
+<div class="detail" id="cDetail" aria-live="polite"></div>
+</div>
+
+<h2 id="where">Where Claude helps at DiGiKits</h2>
+<div class="table-scroll"><table>
+<tr><th>Area</th><th>What Claude does</th><th>What a person still does</th></tr>
+<tr><td>Ideas and planning</td><td>Brainstorms, asks questions, sorts ideas into projects, keeps a to-do list</td><td>Chooses what's worth doing now</td></tr>
+<tr><td>Concepts</td><td>Builds clickable mock-ups, 3D concept models and diagrams within minutes</td><td>Judges whether it looks and feels right</td></tr>
+<tr><td>Software and firmware</td><td>Writes code, tests and explanations through the pipeline</td><td>Tests on real hardware, reviews, merges</td></tr>
+<tr><td>Hardware design</td><td>Drafts circuit plans and checks them against rules</td><td>Final engineering sign-off</td></tr>
+<tr><td>Documents and training</td><td>Writes guides, manuals, quizzes and lessons (this site)</td><td>Checks facts and tone</td></tr>
+<tr><td>Customer support</td><td>Drafts replies, reads logs, suggests causes, writes knowledge-base articles</td><td>Checks the answer, sends it, owns the customer</td></tr>
+</table></div>
+
+<h2 id="support">How you'll use Claude in support</h2>
+<ul>
+<li><strong>Understand the problem:</strong> paste an error message or log lines and ask what they mean and what to check first.</li>
+<li><strong>Draft the reply:</strong> ask for a clear, friendly answer at the customer's level, then read it, fix it and send it yourself.</li>
+<li><strong>Write it down:</strong> once a case is solved, ask Claude to turn your notes into a knowledge-base article, so the next case is faster. That's level 3 in action.</li>
+</ul>
+
+<h2 id="rules">The rules that never change</h2>
+<div class="card accent"><ul style="margin:0 0 0 1.1em">
+<li><strong>You own the answer.</strong> Claude can be wrong, sometimes confidently. Check facts, voltages, commands and anything safety-related before you act on them or send them.</li>
+<li><strong>Keep private things private.</strong> Never paste passwords, keys, customer personal details or company secrets into any tool unless the company has approved it for that.</li>
+<li><strong>People make the decisions</strong> that affect safety, money, customers or anything that can't be undone.</li>
+<li><strong>Say what you used.</strong> If AI helped write something important, the reviewer should know.</li>
+</ul></div>
+
+<h2 id="prompts">Asking well</h2>
+<p>Claude gives much better help when you give it what a new colleague would need. Compare:</p>
+<div class="table-scroll"><table>
+<tr><th>Weak request</th><th>Strong request</th></tr>
+<tr><td><em>“LED strip not working, help.”</em></td><td><em>“A customer's WS2812 LED strip on a Pi shows the wrong colours: red looks green. It's powered from its own 5 V supply with a shared ground. What are the three most likely causes, in order, and what should I ask the customer to check first? Keep it short.”</em></td></tr>
+</table></div>
+<p>The strong one gives <strong>context</strong> (what, where, what's already known), the <strong>goal</strong> (likely causes, first check) and the <strong>format</strong> (three items, short).</p>
+
+<h2 id="hands-on">Hands-on</h2>
+<h3 id="explain-again">1. Ask for a second explanation</h3>
+<p>Pick the lesson in this series you found hardest. Ask Claude to explain it a different way, with an everyday example. Post the best explanation on the board below.</p>
+<h3 id="level-up">2. Level up one task</h3>
+<p>Think of one thing you do again and again (a reply, a check, a report). Write it down at all four levels: what would level 1, 2, 3 and 4 look like? You don't need to build it; the thinking is the point.</p>
+<h3 id="strong-prompt">3. Rewrite a weak request</h3>
+<p>Take this weak request: <em>“Pi won't connect, why?”</em> Rewrite it as a strong one with context, goal and format. Try both on Claude and compare the answers.</p>
+
+<h2 id="done-when">Done when</h2>
+<ul class="check">
+<li>I can explain who decides, who drafts, and what has the final word at DiGiKits</li>
+<li>I can describe the four levels of using AI, and why tools that make tools pay back</li>
+<li>I can walk around the DiGiKits working loop</li>
+<li>I know the rules: I own the answer, keep private things private, people decide</li>
+<li>I rewrote a weak request into a strong one and compared the answers</li>
+<li>I posted my second explanation or my level-up idea on the board</li>
+</ul>
+
+<div class="pager"><a href="lesson-7.html">← Lesson 7: Communication protocols</a><a href="../lessons.html">All lessons →</a></div>
+<p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
+<section class="board">
+<h2 id="how-did-it-feel">How did this lesson feel?</h2>
+<div class="card feel"><p><strong>Too much, just right, or too easy?</strong> Tell me in a line or two below, and ask anything that wasn't clear. For example: <em>“Lesson 8: just right. I want to build a level 3 tool for support replies.”</em></p><p>Be honest. If a lesson is too much, we change the lesson, not you. Take your time; there is no rush.</p><p class="sign">Your coach</p></div>
+<p class="quiet-note">Sign in with your GitHub account to post, or just tap a reaction. Posts are public, so never share passwords, keys, IP addresses or personal details.</p>
+<script src="https://giscus.app/client.js"
+ data-repo="wdigi/tony" data-repo-id="R_kgDOV5dORw"
+ data-category="Announcements" data-category-id="DIC_kwDOV5dOR84DL1hi"
+ data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0"
+ data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy"
+ crossorigin="anonymous" async></script>
+</section>
+</div></main>
+<footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
+<script>
+(function () {
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var $ = function (id) { return document.getElementById(id); };
+  /* Four levels */
+  var levels = [
+    { t: "Level 1 · Ask once", s: "Claude does one job for you.", ex: "“Write a label for this LED controller.” You get one label. Next week you ask again from scratch." },
+    { t: "Level 2 · Build a tool", s: "Claude helps you build something that does the job.", ex: "Claude builds a small label-maker page. Type a product name and size, and it makes the label. Now anyone can make labels without asking." },
+    { t: "Level 3 · Capture the method", s: "The way of doing it is written down so Claude does it the same way every time.", ex: "The steps, the style rules and the checks for making labels are saved as a reusable instruction set (a “skill”). Every teammate's Claude now makes labels the DiGiKits way." },
+    { t: "Level 4 · Tools that make tools", s: "A tool whose job is to build new tools.", ex: "A tool that, given any new product type, builds a new label-maker, a new test page and a new guide for it. One method now creates whole families of tools. This is how a small team works like a big one." }
+  ];
+  var g = $("steps"), h = "";
+  levels.forEach(function (L, i) {
+    var x = 20 + i * 142, y = 160 - i * 44, w = 136, hgt = 44 + i * 44;
+    h += '<g class="step" data-i="' + i + '" tabindex="0" role="button" aria-label="' + L.t + '"><rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + hgt + '" rx="8"/>';
+    h += '<text x="' + (x + w / 2) + '" y="' + (y + 22) + '" font-size="13" font-weight="700" text-anchor="middle">Level ' + (i + 1) + "</text>";
+    h += '<text x="' + (x + w / 2) + '" y="' + (y + 39) + '" font-size="12" text-anchor="middle">' + L.t.split("· ")[1] + "</text></g>";
+  });
+  g.innerHTML = h;
+  var steps = g.querySelectorAll(".step"), cur = 0, lt = null;
+  function pick(i) {
+    cur = i; steps.forEach(function (s, k) { s.classList.toggle("on", k <= i); });
+    var L = levels[i];
+    $("lDetail").innerHTML = "<h4>" + L.t + "</h4><p>" + L.s + '</p><p style="color:var(--muted)"><strong>Example:</strong> ' + L.ex + "</p>";
+  }
+  function lStop() { if (lt) { clearInterval(lt); lt = null; } $("lPlay").setAttribute("aria-pressed", "false"); $("lPlay").textContent = "▶ Play"; }
+  steps.forEach(function (s, i) {
+    s.addEventListener("click", function () { lStop(); pick(i); });
+    s.addEventListener("keydown", function (e) { if (e.key === " " || e.key === "Enter") { e.preventDefault(); lStop(); pick(i); } });
+  });
+  $("lPlay").addEventListener("click", function () {
+    if (lt) { lStop(); return; }
+    $("lPlay").setAttribute("aria-pressed", "true"); $("lPlay").textContent = "⏸ Pause";
+    pick(0); lt = setInterval(function () { pick((cur + 1) % levels.length); }, 3200);
+  });
+  pick(0);
+
+  /* Working loop */
+  var stops = [
+    { t: "Idea", d: "An idea can come anywhere: a customer problem, a walk, a drive. The founder often just talks it out loud to Claude, so nothing is lost." },
+    { t: "Capture", d: "Claude writes every idea down with a date and a number, sorts it into the right project, and puts real actions on one to-do list." },
+    { t: "Brainstorm", d: "Claude asks questions, challenges weak spots and suggests options. A key question: does this help us sell something soon, or can it wait?" },
+    { t: "Concept", d: "Before spending money or weeks of work, Claude builds a quick concept: a clickable mock-up, a 3D model at real scale, or a diagram. Cheap to change, easy to judge." },
+    { t: "Build", d: "Claude drafts the code, firmware or design through the DiGiKits pipeline: small changes, automatic checks, a person's review." },
+    { t: "Check", d: "Tests run, the real hardware is tried, and a person decides. If it's wrong, it goes back round the loop." },
+    { t: "Keep", d: "What worked is saved: documents, a reusable method (a skill), an entry in the index of everything made. Next time starts from here, not from zero." }
+  ];
+  var N = stops.length, R = 122, cx = 300, cy = 165, ng = $("nodes"), nh = "";
+  function pos(i) { var a = -Math.PI / 2 + i * 2 * Math.PI / N; return [cx + R * Math.cos(a), cy + R * Math.sin(a)]; }
+  stops.forEach(function (s, i) {
+    var p = pos(i);
+    nh += '<g class="node" data-i="' + i + '" tabindex="0" role="button" aria-label="' + s.t + '"><circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="38"/><text x="' + p[0].toFixed(1) + '" y="' + (p[1] - 3).toFixed(1) + '" font-size="12" text-anchor="middle" font-weight="700">' + (i + 1) + '</text><text x="' + p[0].toFixed(1) + '" y="' + (p[1] + 13).toFixed(1) + '" font-size="11.5" text-anchor="middle">' + s.t + "</text></g>";
+  });
+  ng.innerHTML = nh;
+  var nodes = ng.querySelectorAll(".node"), ci = 0, anim = null, playing = false, runner = $("runner");
+  function show(i) {
+    ci = i; nodes.forEach(function (n, k) { n.classList.toggle("on", k === i); });
+    $("cDetail").innerHTML = "<h4>" + (i + 1) + " · " + stops[i].t + "</h4><p>" + stops[i].d + "</p>";
+  }
+  function cStop() { playing = false; if (anim) cancelAnimationFrame(anim); anim = null; runner.setAttribute("opacity", 0); $("cPlay").setAttribute("aria-pressed", "false"); $("cPlay").textContent = "▶ Play"; }
+  function travel(from) {
+    var t0 = null, dur = 2600, a0 = -Math.PI / 2 + from * 2 * Math.PI / N, a1 = a0 + 2 * Math.PI / N;
+    runner.setAttribute("opacity", 1);
+    function step(t) {
+      if (!playing) return;
+      if (!t0) t0 = t;
+      var p = Math.min(1, (t - t0) / dur), a = a0 + (a1 - a0) * p;
+      runner.setAttribute("cx", (cx + R * Math.cos(a)).toFixed(1)); runner.setAttribute("cy", (cy + R * Math.sin(a)).toFixed(1));
+      if (p < 1) anim = requestAnimationFrame(step); else { var nx = (from + 1) % N; show(nx); travel(nx); }
+    }
+    anim = requestAnimationFrame(step);
+  }
+  nodes.forEach(function (n, i) {
+    n.addEventListener("click", function () { cStop(); show(i); });
+    n.addEventListener("keydown", function (e) { if (e.key === " " || e.key === "Enter") { e.preventDefault(); cStop(); show(i); } });
+  });
+  $("cPlay").addEventListener("click", function () {
+    if (playing) { cStop(); return; }
+    $("cPlay").setAttribute("aria-pressed", "true"); $("cPlay").textContent = "⏸ Pause";
+    if (reduce) { show((ci + 1) % N); $("cPlay").setAttribute("aria-pressed", "false"); $("cPlay").textContent = "▶ Next"; return; }
+    playing = true; show(ci); travel(ci);
+  });
+  show(0);
+})();
+</script>
+<script src="../assets/quiz-data.js" defer></script>
+<script src="../assets/quiz.js" defer></script>
+<script src="../assets/progress-config.js" defer></script>
+<script src="../assets/account.js" defer></script>
+<script src="../assets/progress.js" defer></script>
+</body>
+</html>

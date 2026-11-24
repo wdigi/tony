@@ -1,6 +1,13 @@
 /* Self-check questions for every lesson.
    Format per lesson: [question, [choices], index of the right choice, why]. */
 window.QUIZ = {
+"physical-ai/lesson-8.html": [
+ ["At DiGiKits, who makes the final decision on safety, money and customer promises?", ["Claude", "A person", "Whoever is fastest", "The automatic tests"], 1, "Claude drafts and helps; people decide; tests and hardware have the final word on whether it works."],
+ ["What is a level 3 use of AI?", ["Asking one question", "Capturing a method so Claude does a job the same way every time", "Turning the computer off", "Buying a new laptop"], 1, "Writing the method down (for example as a skill) makes good work repeatable for the whole team."],
+ ["Why do tools that make tools matter for a small company?", ["They look nice", "One hour of work keeps paying back, so a small team can work like a big one", "They replace all people", "They remove the need for testing"], 1, "Each level hides the work below it, like the layers in Lesson 0."],
+ ["Claude suggests a command to fix a customer's Pi. What should you do?", ["Send it straight to the customer", "Check it makes sense and is safe, then decide", "Ignore all AI suggestions", "Ask the customer to guess"], 1, "You own the answer. Claude can be wrong, sometimes confidently."],
+ ["Which request will usually get the best help?", ["“Help.”", "“Fix it.”", "One with context, a clear goal and the format you want", "One in capital letters"], 2, "Give Claude what a new colleague would need: context, goal, format."]
+],
 "physical-ai/lesson-0.html": [
  ["Which order did computer switches come in?", ["Tubes, relays, chips, transistors", "Relays, vacuum tubes, transistors, integrated circuits", "Transistors, relays, tubes, chips", "Chips, tubes, relays, transistors"], 1, "Relays (Z3, 1941) came first, then tubes (Colossus, ENIAC), then transistors (1947), then chips (1958–59)."],
  ["How did punched cards store a program?", ["With magnets", "A hole or no hole meant 1 or 0", "With colours", "By weight"], 1, "The same idea as binary: two states, hole or no hole."],
