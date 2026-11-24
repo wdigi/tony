@@ -164,3 +164,27 @@ svg.d .grid { stroke: var(--line); stroke-width: 1; }
   header.site .wrap { flex-wrap: wrap; row-gap: 4px; }
   header.site nav a:first-child { margin-left: 0; }
 }
+
+/* ---------- Self-check quiz ---------- */
+.quiz { margin-top: 40px; }
+.quiz .q { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin: 12px 0; }
+.quiz .qt { font-weight: 600; display: flex; gap: 10px; align-items: baseline; }
+.quiz .qn { flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 13px;
+            display: inline-flex; align-items: center; justify-content: center; transform: translateY(-1px); }
+.quiz .opts { display: grid; gap: 8px; margin-top: 10px; }
+.quiz .opts button { text-align: left; font: inherit; font-size: 16px; padding: 10px 12px; border-radius: 8px; cursor: pointer;
+                     border: 1.5px solid var(--line-strong); background: var(--bg); color: var(--ink); }
+.quiz .opts button:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-soft); }
+.quiz .opts button:disabled { cursor: default; opacity: .75; }
+.quiz .opts button.ok { border-color: var(--good); background: var(--good-soft); opacity: 1; font-weight: 600; }
+.quiz .opts button.no { border-color: var(--bad); background: var(--bad-soft); opacity: 1; }
+.quiz .why { margin-top: 10px; font-size: 15px; padding: 8px 10px; border-radius: 8px; }
+.quiz .why.ok { background: var(--good-soft); } .quiz .why.no { background: var(--bad-soft); }
+.quiz-result { border-radius: 10px; padding: 14px 16px; margin: 16px 0; border: 1.5px solid; }
+.quiz-result.ok { border-color: var(--good); background: var(--good-soft); }
+.quiz-result.mid { border-color: var(--amber); background: var(--amber-soft); }
+.quiz-result.no { border-color: var(--bad); background: var(--bad-soft); }
+.quiz-result .again { font: inherit; font-size: 14px; margin-left: 8px; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--line-strong);
+                      background: var(--surface); color: var(--ink); cursor: pointer; }
+.weeks .tick { margin-top: 6px; font-size: 12.5px; font-weight: 600; }
+.weeks .tick.ok { color: var(--good); } .weeks .tick.mid { color: var(--amber); }

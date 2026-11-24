@@ -1,0 +1,281 @@
+/* Self-check questions for every lesson.
+   Format per lesson: [question, [choices], index of the right choice, why]. */
+window.QUIZ = {
+"phase-1/day-1.html": [
+ ["What is the DiGiKits motto?", ["Build fast, break things", "From thoughts to things", "Hardware is hard", "AI for everyone"], 1, "From thoughts to things: an idea becomes a real, working product."],
+ ["In Thought → Design → Test → Build, where does most support work live?", ["Thought", "Design", "Test", "Build"], 2, "Test is where real machines must keep running, so that's where support lives."],
+ ["What's the difference between Git and GitHub?", ["They are the same thing", "Git saves versions on your computer; GitHub shares them online", "GitHub is only for photos", "Git is a website, GitHub is a program"], 1, "Git is the program that keeps versions; GitHub is the website where the team shares them."],
+ ["What do you send your coach after signing up?", ["Your password", "Your 2FA recovery codes", "Your username only", "A screenshot of your settings"], 2, "Only the username. Passwords and codes are never shared with anyone."],
+ ["Which AI does DiGiKits work with every day?", ["Claude, made by Anthropic", "No AI at all", "Only a calculator", "A robot dog"], 0, "DiGiKits works with Claude, an AI made by Anthropic. You meet it properly on Day 2."]
+],
+"phase-1/day-2.html": [
+ ["In the firm picture, what is the client file on the desk?", ["The AI model", "The context: everything the AI knows right now", "The software around the AI", "Your password"], 1, "The client file is the context: what the AI reads for this conversation."],
+ ["Why can a big question with the whole filing cabinet be a bad idea?", ["The AI gets bored", "You pay for what the AI reads, and it can miss the point", "It's against the law", "It's always faster"], 1, "Small job, small file: more reading costs more and can blur the answer."],
+ ["Who makes Claude?", ["DiGiKits", "Anthropic", "Raspberry Pi", "GitHub"], 1, "Claude is an AI model made by Anthropic."],
+ ["Claude drafts a script for a customer's screen. What happens next?", ["Send it straight to the customer", "A person checks it and tests it on real hardware first", "Delete it", "Ask a second AI and trust whichever is longer"], 1, "Claude drafts; people decide and check; the hardware has the final word."],
+ ["When connecting a new Pi, what do you plug in last?", ["SD card", "Monitor", "Keyboard", "Power"], 3, "The Pi starts the moment it has power, so everything else goes in first."]
+],
+"phase-1/day-3.html": [
+ ["What does pwd tell you?", ["Your password", "Which folder you are in", "Who is logged in", "The Pi's temperature"], 1, "pwd = print working directory: where you are right now."],
+ ["What does ~ mean in a path?", ["The root folder", "Your home folder, /home/yourname", "The trash", "Any folder"], 1, "~ is a shortcut for your home folder."],
+ ["Which command can't be undone?", ["cp", "mv", "rm", "ls"], 2, "rm deletes for good. There is no recycle bin."],
+ ["What does the Tab key do in the terminal?", ["Deletes a line", "Finishes names for you", "Opens a new window", "Shows the manual"], 1, "Tab completes file and folder names, which also stops typos."]
+],
+"phase-1/day-4.html": [
+ ["What is SSH?", ["A web browser", "A secure terminal on another computer", "A type of SD card", "A Wi-Fi password"], 1, "SSH is a Secure SHell: a protected terminal on a remote machine."],
+ ["Which half of an SSH key pair may you copy to the Pi?", ["The private key", "The public key", "Both", "Neither"], 1, "The public key is the lock you can give away. The private key never leaves your laptop."],
+ ["Why use Tailscale?", ["To make Wi-Fi faster", "To reach the Pi by name from anywhere without opening your router", "To cool the Pi", "To back up the SD card"], 1, "Tailscale makes a private network of your own devices, wherever they are."],
+ ["SSH refuses to connect. What do you check first?", ["Reinstall Linux", "Is the Pi on and reachable (ping)?", "Buy a new key", "Change the username"], 1, "Cheapest checks first: is it on and reachable?"]
+],
+"phase-1/day-5.html": [
+ ["In -rwxr-xr--, what can 'everyone else' do?", ["Read, write and run", "Read and run", "Read only", "Nothing"], 2, "The last three letters, r--, belong to everyone else: read only."],
+ ["What number does rwx add up to?", ["4", "5", "6", "7"], 3, "r = 4, w = 2, x = 1, so rwx = 7."],
+ ["A program can't write its log file. What is the right fix?", ["chmod 777 on the file", "Give the program's user ownership, or add it to the file's group", "Delete the log", "Run everything with sudo"], 1, "Fix the owner or group, not the whole world's rights."],
+ ["Why is software from apt considered safe?", ["It's free", "It comes from the Raspberry Pi OS package servers, already checked", "It's small", "It never needs updates"], 1, "apt installs from trusted, checked package servers."]
+],
+"phase-1/day-6.html": [
+ ["What does DHCP do?", ["Turns names into numbers", "Hands out IP addresses to devices", "Encrypts Wi-Fi", "Measures speed"], 1, "DHCP is how the router gives each device its IP address."],
+ ["What does DNS do?", ["Turns a name like google.com into a number", "Charges the Pi", "Blocks ports", "Saves files"], 0, "DNS is the internet's phone book."],
+ ["ping 8.8.8.8 works but ping google.com fails. What is broken?", ["The Wi-Fi password", "The power supply", "DNS", "The SD card"], 2, "The internet is reachable by number, so only the name lookup (DNS) is failing."],
+ ["How do you make the Pi always get the same IP address?", ["Reboot it often", "A DHCP reservation in the router", "Change its hostname", "Unplug the router"], 1, "A reservation ties the Pi's hardware ID to one address."]
+],
+"phase-1/day-7.html": [
+ ["GPIO17 is on which physical pin?", ["Pin 17", "Pin 11", "Pin 1", "Pin 40"], 1, "Code uses GPIO numbers; GPIO17 sits at physical pin 11."],
+ ["Which LED leg goes towards GPIO17 through the resistor?", ["The short leg", "The long leg", "Either", "Neither: it goes to 5V"], 1, "The long leg (+) goes towards the GPIO side; the short leg goes to ground."],
+ ["Why is the 330 Ω resistor there?", ["To make the LED brighter", "To limit the current so the LED and pin aren't damaged", "To store power", "Decoration"], 1, "Without it, too much current flows through the LED and the pin."],
+ ["The LED won't light. What is a good first step?", ["Buy a new Pi", "Check whether it's code or wiring, e.g. test the code another way", "Rewrite everything", "Use a bigger resistor"], 1, "Split the problem: software or wiring?"]
+],
+"phase-1/day-8.html": [
+ ["Why does the LED strip get its own 5 V supply?", ["It looks tidier", "A strip draws amps; a GPIO pin only gives a few milliamps", "The Pi has no 5 V", "It's cheaper"], 1, "30 LEDs can draw about 1.8 A. The Pi only sends the data signal."],
+ ["Why must the grounds be joined?", ["For safety colours", "The data signal needs a shared reference to be read", "To make it brighter", "They don't need to be"], 1, "Without a common ground the strip can't read the data correctly."],
+ ["Which end of the strip do you connect to?", ["Either end", "The input end, following the arrows", "The middle", "The end closest to the wall"], 1, "Data flows one way; connect at DIN, where the arrows start."],
+ ["Volts drop steadily from 5.0 V to 4.1 V along the strip. Likely cause?", ["Code bug", "Power: voltage drop", "Wrong Wi-Fi", "Bad SD card"], 1, "A steady drop along the strip is a power problem."]
+],
+"phase-1/day-9.html": [
+ ["What starts your service at every boot?", ["cron", "systemd, with WantedBy=multi-user.target", "The browser", "You, by hand"], 1, "systemd starts enabled services at boot."],
+ ["What does Restart=on-failure do?", ["Restarts the Pi", "Starts the program again if it crashes", "Deletes the logs", "Updates Linux"], 1, "If the program falls over, systemd brings it back."],
+ ["Where do you read why a service failed?", ["journalctl -u NAME", "ls -la", "ping", "nano"], 0, "The journal is the logbook; journalctl reads it."],
+ ["vcgencmd get_throttled shows 0x50005. What does that suggest?", ["All fine", "A power problem", "Disk full", "Wrong time zone"], 1, "Anything other than 0x0 points to power trouble."]
+],
+"phase-1/day-10.html": [
+ ["Put these in order:", ["push, commit, add", "add, commit, push", "commit, push, add", "push, add, commit"], 1, "add picks the changes, commit saves them, push shares them."],
+ ["What does git status show?", ["The Pi's health", "Which files changed and where they are in Git", "Your GitHub password", "Internet speed"], 1, "git status tells you what's changed, staged or committed."],
+ ["Your SD card dies. With a backup, what do you do?", ["Start setup from scratch", "Swap in the labelled backup card and boot", "Buy a new Pi", "Wait"], 1, "A backup turns a dead card into a quick swap."],
+ ["Why write a clear commit message?", ["GitHub requires 100 words", "So you and the team know what changed and why", "It makes code faster", "It's a password"], 1, "Each commit is a note in the history; make it useful."]
+],
+"phase-1/day-11.html": [
+ ["A Pi is broken. Which layer do you check first?", ["Logs", "Services", "Power", "Permissions"], 2, "Every check rests on the one below. Start with power."],
+ ["The Pi has power and boots, but you can't SSH in. Which layer is next?", ["Network", "LED strip", "Python", "Git"], 0, "After power and the SD card comes the network."],
+ ["What must you write after fixing the fault?", ["Nothing", "A support note: what you saw, tried, what fixed it, next time", "A poem", "A new guide for every command"], 1, "Notes become the DiGiKits knowledge base."],
+ ["What goes on your 'shaky' list?", ["Things you'd rather skip forever", "Topics you want to go over with your coach", "Your passwords", "Other people's mistakes"], 1, "Knowing what you don't know yet is part of passing."]
+],
+"phase-2/day-1.html": [
+ ["What does the first line #!/bin/bash do?", ["It's a comment", "It says which program runs the script", "It deletes old files", "It prints the date"], 1, "The 'shebang' line picks the shell that runs the script."],
+ ["What does temp=$(command) do?", ["Runs the command and keeps its output in a variable", "Deletes temp", "Comments out the line", "Waits forever"], 0, "$( ... ) runs a command and captures what it prints."],
+ ["What does a pipe | do?", ["Ends the script", "Passes one command's output into the next", "Makes a folder", "Runs as admin"], 1, "Commands can be chained: output of one is input of the next."],
+ ["A script says 'Permission denied' when you run it. Fix?", ["chmod +x script.sh", "Delete it", "Reboot", "Rename it .txt"], 0, "Scripts need the run (x) permission."]
+],
+"phase-2/day-2.html": [
+ ["What does */10 * * * * mean in cron?", ["Every 10 hours", "Every 10 minutes", "At 10:00 every day", "10 times a minute"], 1, "The first field is minutes: every 10 minutes."],
+ ["Your cron job never runs but works in the terminal. Likely cause?", ["Cron doesn't know your PATH or shortcuts: use full paths", "The Pi is too fast", "Cron only runs on Mondays", "The script is too short"], 0, "Cron runs with a minimal environment; use full paths."],
+ ["What shows when each systemd timer runs next?", ["systemctl list-timers", "ls -la", "ping", "df -h"], 0, "list-timers shows last and next runs."],
+ ["When is a timer better than cron?", ["Never", "For jobs customers depend on: logs, status, runs after boot", "Only for games", "When you have no Pi"], 1, "Timers give you logs, status and boot handling."]
+],
+"phase-2/day-3.html": [
+ ["What is kiosk mode?", ["A browser showing only one page full screen, no desktop", "A shopping app", "A power-saving mode", "A type of cable"], 0, "Kiosk mode shows just the page, ready for customers."],
+ ["Which file starts the browser at boot on labwc?", ["~/.config/labwc/autostart", "/etc/passwd", "README.md", "health.log"], 0, "The labwc autostart file runs programs when the desktop starts."],
+ ["After boot the page says 'This site can't be reached', then works later. Why?", ["The browser started before the network was ready", "The TV is broken", "The page was deleted", "The SD card is full"], 0, "It's a race: make the browser wait for the network."],
+ ["How do you test that a kiosk survives a power cut?", ["Pull the plug and plug it back in", "Turn off the TV only", "Restart the browser", "Ask the customer"], 0, "The real test is a real power cut."]
+],
+"phase-2/day-4.html": [
+ ["What does HDMI-CEC let the Pi do?", ["Charge the TV", "Switch the TV on and off over the HDMI cable", "Stream music", "Change TV channels only"], 1, "CEC sends control commands down the same cable as the picture."],
+ ["The command echo 'standby 0' | cec-client -s -d 1 does what?", ["Turns the TV on", "Puts the TV in standby", "Scans for devices", "Reboots the Pi"], 1, "standby 0 switches device 0 (the TV) off."],
+ ["What tells staff which mode the screen is in?", ["The LED next to the button", "The router lights", "The Pi's fan", "Nothing"], 0, "The LED shows the mode at a glance."],
+ ["The screen is dark at 9:00. Which is NOT a likely cause?", ["Timer didn't run", "CEC failed", "TV on the wrong input", "Someone changed the GitHub username"], 3, "The other three are real suspects with remote tests."]
+],
+"phase-2/day-5.html": [
+ ["An IP address is the building. What is a port?", ["The roof", "A door to one service", "The router", "The cable"], 1, "Each service listens on its own port."],
+ ["What shows which ports are listening?", ["sudo ss -tlnp", "cat notes.txt", "df -h", "whoami"], 0, "ss -tlnp lists listening TCP ports and their programs."],
+ ["Before running sudo ufw enable, what must you allow?", ["Port 80", "SSH", "Nothing", "Port 5000 only"], 1, "Allow SSH first, or you lock yourself out."],
+ ["A server listens on 127.0.0.1. Who can reach it?", ["The whole network", "Only programs on the Pi itself", "Only the router", "Everyone on the internet"], 1, "127.0.0.1 is localhost; use 0.0.0.0 for the network."]
+],
+"phase-2/day-6.html": [
+ ["About how much current do 120 WS2812 LEDs draw at full white?", ["0.7 A", "7.2 A", "72 A", "1.2 A"], 1, "120 × 0.06 A = 7.2 A worst case."],
+ ["The far end of a long strip is dim and yellow. Fix?", ["Power injection at more points", "A faster Pi", "Shorter code", "A new Wi-Fi password"], 0, "Feed power in at several points to beat voltage drop."],
+ ["Where does the fuse go?", ["Near the supply", "At the end of the strip", "Inside the Pi", "Nowhere"], 0, "A fuse near the supply protects the wiring."],
+ ["Who works on 120 V mains wiring?", ["You", "A licensed electrician", "The customer", "Anyone careful"], 1, "You work on low voltage only."]
+],
+"phase-2/day-7.html": [
+ ["How is a microcontroller different from a Pi?", ["It's a full computer with Linux", "It runs one job, starts in a blink and rarely crashes", "It has no pins", "It needs a monitor"], 1, "A microcontroller is a tiny computer for one job."],
+ ["How do you put the Pico into its file-copy mode?", ["Hold BOOTSEL while plugging in USB", "Press Ctrl+C", "Remove the SD card", "Shake it"], 0, "Hold BOOTSEL, plug in, release: a drive appears."],
+ ["Which file runs automatically when the Pico powers on?", ["main.py", "start.txt", "index.html", "README.md"], 0, "Save your program as main.py on the board."],
+ ["The Pico doesn't show up on USB. A common cause?", ["Charge-only USB cable", "Too much RAM", "Wrong time zone", "Firewall"], 0, "Some cables only carry power, not data."]
+],
+"phase-2/day-8.html": [
+ ["Image versus container?", ["Same thing", "Image is the package; container is a running copy", "Container is the package; image is running", "Images are only photos"], 1, "One image, many containers, like a recipe and the cakes."],
+ ["In -p 8080:80, which number is inside the container?", ["8080", "80", "Both", "Neither"], 1, "Outside 8080 maps to inside 80."],
+ ["What does a volume do?", ["Makes it louder", "Shares a folder between the Pi and the container", "Deletes the container", "Opens a port"], 1, "Volumes let a container use files from the host."],
+ ["'Port is already allocated.' What does it mean?", ["Something else is already using that port", "The Pi is off", "Docker isn't installed", "The image is too big"], 0, "Find what holds the door with docker ps or ss -tlnp."]
+],
+"phase-2/day-9.html": [
+ ["What does docker compose up -d do?", ["Starts all services in the compose file in the background", "Deletes everything", "Updates Linux", "Opens a browser"], 0, "One file, one command, the whole app."],
+ ["Which setting brings containers back after a reboot?", ["restart: unless-stopped", "ports:", "image:", "volumes:"], 0, "The restart policy handles reboots."],
+ ["Why is indentation important in compose.yaml?", ["It isn't", "YAML uses indentation to know what belongs to what", "It saves disk space", "It's only for looks"], 1, "Wrong spaces change the meaning of a YAML file."],
+ ["A container keeps restarting. First step?", ["Read its logs", "Delete the Pi", "Change the port", "Buy more RAM"], 0, "docker compose logs tells you why it falls over."]
+],
+"phase-2/day-10.html": [
+ ["Why work on a branch?", ["To hide work", "So changes are reviewed before they reach main", "Branches are faster", "GitHub charges for main"], 1, "Nobody edits main directly."],
+ ["What closes issue #12 when the pull request merges?", ["Writing 'Fixes #12' in the PR", "Deleting the issue", "Pushing twice", "Renaming the branch"], 0, "'Fixes #N' links and closes the issue on merge."],
+ ["Your push is rejected because the remote has new commits. Fix?", ["Force push over them", "git pull, fix any conflict, then push", "Delete the repo", "Wait a day"], 1, "Get teammates' changes first, then send yours."],
+ ["What should a pull request description say?", ["Nothing", "What changed and why, in a line or two", "Your password", "A full novel"], 1, "Short and clear helps the reviewer."]
+],
+"phase-2/day-11.html": [
+ ["What goes at the top of a guide?", ["Your name only", "What it sets up, what you need, how long it takes", "The last step", "A joke"], 1, "The reader knows what they're in for before starting."],
+ ["How many actions per numbered step?", ["One", "As many as fit", "Three", "Zero"], 0, "One action per step keeps people from skipping things."],
+ ["What should come after important steps?", ["'You should see …'", "A new chapter", "Nothing", "A password"], 0, "Tell the reader what success looks like."],
+ ["When is a guide finished?", ["When you finish writing it", "When someone else succeeds with it on a fresh card", "When it's long", "Never"], 1, "Test it on someone else and fix where they got stuck."]
+],
+"phase-2/day-12.html": [
+ ["Where do you give each Pi a short name for SSH?", ["~/.ssh/config", "/etc/hosts only", "README.md", "health.log"], 0, "Host entries in ~/.ssh/config make 'ssh screen1' work."],
+ ["Why rsync instead of scp for a website folder?", ["rsync copies only what changed", "scp is illegal", "rsync deletes the Pi", "No difference"], 0, "Only changed files travel, which is much faster."],
+ ["Your loop hangs on one dead machine. Fix?", ["ssh -o ConnectTimeout=5", "Remove the loop", "Use more Pis", "Turn off Wi-Fi"], 0, "A timeout lets the loop report the failure and move on."],
+ ["What does for h in screen1 screen2; do ssh \"$h\" uptime; done do?", ["Runs uptime on both Pis, one after the other", "Deletes both", "Only checks screen1", "Nothing"], 0, "One loop, many machines."]
+],
+"phase-2/day-13.html": [
+ ["What is the goal of monitoring?", ["More emails", "Find problems before the customer calls", "Slow the Pi down", "Replace backups"], 1, "Good support is mostly invisible."],
+ ["Why add retries before an alert?", ["To avoid false alarms from one lost packet", "To make alerts slower on purpose", "Kuma needs them", "No reason"], 0, "Retries stop jumpy alerts; too many make them slow."],
+ ["Which reading should trigger a health warning?", ["Temperature over 75 °C", "Disk at 20%", "Power 0x0", "Uptime 3 days"], 0, "75 °C is the warning limit in your health script."],
+ ["What does logrotate prevent?", ["Logs filling the disk", "Wi-Fi drops", "Power cuts", "Typos"], 0, "Old logs are compressed and removed on a schedule."]
+],
+"phase-2/day-14.html": [
+ ["Which voltage range is your job?", ["5–24 V", "120 V", "240 V", "Any"], 0, "Low voltage only. Mains is for licensed electricians."],
+ ["You smell burning near an LED supply. First step?", ["Power off now", "Take a video", "Keep testing", "Tap it"], 0, "Heat or smell: power off now, then investigate."],
+ ["Before handling a bare board?", ["Touch grounded metal or wear a wrist strap", "Wash it", "Blow on it", "Nothing"], 0, "Static (ESD) can kill electronics."],
+ ["A fix you can't undo on a customer's system. What do you do?", ["Stop and call your coach first", "Do it quickly", "Ask the customer to do it", "Skip the photo"], 0, "When in doubt, it's a stop."]
+],
+"phase-2/day-15.html": [
+ ["What do you follow to build the gate system?", ["Only your own written guide", "Your memory", "A video", "Your coach's hands"], 0, "The gate tests your guide as much as your skills."],
+ ["What proves the system is ready?", ["It works after a power cut with no keyboard attached", "It looks nice", "It booted once", "The fan is quiet"], 0, "Customers' systems must recover on their own."],
+ ["Where do alerts go?", ["Your phone", "A drawer", "The TV", "Nowhere"], 0, "Monitoring sends alerts to your phone."],
+ ["You had to think during setup. What now?", ["Fix the guide at that step", "Ignore it", "Delete the guide", "Start Phase 3 anyway"], 0, "Every place you had to think is a place someone else will get stuck."]
+],
+"phase-3/day-1.html": [
+ ["The lobby screen is dark during opening hours. Severity?", ["1 · down", "2 · broken, workaround", "3 · question", "No ticket needed"], 0, "The customer can't use it at all: severity 1."],
+ ["Which status means it's the customer's move?", ["Open", "Waiting on customer", "Fixed", "Closed"], 1, "The status says whose move it is."],
+ ["When do you update the customer?", ["At every step, even with no news", "Only when fixed", "Never", "Once a month"], 0, "Silence feels like nobody's working."],
+ ["What closes a ticket?", ["The customer confirms, and you write a support note", "Time passes", "You get bored", "A reboot"], 0, "Confirmed fix plus a note."]
+],
+"phase-3/day-2.html": [
+ ["What is the first step of the fault-finding method?", ["Reproduce: see the problem yourself", "Replace parts", "Reboot everything", "Write the report"], 0, "See it yourself before guessing."],
+ ["Why ask 'What changed?'", ["Most faults follow a change", "To blame someone", "It's polite", "It fills time"], 0, "Updates, moves, power cuts and new cables cause most faults."],
+ ["Why change one thing at a time?", ["So you know which change fixed it", "It's slower on purpose", "Rules are rules", "To save parts"], 0, "Otherwise you don't know why it works."],
+ ["Six parts in a chain. With 'split in half', how many tests at most?", ["About 3", "6", "12", "1"], 0, "Each test throws away half the suspects."]
+],
+"phase-3/day-3.html": [
+ ["Which line breaks the rules for customer replies?", ["'I'll check again tomorrow at 9:00.'", "'This will never happen again.'", "'Thanks for letting us know.'", "'I switched it back and it's showing.'"], 1, "Never promise perfect. Promise to catch problems fast."],
+ ["What should every reply say?", ["What you found, what you did, what happens next with a time", "Only 'fixed'", "Technical details first", "Who caused it"], 0, "Customers calm down when they know what happens next."],
+ ["The customer uses no technical words. You should…", ["Use plain words too", "Explain systemd in detail", "Paste the logs", "Use acronyms"], 0, "No jargon unless the customer uses it first."],
+ ["You don't know the cause yet. What do you say?", ["'I'm looking into it and will update you by 3:00'", "A guess that sounds confident", "Nothing", "'It's your network'"], 0, "Never guess out loud; give a time for the next update."]
+],
+"phase-3/day-4.html": [
+ ["Before connecting to a customer's system you must…", ["Ask permission and tell them when you start", "Just connect", "Email your password", "Turn off their firewall"], 0, "Ask first, every time."],
+ ["The customer emails you their password. What do you do?", ["Don't use it, ask them to change it, use the approved access method", "Use it once", "Save it for later", "Forward it to your coach"], 0, "A password in email is no longer secret."],
+ ["What does 'least access' mean?", ["Touch only the system the ticket is about", "Look at everything while you're in", "Use the least time", "Use a small screen"], 0, "Having a way in doesn't mean you may look around."],
+ ["What must you do at the end of a session?", ["Remove temporary access and confirm with the customer", "Leave it open for next time", "Copy their files", "Nothing"], 0, "Undo temporary access and tell them you're finished."]
+],
+"phase-3/day-5.html": [
+ ["How should a knowledge-base title be written?", ["In the customer's words, e.g. 'Screen is dark after a power cut'", "As a code name", "In engineer terms only", "As short as possible: 'Bug'"], 0, "Write it the way a customer would search for it."],
+ ["Why do clear articles matter so much at DiGiKits?", ["AI helpers answer customers from them", "They look good", "They're required by law", "They replace testing"], 0, "Better articles mean better AI answers and fewer tickets."],
+ ["What section tells the customer what to send support?", ["If that didn't work", "Title", "Applies to", "Cause"], 0, "Every article ends with what to do if the fix fails."],
+ ["The AI gave a wrong answer from your article. What do you fix?", ["The article", "The AI", "The customer", "Nothing"], 0, "If the AI misreads it, a tired customer will too."]
+],
+"phase-3/day-6.html": [
+ ["Which is a good use of Claude in support?", ["Explaining an unfamiliar error message", "Pasting a customer's password", "Running any command it gives you with sudo", "Sending its reply without reading it"], 0, "Use it to explain, draft and suggest, then check."],
+ ["What goes into a good support question to Claude?", ["Context, the exact symptom, evidence with secrets removed, what you tried, what you want", "Just 'it's broken'", "The customer's full files", "Only the device name"], 0, "The same facts you'd give a senior engineer."],
+ ["Claude suggests a command you don't understand. You…", ["Don't run it until you understand it", "Run it with sudo", "Run it twice", "Paste it to the customer"], 0, "Never run what you don't understand, especially sudo or rm."],
+ ["Who owns a reply that Claude drafted?", ["You: you send it, so read every word", "Claude", "Anthropic", "The customer"], 0, "You send it, so you own it."]
+],
+"phase-3/day-7.html": [
+ ["How long should the daily check take?", ["About 5 minutes", "2 hours", "All day", "It's weekly"], 0, "Five minutes of checks saves hours of repair."],
+ ["Updates are waiting on live systems. You…", ["Schedule them, don't run them blind", "Run them all now", "Ignore them forever", "Uninstall apt"], 0, "Plan updates for a safe time."],
+ ["What goes in the operations log?", ["Date, what you checked, found and did", "Your lunch", "Passwords", "Only problems"], 0, "A record of every day's check."],
+ ["What makes a daily-check script useful?", ["One summary line per Pi, so the odd one stands out", "Lots of colours", "Long output", "It runs once a year"], 0, "Your eye goes straight to the line that isn't OK."]
+],
+"phase-3/day-8.html": [
+ ["Which situation do you escalate right away?", ["Smoke or heat near equipment", "A customer asks how to change the schedule", "A typo in a guide", "A green dashboard"], 0, "Safety always escalates."],
+ ["First thing in an incident?", ["Make it safe", "Find the root cause", "Write the review", "Order parts"], 0, "Safety, then people, then the log, then the fix."],
+ ["Restore service or find the root cause first?", ["Restore service first, root cause after", "Root cause first", "Neither", "Ask the customer"], 0, "Get the customer running, then investigate."],
+ ["What kind of review follows an incident?", ["No blame: what let it happen and how to catch it faster", "Find who to blame", "No review", "A long apology only"], 0, "Ask 'what let this happen?', never 'who did it?'"]
+],
+"phase-3/day-9.html": [
+ ["In a shadow case, who does the work?", ["You, with your coach watching", "Your coach", "Claude alone", "The customer"], 0, "You drive; your coach steps in only if something could go wrong."],
+ ["What happens after each shadow case?", ["A 5-minute review: what went well, one thing to do better", "Nothing", "A test", "A day off"], 0, "Short reviews make each case better than the last."],
+ ["Which steps does a shadow case follow?", ["The full flow: ticket, diagnose, fix or escalate, reply, close, note", "Only the fix", "Only the reply", "Only the note"], 0, "Real cases, the full flow."]
+],
+"phase-3/day-10.html": [
+ ["How many real cases does the gate ask for?", ["5", "1", "10", "20"], 0, "Five real cases, start to finish."],
+ ["Which is NOT a check for each case?", ["Correct severity", "Replies on time", "A clear log", "Fixed in under 5 minutes"], 3, "Speed isn't the test; doing it right is."],
+ ["At least one case must be…", ["Fixed remotely, by the rules", "Escalated", "Closed without the customer", "Done on a weekend"], 0, "Remote support done properly is core to the job."],
+ ["What else must come out of these cases?", ["At least one knowledge-base article written or improved", "A new product", "A blog post", "Nothing"], 0, "Every case should make the next one faster."]
+],
+"phase-4/day-1.html": [
+ ["In most CAD tools, which axis points up?", ["X", "Y", "Z", "W"], 2, "X left–right, Y front–back, Z up."],
+ ["A 1 m desk in a DiGiKits model is…", ["1 unit", "100 mm", "1000 mm", "10 mm"], 2, "DiGiKits works in millimetres at real scale."],
+ ["Which file type is exact CAD for making parts?", ["STEP", "STL", "GLB", "JPG"], 0, "STEP keeps exact shapes; STL and GLB are meshes."],
+ ["Which file type is best for showing a coloured model on the web?", ["GLB / glTF", "STEP", "TXT", "DWG"], 0, "GLB is a mesh with colours, made for the web."]
+],
+"phase-4/day-2.html": [
+ ["What does 'fully constrained' mean?", ["Every size and position in the sketch is fixed", "The file is locked", "The part is finished", "It's printed"], 0, "FreeCAD changes the colour when nothing can move any more."],
+ ["What does Pad do?", ["Turns a flat sketch into a solid with thickness", "Deletes a sketch", "Adds colour", "Exports STL"], 0, "Pad extrudes the sketch, e.g. 3 mm."],
+ ["The holes are 3.2 mm across. Why that size?", ["To fit M3 screws with a little clearance", "It's random", "It's the biggest drill", "To save weight"], 0, "3.2 mm gives an M3 screw room to pass."],
+ ["Which two formats do you export?", ["STEP and STL", "JPG and PNG", "DOC and PDF", "MP3 and MP4"], 0, "STEP for CAD, STL for printing."]
+],
+"phase-4/day-3.html": [
+ ["What holds the Pi off the bottom of the enclosure?", ["Standoffs at its mounting holes", "Glue", "Tape", "Nothing"], 0, "Standoffs line up with the Pi's holes."],
+ ["The Pi 5's mounting holes are how far apart the long way?", ["58 mm", "85 mm", "49 mm", "100 mm"], 0, "58 mm by 49 mm, 3.5 mm from the edges."],
+ ["You change the wall thickness. What should happen?", ["The whole model updates", "Nothing", "The file breaks", "You redraw everything"], 0, "That's the point of a well-built parametric model."],
+ ["Where should the measurements come from?", ["Your real Pi or its official drawing", "A guess", "A photo", "Memory"], 0, "Measure twice, model once."]
+],
+"phase-4/day-4.html": [
+ ["Why build 3D models from code?", ["Change one number, keep it on GitHub, check it automatically, let AI help write it", "Code looks cool", "It's the only way", "It's always faster for beginners"], 0, "That's how DiGiKits makes fast, exact concepts."],
+ ["In CadQuery, what does .hole(3.2) do?", ["Drills 3.2 mm holes at the selected points", "Makes a 3.2 mm thick plate", "Rounds corners", "Exports a file"], 0, "Each line of code is one step of the shape."],
+ ["What does .edges(\"|Z\").fillet(2) do?", ["Rounds the vertical edges by 2 mm", "Cuts the part in half", "Adds 2 holes", "Moves the part up"], 0, "Selects edges parallel to Z and rounds them."],
+ ["You change box(100, 60, 3) to box(120, 60, 3). Result?", ["The plate becomes 120 mm long", "Nothing", "The holes vanish", "An error"], 0, "Edit one number, get a new part."]
+],
+"phase-4/day-5.html": [
+ ["Why put every size in variables at the top?", ["One place to change, no hidden numbers", "Python requires it", "It's faster to run", "To make the file longer"], 0, "No magic numbers buried in the code."],
+ ["How do you check the board doesn't collide with the enclosure?", ["Intersect them and confirm the result is empty", "Look at it", "Print it", "Ask Claude to guess"], 0, "An empty intersection means no collision."],
+ ["The intersection isn't empty. What does it mean?", ["Parts overlap: fix before making anything", "Everything is fine", "The file is corrupt", "The Pi is broken"], 0, "A clash found in code saves a failed print."],
+ ["What goes in the README?", ["What each variable means", "Your password", "Nothing", "Only the date"], 0, "Someone else should be able to change it safely."]
+],
+"phase-4/day-6.html": [
+ ["What draws the scene onto the page?", ["The renderer", "The camera", "The light", "The mesh"], 0, "The renderer films what the camera sees."],
+ ["A mesh is made of…", ["Geometry and material", "Only colour", "A camera and a light", "HTML"], 0, "Geometry is the shape, material is how it looks."],
+ ["What does camera.lookAt(0, 0, 0) do?", ["Points the camera at the middle of the scene", "Moves the box", "Turns off lights", "Saves the page"], 0, "The camera aims at the origin."],
+ ["Why open the page through python3 -m http.server?", ["Browsers block some features on plain files; a local server avoids that", "It makes 3D faster", "It's required for colours", "No reason"], 0, "Modules and loading files work properly from a server."]
+],
+"phase-4/day-7.html": [
+ ["Which file format do you load with GLTFLoader?", ["GLB / glTF", "STEP", "DOCX", "CSV"], 0, "GLB is the web-friendly mesh format."],
+ ["What does OrbitControls give the viewer?", ["Rotate, zoom and pan with mouse or touch", "Sound", "Faster loading", "A login page"], 0, "Drag to rotate, scroll or pinch to zoom, right-drag to pan."],
+ ["Where can you publish the page for free?", ["GitHub Pages", "Your SD card", "A USB stick", "Email"], 0, "This training site uses GitHub Pages too."],
+ ["How do you show it on the Big Screen?", ["Kiosk mode pointing at the page's address", "Copy the GLB to the TV", "Print it", "Use CEC only"], 0, "Your Phase 2 kiosk can show any web page."]
+],
+"phase-4/day-8.html": [
+ ["A good project sits where…", ["What you care about meets what DiGiKits can use", "It's the biggest idea", "It's the easiest", "Nobody will see it"], 0, "Pick from the overlap and you'll keep going."],
+ ["How long is the first milestone?", ["One week", "One day", "Six months", "No milestone"], 0, "The brief sets a one-week first milestone."],
+ ["How many 'done when' checks go in the brief?", ["Three", "One", "Ten", "None"], 0, "Three clear checks."],
+ ["Where is the brief saved?", ["In a new GitHub repo", "On paper only", "In an email", "Nowhere"], 0, "Everything lives on GitHub."]
+],
+"phase-4/day-9.html": [
+ ["What should the first milestone look like?", ["A thin version that works end to end", "One perfect part, nothing else working", "Only plans", "A finished product"], 0, "Everything works a little, then improve each part."],
+ ["How often do you commit?", ["At least once a day", "Once at the end", "Never", "Once a month"], 0, "Small, regular commits with clear messages."],
+ ["Claude writes code for your project. You…", ["Check and understand it before using it", "Paste it unread", "Delete it", "Send it to customers"], 0, "Day 2 rules: check its work like a machine."],
+ ["What do you post on the message board?", ["One screenshot and one line", "Your full code", "Nothing", "Passwords"], 0, "Short progress posts keep your coach in the loop."]
+],
+"phase-4/day-10.html": [
+ ["How long is the demo?", ["5 minutes", "1 hour", "30 seconds", "A full day"], 0, "Five minutes: what, how, next."],
+ ["What should the demo start with?", ["The project running", "Slides about yourself", "An apology", "The code"], 0, "Show the running thing first."],
+ ["What must the README contain?", ["What it is, how to run it, what's next", "Only the title", "Your passwords", "Nothing"], 0, "Someone else should be able to run it."],
+ ["What setup is allowed during the demo?", ["None: it runs without setup", "Install everything live", "Reboot twice", "Borrow a laptop"], 0, "Prepare beforehand so the demo just runs."]
+]
+};
