@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Day 2: First boot · DiGiKits Support Training</title>
+<title>Day 2: What AI is, and first boot · DiGiKits Support Training</title>
 <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
@@ -13,9 +13,58 @@
 <nav><a href="../index.html">Plan</a><a href="../phase-1/index.html">Phase 1</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a></nav>
 </div></header>
 <main><div class="wrap">
-<p style="color:var(--muted);margin:0">Phase 1 · Day 2</p><h1>First boot</h1>
-<p class="lead">Put an operating system on a blank card and get the Pi running and up to date.</p>
-<h2>Why it matters</h2>
+<p style="color:var(--muted);margin:0">Phase 1 · Day 2</p><h1>What AI is, and first boot</h1>
+<p class="lead">Morning: what AI is and why it sits at the centre of DiGiKits. Afternoon: put an operating system on a blank card and get the Pi running.</p>
+
+<h2>Part A · What AI is (morning)</h2>
+<p>Read <strong>"An Everyday Way to Understand How AI Works"</strong> (your coach sends you the link). Here are its main ideas.</p>
+
+<h3>The firm that forgets</h3>
+<p>Picture a firm full of brilliant experts: lawyers, engineers, designers, writers. They work 24 hours a day and never get tired. The catch: none of them remember you. Every visit starts with "How can we help you today?"</p>
+<p>Behind all the office doors there is really one mind wearing different hats. That mind is the <strong>AI model</strong>. Each conversation is a fresh shift with no memory of yesterday.</p>
+
+<svg class="roadmap" viewBox="0 0 760 170" role="img" aria-label="Client, receptionist, client file, expert">
+<defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8a9099"/></marker></defs>
+<text x="24" y="28" font-size="15" font-weight="600">The receptionist decides what the expert reads</text>
+<rect class="box" x="24" y="50" width="160" height="80" rx="8"/><text x="104" y="84" font-size="15" font-weight="600" text-anchor="middle">You</text><text class="quiet" x="104" y="106" font-size="13" text-anchor="middle">ask a question</text>
+<rect class="box now" x="208" y="50" width="160" height="80" rx="8"/><text x="288" y="84" font-size="15" font-weight="600" text-anchor="middle">Receptionist</text><text class="quiet" x="288" y="106" font-size="13" text-anchor="middle">the software</text>
+<rect class="box" x="392" y="50" width="160" height="80" rx="8"/><text x="472" y="84" font-size="15" font-weight="600" text-anchor="middle">Client file</text><text class="quiet" x="472" y="106" font-size="13" text-anchor="middle">the context</text>
+<rect class="box" x="576" y="50" width="160" height="80" rx="8"/><text x="656" y="84" font-size="15" font-weight="600" text-anchor="middle">Expert</text><text class="quiet" x="656" y="106" font-size="13" text-anchor="middle">the AI model</text>
+<path class="link" d="M184 90H206" marker-end="url(#ar2)"/><path class="link" d="M368 90H390" marker-end="url(#ar2)"/><path class="link" d="M552 90H574" marker-end="url(#ar2)"/>
+<text class="quiet" x="380" y="156" font-size="13" text-anchor="middle">Right file: brilliant answer. Wrong file or the whole cabinet: wrong or costly answer.</text>
+</svg>
+
+<div class="table-scroll"><table>
+<tr><th>At the firm</th><th>In AI</th><th>What it means</th></tr>
+<tr><td>The expert's education</td><td>The model</td><td>Everything it learned in training</td></tr>
+<tr><td>A client meeting</td><td>A conversation</td><td>Starts fresh, ends as one session</td></tr>
+<tr><td>The client file on the desk</td><td>The context</td><td>Everything the AI knows right now</td></tr>
+<tr><td>The receptionist</td><td>The software around the AI</td><td>Picks which file and which pages to hand over</td></tr>
+</table></div>
+
+<h3>Four things to remember</h3>
+<ol>
+<li><strong>AI memory is reading, not remembering.</strong> The system slips your file onto the desk before each conversation. It's an open-book exam.</li>
+<li><strong>You pay for what the AI reads.</strong> Hand it the whole filing cabinet for a small question and the bill is big. Small job, small file.</li>
+<li><strong>Talk to it like a person, check it like a machine.</strong> Be clear, give examples, give feedback. But AI can sound confident while guessing, so verify its work.</li>
+<li><strong>Be ambitious, with boundaries.</strong> Ask for big work, but say what must not change: "Make it faster <em>without reducing quality</em>."</li>
+</ol>
+
+<h3>Why AI is the centre of DiGiKits</h3>
+<p>DiGiKits is a Physical AI company: AI working with real machines, lights and boards for small businesses.</p>
+<ul>
+<li><strong>The lab is run by AI.</strong> DigitLab, an AI, runs DiGiKits Lab: it schedules tests, runs scripts and talks to visitors.</li>
+<li><strong>Design is AI-assisted.</strong> Customers describe a board and the design system builds it, with an AI review loop.</li>
+<li><strong>Customers get AI helpers.</strong> Many support questions are answered first by an AI, using the knowledge base your support notes feed.</li>
+<li><strong>The office runs on AI agents.</strong> Much of DiGiKits' own daily work is done by AI agents that people direct and review.</li>
+<li><strong>DiGiKits builds receptionists.</strong> The real product is the software that hands AI the right information about a customer's machines, floors and people.</li>
+</ul>
+<p><strong>Your place in this:</strong> AI knows patterns; it has never touched a hot motor. When AI runs a machine, someone has to bring the hands-on knowledge, check its work and keep the hardware healthy. That's the support role you are training for.</p>
+
+<h3>Try it</h3>
+<p>Set up the AI chat sidebar (see <a href="../tools.html">Tools</a>) on your laptop now, or on the Pi this afternoon. Ask it the same thing twice: once vaguely ("explain Linux"), once with a clear goal and limits ("explain Linux to a beginner in 5 bullet points, no jargon"). Compare the answers.</p>
+
+<h2>Part B · First boot (afternoon)</h2>
 <p>Every new DiGiKits device starts here. Support often means re-flashing a card.</p>
 <h2>Steps</h2>
 <ol>
@@ -29,7 +78,7 @@ sudo apt full-upgrade -y
 sudo reboot</code></pre></li>
 </ol>
 <h2>Done when</h2>
-<ul class="check"><li>The Pi boots to the desktop</li><li>The update finishes with no errors</li><li>You re-flash the card from scratch 3 times; the last one takes under 20 minutes</li></ul>
+<ul class="check"><li>You can explain the firm, the client file and the receptionist in your own words</li><li>You can give two reasons AI is the centre of DiGiKits, and where your job fits</li><li>The Pi boots to the desktop</li><li>The update finishes with no errors</li><li>You re-flash the card from scratch 3 times; the last one takes under 20 minutes</li></ul>
 <h2>Support drill</h2>
 <p>Your coach gives you a card with the wrong Wi-Fi password. Find out why the Pi has no internet and fix it. Write a support note (<a href="../tools.html">template</a>).</p>
 <div class="pager"><a href="day-1.html">← Day 1: Welcome: DiGiKits and GitHub</a><a href="day-3.html">Day 3: The terminal →</a></div>
