@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Day 3: Remote access · DiGiKits Support Training</title>
+<title>Day 3: The terminal · DiGiKits Support Training</title>
 <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
@@ -13,28 +13,28 @@
 <nav><a href="../index.html">Plan</a><a href="../phase-1/index.html">Phase 1</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a></nav>
 </div></header>
 <main><div class="wrap">
-<p style="color:var(--muted);margin:0">Phase 1 · Day 3</p><h1>Remote access</h1>
-<p class="lead">Control the Pi from your laptop or phone, at home and from anywhere.</p>
+<p style="color:var(--muted);margin:0">Phase 1 · Day 3</p><h1>The terminal</h1>
+<p class="lead">Work with files using only the keyboard.</p>
 <h2>Why it matters</h2>
-<p>Most DiGiKits support is remote. SSH is the main tool.</p>
-<h2>Steps</h2>
-<ol>
-<li>SSH on? If you didn't set it in Imager: <code>sudo raspi-config</code> → Interface Options → SSH → Yes.</li>
-<li>From your laptop (same Wi-Fi): <code>ssh yourname@trainpi.local</code></li>
-<li>Use a key instead of a password. On your laptop:
-<pre><code>ssh-keygen -t ed25519
-ssh-copy-id yourname@trainpi.local</code></pre></li>
-<li>Reach it from outside the house with Tailscale. On the Pi:
-<pre><code>curl -fsSL https://tailscale.com/install.sh | sh
-sudo tailscale up</code></pre>
-Open the link it prints and sign in. Install Tailscale on your laptop or phone with the same account.</li>
-<li>Now SSH by its Tailscale name from anywhere: <code>ssh yourname@trainpi</code></li>
-</ol>
+<p>Remote support has no mouse. Everything happens in a terminal.</p>
+<h2>Practice</h2>
+<pre><code>pwd                      # where am I?
+ls -la                   # list everything, with details
+mkdir -p ~/practice/logs # make folders
+cd ~/practice
+nano notes.txt           # write a few lines, Ctrl+O, Ctrl+X
+cat notes.txt            # show the file
+cp notes.txt logs/       # copy
+mv logs/notes.txt logs/old.txt   # rename
+rm logs/old.txt          # delete (no undo!)
+history                  # what did I type?
+man ls                   # the manual (q to quit)</code></pre>
+<p>Use the <strong>Tab</strong> key to finish names and the <strong>Up arrow</strong> to repeat commands.</p>
 <h2>Done when</h2>
-<ul class="check"><li>You log in with your key, no password asked</li><li>You log in from your phone on mobile data, not home Wi-Fi</li></ul>
+<ul class="check"><li>You finish a 20-step file task your coach writes, without the mouse</li><li>You can find any file with <code>find ~ -name "notes*"</code></li></ul>
 <h2>Support drill</h2>
-<p>SSH suddenly refuses to connect. Find out why (hint: is the service running? is the name right?).</p>
-<div class="pager"><a href="day-2.html">← Day 2: The terminal</a><a href="day-4.html">Day 4: Users, permissions, packages →</a></div>
+<p>A config file has been moved somewhere in your home folder. Find it and put it back.</p>
+<div class="pager"><a href="day-2.html">← Day 2: First boot</a><a href="day-4.html">Day 4: Remote access →</a></div>
 </div></main>
 <footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
 </body>

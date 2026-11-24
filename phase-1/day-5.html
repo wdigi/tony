@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Day 5: Networking basics · DiGiKits Support Training</title>
+<title>Day 5: Users, permissions, packages · DiGiKits Support Training</title>
 <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
@@ -13,23 +13,26 @@
 <nav><a href="../index.html">Plan</a><a href="../phase-1/index.html">Phase 1</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a></nav>
 </div></header>
 <main><div class="wrap">
-<p style="color:var(--muted);margin:0">Phase 1 · Day 5</p><h1>Networking basics</h1>
-<p class="lead">Find any device on a network and reach it by name.</p>
+<p style="color:var(--muted);margin:0">Phase 1 · Day 5</p><h1>Users, permissions, packages</h1>
+<p class="lead">Understand who can do what on a Linux computer, and install software safely.</p>
 <h2>Why it matters</h2>
-<p>"It's not connecting" is usually a network question first.</p>
+<p>"Permission denied" is one of the most common faults you will see.</p>
 <h2>Practice</h2>
-<pre><code>hostname -I               # this Pi's IP address
-ip a                      # all network interfaces
-ip route                  # the router (default gateway)
-ping -c 4 8.8.8.8         # is the internet reachable?
-ping -c 4 google.com      # is DNS working too?
-ping trainpi.local        # reach a Pi by name</code></pre>
-<p><strong>Fixed address:</strong> the simplest way is a DHCP reservation in your router, so the Pi always gets the same IP. On the Pi itself, <code>sudo nmtui</code> can also set one.</p>
+<pre><code>whoami ; groups           # who am I, which groups?
+ls -l                     # -rw-r--r-- = owner / group / everyone
+chmod +x myscript.sh      # make a script runnable
+sudo chown yourname file  # change the owner
+sudo cat /etc/shadow      # sudo = run as admin; use it carefully
+
+apt search htop           # find software
+sudo apt install htop     # install
+htop                      # try it (q to quit)
+sudo apt remove htop      # remove</code></pre>
 <h2>Done when</h2>
-<ul class="check"><li>You can explain: IP address, router, DHCP, DNS</li><li>Your Pi keeps the same IP after a reboot</li></ul>
+<ul class="check"><li>You can explain the 10 letters in <code>-rwxr-xr--</code></li><li>You fix a "permission denied" on a script your coach gives you</li></ul>
 <h2>Support drill</h2>
-<p>The Pi can ping 8.8.8.8 but not google.com. What is broken? Fix it.</p>
-<div class="pager"><a href="day-4.html">← Day 4: Users, permissions, packages</a><a href="day-6.html">Day 6: Python and GPIO →</a></div>
+<p>A program can't write its log file. Find the permission problem and fix it without using <code>chmod 777</code>.</p>
+<div class="pager"><a href="day-4.html">← Day 4: Remote access</a><a href="day-6.html">Day 6: Networking basics →</a></div>
 </div></main>
 <footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
 </body>

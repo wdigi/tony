@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Day 2: The terminal · DiGiKits Support Training</title>
+<title>Day 2: First boot · DiGiKits Support Training</title>
 <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
@@ -13,28 +13,26 @@
 <nav><a href="../index.html">Plan</a><a href="../phase-1/index.html">Phase 1</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a></nav>
 </div></header>
 <main><div class="wrap">
-<p style="color:var(--muted);margin:0">Phase 1 · Day 2</p><h1>The terminal</h1>
-<p class="lead">Work with files using only the keyboard.</p>
+<p style="color:var(--muted);margin:0">Phase 1 · Day 2</p><h1>First boot</h1>
+<p class="lead">Put an operating system on a blank card and get the Pi running and up to date.</p>
 <h2>Why it matters</h2>
-<p>Remote support has no mouse. Everything happens in a terminal.</p>
-<h2>Practice</h2>
-<pre><code>pwd                      # where am I?
-ls -la                   # list everything, with details
-mkdir -p ~/practice/logs # make folders
-cd ~/practice
-nano notes.txt           # write a few lines, Ctrl+O, Ctrl+X
-cat notes.txt            # show the file
-cp notes.txt logs/       # copy
-mv logs/notes.txt logs/old.txt   # rename
-rm logs/old.txt          # delete (no undo!)
-history                  # what did I type?
-man ls                   # the manual (q to quit)</code></pre>
-<p>Use the <strong>Tab</strong> key to finish names and the <strong>Up arrow</strong> to repeat commands.</p>
+<p>Every new DiGiKits device starts here. Support often means re-flashing a card.</p>
+<h2>Steps</h2>
+<ol>
+<li>On your laptop, install <strong>Raspberry Pi Imager</strong> from raspberrypi.com/software.</li>
+<li>Choose device: Raspberry Pi 5. OS: Raspberry Pi OS (64-bit). Storage: your SD card.</li>
+<li>When asked, <strong>edit settings</strong>: set a hostname (e.g. <code>trainpi</code>), a username and password, your Wi-Fi, and your time zone. On the Services tab, turn on SSH.</li>
+<li>Write the card, put it in the Pi, connect monitor, keyboard, mouse, then power last.</li>
+<li>Open Terminal and update everything:
+<pre><code>sudo apt update
+sudo apt full-upgrade -y
+sudo reboot</code></pre></li>
+</ol>
 <h2>Done when</h2>
-<ul class="check"><li>You finish a 20-step file task your coach writes, without the mouse</li><li>You can find any file with <code>find ~ -name "notes*"</code></li></ul>
+<ul class="check"><li>The Pi boots to the desktop</li><li>The update finishes with no errors</li><li>You re-flash the card from scratch 3 times; the last one takes under 20 minutes</li></ul>
 <h2>Support drill</h2>
-<p>A config file has been moved somewhere in your home folder. Find it and put it back.</p>
-<div class="pager"><a href="day-1.html">← Day 1: First boot</a><a href="day-3.html">Day 3: Remote access →</a></div>
+<p>Your coach gives you a card with the wrong Wi-Fi password. Find out why the Pi has no internet and fix it. Write a support note (<a href="../tools.html">template</a>).</p>
+<div class="pager"><a href="day-1.html">← Day 1: Welcome: DiGiKits and GitHub</a><a href="day-3.html">Day 3: The terminal →</a></div>
 </div></main>
 <footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
 </body>

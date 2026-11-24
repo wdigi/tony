@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Day 1: First boot · DiGiKits Support Training</title>
+<title>Day 1: Welcome: DiGiKits and GitHub · DiGiKits Support Training</title>
 <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
@@ -13,26 +13,65 @@
 <nav><a href="../index.html">Plan</a><a href="../phase-1/index.html">Phase 1</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a></nav>
 </div></header>
 <main><div class="wrap">
-<p style="color:var(--muted);margin:0">Phase 1 · Day 1</p><h1>First boot</h1>
-<p class="lead">Put an operating system on a blank card and get the Pi running and up to date.</p>
-<h2>Why it matters</h2>
-<p>Every new DiGiKits device starts here. Support often means re-flashing a card.</p>
-<h2>Steps</h2>
+<p style="color:var(--muted);margin:0">Phase 1 · Day 1</p><h1>Welcome: DiGiKits and GitHub</h1>
+<p class="lead">Before any hardware: what DiGiKits does, why your skills matter to it, and your own GitHub account.</p>
+
+<h2>1 · What DiGiKits does</h2>
+<p>DiGiKits Inc. has used the same name for 20 years. Its new website describes it as a platform where anyone can turn an idea into a real, working product, online, on real hardware. The motto is <strong>From thoughts to things.</strong></p>
+<svg class="roadmap" viewBox="0 0 760 150" role="img" aria-label="Thought, Design, Test, Build">
+<defs><marker id="ar1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8a9099"/></marker></defs>
+<rect class="box" x="24" y="30" width="160" height="80" rx="8"/><text x="104" y="64" font-size="15" font-weight="600" text-anchor="middle">Thought</text><text class="quiet" x="104" y="86" font-size="13" text-anchor="middle">your idea</text>
+<rect class="box" x="208" y="30" width="160" height="80" rx="8"/><text x="288" y="64" font-size="15" font-weight="600" text-anchor="middle">Design</text><text class="quiet" x="288" y="86" font-size="13" text-anchor="middle">modules + AI design</text>
+<rect class="box now" x="392" y="30" width="160" height="80" rx="8"/><text x="472" y="64" font-size="15" font-weight="600" text-anchor="middle">Test</text><text class="quiet" x="472" y="86" font-size="13" text-anchor="middle">on real hardware</text>
+<rect class="box" x="576" y="30" width="160" height="80" rx="8"/><text x="656" y="64" font-size="15" font-weight="600" text-anchor="middle">Build</text><text class="quiet" x="656" y="86" font-size="13" text-anchor="middle">optional</text>
+<path class="link" d="M184 70H206" marker-end="url(#ar1)"/><path class="link" d="M368 70H390" marker-end="url(#ar1)"/><path class="link" d="M552 70H574" marker-end="url(#ar1)"/>
+<text class="quiet" x="472" y="136" font-size="13" text-anchor="middle">Test is where support work lives: real machines that must keep running</text>
+</svg>
+<ul>
+<li><strong>Design:</strong> a free library of open-source modules (each reviewed by a named professional) and AI-assisted circuit board design.</li>
+<li><strong>Test:</strong> DiGiKits Lab. Customers' boards are tested on real test beds, run by scripts and watched by camera. An AI called DigitLab runs the lab.</li>
+<li><strong>Build:</strong> optional. Buy a module, keep it stored in the lab, or copy the open design into your own board.</li>
+<li><strong>Solutions for small businesses:</strong> 3D showrooms for retail stores, lighting previews for interior designers, sales centres for real estate, and LED lighting.</li>
+<li><strong>First product:</strong> the DiGiKits LED Controller, a network-controlled driver for WS2812 LED strips.</li>
+</ul>
+<p>Read the full picture on the DiGiKits website mock-up when your coach shows it to you.</p>
+
+<h2>2 · Why you are learning these skills</h2>
+<p>As an assistant and technical support person, your job is to keep DiGiKits machines and software running, and to help customers when something goes wrong. Almost all of it runs on small Linux computers.</p>
+<div class="table-scroll"><table>
+<tr><th>What you learn</th><th>Where DiGiKits uses it</th></tr>
+<tr><td>Raspberry Pi and Linux (Days 2–6)</td><td>Lab test stations, big-screen demos in showrooms, cameras</td></tr>
+<tr><td>Remote access and networking (Days 4, 6)</td><td>Fixing customer systems without driving there; the LED Controller talks over the network</td></tr>
+<tr><td>Python and GPIO (Days 7–8)</td><td>Lab test scripts, LED lighting patterns</td></tr>
+<tr><td>Services and logs (Day 9)</td><td>Products that must run 24 hours and restart on their own</td></tr>
+<tr><td>Git and GitHub (today, Day 10)</td><td>All DiGiKits code, documents and this training site</td></tr>
+<tr><td>Support notes (every day)</td><td>The DiGiKits knowledge base, and answers the AI helpers give customers</td></tr>
+</table></div>
+
+<h2>3 · What GitHub is, and why</h2>
+<ul>
+<li><strong>Git</strong> is a program that saves every version of your files. Nothing is lost; you can always go back.</li>
+<li><strong>GitHub</strong> is a website that stores those files online, so a team can work on the same files from anywhere.</li>
+<li>DiGiKits keeps all its code and documents on GitHub. To get access, your coach adds your account to the company's projects.</li>
+<li>Your GitHub account is also your public work record: what you build there shows what you can do.</li>
+</ul>
+
+<h2>4 · Get a free GitHub account</h2>
 <ol>
-<li>On your laptop, install <strong>Raspberry Pi Imager</strong> from raspberrypi.com/software.</li>
-<li>Choose device: Raspberry Pi 5. OS: Raspberry Pi OS (64-bit). Storage: your SD card.</li>
-<li>When asked, <strong>edit settings</strong>: set a hostname (e.g. <code>trainpi</code>), a username and password, your Wi-Fi, and your time zone. On the Services tab, turn on SSH.</li>
-<li>Write the card, put it in the Pi, connect monitor, keyboard, mouse, then power last.</li>
-<li>Open Terminal and update everything:
-<pre><code>sudo apt update
-sudo apt full-upgrade -y
-sudo reboot</code></pre></li>
+<li>Go to <strong>github.com/signup</strong>.</li>
+<li>Enter your email, a strong password (4–5 random words, or one from a password manager) and a <strong>username</strong>. The username is public and permanent-ish, so keep it professional, e.g. your name.</li>
+<li>Solve the check, then type the code GitHub emails you.</li>
+<li>Choose the <strong>Free</strong> plan. You don't need anything paid.</li>
+<li>Turn on two-factor authentication: profile picture → Settings → Password and authentication → Enable two-factor authentication. Use an authenticator app on your phone. Save the recovery codes somewhere safe.</li>
+<li><strong>Text your username to your coach.</strong> Only the username, never the password or codes.</li>
 </ol>
+<p>Afternoon: do GitHub's own short "Hello World" exercise (search "GitHub Hello World docs") to try a repository, a branch and a change.</p>
+
 <h2>Done when</h2>
-<ul class="check"><li>The Pi boots to the desktop</li><li>The update finishes with no errors</li><li>You re-flash the card from scratch 3 times; the last one takes under 20 minutes</li></ul>
-<h2>Support drill</h2>
-<p>Your coach gives you a card with the wrong Wi-Fi password. Find out why the Pi has no internet and fix it. Write a support note (<a href="../tools.html">template</a>).</p>
-<div class="pager"><a href="index.html">← Phase 1</a><a href="day-2.html">Day 2: The terminal →</a></div>
+<ul class="check"><li>You can explain what DiGiKits does in three sentences</li><li>Your GitHub account works and two-factor authentication is on</li><li>Your coach has your GitHub username</li></ul>
+<h2>Explain-back</h2>
+<p>Instead of a drill today: explain the Thought → Design → Test → Build path to your coach in your own words, and which part your job supports.</p>
+<div class="pager"><a href="index.html">← Phase 1</a><a href="day-2.html">Day 2: First boot →</a></div>
 </div></main>
 <footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
 </body>

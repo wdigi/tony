@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Day 9: Git and backup · DiGiKits Support Training</title>
+<title>Day 9: Services and logs · DiGiKits Support Training</title>
 <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
@@ -13,30 +13,37 @@
 <nav><a href="../index.html">Plan</a><a href="../phase-1/index.html">Phase 1</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a></nav>
 </div></header>
 <main><div class="wrap">
-<p style="color:var(--muted);margin:0">Phase 1 · Day 9</p><h1>Git and backup</h1>
-<p class="lead">Track changes with Git and keep a full backup of your Pi.</p>
+<p style="color:var(--muted);margin:0">Phase 1 · Day 9</p><h1>Services and logs</h1>
+<p class="lead">Make your program start on its own, and read logs to see what went wrong.</p>
 <h2>Why it matters</h2>
-<p>All DiGiKits code lives on GitHub. A backup turns a dead card into a 30-minute fix.</p>
-<h2>Git basics</h2>
-<pre><code>git config --global user.name "Your Name"
-git config --global user.email "you@example.com"
-git clone https://github.com/OWNER/REPO.git
-cd REPO
-nano README.md                 # make a change
-git status
-git add README.md
-git commit -m "Update readme"
-git push</code></pre>
-<p>Pushing needs GitHub sign-in: an SSH key (like day 3) or a personal access token.</p>
-<h2>Back up the SD card</h2>
-<ol>
-<li>Put the second SD card in the USB card reader and plug it into the Pi.</li>
-<li>Pi menu → Accessories → <strong>SD Card Copier</strong>. Copy from the internal card to the USB card.</li>
-<li>Label it with the date. To restore: swap it in and boot.</li>
-</ol>
+<p>Products must start after a power cut. Logs are where every fault leaves a trace.</p>
+<h2>Make a service</h2>
+<p>Create <code>/etc/systemd/system/blink.service</code> with <code>sudo nano</code>:</p>
+<pre><code>[Unit]
+Description=Blink practice
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/yourname/practice/blink.py
+Restart=on-failure
+User=yourname
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+<pre><code>sudo systemctl daemon-reload
+sudo systemctl enable --now blink
+systemctl status blink
+journalctl -u blink -f        # live log, Ctrl+C to stop</code></pre>
+<h2>Health checks</h2>
+<pre><code>df -h                    # disk full?
+free -h                  # memory
+vcgencmd get_throttled   # 0x0 = no power problems
+dmesg | tail -20         # recent hardware messages</code></pre>
 <h2>Done when</h2>
-<ul class="check"><li>You push a commit to a practice repo</li><li>You restore a broken Pi from your backup in under 30 minutes</li></ul>
-<div class="pager"><a href="day-8.html">← Day 8: Services and logs</a><a href="day-10.html">Day 10: Final check →</a></div>
+<ul class="check"><li>Your script runs after <code>sudo reboot</code> without you touching anything</li><li>You can show the log line where it started</li></ul>
+<h2>Support drill</h2>
+<p>The service won't start. Read <code>systemctl status</code> and the journal, find the cause, fix it.</p>
+<div class="pager"><a href="day-8.html">← Day 8: LED strip</a><a href="day-10.html">Day 10: Git and backup →</a></div>
 </div></main>
 <footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
 </body>

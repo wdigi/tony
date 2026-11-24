@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Day 4: Users, permissions, packages · DiGiKits Support Training</title>
+<title>Day 4: Remote access · DiGiKits Support Training</title>
 <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
@@ -13,26 +13,28 @@
 <nav><a href="../index.html">Plan</a><a href="../phase-1/index.html">Phase 1</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a></nav>
 </div></header>
 <main><div class="wrap">
-<p style="color:var(--muted);margin:0">Phase 1 · Day 4</p><h1>Users, permissions, packages</h1>
-<p class="lead">Understand who can do what on a Linux computer, and install software safely.</p>
+<p style="color:var(--muted);margin:0">Phase 1 · Day 4</p><h1>Remote access</h1>
+<p class="lead">Control the Pi from your laptop or phone, at home and from anywhere.</p>
 <h2>Why it matters</h2>
-<p>"Permission denied" is one of the most common faults you will see.</p>
-<h2>Practice</h2>
-<pre><code>whoami ; groups           # who am I, which groups?
-ls -l                     # -rw-r--r-- = owner / group / everyone
-chmod +x myscript.sh      # make a script runnable
-sudo chown yourname file  # change the owner
-sudo cat /etc/shadow      # sudo = run as admin; use it carefully
-
-apt search htop           # find software
-sudo apt install htop     # install
-htop                      # try it (q to quit)
-sudo apt remove htop      # remove</code></pre>
+<p>Most DiGiKits support is remote. SSH is the main tool.</p>
+<h2>Steps</h2>
+<ol>
+<li>SSH on? If you didn't set it in Imager: <code>sudo raspi-config</code> → Interface Options → SSH → Yes.</li>
+<li>From your laptop (same Wi-Fi): <code>ssh yourname@trainpi.local</code></li>
+<li>Use a key instead of a password. On your laptop:
+<pre><code>ssh-keygen -t ed25519
+ssh-copy-id yourname@trainpi.local</code></pre></li>
+<li>Reach it from outside the house with Tailscale. On the Pi:
+<pre><code>curl -fsSL https://tailscale.com/install.sh | sh
+sudo tailscale up</code></pre>
+Open the link it prints and sign in. Install Tailscale on your laptop or phone with the same account.</li>
+<li>Now SSH by its Tailscale name from anywhere: <code>ssh yourname@trainpi</code></li>
+</ol>
 <h2>Done when</h2>
-<ul class="check"><li>You can explain the 10 letters in <code>-rwxr-xr--</code></li><li>You fix a "permission denied" on a script your coach gives you</li></ul>
+<ul class="check"><li>You log in with your key, no password asked</li><li>You log in from your phone on mobile data, not home Wi-Fi</li></ul>
 <h2>Support drill</h2>
-<p>A program can't write its log file. Find the permission problem and fix it without using <code>chmod 777</code>.</p>
-<div class="pager"><a href="day-3.html">← Day 3: Remote access</a><a href="day-5.html">Day 5: Networking basics →</a></div>
+<p>SSH suddenly refuses to connect. Find out why (hint: is the service running? is the name right?).</p>
+<div class="pager"><a href="day-3.html">← Day 3: The terminal</a><a href="day-5.html">Day 5: Users, permissions, packages →</a></div>
 </div></main>
 <footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
 </body>
