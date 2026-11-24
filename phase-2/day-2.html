@@ -10,14 +10,14 @@
 <body>
 <header class="site"><div class="wrap">
 <a class="brand" href="../index.html">DiGiKits Support Training</a>
-<nav><a href="../index.html">Plan</a><a href="../lessons.html">Lessons</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a><a href="../board.html">Board</a></nav>
+<nav><a href="../index.html">Plan</a><a href="../lessons.html">Lessons</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a><a href="../board.html">Board</a><a href="../search.html">Search</a></nav>
 </div></header>
 <main><div class="wrap">
 <p style="color:var(--muted);margin:0">Phase 2 · Day 2</p><h1>Scheduled jobs</h1>
 <p class="lead">Make the Pi run checks on its own, on a schedule, and keep a log.</p>
-<h2>Why it matters</h2>
+<h2 id="why-it-matters">Why it matters</h2>
 <p>Machines in a showroom or the lab run for weeks. Scheduled checks catch problems before a customer does.</p>
-<h2>Practice</h2>
+<h2 id="practice">Practice</h2>
 <p>Run your health script every 10 minutes with cron:</p>
 <pre><code>crontab -e
 # add this line:
@@ -45,9 +45,9 @@ systemctl list-timers
 journalctl -u health -n 20</code></pre>
 <figure class="fig"><svg class="d" viewBox="0 0 680 210" role="img" aria-label="cron versus a systemd timer"><defs><marker id="k49n" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker><marker id="k49a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-a"/></marker><marker id="k49g" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-g"/></marker><marker id="k49r" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-r"/></marker><marker id="k49w" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-w"/></marker><marker id="k49v" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-v"/></marker></defs><rect x="14" y="14" width="316" height="180" rx="10" class="b-q" /><text x="172" y="40" font-size="15" text-anchor="middle" font-weight="700">cron (classic)</text><rect x="30" y="60" width="84" height="40" rx="8" class="b" /><text x="72.0" y="83.875" font-size="12.5" text-anchor="middle" font-weight="600">crontab</text><rect x="130" y="60" width="84" height="40" rx="8" class="b" /><text x="172.0" y="83.875" font-size="12.5" text-anchor="middle" font-weight="600">script</text><path d="M116 80.0L127 80.0" class="ln" marker-end="url(#k49n)"/><rect x="230" y="60" width="84" height="40" rx="8" class="b" /><text x="272.0" y="83.875" font-size="12.5" text-anchor="middle" font-weight="600">your log file</text><path d="M216 80.0L227 80.0" class="ln" marker-end="url(#k49n)"/><text x="172" y="140" font-size="12.5" text-anchor="middle">one line, quick to add</text><text x="172" y="160" font-size="12.5" text-anchor="middle" class="q">no catch-up if the Pi was off</text><rect x="350" y="14" width="316" height="180" rx="10" class="b-a" /><text x="508" y="40" font-size="15" text-anchor="middle" class="a" font-weight="700">systemd timer (modern)</text><rect x="366" y="60" width="84" height="40" rx="8" class="b-a" /><text x="408.0" y="83.875" font-size="12.5" text-anchor="middle" font-weight="600">.timer</text><rect x="466" y="60" width="84" height="40" rx="8" class="b-a" /><text x="508.0" y="83.875" font-size="12.5" text-anchor="middle" font-weight="600">.service</text><path d="M452 80.0L463 80.0" class="ln" marker-end="url(#k49n)"/><rect x="566" y="60" width="84" height="40" rx="8" class="b-v" /><text x="608.0" y="83.875" font-size="12.5" text-anchor="middle" font-weight="600">journal</text><path d="M552 80.0L563 80.0" class="ln" marker-end="url(#k49n)"/><text x="508" y="140" font-size="12.5" text-anchor="middle">logs, status, runs 2 min after boot</text><text x="508" y="160" font-size="12.5" text-anchor="middle" class="q">systemctl list-timers shows next run</text></svg><figcaption>Both work. Use cron for a quick personal job, a <b>timer for anything a customer depends on</b>.</figcaption></figure>
 
-<h2>Done when</h2>
+<h2 id="done-when">Done when</h2>
 <ul class="check"><li>The log grows by one line every 10 minutes</li><li>You can explain when to use cron and when a timer</li></ul>
-<h2>Support drill</h2>
+<h2 id="support-drill">Support drill</h2>
 <p>The cron job never runs. Find out why (hint: paths and permissions inside cron are not the same as in your terminal).</p>
 <div class="pager"><a href="day-1.html">← Day 1: Shell scripts</a><a href="day-3.html">Day 3: The Big Screen, part 1: kiosk mode →</a></div>
 <section class="board">

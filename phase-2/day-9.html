@@ -10,14 +10,14 @@
 <body>
 <header class="site"><div class="wrap">
 <a class="brand" href="../index.html">DiGiKits Support Training</a>
-<nav><a href="../index.html">Plan</a><a href="../lessons.html">Lessons</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a><a href="../board.html">Board</a></nav>
+<nav><a href="../index.html">Plan</a><a href="../lessons.html">Lessons</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a><a href="../board.html">Board</a><a href="../search.html">Search</a></nav>
 </div></header>
 <main><div class="wrap">
 <p style="color:var(--muted);margin:0">Phase 2 · Day 9</p><h1>Docker, part 2: Compose</h1>
 <p class="lead">Describe a whole app in one file and start it with one command.</p>
-<h2>Why it matters</h2>
+<h2 id="why-it-matters">Why it matters</h2>
 <p>Real systems are several containers (web page, database, a worker). Compose keeps them together and restarts them after a reboot.</p>
-<h2>Practice</h2>
+<h2 id="practice">Practice</h2>
 <p>Create <code>~/dash/compose.yaml</code>:</p>
 <pre><code>services:
   web:
@@ -44,9 +44,9 @@ docker compose pull &amp;&amp; docker compose up -d   # update</code></pre>
 <figure class="fig"><svg class="d" viewBox="0 0 680 230" role="img" aria-label="Uptime Kuma watches everything and turns red when something stops"><defs><marker id="k72n" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker><marker id="k72a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-a"/></marker><marker id="k72g" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-g"/></marker><marker id="k72r" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-r"/></marker><marker id="k72w" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-w"/></marker><marker id="k72v" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-v"/></marker></defs><rect x="250" y="80" width="180" height="70" rx="8" class="b-v" /><text x="340.0" y="111.65" font-size="15" text-anchor="middle" font-weight="600">Uptime Kuma</text><text x="340.0" y="128.47500000000002" font-size="12.5" text-anchor="middle" class="q">port 3001</text><rect x="20" y="20" width="170" height="50" rx="8" class="b-g" /><text x="105.0" y="41.03" font-size="13" text-anchor="middle" font-weight="600">Pi (ping)</text><text x="105.0" y="57.195" font-size="12.5" text-anchor="middle" class="q">up</text><path d="M250 84L192 45" class="ln-g dash" marker-end="url(#k72g)"/><rect x="20" y="160" width="170" height="50" rx="8" class="b-g" /><text x="105.0" y="181.03" font-size="13" text-anchor="middle" font-weight="600">web page (HTTP)</text><text x="105.0" y="197.195" font-size="12.5" text-anchor="middle" class="q">up</text><path d="M250 146L192 185" class="ln-g dash" marker-end="url(#k72g)"/><rect x="490" y="20" width="170" height="50" rx="8" class="b-r" /><text x="575.0" y="41.03" font-size="13" text-anchor="middle" font-weight="600">fake controller</text><text x="575.0" y="57.195" font-size="12.5" text-anchor="middle" class="q">DOWN</text><path d="M430 84L488 45" class="ln-r dash" marker-end="url(#k72r)"/><rect x="490" y="160" width="170" height="50" rx="8" class="b-g" /><text x="575.0" y="181.03" font-size="13" text-anchor="middle" font-weight="600">other Pi</text><text x="575.0" y="197.195" font-size="12.5" text-anchor="middle" class="q">up</text><path d="M430 146L488 185" class="ln-g dash" marker-end="url(#k72g)"/><rect x="325" y="172" width="24.0" height="43.2" rx="4.800000000000001" class="b-a" /><rect x="328.2" y="177.6" width="17.6" height="28.8" rx="2" class="f-soft" /><circle cx="337.0" cy="210.4" r="2.0" class="f-q" /><path d="M340 152L340 168" class="ln-w" marker-end="url(#k72w)"/><text x="380" y="210" font-size="12" text-anchor="start" class="w" font-weight="700">alert</text></svg><figcaption>Kuma checks each target every minute. Stop the fake controller and its box goes red.</figcaption></figure>
 
 <p>Open Uptime Kuma on port 3001 and add monitors for your Pis and your fake LED controller (port 5000).</p>
-<h2>Done when</h2>
+<h2 id="done-when">Done when</h2>
 <ul class="check"><li>Both containers come back after <code>sudo reboot</code></li><li>Uptime Kuma shows red when you stop the fake controller</li></ul>
-<h2>Support drill</h2>
+<h2 id="support-drill">Support drill</h2>
 <p>A container keeps restarting. Read its logs and find why.</p>
 <div class="pager"><a href="day-8.html">← Day 8: Docker, part 1</a><a href="day-10.html">Day 10: GitHub for teams →</a></div>
 <section class="board">

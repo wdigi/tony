@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Search · DiGiKits Support Training</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .search-box { display: flex; gap: 8px; margin: 18px 0 8px; }
+  .search-box input {
+    flex: 1; min-width: 0; font: inherit; font-size: 18px; padding: 12px 14px;
+    border: 1.5px solid var(--line-strong); border-radius: 10px; background: var(--surface); color: var(--ink);
+  }
+  .search-box input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .status { color: var(--muted); font-size: 15px; min-height: 22px; }
+  .tips { color: var(--muted); font-size: 15px; }
+  .tips button {
+    font: inherit; font-size: 14px; margin: 4px 6px 4px 0; padding: 4px 10px; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer;
+  }
+  .tips button:hover { border-color: var(--accent); color: var(--accent); }
+  .result { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin: 12px 0; }
+  .result .where { color: var(--muted); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+  .result h3 { margin: 2px 0 6px; font-size: 18px; }
+  .result h3 a { color: var(--ink); text-decoration: none; }
+  .result h3 a:hover { color: var(--accent); }
+  .hit { display: block; text-decoration: none; color: var(--ink); padding: 8px 10px; margin: 6px -10px 0; border-radius: 8px; }
+  .hit:hover { background: var(--accent-soft); }
+  .hit .sec { font-weight: 600; font-size: 15px; color: var(--accent); }
+  .hit .snip { display: block; font-size: 15px; color: var(--muted); margin-top: 2px; }
+  .tag { display: inline-block; font-size: 12px; font-weight: 600; padding: 1px 7px; border-radius: 999px; margin-left: 6px;
+         background: var(--violet-soft); color: var(--violet); vertical-align: 1px; }
+  mark { background: #ffe58a; color: #1d1f22; border-radius: 3px; padding: 0 2px; }
+  @media (prefers-color-scheme: dark) { mark { background: #8a6d00; color: #fff; } }
+</style>
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="index.html">DiGiKits Support Training</a>
+<nav><a href="index.html">Plan</a><a href="lessons.html">Lessons</a><a href="kit.html">Kit</a><a href="tools.html">Tools</a><a href="board.html">Board</a><a href="search.html">Search</a></nav>
+</div></header>
+<main><div class="wrap">
+
+<h1>Search</h1>
+<p class="lead">Find any command, word or idea in all the lessons, including the labels inside the drawings.</p>
+<form class="search-box" role="search" onsubmit="return false">
+  <input id="q" type="search" placeholder="e.g. ssh key, GPIO17, firewall, voltage drop" autocomplete="off" autofocus aria-label="Search the lessons">
+</form>
+<div class="status" id="status">Loading the lessons…</div>
+<div class="tips" id="tips">Try:
+  <button type="button">permission denied</button><button type="button">journalctl</button><button type="button">power injection</button>
+  <button type="button">tailscale</button><button type="button">severity</button><button type="button">docker compose</button>
+</div>
+<div id="results"></div>
+
+</div></main>
+<footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
+
+<script>
+(function () {
+  const EXTRA = ["index.html", "kit.html", "tools.html", "phase-1/index.html", "phase-2/index.html", "phase-3/index.html", "phase-4/index.html"];
+  const qEl = document.getElementById("q"), statusEl = document.getElementById("status"),
+        resEl = document.getElementById("results"), tipsEl = document.getElementById("tips");
+  let sections = null;
+
+  const norm = s => s.toLowerCase().replace(/\s+/g, " ").trim();
+  const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const reEsc = s => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+  function drawingText(el) {
+    const parts = [];
+    el.querySelectorAll("svg").forEach(svg => {
+      const lab = svg.getAttribute("aria-label"); if (lab) parts.push(lab);
+      svg.querySelectorAll("text").forEach(t => { const ts = t.querySelectorAll("tspan"); parts.push(ts.length ? [...ts].map(x => x.textContent).join(" ") : t.textContent); });
+    });
+    el.querySelectorAll("figcaption").forEach(c => parts.push(c.textContent));
+    return parts.join(" · ").replace(/\s+/g, " ");
+  }
+
+  function indexPage(url, html) {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    const wrap = doc.querySelector("main .wrap"); if (!wrap) return [];
+    const h1 = wrap.querySelector("h1");
+    const title = h1 ? h1.textContent.trim() : (doc.title || url);
+    const first = wrap.firstElementChild;
+    const where = first && first.tagName === "P" && !first.className && /Phase|Day/.test(first.textContent) ? first.textContent.trim()
+                : url.startsWith("phase-") ? "Phase " + url[6] : "";
+    const out = [];
+    let cur = { url, title, where, head: "", id: "", text: "", draw: "" };
+    const push = () => { if (cur.text.trim() || cur.draw.trim()) out.push(cur); };
+    for (const el of wrap.children) {
+      if (el.matches(".board, .pager, script, h1")) continue;
+      if (el === first && cur.where && el.textContent.trim() === cur.where) continue;
+      if (el.tagName === "H2") {
+        push();
+        cur = { url, title, where, head: el.textContent.trim(), id: el.id || "", text: "", draw: "" };
+        continue;
+      }
+      if (el.tagName === "FIGURE" || el.tagName === "svg" || el.querySelector("svg")) cur.draw += " " + drawingText(el);
+      else cur.text += " " + el.textContent.replace(/\s+/g, " ");
+    }
+    push();
+    return out;
+  }
+
+  async function build() {
+    const KEY = "tony-search-v1";
+    try { const c = sessionStorage.getItem(KEY); if (c) return JSON.parse(c); } catch (e) {}
+    const lessons = await fetch("lessons.html").then(r => r.text());
+    const ldoc = new DOMParser().parseFromString(lessons, "text/html");
+    const urls = [...new Set([...ldoc.querySelectorAll("main a[href$='.html']")].map(a => a.getAttribute("href")).concat(EXTRA))];
+    const pages = await Promise.all(urls.map(u => fetch(u).then(r => r.ok ? r.text() : "").catch(() => "")));
+    const all = [];
+    urls.forEach((u, i) => { if (pages[i]) all.push(...indexPage(u, pages[i])); });
+    try { sessionStorage.setItem(KEY, JSON.stringify(all)); } catch (e) {}
+    return all;
+  }
+
+  function snippet(text, words) {
+    const low = text.toLowerCase();
+    let pos = -1;
+    for (const w of words) { const p = low.indexOf(w); if (p >= 0 && (pos < 0 || p < pos)) pos = p; }
+    if (pos < 0) return "";
+    let a = Math.max(0, pos - 70), b = Math.min(text.length, pos + 130);
+    if (a > 0) a = text.indexOf(" ", a) + 1;
+    let s = esc(text.slice(a, b).trim());
+    const re = new RegExp("(" + words.map(w => reEsc(esc(w))).join("|") + ")", "gi");
+    s = s.replace(re, "<mark>$1</mark>");
+    return (a > 0 ? "… " : "") + s + (b < text.length ? " …" : "");
+  }
+
+  function count(hay, w) { let n = 0, i = 0; while ((i = hay.indexOf(w, i)) >= 0) { n++; i += w.length; } return n; }
+
+  function search(q) {
+    const words = norm(q).split(" ").filter(Boolean);
+    resEl.innerHTML = "";
+    tipsEl.hidden = words.length > 0;
+    if (!words.length) { statusEl.textContent = sections.length + " sections indexed across all lessons."; return; }
+    const byPage = new Map();
+    for (const s of sections) {
+      const t = s.title.toLowerCase(), h = s.head.toLowerCase(), x = s.text.toLowerCase(), d = s.draw.toLowerCase();
+      const all = t + " " + h + " " + x + " " + d;
+      if (!words.every(w => all.includes(w))) continue;
+      let score = 0;
+      for (const w of words) score += 8 * count(t, w) + 5 * count(h, w) + 2 * count(x, w) + count(d, w);
+      const inDrawingOnly = !words.every(w => (t + " " + h + " " + x).includes(w));
+      const p = byPage.get(s.url) || { s, score: 0, hits: [] };
+      p.score += score; p.hits.push({ s, score, inDrawingOnly });
+      byPage.set(s.url, p);
+    }
+    const pages = [...byPage.values()].sort((a, b) => b.score - a.score);
+    const n = pages.reduce((k, p) => k + p.hits.length, 0);
+    statusEl.textContent = n ? `${n} match${n > 1 ? "es" : ""} on ${pages.length} page${pages.length > 1 ? "s" : ""}` : "No matches. Try fewer or different words.";
+    const frag = document.createDocumentFragment();
+    for (const p of pages.slice(0, 40)) {
+      const div = document.createElement("div");
+      div.className = "result";
+      let html = (p.s.where ? `<div class="where">${esc(p.s.where)}</div>` : "") +
+                 `<h3><a href="${esc(p.s.url)}">${esc(p.s.title)}</a></h3>`;
+      for (const h of p.hits.sort((a, b) => b.score - a.score).slice(0, 3)) {
+        const href = h.s.url + (h.s.id ? "#" + h.s.id : "");
+        const src = h.inDrawingOnly ? h.s.draw : (h.s.text + " " + h.s.draw);
+        html += `<a class="hit" href="${esc(href)}"><span class="sec">${esc(h.s.head || "Introduction")}</span>` +
+                (h.inDrawingOnly ? `<span class="tag">in a drawing</span>` : "") +
+                `<span class="snip">${snippet(src, words)}</span></a>`;
+      }
+      div.innerHTML = html;
+      frag.appendChild(div);
+    }
+    resEl.appendChild(frag);
+  }
+
+  let timer;
+  qEl.addEventListener("input", () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      const q = qEl.value;
+      try { history.replaceState(null, "", q ? "?q=" + encodeURIComponent(q) : location.pathname); } catch (e) {}
+      if (sections) search(q);
+    }, 120);
+  });
+  tipsEl.addEventListener("click", e => {
+    if (e.target.tagName === "BUTTON") { qEl.value = e.target.textContent; qEl.dispatchEvent(new Event("input")); qEl.focus(); }
+  });
+
+  const start = new URLSearchParams(location.search).get("q");
+  if (start) qEl.value = start;
+  build().then(s => { sections = s; search(qEl.value); })
+         .catch(() => { statusEl.textContent = "Couldn't load the lessons. Check your connection and reload."; });
+})();
+</script>
+</body>
+</html>

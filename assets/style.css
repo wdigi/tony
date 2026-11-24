@@ -160,3 +160,7 @@ svg.d .term { fill: var(--term-bg); }
 svg.d text.tt { fill: var(--term-ink); } svg.d text.td { fill: var(--term-dim); } svg.d text.tg { fill: var(--term-green); }
 svg.d .grid { stroke: var(--line); stroke-width: 1; }
 @media (max-width: 560px) { figure.fig { padding: 10px 8px 8px; margin: 18px -4px; } }
+@media (max-width: 560px) {
+  header.site .wrap { flex-wrap: wrap; row-gap: 4px; }
+  header.site nav a:first-child { margin-left: 0; }
+}
