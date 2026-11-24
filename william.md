@@ -1,6 +1,6 @@
 At some point we need to show him the following materials:
 
-===Arfitfact=== 
+    Arfitfact
 "First Month Plan: AI Assistant Apprenticeship
 Nov 6, 2026 ·"
 
