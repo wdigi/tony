@@ -88,3 +88,75 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
 }
 .board { margin-top: 48px; padding-top: 8px; border-top: 1px solid var(--line); }
 .quiet-note { color: var(--muted); font-size: 15px; }
+
+/* ---------- Drawings (figures) ---------- */
+:root {
+  --line-strong: #b9b4a8;
+  --good: #1a7f4b; --good-soft: #e3f4ea;
+  --bad: #c0392b;  --bad-soft: #fbe6e3;
+  --amber: #b26a00; --amber-soft: #fdf0dc;
+  --violet: #6b4fbb; --violet-soft: #eee9fa;
+  --wire-red: #d0342c; --wire-blk: #2b2d31; --wire-data: #16a34a; --wire-yel: #d4a106;
+  --pcb: #1e7a4c; --pcb-dark: #155c39; --metal: #c9ccd1; --chip: #2b2f36;
+  --term-bg: #1b1e23; --term-ink: #d6e2d6; --term-dim: #8a96a3; --term-green: #7ee08c;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --line-strong: #4a5058;
+    --good: #5fd08f; --good-soft: #17301f;
+    --bad: #ff7b6e;  --bad-soft: #3a1d1a;
+    --amber: #f0b35a; --amber-soft: #3a2a12;
+    --violet: #b9a3ff; --violet-soft: #2a2340;
+    --wire-blk: #9aa1aa;
+    --pcb: #2a8a5a; --pcb-dark: #1d6542; --metal: #8e949c; --chip: #111317;
+    --term-bg: #0f1114;
+  }
+}
+figure.fig {
+  margin: 22px 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 12px 10px;
+  overflow-x: auto;
+}
+figure.fig figcaption { color: var(--muted); font-size: 14.5px; text-align: center; margin-top: 8px; line-height: 1.45; }
+figure.fig figcaption b { color: var(--ink); }
+svg.d { display: block; width: 100%; height: auto; min-width: 500px; }
+svg.d text { fill: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+svg.d text.q { fill: var(--muted); }
+svg.d text.mono, svg.d tspan.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+svg.d text.a { fill: var(--accent); } svg.d text.g { fill: var(--good); } svg.d text.r { fill: var(--bad); }
+svg.d text.w { fill: var(--amber); } svg.d text.v { fill: var(--violet); } svg.d text.on-dark { fill: #fff; }
+svg.d .b   { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.5; }
+svg.d .b-a { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.75; }
+svg.d .b-g { fill: var(--good-soft); stroke: var(--good); stroke-width: 1.75; }
+svg.d .b-r { fill: var(--bad-soft); stroke: var(--bad); stroke-width: 1.75; }
+svg.d .b-w { fill: var(--amber-soft); stroke: var(--amber); stroke-width: 1.75; }
+svg.d .b-v { fill: var(--violet-soft); stroke: var(--violet); stroke-width: 1.75; }
+svg.d .b-q { fill: var(--code-bg); stroke: var(--line); stroke-width: 1.25; }
+svg.d .dash { stroke-dasharray: 6 5; }
+svg.d .ln   { stroke: var(--muted); stroke-width: 1.6; fill: none; }
+svg.d .ln-a { stroke: var(--accent); stroke-width: 2; fill: none; }
+svg.d .ln-g { stroke: var(--good); stroke-width: 2; fill: none; }
+svg.d .ln-r { stroke: var(--bad); stroke-width: 2; fill: none; }
+svg.d .ln-w { stroke: var(--amber); stroke-width: 2; fill: none; }
+svg.d .ln-v { stroke: var(--violet); stroke-width: 2; fill: none; }
+svg.d .ar   { fill: var(--muted); } svg.d .ar-a { fill: var(--accent); } svg.d .ar-g { fill: var(--good); }
+svg.d .ar-r { fill: var(--bad); } svg.d .ar-w { fill: var(--amber); } svg.d .ar-v { fill: var(--violet); }
+svg.d .f-a { fill: var(--accent); } svg.d .f-g { fill: var(--good); } svg.d .f-r { fill: var(--bad); }
+svg.d .f-w { fill: var(--amber); } svg.d .f-v { fill: var(--violet); } svg.d .f-q { fill: var(--muted); }
+svg.d .f-ink { fill: var(--ink); } svg.d .f-bg { fill: var(--surface); } svg.d .f-soft { fill: var(--code-bg); }
+svg.d .s-ink { stroke: var(--ink); fill: none; stroke-width: 1.6; }
+svg.d .w-red { stroke: var(--wire-red); stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+svg.d .w-blk { stroke: var(--wire-blk); stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+svg.d .w-dat { stroke: var(--wire-data); stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+svg.d .w-yel { stroke: var(--wire-yel); stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+svg.d .pcb { fill: var(--pcb); stroke: var(--pcb-dark); stroke-width: 1.5; }
+svg.d .metal { fill: var(--metal); stroke: #8c9097; stroke-width: 1; }
+svg.d .chip { fill: var(--chip); }
+svg.d .gold { fill: #d9b44a; }
+svg.d .term { fill: var(--term-bg); }
+svg.d text.tt { fill: var(--term-ink); } svg.d text.td { fill: var(--term-dim); } svg.d text.tg { fill: var(--term-green); }
+svg.d .grid { stroke: var(--line); stroke-width: 1; }
+@media (max-width: 560px) { figure.fig { padding: 10px 8px 8px; margin: 18px -4px; } }
