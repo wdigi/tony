@@ -86,3 +86,5 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
   h1 { font-size: 25px; }
   header.site nav a { margin-left: 10px; font-size: 14px; }
 }
+.board { margin-top: 48px; padding-top: 8px; border-top: 1px solid var(--line); }
+.quiet-note { color: var(--muted); font-size: 15px; }
