@@ -1,6 +1,13 @@
 /* Self-check questions for every lesson.
    Format per lesson: [question, [choices], index of the right choice, why]. */
 window.QUIZ = {
+"physical-ai/lesson-2.html": [
+ ["Two switches wired in series behave like which gate?", ["OR", "AND", "NOT", "None"], 1, "Current must pass through both, so both must be closed: AND."],
+ ["An OR gate has A = 0 and B = 1. What is the output?", ["0", "1", "It depends on the clock", "Both"], 1, "OR needs only one input on."],
+ ["What does a NOT gate do?", ["Adds two bits", "Flips its input: 1 becomes 0 and 0 becomes 1", "Stores a bit", "Turns the computer off"], 1, "NOT is the opposite; the small circle on the symbol means flip."],
+ ["Motor rule: Start AND Guard closed AND NOT E-stop. Which single input always stops the motor when it's on?", ["Start", "Guard closed", "E-stop", "None of them"], 2, "With NOT in front, E-stop on makes that input 0, and AND then outputs 0 no matter what."],
+ ["What is a truth table?", ["A list of every possible input with the output you get", "A table of true facts about computers", "A spreadsheet of prices", "The CPU's memory"], 0, "Truth tables describe what a circuit must do for every input."]
+],
 "physical-ai/lesson-1.html": [
  ["Who are programming languages really made for?", ["The CPU", "People, so they can tell the computer what to do more easily", "The power supply", "Only AI"], 1, "The chip only sees voltages; every language is a translation layer invented for humans."],
  ["What is 00101101 in decimal?", ["45", "101", "2D", "13"], 0, "32 + 8 + 4 + 1 = 45."],

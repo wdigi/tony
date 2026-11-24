@@ -15,6 +15,7 @@
 <main><div class="wrap">
 <p style="color:var(--muted);margin:0">Physical AI Systems · Lesson 1</p><h1>Binary, hex and programming languages</h1>
 <p class="lead">In Lesson 0 you saw that, at the bottom, a computer is billions of switches going high and low. This lesson climbs the ladder from those switches up to the languages people actually write in, and shows you the two number systems, binary and hex, that you'll meet every day in DiGiKits support work.</p>
+<div class="card"><p style="margin:0"><strong>Self-paced, so go easy on yourself.</strong> This is a lot of new ideas at once, and it's normal to find it confusing the first time. Read it at your own pace, try the hands-on, and write what's unclear on the board below. Your coach goes through more examples with you in the live session.</p></div>
 <p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
 
 <h2 id="the-big-idea">The big idea: languages are for people</h2>
@@ -62,6 +63,7 @@
 <text x="340" y="154" font-size="16" text-anchor="middle" class="q">→  0x2D</text>
 <text x="340" y="198" font-size="12.5" text-anchor="middle" class="q">The “0x” in front just means “this is hex”. 0x2D = 45 = 00101101: three ways to write the same number.</text>
 </svg><figcaption>Split the byte in half; each half becomes one hex digit.</figcaption></figure>
+<div class="card accent"><p style="margin:0"><strong>Hex is binary in disguise.</strong> Behind the scenes, hex <em>is</em> binary: <code>0x2D</code> and <code>00101101</code> are exactly the same bits in the chip. Nothing is converted and nothing changes. We write it as hex only because two characters are easier for people to read and type than eight. It's one more layer made for humans. As you work your way towards Physical AI you'll meet many more layers like this, and the logic behind every one of them is simple: <strong>by the people, for the people.</strong></p></div>
 
 <div class="table-scroll"><table>
 <tr><th>Decimal</th><th>Binary</th><th>Hex</th><th>Decimal</th><th>Binary</th><th>Hex</th></tr>
@@ -94,7 +96,7 @@
 <tr><td>Python (on the Pi)</td><td><code>LED(17).on()</code></td><td>People or AI; run by the Python interpreter</td></tr>
 <tr><td>C (firmware on a microcontroller)</td><td><code>gpio_put(17, 1);</code></td><td>People or AI; turned into machine code by a compiler</td></tr>
 <tr><td>Assembly (simplified)</td><td><code>MOV r0, #1</code> … <code>STR r0, [r1]</code></td><td>Rarely written by hand now; produced by the compiler</td></tr>
-<tr><td>Machine code</td><td>bytes like <code>01 20 08 60</code> (illustration)</td><td>Never written by hand; this is what the CPU reads</td></tr>
+<tr><td>Machine code</td><td>bytes like <code>01 20 08 60</code> (illustration; real examples in the live session)</td><td>Never written by hand; this is what the CPU reads</td></tr>
 </table></div>
 <p>Two ways to go down the ladder:</p>
 <ul>
@@ -130,7 +132,7 @@
 <li>I posted my colour detective result on the board</li>
 </ul>
 
-<div class="pager"><a href="lesson-0.html">← Lesson 0: How it all began</a><a href="../lessons.html">All lessons →</a></div>
+<div class="pager"><a href="lesson-0.html">← Lesson 0: How it all began</a><a href="lesson-2.html">Lesson 2: Logic gates →</a></div>
 <p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
 <section class="board">
 <h2 id="how-did-it-feel">How did this lesson feel?</h2>
