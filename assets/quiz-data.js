@@ -1,6 +1,13 @@
 /* Self-check questions for every lesson.
    Format per lesson: [question, [choices], index of the right choice, why]. */
 window.QUIZ = {
+"physical-ai/lesson-7.html": [
+ ["Which order did computer switches come in?", ["Tubes, relays, chips, transistors", "Relays, vacuum tubes, transistors, integrated circuits", "Transistors, relays, tubes, chips", "Chips, tubes, relays, transistors"], 1, "Relays (Z3, 1941) came first, then tubes (Colossus, ENIAC), then transistors (1947), then chips (1958–59)."],
+ ["How did punched cards store a program?", ["With magnets", "A hole or no hole meant 1 or 0", "With colours", "By weight"], 1, "The same idea as binary: two states, hole or no hole."],
+ ["What was the Intel 4004 (1971)?", ["The first microcontroller", "The first commercial microprocessor: a CPU on one chip", "The first transistor", "The first smartphone"], 1, "A microcontroller also puts memory and I/O on the chip; early ones were the TI TMS1000 and Intel 8048."],
+ ["Which was the first widely used high-level programming language?", ["Python", "C", "FORTRAN", "HTML"], 2, "IBM's FORTRAN (1957); COBOL followed in 1959, C in 1972, Python in 1991."],
+ ["What idea from 2017 do most AI models like Claude build on?", ["The vacuum tube", "The transformer", "The punched card", "The relay"], 1, "“Attention Is All You Need” described the transformer."]
+],
 "physical-ai/lesson-5.html": [
  ["What is PWM?", ["A kind of battery", "Switching a pin on and off very fast so the average power sets brightness or speed", "A Wi-Fi protocol", "A type of sensor"], 1, "The share of time it's on (the duty cycle) sets the average."],
  ["At 3.3 V and 50% duty cycle, what's the average voltage?", ["3.3 V", "1.65 V", "0.5 V", "5 V"], 1, "Half the time on gives half the voltage on average."],
