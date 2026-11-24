@@ -191,3 +191,24 @@ svg.d .grid { stroke: var(--line); stroke-width: 1; }
 .card.feel { border-color: var(--good); background: var(--good-soft); }
 .card.feel p { margin: 0 0 8px; } .card.feel p:last-child { margin: 0; }
 .card.feel .sign { text-align: right; font-weight: 600; color: var(--good); }
+
+/* ---------- Progress: reminder, check boxes, copy button ---------- */
+.reminder { display: flex; align-items: center; gap: 10px; margin: 16px 0; padding: 10px 14px;
+  border: 1px solid var(--amber); background: var(--amber-soft); border-radius: 10px; font-weight: 600; }
+.reminder a { color: var(--ink); text-decoration: none; }
+.reminder a:hover { text-decoration: underline; }
+.reminder .r-icon { font-size: 20px; line-height: 1; }
+ul.check.live li { padding-left: 0; }
+ul.check.live li::before { content: none; }
+ul.check.live label { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
+ul.check.live input { width: 20px; height: 20px; margin: 3px 0 0; flex: none; accent-color: var(--good); }
+ul.check.live input:checked + span { color: var(--muted); text-decoration: line-through; }
+.prog { margin: 14px 0 8px; }
+.prog-line { height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; }
+.prog-fill { height: 100%; width: 0; background: var(--good); transition: width .25s; }
+.prog-count { margin: 6px 0 10px; font-weight: 600; color: var(--good); }
+.prog-copy { font: inherit; font-size: 15px; font-weight: 600; padding: 9px 14px; border-radius: 8px;
+  border: 1px solid var(--good); background: var(--good-soft); color: var(--ink); cursor: pointer; }
+.prog-hint { margin: 8px 0 0; }
+.prog-tag { margin-top: 6px; font-size: 13px; font-weight: 600; color: var(--muted); }
+.prog-tag.all { color: var(--good); }
