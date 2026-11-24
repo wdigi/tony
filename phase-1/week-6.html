@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Week 6: Python and GPIO · DiGiKits Support Training</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">DiGiKits Support Training</a>
+<nav><a href="../index.html">Plan</a><a href="../phase-1/index.html">Phase 1</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a></nav>
+</div></header>
+<main><div class="wrap">
+<p style="color:var(--muted);margin:0">Phase 1 · Week 6</p><h1>Python and GPIO</h1>
+<p class="lead">Make the Pi control real hardware: an LED, a button, and an LED strip.</p>
+<h2>Why it matters</h2>
+<p>DiGiKits products control lights and motors. Support means telling a software fault from a wiring fault.</p>
+<h2>Blink an LED</h2>
+<p>Wire GPIO17 → 330 Ω resistor → LED long leg; LED short leg → GND. Power off while wiring.</p>
+<pre><code>from gpiozero import LED, Button
+from signal import pause
+
+led = LED(17)
+button = Button(27)        # button between GPIO27 and GND
+
+button.when_pressed = led.on
+button.when_released = led.off
+pause()</code></pre>
+<p>Save as <code>~/practice/blink.py</code> and run <code>python3 ~/practice/blink.py</code>. Ctrl+C to stop.</p>
+<h2>LED strip (WS2812)</h2>
+<ul>
+<li>Power the strip from its own 5 V supply, not the Pi. Connect the grounds together.</li>
+<li>The Pi 5 needs a Pi 5–compatible LED strip library; the older <code>rpi_ws281x</code> library does not support it. Choose the library with your coach.</li>
+<li>Install extra Python packages in a virtual environment: <code>python3 -m venv ~/venv</code> then <code>~/venv/bin/pip install ...</code></li>
+</ul>
+<h2>Done when</h2>
+<ul class="check"><li>The button turns the LED on and off</li><li>The strip runs a colour pattern from your own script</li></ul>
+<h2>Support drill</h2>
+<p>The LED won't light. Is it the code, the pin number, the LED direction, or a loose wire? Find it.</p>
+<div class="pager"><a href="week-5.html">← Week 5: Networking basics</a><a href="week-7.html">Week 7: Services and logs →</a></div>
+</div></main>
+<footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
+</body>
+</html>

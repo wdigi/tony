@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Tools and templates · DiGiKits Support Training</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="index.html">DiGiKits Support Training</a>
+<nav><a href="index.html">Plan</a><a href="phase-1/index.html">Phase 1</a><a href="kit.html">Kit</a><a href="tools.html">Tools</a></nav>
+</div></header>
+<main><div class="wrap">
+
+<h1>Tools and templates</h1>
+
+<h2>Support note template</h2>
+<p>Write one after every drill and every real fault. 3–5 lines is enough. These notes become the DiGiKits support knowledge base.</p>
+<pre><code>Date:
+Device:        (e.g. Pi 5, hostname)
+What I saw:    (the symptom, exact error text)
+What I tried:  (in order)
+What fixed it:
+Next time:     (how to spot it faster)</code></pre>
+
+<h2>AI chat sidebar in the Pi browser</h2>
+<p>Keep an AI chat open beside any page while you learn.</p>
+<ol>
+<li>Open Firefox (Pi menu → Internet → Firefox). Not there? In Terminal: <code>sudo apt install firefox</code></li>
+<li>Menu (three lines, top right) → Settings → General → Browser Layout → tick <strong>Show sidebar</strong>.</li>
+<li>Click the sparkle icon in the sidebar.</li>
+<li>Pick Claude (or ChatGPT, Gemini), click Continue, and sign in.</li>
+</ol>
+<p>Tip: select text on any page and ask the chat to explain it. Never paste passwords or customer details into a chat.</p>
+
+<h2>Command cheat sheet</h2>
+<div class="table-scroll"><table>
+<tr><th>Command</th><th>What it does</th></tr>
+<tr><td><code>pwd</code> · <code>ls -la</code> · <code>cd</code></td><td>Where am I · list files · move</td></tr>
+<tr><td><code>cp</code> · <code>mv</code> · <code>rm</code> · <code>mkdir</code></td><td>Copy · move/rename · delete · new folder</td></tr>
+<tr><td><code>nano file.txt</code></td><td>Edit a text file (Ctrl+O save, Ctrl+X exit)</td></tr>
+<tr><td><code>sudo apt update &amp;&amp; sudo apt full-upgrade -y</code></td><td>Update everything</td></tr>
+<tr><td><code>hostname -I</code> · <code>ping</code></td><td>My IP address · is that device reachable?</td></tr>
+<tr><td><code>df -h</code> · <code>free -h</code></td><td>Disk space · memory</td></tr>
+<tr><td><code>vcgencmd get_throttled</code></td><td>Power problems? <code>0x0</code> means none</td></tr>
+<tr><td><code>systemctl status NAME</code></td><td>Is a service running?</td></tr>
+<tr><td><code>journalctl -u NAME -f</code></td><td>Follow a service's log</td></tr>
+<tr><td><code>man COMMAND</code></td><td>The manual for any command (q to quit)</td></tr>
+</table></div>
+
+</div></main>
+<footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
+</body>
+</html>

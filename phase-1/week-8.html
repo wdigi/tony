@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Week 8: Git and backup · DiGiKits Support Training</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">DiGiKits Support Training</a>
+<nav><a href="../index.html">Plan</a><a href="../phase-1/index.html">Phase 1</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a></nav>
+</div></header>
+<main><div class="wrap">
+<p style="color:var(--muted);margin:0">Phase 1 · Week 8</p><h1>Git and backup</h1>
+<p class="lead">Track changes with Git and keep a full backup of your Pi.</p>
+<h2>Why it matters</h2>
+<p>All DiGiKits code lives on GitHub. A backup turns a dead card into a 30-minute fix.</p>
+<h2>Git basics</h2>
+<pre><code>git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+git clone https://github.com/OWNER/REPO.git
+cd REPO
+nano README.md                 # make a change
+git status
+git add README.md
+git commit -m "Update readme"
+git push</code></pre>
+<p>Pushing needs GitHub sign-in: an SSH key (like week 3) or a personal access token.</p>
+<h2>Back up the SD card</h2>
+<ol>
+<li>Put the second SD card in the USB card reader and plug it into the Pi.</li>
+<li>Pi menu → Accessories → <strong>SD Card Copier</strong>. Copy from the internal card to the USB card.</li>
+<li>Label it with the date. To restore: swap it in and boot.</li>
+</ol>
+<h2>Done when</h2>
+<ul class="check"><li>You push a commit to a practice repo</li><li>You restore a broken Pi from your backup in under 30 minutes</li></ul>
+<h2>Phase 1 final check</h2>
+<p>You get a Pi that doesn't work, with no hints. Get it running and explain the fault. Then Phase 2 opens.</p>
+<div class="pager"><a href="week-7.html">← Week 7: Services and logs</a><a href="index.html">Phase 1 →</a></div>
+</div></main>
+<footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
+</body>
+</html>
