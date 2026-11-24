@@ -1,6 +1,13 @@
 /* Self-check questions for every lesson.
    Format per lesson: [question, [choices], index of the right choice, why]. */
 window.QUIZ = {
+"physical-ai/lesson-1.html": [
+ ["Who are programming languages really made for?", ["The CPU", "People, so they can tell the computer what to do more easily", "The power supply", "Only AI"], 1, "The chip only sees voltages; every language is a translation layer invented for humans."],
+ ["What is 00101101 in decimal?", ["45", "101", "2D", "13"], 0, "32 + 8 + 4 + 1 = 45."],
+ ["How many bits does one hex digit stand for?", ["2", "4", "8", "16"], 1, "One hex digit = 4 bits, so one byte = exactly two hex digits."],
+ ["An LED colour is #FF0000. What is it?", ["Blue", "Green", "Red at full brightness", "Off"], 2, "Red FF (255), green 00, blue 00: full red. Check the strip's colour order if it shows green."],
+ ["What does a compiler do?", ["Runs Python line by line", "Translates a whole program into machine code before it runs", "Draws the circuit", "Checks spelling"], 1, "Compilers (C, C++) translate ahead of time; interpreters (Python) translate while running."]
+],
 "physical-ai/lesson-0.html": [
  ["Inside a chip, what physically carries a 0 or a 1?", ["A tiny printed number", "A low or high voltage on a wire", "A sound", "A colour"], 1, "The medium is voltage; binary is the code we agree it stands for."],
  ["Why do computers use two states instead of ten?", ["Ten would be too expensive to print", "Two states tolerate noise and make simple, reliable switches", "Engineers only know two numbers", "Binary is faster to type"], 1, "A slightly wobbly signal still clearly reads as high or low."],
