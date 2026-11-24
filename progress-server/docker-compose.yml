@@ -1,0 +1,26 @@
+# Training progress server + Caddy (automatic HTTPS).
+# If this machine already runs a web server on ports 80/443, see README: "Already have a web server".
+services:
+  progress:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./data:/data
+    ports:
+      - "127.0.0.1:8080:8080"
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - DOMAIN=${DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+    depends_on:
+      - progress
+volumes:
+  caddy_data:
