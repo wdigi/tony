@@ -15,28 +15,233 @@
 <main><div class="wrap">
 
 <h1>Starter kit</h1>
-<p class="lead">One Pi and a small parts box cover all of Phase 1.</p>
+<p class="lead">One Pi and a small parts box cover all of Phase 1. This page shows every part, what it looks like, how it all connects, and how to look after it.</p>
+
+<h2 id="at-a-glance">The kit at a glance</h2>
+<figure class="fig"><svg class="d" viewBox="0 0 680 430" role="img" aria-label="Drawing of the Phase 1 kit: Raspberry Pi 5 in a case, power supply, microSD cards and reader, micro-HDMI cable, breadboard with LEDs, resistors and buttons, jumper wires, LED strip with its own power supply, and a notebook">
+<rect x="6" y="6" width="668" height="418" rx="14" fill="var(--surface)" stroke="var(--line)"/>
+<!-- 1 Pi in case -->
+<g><rect x="30" y="30" width="170" height="118" rx="14" fill="var(--chip)" opacity=".85"/><rect x="40" y="40" width="150" height="98" rx="10" fill="none" stroke="var(--metal)" stroke-width="2"/>
+<circle cx="115" cy="89" r="30" fill="none" stroke="var(--metal)" stroke-width="2"/><g stroke="var(--metal)" stroke-width="2"><line x1="115" y1="59" x2="115" y2="119"/><line x1="85" y1="89" x2="145" y2="89"/><line x1="94" y1="68" x2="136" y2="110"/><line x1="136" y1="68" x2="94" y2="110"/></g>
+<circle cx="44" cy="44" r="12" class="b-a"/><text x="44" y="49" font-size="13" text-anchor="middle" font-weight="700">1</text></g>
+<!-- 2 power supply -->
+<g><rect x="232" y="40" width="80" height="100" rx="12" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/><rect x="252" y="58" width="10" height="24" rx="2" fill="var(--ink)"/><rect x="282" y="58" width="10" height="24" rx="2" fill="var(--ink)"/>
+<path d="M272 140 C272 170 330 160 330 130" fill="none" stroke="var(--ink)" stroke-width="3"/><rect x="324" y="114" width="12" height="18" rx="3" fill="var(--ink)"/>
+<circle cx="236" cy="44" r="12" class="b-a"/><text x="236" y="49" font-size="13" text-anchor="middle" font-weight="700">2</text></g>
+<!-- 3 SD cards + reader -->
+<g><path d="M372 50 h40 l8 8 v52 h-48 z" fill="var(--violet-soft)" stroke="var(--violet)" stroke-width="2"/><path d="M394 60 h40 l8 8 v52 h-48 z" fill="var(--violet-soft)" stroke="var(--violet)" stroke-width="2"/>
+<rect x="452" y="70" width="56" height="34" rx="6" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/><rect x="508" y="80" width="18" height="14" rx="2" fill="var(--metal)"/>
+<circle cx="372" cy="46" r="12" class="b-a"/><text x="372" y="51" font-size="13" text-anchor="middle" font-weight="700">3</text></g>
+<!-- 4 micro-HDMI cable -->
+<g><rect x="560" y="44" width="16" height="24" rx="3" fill="var(--ink)"/><path d="M568 68 C568 140 640 70 640 130" fill="none" stroke="var(--ink)" stroke-width="4"/><rect x="628" y="128" width="26" height="22" rx="3" fill="var(--ink)"/>
+<circle cx="560" cy="40" r="12" class="b-a"/><text x="560" y="45" font-size="13" text-anchor="middle" font-weight="700">4</text></g>
+<!-- 5 breadboard -->
+<g><rect x="30" y="190" width="300" height="120" rx="8" fill="#f4f1ea" stroke="var(--line-strong)" stroke-width="2"/>
+<line x1="40" y1="204" x2="320" y2="204" stroke="var(--wire-red)" stroke-width="2"/><line x1="40" y1="296" x2="320" y2="296" stroke="#3a6fd8" stroke-width="2"/>
+<g fill="#b9b2a3">
+<rect x="44" y="212" width="272" height="2" opacity="0"/>
+</g>
+<g id="holes"></g>
+<rect x="40" y="248" width="280" height="6" fill="#e2ddd2"/>
+<g><line x1="150" y1="232" x2="150" y2="222" stroke="var(--metal)" stroke-width="2"/><line x1="160" y1="232" x2="160" y2="226" stroke="var(--metal)" stroke-width="2"/><path d="M146 222 a9 9 0 0 1 18 0 v4 h-18z" fill="#e5484d"/>
+<rect x="196" y="227" width="34" height="10" rx="4" fill="#d9c49a"/><rect x="202" y="227" width="3" height="10" fill="#e8851c"/><rect x="208" y="227" width="3" height="10" fill="#e8851c"/><rect x="214" y="227" width="3" height="10" fill="#7a4a1f"/><rect x="222" y="227" width="3" height="10" fill="#c8a24a"/>
+<rect x="250" y="262" width="22" height="22" rx="3" fill="var(--ink)"/><circle cx="261" cy="273" r="6" fill="var(--metal)"/></g>
+<circle cx="34" cy="194" r="12" class="b-a"/><text x="34" y="199" font-size="13" text-anchor="middle" font-weight="700">5</text></g>
+<!-- 6 jumper wires -->
+<g fill="none" stroke-width="4" stroke-linecap="round"><path d="M360 200 C400 180 420 260 460 240" stroke="var(--wire-red)"/><path d="M360 220 C400 200 420 280 460 260" stroke="var(--wire-blk)"/><path d="M360 240 C400 220 420 300 460 280" stroke="var(--wire-yel)"/><path d="M360 260 C400 240 420 320 460 300" stroke="var(--wire-data)"/></g>
+<circle cx="360" cy="190" r="12" class="b-a"/><text x="360" y="195" font-size="13" text-anchor="middle" font-weight="700">6</text>
+<!-- 7 LED strip + supply -->
+<g><rect x="490" y="190" width="160" height="22" rx="4" fill="#ececec" stroke="var(--line-strong)"/>
+<g fill="#f5c84b"><rect x="500" y="196" width="10" height="10"/><rect x="525" y="196" width="10" height="10"/><rect x="550" y="196" width="10" height="10"/><rect x="575" y="196" width="10" height="10"/><rect x="600" y="196" width="10" height="10"/><rect x="625" y="196" width="10" height="10"/></g>
+<rect x="520" y="240" width="100" height="56" rx="8" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/><text x="570" y="273" font-size="13" text-anchor="middle" font-weight="600">5 V supply</text>
+<circle cx="494" cy="186" r="12" class="b-a"/><text x="494" y="191" font-size="13" text-anchor="middle" font-weight="700">7</text></g>
+<!-- 8 notebook -->
+<g><rect x="250" y="338" width="90" height="70" rx="4" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="2"/><g stroke="var(--amber)"><line x1="262" y1="356" x2="328" y2="356"/><line x1="262" y1="370" x2="328" y2="370"/><line x1="262" y1="384" x2="318" y2="384"/></g>
+<circle cx="250" cy="336" r="12" class="b-a"/><text x="250" y="341" font-size="13" text-anchor="middle" font-weight="700">8</text></g>
+<g font-size="12" class="q"><text x="362" y="352">1 Pi 5 in case with cooler · 2 power supply</text><text x="362" y="370">3 microSD cards + reader · 4 micro-HDMI cable</text><text x="362" y="388">5 breadboard and parts · 6 jumper wires</text><text x="362" y="406">7 LED strip + own 5 V supply · 8 notebook</text></g>
+</svg><figcaption>Your Phase 1 kit. A keyboard, mouse and monitor are needed only for the first boot.</figcaption></figure>
+
+<h2 id="shopping-list">Shopping list</h2>
 <div class="table-scroll"><table>
-<tr><th>Item</th><th>Why</th></tr>
-<tr><td>Raspberry Pi 5 (4 GB) with active cooler and case</td><td>Main practice computer; same family as DiGiKits products</td></tr>
-<tr><td>Official 27 W USB-C power supply</td><td>A weak supply causes random faults</td></tr>
-<tr><td>2 × 64 GB microSD cards (A2) + USB card reader</td><td>One for daily work, one for drills and backups</td></tr>
-<tr><td>Micro-HDMI to HDMI cable, keyboard, mouse, a monitor</td><td>First boot only; from day 4 you work over SSH</td></tr>
-<tr><td>Breadboard, jumper wires, LEDs, 330 Ω resistors, push buttons</td><td>Day 7 GPIO work</td></tr>
-<tr><td>Short WS2812 LED strip (about 30 LEDs) + 5 V supply</td><td>Day 8; ties into DiGiKits LED controllers</td></tr>
-<tr><td>A notebook</td><td>Support notes from every drill</td></tr>
-<tr><th colspan="2">Added for Phase 2</th></tr>
-<tr><td>Raspberry Pi Pico 2 (RP2350) + data USB cable</td><td>Microcontroller day; the chip family DiGiKits LED controllers use</td></tr>
-<tr><td>Digital multimeter</td><td>Measuring voltage drop and finding power faults</td></tr>
-<tr><td>Inline fuse holder and fuses, thicker power wire</td><td>Safe LED power wiring</td></tr>
-<tr><td>A TV or monitor with HDMI-CEC</td><td>Big Screen days (most TVs have it)</td></tr>
-<tr><td>A second SD card or second Pi</td><td>Managing more than one Pi</td></tr>
-<tr><th colspan="2">Phase 4</th></tr>
-<tr><td>A laptop (Mac or Windows)</td><td>3D tools need more power than a Pi</td></tr>
+<tr><th>#</th><th>Item</th><th>Why</th></tr>
+<tr><td>1</td><td>Raspberry Pi 5 (4 GB) with active cooler and case</td><td>Main practice computer; same family as DiGiKits products</td></tr>
+<tr><td>2</td><td>Official 27 W USB-C power supply</td><td>A weak supply causes random faults</td></tr>
+<tr><td>3</td><td>2 × 64 GB microSD cards (A2) + USB card reader</td><td>One for daily work, one for drills and backups</td></tr>
+<tr><td>4</td><td>Micro-HDMI to HDMI cable, keyboard, mouse, a monitor</td><td>First boot only; from Day 4 you work over SSH</td></tr>
+<tr><td>5–6</td><td>Breadboard, jumper wires, LEDs, 330 Ω resistors, push buttons</td><td>Day 7 GPIO work</td></tr>
+<tr><td>7</td><td>Short WS2812 LED strip (about 30 LEDs) + 5 V supply</td><td>Day 8; ties into DiGiKits LED controllers</td></tr>
+<tr><td>8</td><td>A notebook</td><td>Support notes from every drill</td></tr>
+<tr><th colspan="3">Added for Phase 2</th></tr>
+<tr><td>9</td><td>Raspberry Pi Pico 2 (RP2350) + data USB cable</td><td>Microcontroller day; the chip family DiGiKits LED controllers use</td></tr>
+<tr><td>10</td><td>Digital multimeter</td><td>Measuring voltage drop and finding power faults</td></tr>
+<tr><td>11</td><td>Inline fuse holder and fuses, thicker power wire</td><td>Safe LED power wiring</td></tr>
+<tr><td>12</td><td>A TV or monitor with HDMI-CEC</td><td>Big Screen days (most TVs have it)</td></tr>
+<tr><td>13</td><td>A second SD card or second Pi</td><td>Managing more than one Pi</td></tr>
+<tr><th colspan="3">Phase 4</th></tr>
+<tr><td>14</td><td>A laptop (Mac or Windows)</td><td>3D tools need more power than a Pi</td></tr>
 </table></div>
 <p>Free software: Raspberry Pi Imager, Raspberry Pi OS, Tailscale, a GitHub account.</p>
 
+<h2 id="meet-the-pi">Meet your Raspberry Pi 5</h2>
+<p>Learn where everything plugs in. You'll use these names in every support call.</p>
+<figure class="fig"><svg class="d" viewBox="0 0 680 360" role="img" aria-label="Top view of a Raspberry Pi 5 board with its main connectors labelled">
+<rect x="150" y="70" width="380" height="240" rx="16" fill="var(--pcb)" stroke="var(--pcb-dark)" stroke-width="2"/>
+<g fill="var(--pcb-dark)"><circle cx="172" cy="92" r="8"/><circle cx="508" cy="92" r="8"/><circle cx="172" cy="288" r="8"/><circle cx="508" cy="288" r="8"/></g>
+<!-- GPIO header -->
+<rect x="200" y="78" width="260" height="26" rx="3" fill="var(--chip)"/>
+<g fill="#d7b24a" id="gpioPins"></g>
+<!-- SoC -->
+<rect x="270" y="150" width="80" height="80" rx="6" fill="var(--metal)"/><text x="310" y="195" font-size="12" text-anchor="middle" style="fill:var(--pcb-dark)" font-weight="700">CPU</text>
+<!-- RAM -->
+<rect x="370" y="160" width="50" height="60" rx="4" fill="var(--chip)"/>
+<!-- USB + Ethernet on right edge -->
+<rect x="500" y="118" width="54" height="50" rx="3" fill="#c9ced6" stroke="#8b919a"/><rect x="500" y="178" width="54" height="50" rx="3" fill="#c9ced6" stroke="#8b919a"/><rect x="500" y="238" width="54" height="56" rx="3" fill="#c9ced6" stroke="#8b919a"/>
+<!-- bottom edge: USB-C + 2 micro-HDMI -->
+<rect x="190" y="292" width="30" height="20" rx="5" fill="#c9ced6" stroke="#8b919a"/><rect x="250" y="292" width="28" height="18" rx="4" fill="#c9ced6" stroke="#8b919a"/><rect x="300" y="292" width="28" height="18" rx="4" fill="#c9ced6" stroke="#8b919a"/>
+<!-- power button -->
+<circle cx="150" cy="250" r="8" fill="var(--chip)" stroke="var(--metal)"/>
+<!-- fan connector -->
+<rect x="440" y="120" width="14" height="10" fill="var(--surface)"/>
+<!-- microSD on left edge (underneath) -->
+<rect x="136" y="160" width="20" height="50" rx="3" fill="none" stroke="var(--violet)" stroke-width="2" stroke-dasharray="4 3"/>
+<g font-size="12.5" font-weight="600" fill="var(--ink)">
+<line x1="330" y1="76" x2="330" y2="44" stroke="var(--muted)"/><text x="330" y="36" text-anchor="middle">40-pin GPIO header (Lessons 3–7, Day 7)</text>
+<line x1="554" y1="143" x2="600" y2="120" stroke="var(--muted)"/><text x="604" y="116">USB 3</text>
+<line x1="554" y1="203" x2="600" y2="190" stroke="var(--muted)"/><text x="604" y="186">USB 2</text>
+<line x1="554" y1="266" x2="600" y2="262" stroke="var(--muted)"/><text x="604" y="258">Ethernet</text>
+<line x1="205" y1="312" x2="205" y2="336" stroke="var(--muted)"/><text x="205" y="350" text-anchor="middle">USB-C power</text>
+<line x1="289" y1="310" x2="300" y2="336" stroke="var(--muted)"/><text x="330" y="350" text-anchor="middle">2 × micro-HDMI</text>
+<line x1="136" y1="185" x2="98" y2="185" stroke="var(--muted)"/><text x="92" y="181" text-anchor="end">microSD slot</text><text x="92" y="197" text-anchor="end" font-weight="400" class="q">(underneath)</text>
+<line x1="142" y1="250" x2="98" y2="250" stroke="var(--muted)"/><text x="92" y="254" text-anchor="end">power button</text>
+<line x1="447" y1="130" x2="447" y2="148" stroke="var(--muted)"/><text x="440" y="164" font-weight="400" class="q" text-anchor="middle">fan socket</text>
+</g>
+</svg><figcaption>Layout simplified. The microSD card goes in from underneath, contacts facing the board.</figcaption></figure>
+
+<h2 id="how-it-connects">How it all connects</h2>
+<figure class="fig"><svg class="d" viewBox="0 0 680 318" role="img" aria-label="Phase 1 setup: the Pi powered by USB-C, a monitor for first boot only, your laptop reaching it over the network from Day 4, GPIO wires to the breadboard, and the LED strip with its own 5 V supply sharing ground with the Pi">
+<defs><marker id="k1" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
+<rect x="260" y="110" width="160" height="80" rx="12" class="b-a"/><text x="340" y="146" font-size="14" text-anchor="middle" font-weight="700">Raspberry Pi 5</text><text x="340" y="166" font-size="12" text-anchor="middle" class="q">your practice computer</text>
+<rect x="20" y="24" width="150" height="54" rx="8" class="b-v"/><text x="95" y="48" font-size="13" text-anchor="middle" font-weight="600">27 W USB-C supply</text><text x="95" y="65" font-size="12" text-anchor="middle" class="q">always</text>
+<rect x="510" y="24" width="150" height="54" rx="8" class="b"/><text x="585" y="48" font-size="13" text-anchor="middle" font-weight="600">Monitor + keyboard</text><text x="585" y="65" font-size="12" text-anchor="middle" class="q">first boot only</text>
+<rect x="510" y="122" width="150" height="54" rx="8" class="b-g"/><text x="585" y="146" font-size="13" text-anchor="middle" font-weight="600">Your laptop</text><text x="585" y="163" font-size="12" text-anchor="middle" class="q">SSH from Day 4</text>
+<rect x="20" y="222" width="150" height="54" rx="8" class="b-w"/><text x="95" y="246" font-size="13" text-anchor="middle" font-weight="600">Breadboard</text><text x="95" y="263" font-size="12" text-anchor="middle" class="q">LEDs, buttons (Day 7)</text>
+<rect x="265" y="230" width="150" height="54" rx="8" class="b-w"/><text x="340" y="254" font-size="13" text-anchor="middle" font-weight="600">LED strip</text><text x="340" y="271" font-size="12" text-anchor="middle" class="q">Day 8</text>
+<rect x="510" y="230" width="150" height="54" rx="8" class="b-v"/><text x="585" y="254" font-size="13" text-anchor="middle" font-weight="600">5 V strip supply</text><text x="585" y="271" font-size="12" text-anchor="middle" class="q">its own power</text>
+<g fill="none" stroke-width="2"><path d="M170 51 H215 V130 H257" stroke="var(--wire-red)" marker-end="url(#k1)"/><path d="M510 51 H465 V130 H423" stroke="var(--muted)" stroke-dasharray="5 4" marker-end="url(#k1)"/><path d="M510 149 H423" stroke="var(--good)" marker-end="url(#k1)"/>
+<path d="M260 175 H215 V249 H173" stroke="var(--wire-data)" marker-end="url(#k1)"/><path d="M340 191 V227" stroke="var(--wire-data)" marker-end="url(#k1)"/><path d="M510 257 H418" stroke="var(--wire-red)" stroke-width="3" marker-end="url(#k1)"/></g>
+<g font-size="12" class="q"><text x="220" y="100">power</text><text x="430" y="100">HDMI, USB</text><text x="440" y="142">network</text><text x="186" y="218">GPIO</text><text x="346" y="214">data</text><text x="440" y="250">5 V power</text></g>
+<text x="340" y="310" font-size="12.5" text-anchor="middle" class="q">The strip's ground and the Pi's ground must be joined (Lesson 6, Day 8).</text>
+</svg><figcaption>Phase 1 setup. After Day 4 the monitor goes away and you work from your laptop.</figcaption></figure>
+
+<h2 id="gpio-pins">The first GPIO pins you'll use</h2>
+<p>The 40 pins come in two rows. Pin 1 is the one nearest the corner of the board, marked with a square pad. These are the pins the lessons use most:</p>
+<figure class="fig"><svg class="d" viewBox="0 0 680 210" role="img" aria-label="The first 14 GPIO pins: 3.3 V, 5 V, GPIO2 SDA, 5 V, GPIO3 SCL, ground, GPIO4, GPIO14 TX, ground, GPIO15 RX, GPIO17, GPIO18, GPIO27, ground">
+<g id="pinmap"></g>
+<g font-size="12" class="q"><rect x="40" y="186" width="12" height="12" fill="#e5484d"/><text x="58" y="196">power (never connect to a GPIO)</text><rect x="270" y="186" width="12" height="12" fill="var(--ink)"/><text x="288" y="196">ground</text><rect x="360" y="186" width="12" height="12" fill="var(--accent)"/><text x="378" y="196">GPIO (3.3 V signals only)</text></g>
+</svg><figcaption>Odd pins on the inside row, even pins on the edge row. GPIO17 is the LED pin in Day 7. SDA/SCL are I²C and TX/RX are UART (Lesson 7).</figcaption></figure>
+
+<h2 id="first-circuit">Your first circuit: one LED on GPIO17</h2>
+<p>Inside a breadboard, each short column of holes (the light stripes in the drawing) is joined by a hidden metal strip, so parts plugged into the same column are connected. The gap in the middle separates the top and bottom halves. This is the Day 7 circuit:</p>
+<figure class="fig"><svg class="d" viewBox="0 0 680 280" role="img" aria-label="Breadboard drawing: GPIO17 wire to a 330 ohm resistor, to the long leg of the LED; the short leg goes to a ground wire back to the Pi">
+<rect x="150" y="30" width="500" height="210" rx="10" fill="#f4f1ea" stroke="var(--line-strong)" stroke-width="2"/>
+<g stroke="#ddd6c6" stroke-width="5" stroke-linecap="round" id="bbStrips"></g>
+<g id="bbHoles"></g>
+<rect x="150" y="130" width="500" height="10" fill="#e2ddd2"/>
+<!-- Pi -->
+<rect x="10" y="60" width="110" height="150" rx="10" fill="var(--pcb)" stroke="var(--pcb-dark)"/><text x="65" y="92" font-size="13" text-anchor="middle" font-weight="700" style="fill:#fff">Pi</text>
+<circle cx="110" cy="120" r="5" fill="var(--accent)"/><text x="100" y="124" font-size="11.5" text-anchor="end" style="fill:#fff">GPIO17</text>
+<circle cx="110" cy="176" r="5" fill="var(--ink)" stroke="#fff"/><text x="100" y="180" font-size="11.5" text-anchor="end" style="fill:#fff">GND</text>
+<!-- wires -->
+<path d="M110 120 C150 120 170 72 250 72" fill="none" stroke="var(--wire-yel)" stroke-width="4" stroke-linecap="round"/>
+<path d="M110 176 C170 176 200 212 450 212" fill="none" stroke="var(--wire-blk)" stroke-width="4" stroke-linecap="round"/>
+<!-- resistor 250 -> 350 at row y=72 -->
+<line x1="250" y1="72" x2="275" y2="72" stroke="var(--metal)" stroke-width="2.5"/><line x1="325" y1="72" x2="350" y2="72" stroke="var(--metal)" stroke-width="2.5"/>
+<rect x="275" y="62" width="50" height="20" rx="8" fill="#d9c49a"/><rect x="284" y="62" width="5" height="20" fill="#e8851c"/><rect x="294" y="62" width="5" height="20" fill="#e8851c"/><rect x="304" y="62" width="5" height="20" fill="#7a4a1f"/><rect x="315" y="62" width="4" height="20" fill="#c8a24a"/>
+<text x="300" y="50" font-size="12" text-anchor="middle" font-weight="600">330 Ω resistor</text><text x="300" y="104" font-size="11.5" text-anchor="middle" class="q">orange · orange · brown · gold</text>
+<!-- LED: long leg at x=350 col, short leg at 450 -->
+<path d="M350 72 V160" stroke="var(--metal)" stroke-width="2.5"/><text x="342" y="150" font-size="11.5" text-anchor="end" class="q">long leg (+)</text>
+<path d="M450 212 V170" stroke="var(--metal)" stroke-width="2.5"/><text x="458" y="200" font-size="11.5" class="q">short leg (−)</text>
+<path d="M350 160 C350 150 450 150 450 170" fill="none" stroke="var(--metal)" stroke-width="2.5"/>
+<path d="M382 152 a18 18 0 0 1 36 0 v14 h-36 z" fill="#e5484d" stroke="#b5343a"/><text x="400" y="132" font-size="12" text-anchor="middle" font-weight="600">LED</text>
+<text x="400" y="262" font-size="12.5" text-anchor="middle" class="q">GPIO17 → resistor → LED long leg → short leg → ground</text>
+</svg><figcaption>Wire it with the Pi switched off. An LED put in backwards just stays dark; turn it round.</figcaption></figure>
+
+<h2 id="led-strip">The LED strip: three wires, two supplies</h2>
+<figure class="fig"><svg class="d" viewBox="0 0 680 220" role="img" aria-label="LED strip wiring: 5 V supply positive to strip 5 V, supply ground to strip ground and to the Pi ground, Pi data pin to the strip's DIN at the input end, arrows show data direction">
+<defs><marker id="k2" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
+<rect x="20" y="30" width="130" height="70" rx="10" class="b-v"/><text x="85" y="62" font-size="13" text-anchor="middle" font-weight="600">5 V supply</text><text x="85" y="80" font-size="12" text-anchor="middle" class="q">+ and −</text>
+<rect x="20" y="130" width="130" height="70" rx="10" fill="var(--pcb)"/><text x="85" y="170" font-size="13" text-anchor="middle" font-weight="700" style="fill:#fff">Pi</text>
+<rect x="300" y="88" width="360" height="50" rx="6" fill="#ececec" stroke="var(--line-strong)"/>
+<g fill="#f5c84b"><rect x="330" y="104" width="18" height="18"/><rect x="390" y="104" width="18" height="18"/><rect x="450" y="104" width="18" height="18"/><rect x="510" y="104" width="18" height="18"/><rect x="570" y="104" width="18" height="18"/><rect x="630" y="104" width="18" height="18"/></g>
+<g stroke="var(--muted)" stroke-width="1.5" marker-end="url(#k2)"><line x1="355" y1="150" x2="380" y2="150"/><line x1="475" y1="150" x2="500" y2="150"/><line x1="595" y1="150" x2="620" y2="150"/></g>
+<text x="480" y="174" font-size="12" text-anchor="middle" class="q">data flows this way; connect at the end marked DIN</text>
+<g fill="none" stroke-width="3.5" stroke-linecap="round"><path d="M150 50 H260 V96 H300" stroke="var(--wire-red)"/><path d="M150 80 H240 V112 H300" stroke="var(--wire-blk)"/><path d="M150 160 H260 V128 H300" stroke="var(--wire-data)"/><path d="M150 186 H240 V112" stroke="var(--wire-blk)" stroke-dasharray="7 5"/></g>
+<g font-size="12" class="q"><text x="200" y="44">+5 V</text><text x="176" y="74">GND</text><text x="156" y="154">data (GPIO)</text><text x="164" y="212">Pi GND joined to supply GND</text></g>
+</svg><figcaption>Never power the strip from the Pi. The full steps are in <a href="phase-1/day-8.html">Phase 1, Day 8</a>.</figcaption></figure>
+
+<h2 id="phase-2-parts">Phase 2 parts</h2>
+<figure class="fig"><svg class="d" viewBox="0 0 680 250" role="img" aria-label="Phase 2 parts: a Pico 2 microcontroller board, a multimeter measuring 5 volts across a supply, and an inline fuse holder">
+<!-- Pico -->
+<rect x="30" y="40" width="70" height="170" rx="6" fill="var(--pcb)" stroke="var(--pcb-dark)"/><rect x="52" y="30" width="26" height="14" rx="3" fill="#c9ced6"/>
+<g fill="#d7b24a" id="picoPins"></g><rect x="50" y="100" width="30" height="30" rx="3" fill="var(--chip)"/><text x="65" y="119" font-size="9" text-anchor="middle" style="fill:#fff">RP2350</text>
+<text x="65" y="236" font-size="12.5" text-anchor="middle" font-weight="600">Pico 2</text>
+<!-- multimeter -->
+<rect x="200" y="30" width="130" height="190" rx="16" fill="#f2c94c" stroke="#b08a1e" stroke-width="2"/><rect x="216" y="46" width="98" height="44" rx="4" fill="#cfe3c8" stroke="#5f7a58"/><text x="265" y="77" font-size="24" text-anchor="middle" font-family="ui-monospace,monospace" style="fill:#24331f">5.02</text>
+<circle cx="265" cy="140" r="30" fill="var(--ink)"/><line x1="265" y1="140" x2="245" y2="118" stroke="#fff" stroke-width="4" stroke-linecap="round"/><text x="232" y="112" font-size="12" font-weight="700">V⎓</text>
+<circle cx="240" cy="198" r="7" fill="var(--ink)"/><circle cx="290" cy="198" r="7" fill="#e5484d"/><text x="240" y="216" font-size="10" text-anchor="middle">COM</text><text x="290" y="216" font-size="10" text-anchor="middle">V</text>
+<path d="M290 198 C330 240 380 200 410 150" fill="none" stroke="#e5484d" stroke-width="3"/><path d="M240 198 C260 250 400 240 430 190" fill="none" stroke="var(--ink)" stroke-width="3"/>
+<rect x="400" y="110" width="80" height="50" rx="6" class="b-v"/><text x="440" y="132" font-size="12" text-anchor="middle" font-weight="600">supply</text><text x="410" y="152" font-size="12" font-weight="700">+</text><text x="462" y="152" font-size="12" font-weight="700">−</text>
+<text x="300" y="246" font-size="12.5" text-anchor="middle" font-weight="600">Multimeter on DC volts: red to +, black to −</text>
+<!-- fuse -->
+<path d="M520 120 H560" stroke="var(--wire-red)" stroke-width="4"/><rect x="560" y="105" width="70" height="30" rx="8" fill="var(--ink)"/><rect x="578" y="111" width="34" height="18" rx="3" fill="#e5484d"/><text x="595" y="124" font-size="10" text-anchor="middle" style="fill:#fff" font-weight="700">5A</text><path d="M630 120 H665" stroke="var(--wire-red)" stroke-width="4"/>
+<text x="592" y="166" font-size="12.5" text-anchor="middle" font-weight="600">Inline fuse</text><text x="592" y="184" font-size="12" text-anchor="middle" class="q">on the + wire, near the supply</text>
+</svg><figcaption>The fuse rating depends on your strip and wire; Phase 2, Day 6 shows how to choose it.</figcaption></figure>
+
+<h2 id="care">Look after your kit</h2>
+<figure class="fig"><svg class="d" viewBox="0 0 680 160" role="img" aria-label="Five care rules: power off before wiring, never more than 3.3 volts on a GPIO, shut down before unplugging, hold boards by the edges, keep the strip on its own supply">
+<g text-anchor="middle" font-size="12.5">
+<g transform="translate(70 0)"><circle cx="0" cy="54" r="34" class="b-v"/><path d="M0 34 V56 M-14 42 a20 20 0 1 0 28 0" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/><text x="0" y="112" font-weight="600">Power off</text><text x="0" y="128" class="q">before wiring</text></g>
+<g transform="translate(205 0)"><circle cx="0" cy="54" r="34" class="b-w"/><text x="0" y="61" font-size="17" font-weight="700">3.3 V</text><text x="0" y="112" font-weight="600">Max on GPIO</text><text x="0" y="128" class="q">never 5 V</text></g>
+<g transform="translate(340 0)"><circle cx="0" cy="54" r="34" class="b-a"/><text x="0" y="50" font-size="11" font-family="ui-monospace,monospace">sudo</text><text x="0" y="64" font-size="11" font-family="ui-monospace,monospace">shutdown</text><text x="0" y="112" font-weight="600">Shut down first</text><text x="0" y="128" class="q">protects the SD card</text></g>
+<g transform="translate(475 0)"><circle cx="0" cy="54" r="34" class="b-g"/><rect x="-16" y="40" width="32" height="28" rx="3" fill="var(--pcb)"/><path d="M-26 54 h8 M18 54 h8" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/><text x="0" y="112" font-weight="600">Hold by the edges</text><text x="0" y="128" class="q">static can harm chips</text></g>
+<g transform="translate(610 0)"><circle cx="0" cy="54" r="34" class="b-v"/><text x="0" y="50" font-size="12" font-weight="700">strip</text><text x="0" y="66" font-size="11">own supply</text><text x="0" y="112" font-weight="600">Separate power</text><text x="0" y="128" class="q">shared ground</text></g>
+</g>
+</svg><figcaption>Five habits that prevent most kit damage and most support calls.</figcaption></figure>
+
 </div></main>
 <footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
+<script>
+(function () {
+  var NS = "", i, h;
+  // kit flat-lay breadboard holes
+  h = ""; for (var r = 0; r < 5; r++) for (var c = 0; c < 26; c++) { h += '<rect x="' + (46 + c * 10.6) + '" y="' + (214 + r * 6.4) + '" width="3" height="3" fill="#b9b2a3"/>'; h += '<rect x="' + (46 + c * 10.6) + '" y="' + (260 + r * 6.4) + '" width="3" height="3" fill="#b9b2a3"/>'; }
+  document.getElementById("holes").innerHTML = h;
+  // Pi 5 GPIO header pins (2 x 20)
+  h = ""; for (i = 0; i < 20; i++) { h += '<rect x="' + (206 + i * 12.6) + '" y="82" width="6" height="6"/><rect x="' + (206 + i * 12.6) + '" y="94" width="6" height="6"/>'; }
+  document.getElementById("gpioPins").innerHTML = h;
+  // pin map, first 14 pins: odd pins inner row (top), even pins outer row (bottom)
+  var pins = { 1: ["3.3V", "p"], 2: ["5V", "p"], 3: ["GPIO2 SDA", "g"], 4: ["5V", "p"], 5: ["GPIO3 SCL", "g"], 6: ["GND", "n"], 7: ["GPIO4", "g"], 8: ["GPIO14 TX", "g"], 9: ["GND", "n"], 10: ["GPIO15 RX", "g"], 11: ["GPIO17", "g"], 12: ["GPIO18", "g"], 13: ["GPIO27", "g"], 14: ["GND", "n"] };
+  var col = { p: "#e5484d", n: "var(--ink)", g: "var(--accent)" };
+  h = '<rect x="40" y="62" width="600" height="56" rx="6" fill="var(--chip)" opacity=".85"/>';
+  for (var n = 1; n <= 14; n++) {
+    var k = Math.floor((n - 1) / 2), x = 70 + k * 84, top = n % 2 === 1, y = top ? 76 : 104, p = pins[n];
+    h += (n === 1 ? '<rect x="' + (x - 8) + '" y="' + (y - 8) + '" width="16" height="16" fill="' + col[p[1]] + '" stroke="#fff" stroke-width="2"/>' : '<circle cx="' + x + '" cy="' + y + '" r="8" fill="' + col[p[1]] + '" stroke="#fff" stroke-width="2"/>');
+    h += '<text x="' + x + '" y="' + (top ? 40 : 140) + '" font-size="11" text-anchor="middle" class="q">pin ' + n + '</text>';
+    h += '<text x="' + x + '" y="' + (top ? 54 : 156) + '" font-size="12" text-anchor="middle" font-weight="' + (n === 11 ? 700 : 600) + '">' + p[0] + "</text>";
+  }
+  h += '<text x="650" y="80" font-size="11" class="q">inner</text><text x="650" y="108" font-size="11" class="q">edge</text>';
+  document.getElementById("pinmap").innerHTML = h;
+  // first-circuit breadboard holes and strips
+  h = ""; var s = "";
+  for (var c2 = 0; c2 < 24; c2++) { var x2 = 170 + c2 * 20;
+    for (var r2 = 0; r2 < 4; r2++) { h += '<rect x="' + (x2 - 2) + '" y="' + (52 + r2 * 18 - 2) + '" width="4" height="4" fill="#b9b2a3"/>'; h += '<rect x="' + (x2 - 2) + '" y="' + (160 + r2 * 18 - 2) + '" width="4" height="4" fill="#b9b2a3"/>'; }
+    s += '<line x1="' + x2 + '" y1="48" x2="' + x2 + '" y2="110"/><line x1="' + x2 + '" y1="156" x2="' + x2 + '" y2="218"/>';
+  }
+  document.getElementById("bbHoles").innerHTML = h; document.getElementById("bbStrips").innerHTML = s;
+  // Pico pins
+  h = ""; for (i = 0; i < 20; i++) { h += '<rect x="33" y="' + (48 + i * 8) + '" width="5" height="4"/><rect x="92" y="' + (48 + i * 8) + '" width="5" height="4"/>'; }
+  document.getElementById("picoPins").innerHTML = h;
+})();
+</script>
 </body>
 </html>
