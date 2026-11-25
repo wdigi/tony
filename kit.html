@@ -118,20 +118,23 @@
 </svg><figcaption>Layout simplified. The microSD card goes in from underneath, contacts facing the board.</figcaption></figure>
 
 <h2 id="how-it-connects">How it all connects</h2>
-<figure class="fig"><svg class="d" viewBox="0 0 680 318" role="img" aria-label="Phase 1 setup: the Pi powered by USB-C, a monitor for first boot only, your laptop reaching it over the network from Day 4, GPIO wires to the breadboard, and the LED strip with its own 5 V supply sharing ground with the Pi">
+<figure class="fig"><svg class="d" viewBox="0 0 680 318" role="img" aria-label="Phase 1 setup: the Pi powered by USB-C, a monitor and keyboard plugged into the Pi for first boot only, the Pi and your laptop both joined to your home router so the laptop reaches the Pi over the network from Day 4, GPIO wires to the breadboard, and the LED strip with its own 5 V supply sharing ground with the Pi">
 <defs><marker id="k1" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
 <rect x="260" y="110" width="160" height="80" rx="12" class="b-a"/><text x="340" y="146" font-size="14" text-anchor="middle" font-weight="700">Raspberry Pi 5</text><text x="340" y="166" font-size="12" text-anchor="middle" class="q">your practice computer</text>
 <rect x="20" y="24" width="150" height="54" rx="8" class="b-v"/><text x="95" y="48" font-size="13" text-anchor="middle" font-weight="600">27 W USB-C supply</text><text x="95" y="65" font-size="12" text-anchor="middle" class="q">always</text>
-<rect x="510" y="24" width="150" height="54" rx="8" class="b"/><text x="585" y="48" font-size="13" text-anchor="middle" font-weight="600">Monitor + keyboard</text><text x="585" y="65" font-size="12" text-anchor="middle" class="q">first boot only</text>
-<rect x="510" y="122" width="150" height="54" rx="8" class="b-g"/><text x="585" y="146" font-size="13" text-anchor="middle" font-weight="600">Your laptop</text><text x="585" y="163" font-size="12" text-anchor="middle" class="q">SSH from Day 4</text>
+<rect x="265" y="20" width="150" height="54" rx="8" class="b"/><text x="340" y="44" font-size="13" text-anchor="middle" font-weight="600">Home router</text><text x="340" y="61" font-size="12" text-anchor="middle" class="q">your Wi-Fi network</text>
+<rect x="510" y="20" width="150" height="54" rx="8" class="b-g"/><text x="585" y="44" font-size="13" text-anchor="middle" font-weight="600">Your laptop</text><text x="585" y="61" font-size="12" text-anchor="middle" class="q">SSH from Day 4</text>
+<rect x="510" y="122" width="150" height="54" rx="8" class="b"/><text x="585" y="146" font-size="13" text-anchor="middle" font-weight="600">Monitor + keyboard</text><text x="585" y="163" font-size="12" text-anchor="middle" class="q">first boot only</text>
 <rect x="20" y="222" width="150" height="54" rx="8" class="b-w"/><text x="95" y="246" font-size="13" text-anchor="middle" font-weight="600">Breadboard</text><text x="95" y="263" font-size="12" text-anchor="middle" class="q">LEDs, buttons (Day 7)</text>
 <rect x="265" y="230" width="150" height="54" rx="8" class="b-w"/><text x="340" y="254" font-size="13" text-anchor="middle" font-weight="600">LED strip</text><text x="340" y="271" font-size="12" text-anchor="middle" class="q">Day 8</text>
 <rect x="510" y="230" width="150" height="54" rx="8" class="b-v"/><text x="585" y="254" font-size="13" text-anchor="middle" font-weight="600">5 V strip supply</text><text x="585" y="271" font-size="12" text-anchor="middle" class="q">its own power</text>
-<g fill="none" stroke-width="2"><path d="M170 51 H215 V130 H257" stroke="var(--wire-red)" marker-end="url(#k1)"/><path d="M510 51 H465 V130 H423" stroke="var(--muted)" stroke-dasharray="5 4" marker-end="url(#k1)"/><path d="M510 149 H423" stroke="var(--good)" marker-end="url(#k1)"/>
+<g fill="none" stroke-width="2"><path d="M170 51 H215 V130 H257" stroke="var(--wire-red)" marker-end="url(#k1)"/>
+<path d="M507 47 H418" stroke="var(--good)" marker-start="url(#k1)" marker-end="url(#k1)"/><path d="M340 77 V107" stroke="var(--good)" marker-start="url(#k1)" marker-end="url(#k1)"/>
+<path d="M510 149 H423" stroke="var(--muted)" stroke-dasharray="5 4" marker-end="url(#k1)"/>
 <path d="M260 175 H215 V249 H173" stroke="var(--wire-data)" marker-end="url(#k1)"/><path d="M340 191 V227" stroke="var(--wire-data)" marker-end="url(#k1)"/><path d="M510 257 H418" stroke="var(--wire-red)" stroke-width="3" marker-end="url(#k1)"/></g>
-<g font-size="12" class="q"><text x="220" y="100">power</text><text x="430" y="100">HDMI, USB</text><text x="440" y="142">network</text><text x="186" y="218">GPIO</text><text x="346" y="214">data</text><text x="440" y="250">5 V power</text></g>
+<g font-size="12" class="q"><text x="220" y="100">power</text><text x="434" y="39">Wi-Fi</text><text x="348" y="96">Wi-Fi or cable</text><text x="434" y="141">HDMI, USB</text><text x="186" y="218">GPIO</text><text x="346" y="214">data</text><text x="440" y="250">5 V power</text></g>
 <text x="340" y="310" font-size="12.5" text-anchor="middle" class="q">The strip's ground and the Pi's ground must be joined (Lesson 6, Day 8).</text>
-</svg><figcaption>Phase 1 setup. After Day 4 the monitor goes away and you work from your laptop.</figcaption></figure>
+</svg><figcaption>Phase 1 setup. The laptop never plugs into the Pi: both join your home router, and from Day 4 you reach the Pi through it and the monitor goes away.</figcaption></figure>
 
 <h2 id="gpio-pins">The first GPIO pins you'll use</h2>
 <p>The 40 pins come in two rows. Pin 1 is the one nearest the corner of the board, marked with a square pad. These are the pins the lessons use most:</p>
