@@ -64,18 +64,26 @@
 </svg><figcaption>One workflow file in the repo describes the whole run.</figcaption></figure>
 
 <h2 id="template">Every product starts from one template</h2>
-<p>DiGiKits keeps a <strong>template repo</strong>. Each new product repo is copied from it, so every project already has the same folders, a <code>Dockerfile</code>, a <code>docker-compose.yml</code>, an <code>.env.example</code>, a README, and the workflow file below. Nobody sets up CI from scratch twice.</p>
+<p>DiGiKits keeps one <strong>template repo</strong>, <code>digikits-project-template</code>. Each new product repo is copied from it, so every project has the same folders in the same places, the same company stack (a React + TypeScript web app, a Python FastAPI server, Docker Compose and Caddy on DigitalOcean) and the same workflow file below. Any person, Claude session or agent finds the same thing in the same folder in every repo, and nobody sets up CI from scratch twice.</p>
 <pre><code>my-product/
-├── .github/workflows/ci.yml    ← the pipeline
-├── src/                        ← the app
-├── tests/                      ← the checks CI runs
-├── Dockerfile
-├── docker-compose.yml
-├── .env.example                ← names only, no secrets
-└── README.md</code></pre>
+├── README.md  CLAUDE.md  STATUS.md   ← what it is, notes for Claude, where it stands
+├── schema/              ← the spec format the whole product reads
+├── examples/            ← sample requests with expected results (the test cases)
+├── app/                 ← customer web app: React + TypeScript + Vite
+├── server/
+│   ├── api/             ← FastAPI routes (Python)
+│   ├── workers/         ← long jobs from a Redis queue
+│   └── tests/           ← the checks CI runs
+├── deploy/
+│   ├── docker-compose.yml
+│   ├── Caddyfile
+│   └── .env.example     ← names only, no secrets
+├── docs/                ← architecture, decisions, progress log
+└── .github/workflows/ci.yml   ← the pipeline</code></pre>
+<p>A small tool leaves out the folders it doesn't need. Repo names are lowercase with hyphens (<code>keyboard-designer</code>).</p>
 
 <h2 id="workflow-file">The workflow file, line by line</h2>
-<p>GitHub Actions reads any <code>.yml</code> file in <code>.github/workflows/</code>. This example is for a small Node app; other languages swap the install and test lines. Use the newest major version of each <code>actions/…</code> step when you copy it.</p>
+<p>GitHub Actions reads any <code>.yml</code> file in <code>.github/workflows/</code>. Every DiGiKits repo gets this file from the company's pipeline template, so the test job checks both halves: the Python server and the TypeScript web app. Use the newest major version of each <code>actions/…</code> step when you copy it.</p>
 <pre><code>name: CI
 on:
   pull_request:                 # CI: on every pull request
@@ -87,12 +95,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: pip install -r server/requirements.txt
+      - run: pytest server/tests        # the server checks
       - uses: actions/setup-node@v5
         with:
           node-version: 22
-      - run: npm ci             # install exactly what package-lock says
-      - run: npm test           # the checks
-      - run: docker build -t app .   # prove the image still builds
+      - run: cd app &amp;&amp; npm ci &amp;&amp; npm run typecheck &amp;&amp; npm test   # the app checks
+      - run: docker compose -f deploy/docker-compose.yml build   # prove the images still build
 
   deploy:
     needs: test                 # only if test passed
@@ -107,7 +119,7 @@ jobs:
         run: |
           install -m 600 /dev/null key &amp;&amp; echo "$SSH_KEY" &gt; key
           ssh -i key -o StrictHostKeyChecking=accept-new deploy@"$HOST" \
-            'cd app &amp;&amp; git pull &amp;&amp; docker compose up -d --build'
+            'cd my-product &amp;&amp; git pull &amp;&amp; docker compose -f deploy/docker-compose.yml up -d --build'
           curl -fsS https://app.example.com/health</code></pre>
 <div class="card accent"><p style="margin:0"><strong>Secrets again:</strong> the SSH key and server address are stored in the repo's <strong>Settings → Secrets and variables → Actions</strong>, never in the file. GitHub hides them in logs. Give the deploy key its own server user with only the access it needs.</p></div>
 

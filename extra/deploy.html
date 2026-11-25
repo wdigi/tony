@@ -90,10 +90,12 @@ docker run --rm hello-world         # "Hello from Docker!" means it works</code>
 
 <h3 id="step-5">5. Get the app and its secrets</h3>
 <pre><code>git clone https://github.com/&lt;owner&gt;/&lt;practice-app&gt;.git
-cd &lt;practice-app&gt;
+cd &lt;practice-app&gt;/deploy             # DiGiKits repos keep the Compose file, Caddyfile and .env here
 cp .env.example .env
 openssl rand -hex 32                # makes a random secret
 nano .env                           # paste it in, fill the other values, save</code></pre>
+
+<p>Every DiGiKits repo has the same layout (see <a href="pipeline.html#template">the template</a>), so every <code>docker compose</code> command on this page runs from the repo's <code>deploy/</code> folder.</p>
 
 <h3 id="step-6">6. Start it and check it</h3>
 <pre><code>docker compose up -d --build        # build and start in the background
