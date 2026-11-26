@@ -22,8 +22,10 @@
 
 <h2 id="steps">Steps</h2>
 <ol>
-<li>SSH on? If you didn't set it in Imager: <code>sudo raspi-config</code> → Interface Options → SSH → Yes.</li>
-<li>From your laptop (same Wi-Fi): <code>ssh yourname@trainpi.local</code></li>
+<li>Turn SSH on. Do this <strong>on the Pi itself</strong>, with its keyboard and screen (you can't SSH in to turn SSH on). Open a terminal and run <code>sudo raspi-config</code> → Interface Options → SSH → Yes. On the desktop, the same switch is Menu → Preferences → Raspberry Pi Configuration → Interfaces → SSH. If your coach already turned it on when installing the system, this just confirms it.</li>
+<li>Check it's running, still on the Pi: <code>sudo systemctl status ssh</code> should say <strong>active (running)</strong>. Press <code>q</code> to leave.</li>
+<li>Find what you'll type on your laptop, still on the Pi: <code>whoami</code> shows your username, <code>hostname</code> shows the Pi's name, and <code>hostname -I</code> shows its IP address.</li>
+<li>From your laptop (same Wi-Fi): <code>ssh yourname@trainpi.local</code>, using your own username and the Pi's name. If the name doesn't work, use the IP address instead: <code>ssh yourname@192.168.1.50</code>.</li>
 <li>Use a key instead of a password. On your laptop:
 <pre><code>ssh-keygen -t ed25519
 ssh-copy-id yourname@trainpi.local</code></pre></li>
