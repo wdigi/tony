@@ -1,6 +1,13 @@
 /* Self-check questions for every lesson.
    Format per lesson: [question, [choices], index of the right choice, why]. */
 window.QUIZ = {
+"extra/ai-technical.html": [
+ ["What does fine-tuning change?", ["The context window", "The model's weights", "The system prompt", "The token price"], 1, "Fine-tuning sends the expert back to school: it changes the weights. Slow and costly, rarely the first fix."],
+ ["Why does a chat seem to remember earlier messages?", ["The model learns during the chat", "The harness resends the whole transcript every turn", "The model saves notes inside its weights", "It doesn't; it guesses"], 1, "The model is stateless. The harness sends the full conversation again on every turn."],
+ ["Retrieval returns a near-match from another project and the AI answers fluently from it. Which failure is that?", ["The whole cabinet", "The wrong file", "Nondeterminism", "Fine-tuning"], 1, "The model did its job; the retrieval handed it the wrong file. Fix keys, filters and scoping."],
+ ["Which of these does NOT lower the token bill?", ["Prompt caching", "Starting a fresh session when the task changes", "Attaching every document 'just in case'", "Summarizing old turns"], 2, "Stuffing the window costs more and adds noise: that's the whole cabinet."],
+ ["An AI controls a motor. Where must the speed limit live?", ["In the prompt", "In firmware or a controller the model can't talk past", "In the model's memory", "In a polite request"], 1, "The model proposes; something deterministic disposes. Limits live outside the model, and interlocks stay hardware."]
+],
 "physical-ai/lesson-8.html": [
  ["At DiGiKits, who makes the final decision on safety, money and customer promises?", ["Claude", "A person", "Whoever is fastest", "The automatic tests"], 1, "Claude drafts and helps; people decide; tests and hardware have the final word on whether it works."],
  ["What is a level 3 use of AI?", ["Asking one question", "Capturing a method so Claude does a job the same way every time", "Turning the computer off", "Buying a new laptop"], 1, "Writing the method down (for example as a skill) makes good work repeatable for the whole team."],

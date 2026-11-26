@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Extra session · How AI works: the firm, technical edition · DiGiKits Support Training</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">DiGiKits Support Training</a>
+<nav><a href="../index.html">Plan</a><a href="../lessons.html">Lessons</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a><a href="../board.html">Board</a><a href="../search.html">Search</a></nav>
+</div></header>
+<main><div class="wrap">
+<p style="color:var(--muted);margin:0">Extra session · AI</p><h1>How AI works: the firm, technical edition</h1>
+<p class="lead">The same firm from <a href="../phase-1/day-2.html#part-a-what-ai-is-morning">Phase 1 Day 2</a>, with the curtain pulled back: every part of the picture maps to a real mechanism you can design for. Adapted from the DiGiKits essay of the same name (Nov 11, 2026).</p>
+<div class="card"><p><strong>Who this session is for</strong></p>
+<p><strong>Support track (Phases 1–4):</strong> optional reading for now. Come back to it after <a href="../phase-3/day-6.html">Phase 3 Day 6</a> (AI as your support helper); the sections on context and the bill will make your support chats with Claude better and cheaper.</p>
+<p style="margin:0"><strong>Software track:</strong> this one is for you. It's the base for every AI feature DiGiKits builds.</p></div>
+<p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
+
+<h2 id="the-firm-mapped">The firm, mapped</h2>
+<p>Every part of the firm has a direct technical counterpart.</p>
+<div class="table-scroll"><table>
+<tr><th>At the firm</th><th>Mechanism</th><th>Design implication</th></tr>
+<tr><td>The one employee</td><td>Model weights</td><td>Fixed after training; nothing you say changes them</td></tr>
+<tr><td>The hats</td><td>System prompt and role instructions</td><td>Same weights, different behaviour per instruction</td></tr>
+<tr><td>A client meeting</td><td>One inference call</td><td>Stateless; nothing carries over unless you resend it</td></tr>
+<tr><td>The desk</td><td>Context window</td><td>Hard limit on what the model can see at once</td></tr>
+<tr><td>The client file</td><td>Memory store, retrieved documents, conversation history</td><td>Lives outside the model, in your system</td></tr>
+<tr><td>The receptionist</td><td>Harness / orchestration layer</td><td>Decides what goes into the context window</td></tr>
+<tr><td>The bill</td><td>Input and output tokens</td><td>You pay for everything read, every call</td></tr>
+<tr><td>Sending the expert back to school</td><td>Fine-tuning</td><td>Changes weights; slow, costly, rarely the first fix</td></tr>
+</table></div>
+
+<h2 id="stateless">Stateless by design</h2>
+<p>A model is a function: context in, tokens out. The weights are frozen at inference time, so no conversation teaches the model anything.</p>
+<p>A "chat" is an illusion built by the harness. On every turn, the full transcript so far is sent again, and the model reads it from the top as if for the first time. The fresh copy of the expert starting a new shift is literal.</p>
+<figure class="fig"><svg class="d" viewBox="0 0 680 196" role="img" aria-label="Each turn resends the whole transcript: turn 1 sends one message, turn 2 sends three, turn 3 sends five"><defs><marker id="ai1" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
+<text x="70" y="30" font-size="13.5" text-anchor="middle" font-weight="600">Turn 1</text><text x="70" y="98" font-size="13.5" text-anchor="middle" font-weight="600">Turn 2</text><text x="70" y="166" font-size="13.5" text-anchor="middle" font-weight="600">Turn 3</text>
+<rect x="130" y="14" width="60" height="26" rx="5" class="b-g"/><text x="160" y="32" font-size="12" text-anchor="middle">you 1</text>
+<rect x="130" y="82" width="60" height="26" rx="5" class="b-g"/><text x="160" y="100" font-size="12" text-anchor="middle">you 1</text><rect x="196" y="82" width="60" height="26" rx="5" class="b-v"/><text x="226" y="100" font-size="12" text-anchor="middle">AI 1</text><rect x="262" y="82" width="60" height="26" rx="5" class="b-g"/><text x="292" y="100" font-size="12" text-anchor="middle">you 2</text>
+<rect x="130" y="150" width="60" height="26" rx="5" class="b-g"/><text x="160" y="168" font-size="12" text-anchor="middle">you 1</text><rect x="196" y="150" width="60" height="26" rx="5" class="b-v"/><text x="226" y="168" font-size="12" text-anchor="middle">AI 1</text><rect x="262" y="150" width="60" height="26" rx="5" class="b-g"/><text x="292" y="168" font-size="12" text-anchor="middle">you 2</text><rect x="328" y="150" width="60" height="26" rx="5" class="b-v"/><text x="358" y="168" font-size="12" text-anchor="middle">AI 2</text><rect x="394" y="150" width="60" height="26" rx="5" class="b-g"/><text x="424" y="168" font-size="12" text-anchor="middle">you 3</text>
+<line x1="196" y1="27" x2="540" y2="27" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ai1)"/><line x1="328" y1="95" x2="540" y2="95" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ai1)"/><line x1="460" y1="163" x2="540" y2="163" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ai1)"/>
+<rect x="548" y="12" width="118" height="168" rx="8" class="b-a"/><text x="607" y="88" font-size="14" text-anchor="middle" font-weight="600">Model</text><text x="607" y="106" font-size="12" text-anchor="middle" class="q">reads it all,</text><text x="607" y="121" font-size="12" text-anchor="middle" class="q">from the top</text>
+</svg><figcaption>The model remembers nothing between turns. <b>The harness resends the whole conversation every time</b>, so each turn is bigger than the last.</figcaption></figure>
+<p>This is a feature, not a limitation:</p>
+<ul>
+<li><strong>Isolation.</strong> One user's data never leaks into another user's session through the model itself.</li>
+<li><strong>Reproducibility.</strong> Same context in, same distribution of outputs.</li>
+<li><strong>Control.</strong> Everything the model knows about your situation sits in a context window you assemble and can inspect.</li>
+</ul>
+<p>The practical consequence: if behaviour is wrong, look at what was in the context before blaming the model.</p>
+
+<h2 id="context-assembly">The client file: context assembly</h2>
+<p>"AI memory" is retrieval, not learning. The system stores facts outside the model and injects the relevant ones into the context before the call. A typical context window is assembled from:</p>
+<ol>
+<li><strong>System prompt</strong> — the hat: role, rules, output format.</li>
+<li><strong>Memory</strong> — durable facts about the user or project, pulled from a store.</li>
+<li><strong>Retrieved documents</strong> — search results, RAG chunks, files.</li>
+<li><strong>Tool results</strong> — sensor readings, API responses, database queries.</li>
+<li><strong>Conversation history</strong> — the transcript so far, possibly summarized.</li>
+<li><strong>The current request.</strong></li>
+</ol>
+<p>The expert reading the file very fast is exactly this: an open-book exam where your system chooses the book.</p>
+<p>Fine-tuning is the other path: sending the expert back to school to change the weights. It suits stable style or format needs. For facts that change, retrieval almost always wins, because you can update a file in seconds and a model only by retraining.</p>
+
+<h2 id="harness">The receptionist: the harness</h2>
+<p>The harness is where most of the engineering lives. The model is a commodity you rent; the harness is what you build. Its jobs:</p>
+<ul>
+<li>Identify the user, session and task.</li>
+<li>Decide what to retrieve, and how much.</li>
+<li>Rank, trim and order what goes into the window.</li>
+<li>Route tool calls and feed results back.</li>
+<li>Decide what to write back to memory afterwards.</li>
+</ul>
+<figure class="fig"><svg class="d" viewBox="0 0 680 262" role="img" aria-label="Sources feed the harness, which builds the context window for the rented model; output goes through checks before use"><defs><marker id="ai2" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
+<rect x="14" y="14" width="150" height="36" rx="6" class="b-g"/><text x="89" y="37" font-size="12.5" text-anchor="middle">System prompt</text>
+<rect x="14" y="58" width="150" height="36" rx="6" class="b-g"/><text x="89" y="81" font-size="12.5" text-anchor="middle">Memory store</text>
+<rect x="14" y="102" width="150" height="36" rx="6" class="b-g"/><text x="89" y="125" font-size="12.5" text-anchor="middle">Documents (RAG)</text>
+<rect x="14" y="146" width="150" height="36" rx="6" class="b-g"/><text x="89" y="169" font-size="12.5" text-anchor="middle">Tools and sensors</text>
+<rect x="14" y="190" width="150" height="36" rx="6" class="b-g"/><text x="89" y="213" font-size="12.5" text-anchor="middle">History + request</text>
+<rect x="200" y="60" width="140" height="120" rx="8" class="b-v"/><text x="270" y="112" font-size="14.5" text-anchor="middle" font-weight="600">Harness</text><text x="270" y="130" font-size="12" text-anchor="middle" class="q">picks, trims,</text><text x="270" y="145" font-size="12" text-anchor="middle" class="q">orders</text>
+<rect x="374" y="80" width="130" height="80" rx="8" class="b-a"/><text x="439" y="116" font-size="14.5" text-anchor="middle" font-weight="600">Model</text><text x="439" y="134" font-size="12" text-anchor="middle" class="q">rented</text>
+<rect x="536" y="80" width="130" height="80" rx="8" class="b-w"/><text x="601" y="116" font-size="14.5" text-anchor="middle" font-weight="600">Checks</text><text x="601" y="134" font-size="12" text-anchor="middle" class="q">tests, rules, people</text>
+<path d="M166 32 L182 32 L182 208 L166 208" fill="none" stroke="var(--muted)" stroke-width="1.5"/><line x1="166" y1="76" x2="182" y2="76" stroke="var(--muted)" stroke-width="1.5"/><line x1="166" y1="120" x2="182" y2="120" stroke="var(--muted)" stroke-width="1.5"/><line x1="166" y1="164" x2="182" y2="164" stroke="var(--muted)" stroke-width="1.5"/><line x1="182" y1="120" x2="196" y2="120" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ai2)"/>
+<line x1="342" y1="120" x2="370" y2="120" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ai2)"/><line x1="506" y1="120" x2="532" y2="120" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ai2)"/>
+<text x="356" y="104" font-size="11.5" text-anchor="middle" class="q">context</text>
+<text x="340" y="250" font-size="12.5" text-anchor="middle" class="q">Only the model box is rented; every other box is yours to design.</text>
+</svg><figcaption>Context assembly: sources → harness → model → checked output.</figcaption></figure>
+<p>The two classic failures map straight to the metaphor.</p>
+<p><strong>The wrong file.</strong> Retrieval returns a near-match from another project, and the model answers fluently from it. The model did its job; the retrieval did not. Fix it with better keys, metadata filters and scoping.</p>
+<p><strong>The whole cabinet.</strong> Everything is stuffed into the window "just in case". Long contexts degrade: models attend less reliably to material buried in the middle, and irrelevant text competes with the relevant. This is often called context rot. More context is not free accuracy; past a point it is noise.</p>
+<p>A good harness hands over the smallest context that fully answers the request.</p>
+
+<h2 id="the-bill">The bill: tokens in, tokens out</h2>
+<p>The firm charges by the page. In AI, the page is the <strong>token</strong> (roughly three-quarters of an English word), and you pay for input tokens (everything the model reads) and output tokens (everything it writes).</p>
+<p>The surprise for most teams is that input dominates. Because the transcript is resent every turn, a conversation's cost grows with its length on every single call. Ask a one-line question at turn 40 of a cluttered session, and you pay for the model to reread all 40 turns plus every attached file. That is the client who wanted one date fixed and got billed for ten years of paperwork.</p>
+<p>Levers that keep the bill honest:</p>
+<ul>
+<li><strong>Scope retrieval.</strong> Pull the relevant chunks, not whole documents.</li>
+<li><strong>Prompt caching.</strong> Stable prefixes (system prompt, reference docs) can be cached, so repeated reads cost less and run faster.</li>
+<li><strong>Compaction.</strong> Summarize old turns instead of carrying them verbatim.</li>
+<li><strong>Fresh sessions.</strong> Start a new conversation when the task changes.</li>
+<li><strong>Right-size the model.</strong> Not every hat needs the most expensive expert; route routine jobs to smaller models.</li>
+</ul>
+<p>Cost, latency and accuracy all improve together when the context gets smaller and sharper.</p>
+
+<h2 id="where-it-breaks">Where the metaphor breaks</h2>
+<p>The firm is a useful model of the system, but three differences matter for engineering.</p>
+<p><strong>Calibration.</strong> A human expert usually knows when they are guessing. A model produces fluent text whether or not it is grounded, and its confidence in tone is not a reliable signal of correctness. Fabricated details (hallucinations) look exactly like real ones.</p>
+<p><strong>Nondeterminism.</strong> Sampling means the same context can produce different outputs. Two runs of the same expert may give two different answers. Design for the distribution, not the single sample.</p>
+<p><strong>No lived experience.</strong> The model has seen descriptions of a motor running hot, never the smell. It knows the pattern, not the consequence.</p>
+<p>The engineering answer is verification, built into the system rather than left to hope:</p>
+<ul>
+<li>Ground answers in retrieved sources and require citations.</li>
+<li>Validate outputs against schemas, tests and rules.</li>
+<li>Run evals on real cases before and after every change.</li>
+<li>Keep a human reviewer where an error is expensive.</li>
+</ul>
+<p>Treat the model like a smart coworker whose work goes through review.</p>
+
+<h2 id="physical-world">When the firm touches the physical world</h2>
+<p>On a screen, a wrong answer costs a revision. On a machine, it can cost a motor, a batch or a finger. Physical AI changes where the safety has to live.</p>
+<p>The rule: <strong>the model proposes; something deterministic disposes.</strong></p>
+<figure class="fig"><svg class="d" viewBox="0 0 680 190" role="img" aria-label="The model proposes a typed tool call; limits in firmware check it; hardware interlocks sit below everything; a person approves anything irreversible"><defs><marker id="ai3" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
+<rect x="14" y="24" width="150" height="70" rx="8" class="b-a"/><text x="89" y="54" font-size="14.5" text-anchor="middle" font-weight="600">Model</text><text x="89" y="72" font-size="12" text-anchor="middle" class="q">proposes</text>
+<rect x="194" y="24" width="150" height="70" rx="8" class="b-v"/><text x="269" y="54" font-size="14.5" text-anchor="middle" font-weight="600">Typed tool call</text><text x="269" y="72" font-size="12" text-anchor="middle" class="q mono">set_speed(rpm)</text>
+<rect x="374" y="24" width="150" height="70" rx="8" class="b-w"/><text x="449" y="54" font-size="14.5" text-anchor="middle" font-weight="600">Limits</text><text x="449" y="72" font-size="12" text-anchor="middle" class="q">firmware / controller</text>
+<rect x="554" y="24" width="112" height="70" rx="8" class="b-g"/><text x="610" y="54" font-size="14.5" text-anchor="middle" font-weight="600">Machine</text><text x="610" y="72" font-size="12" text-anchor="middle" class="q">acts</text>
+<line x1="166" y1="59" x2="190" y2="59" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ai3)"/><line x1="346" y1="59" x2="370" y2="59" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ai3)"/><line x1="526" y1="59" x2="550" y2="59" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ai3)"/>
+<rect x="374" y="114" width="292" height="40" rx="8" class="b-r"/><text x="520" y="139" font-size="13" text-anchor="middle" font-weight="600">E-stop, limit switches, thermal cutoffs</text>
+<rect x="14" y="114" width="330" height="40" rx="8" class="b"/><text x="179" y="139" font-size="13" text-anchor="middle" font-weight="600">A person approves anything irreversible</text>
+<text x="340" y="180" font-size="12.5" text-anchor="middle" class="q">The hardware interlocks never route through the AI.</text>
+</svg><figcaption>The model is one box in the chain, never the last one before the motor.</figcaption></figure>
+<ul>
+<li><strong>Tool calls, not raw control.</strong> The model calls narrow, typed functions (<code>set_speed(rpm)</code>), never free-form commands to hardware.</li>
+<li><strong>Limits outside the model.</strong> Range checks, rate limits and state checks run in firmware or a controller the model cannot talk its way past.</li>
+<li><strong>Hardware interlocks stay hardware.</strong> E-stops, limit switches and thermal cutoffs never route through the AI.</li>
+<li><strong>Humans approve the irreversible.</strong> Anything that cannot be undone waits for a person.</li>
+<li><strong>Sensors are context too.</strong> A lying sensor is a wrong file; validate readings before the model reasons on them.</li>
+</ul>
+<p>This is where the hot-stove knowledge matters. Someone has to know which failures are cosmetic and which are dangerous, and design the boundary accordingly. The model brings the patterns. The engineer brings the scars.</p>
+
+<h2 id="specify">Careful what you specify</h2>
+<p>Models optimize for what you ask, literally. "Make my company more efficient" can return a plan that cuts the meetings that held the team together. That is specification gaming: the objective was met, the intent was not.</p>
+<p>Ambition sets the objective. Constraints keep it pointed at what you meant.</p>
+<div class="table-scroll"><table>
+<tr><th>Underspecified</th><th>Specified</th></tr>
+<tr><td>"Make it faster."</td><td>"Cut cycle time without raising the defect rate."</td></tr>
+<tr><td>"Reduce costs."</td><td>"Reduce costs while holding customer satisfaction."</td></tr>
+<tr><td>"Automate this."</td><td>"Automate the routine steps; route final decisions to a human."</td></tr>
+</table></div>
+<p>The same principle scales to agents: give them big jobs, explicit success criteria, explicit limits, and a way to stop and ask.</p>
+
+<h2 id="real-lesson">The real lesson</h2>
+<p>The model is the expert. It is brilliant, stateless and rented by the page.</p>
+<p>Everything that makes it useful to you specifically, the file, the receptionist, the limits and the review, is system design. That is where the leverage is, and where the mistakes are.</p>
+<div class="card accent"><p style="margin:0"><strong>AI doesn't become smarter because it remembers you. It becomes more useful because the system hands it a better briefing package, and pays for nothing it doesn't need.</strong></p></div>
+
+<h2 id="digikits">Where DiGiKits fits</h2>
+<p>DiGiKits builds the harness and the safety boundaries for small businesses, around real machines, floors and people. A model alone doesn't replace engineering judgment; the boxes around it are the work. You can use the firm picture to explain this to customers, too.</p>
+
+<h2 id="try-it">Try it</h2>
+<ol>
+<li>Draw the context-assembly picture from memory on paper: the five sources, the harness, the model, the checks.</li>
+<li>In a Claude chat, ask one question at the start of a fresh session, then the same question at the end of a long, cluttered one. Compare how clear the two answers are.</li>
+<li>Rewrite one vague request from your own work the "specified" way, with a goal and a limit.</li>
+<li>Software track: name which box in the harness picture would fail for "the wrong file" and for "the whole cabinet", and one fix for each.</li>
+</ol>
+
+<h2 id="done-when">Done when</h2>
+<ul class="check">
+<li>I can map the eight parts of the firm to their mechanisms without the table</li>
+<li>I can explain why a chat "remembers" when the model doesn't</li>
+<li>I can draw the context-assembly picture from memory</li>
+<li>I can name three ways to keep the token bill down</li>
+<li>I can explain "the model proposes; something deterministic disposes" with a machine example</li>
+<li>I rewrote one vague request with a goal and a limit</li>
+</ul>
+<div class="pager"><a href="../lessons.html">← All lessons</a><a href="deploy.html">Next: Deploy an app to a cloud server →</a></div>
+<p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
+<section class="board">
+<h2 id="how-did-it-feel">How did this lesson feel?</h2>
+<div class="card feel"><p><strong>Too much, just right, or too easy?</strong> Tell me in a line or two below, and ask anything that wasn't clear. For example: <em>“AI technical edition: just right. The token bill part surprised me.”</em></p><p>Be honest. If a lesson is too much, we change the lesson, not you. Take your time; there is no rush.</p><p class="sign">Your coach</p></div>
+<p class="quiet-note">Sign in with your GitHub account to post, or just tap a reaction. Posts are public, so never share passwords, keys or personal details.</p>
+<script src="https://giscus.app/client.js"
+ data-repo="wdigi/tony" data-repo-id="R_kgDOV5dORw"
+ data-category="Announcements" data-category-id="DIC_kwDOV5dOR84DL1hi"
+ data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0"
+ data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy"
+ crossorigin="anonymous" async></script>
+</section>
+</div></main>
+<footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
+<script src="../assets/quiz-data.js" defer></script>
+<script src="../assets/quiz.js" defer></script>
+<script src="../assets/progress-config.js" defer></script>
+<script src="../assets/account.js" defer></script>
+<script src="../assets/progress.js" defer></script>
+</body>
+</html>
