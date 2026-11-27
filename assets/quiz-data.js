@@ -90,32 +90,55 @@ window.QUIZ = {
  ["In Thought → Design → Test → Build, where does most support work live?", ["Thought", "Design", "Test", "Build"], 2, "Test is where real machines must keep running, so that's where support lives."],
  ["What's the difference between Git and GitHub?", ["They are the same thing", "Git saves versions on your computer; GitHub shares them online", "GitHub is only for photos", "Git is a website, GitHub is a program"], 1, "Git is the program that keeps versions; GitHub is the website where the team shares them."],
  ["What do you send your coach after signing up?", ["Your password", "Your 2FA recovery codes", "Your username only", "A screenshot of your settings"], 2, "Only the username. Passwords and codes are never shared with anyone."],
- ["Which AI does DiGiKits work with every day?", ["Claude, made by Anthropic", "No AI at all", "Only a calculator", "A robot dog"], 0, "DiGiKits works with Claude, an AI made by Anthropic. You meet it properly on Day 2."]
+ ["Which AI does DiGiKits work with every day?", ["Claude, made by Anthropic", "No AI at all", "Only a calculator", "A robot dog"], 0, "DiGiKits works with Claude, an AI made by Anthropic. You meet it properly on Day 2."],
+ ["What is a commit?", ["A GitHub password", "One saved change with a note", "A type of Pi", "A chat message"], 1, "Each commit is a saved step in the history."],
+ ["What do you send your coach to get access to projects?", ["Your password", "Your recovery codes", "Your GitHub username", "Nothing"], 2, "Only the username. Access is given by invitation."],
+ ["An email asks you to verify your GitHub password via a link. What do you do?", ["Click quickly", "Reply with the password", "Check the link, open github.com yourself, tell your coach", "Forward it to friends"], 2, "GitHub never asks for your password by email."],
+ ["Why do notes at the end of the day matter?", ["They don't", "They feed the knowledge base, so the next fix is faster", "For pay", "GitHub requires them"], 1, "Notes become answers for people and the AI helpers."]
 ],
 "phase-1/day-2.html": [
  ["In the firm picture, what is the client file on the desk?", ["The AI model", "The context: everything the AI knows right now", "The software around the AI", "Your password"], 1, "The client file is the context: what the AI reads for this conversation."],
  ["Why can a big question with the whole filing cabinet be a bad idea?", ["The AI gets bored", "You pay for what the AI reads, and it can miss the point", "It's against the law", "It's always faster"], 1, "Small job, small file: more reading costs more and can blur the answer."],
  ["Who makes Claude?", ["DiGiKits", "Anthropic", "Raspberry Pi", "GitHub"], 1, "Claude is an AI model made by Anthropic."],
  ["Claude drafts a script for a customer's screen. What happens next?", ["Send it straight to the customer", "A person checks it and tests it on real hardware first", "Delete it", "Ask a second AI and trust whichever is longer"], 1, "Claude drafts; people decide and check; the hardware has the final word."],
- ["When connecting a new Pi, what do you plug in last?", ["SD card", "Monitor", "Keyboard", "Power"], 3, "The Pi starts the moment it has power, so everything else goes in first."]
+ ["When connecting a new Pi, what do you plug in last?", ["SD card", "Monitor", "Keyboard", "Power"], 3, "The Pi starts the moment it has power, so everything else goes in first."],
+ ["Which part of the card holds the start-up files?", ["rootfs", "bootfs", "/home", "The cloud"], 1, "bootfs is the small start-up part; rootfs holds the system."],
+ ["What does throttled=0x0 mean?", ["The Pi is broken", "No power or heat problems", "Wi-Fi is off", "The card is full"], 1, "Any other value points to power or cooling."],
+ ["Why do many DiGiKits devices run Raspberry Pi OS Lite?", ["It's newer", "No desktop: less to go wrong, run over SSH", "It's paid", "It has games"], 1, "Devices without a screen don't need a desktop."],
+ ["How should you switch a Pi off?", ["Pull the plug", "sudo poweroff, then wait for the light to stop", "Hold the card", "Unplug the monitor"], 1, "Pulling power while it writes can damage the card."]
 ],
 "phase-1/day-3.html": [
  ["What does pwd tell you?", ["Your password", "Which folder you are in", "Who is logged in", "The Pi's temperature"], 1, "pwd = print working directory: where you are right now."],
  ["What does ~ mean in a path?", ["The root folder", "Your home folder, /home/yourname", "The trash", "Any folder"], 1, "~ is a shortcut for your home folder."],
  ["Which command can't be undone?", ["cp", "mv", "rm", "ls"], 2, "rm deletes for good. There is no recycle bin."],
- ["What does the Tab key do in the terminal?", ["Deletes a line", "Finishes names for you", "Opens a new window", "Shows the manual"], 1, "Tab completes file and folder names, which also stops typos."]
+ ["What does the Tab key do in the terminal?", ["Deletes a line", "Finishes names for you", "Opens a new window", "Shows the manual"], 1, "Tab completes file and folder names, which also stops typos."],
+ ["In ls -la /var/log, what is -la?", ["The command", "Options", "The argument", "A file"], 1, "Options change how the command runs."],
+ ["What does cd .. do?", ["Goes to your home folder", "Goes up one folder", "Deletes a folder", "Nothing"], 1, ".. means the folder above."],
+ ["What does > do in ls > list.txt?", ["Adds to the end of list.txt", "Saves the output to list.txt, replacing it", "Deletes list.txt", "Compares files"], 1, ">> adds; > replaces. Careful."],
+ ["Which key stops a running command?", ["Ctrl+Z", "Ctrl+C", "Esc", "q"], 1, "Ctrl+C stops it."],
+ ["How do you watch new lines arrive in a log?", ["cat log", "tail -f log", "head log", "rm log"], 1, "tail -f follows the file live."]
 ],
 "phase-1/day-4.html": [
  ["What is SSH?", ["A web browser", "A secure terminal on another computer", "A type of SD card", "A Wi-Fi password"], 1, "SSH is a Secure SHell: a protected terminal on a remote machine."],
  ["Which half of an SSH key pair may you copy to the Pi?", ["The private key", "The public key", "Both", "Neither"], 1, "The public key is the lock you can give away. The private key never leaves your laptop."],
  ["Why use Tailscale?", ["To make Wi-Fi faster", "To reach the Pi by name from anywhere without opening your router", "To cool the Pi", "To back up the SD card"], 1, "Tailscale makes a private network of your own devices, wherever they are."],
- ["SSH refuses to connect. What do you check first?", ["Reinstall Linux", "Is the Pi on and reachable (ping)?", "Buy a new key", "Change the username"], 1, "Cheapest checks first: is it on and reachable?"]
+ ["SSH refuses to connect. What do you check first?", ["Reinstall Linux", "Is the Pi on and reachable (ping)?", "Buy a new key", "Change the username"], 1, "Cheapest checks first: is it on and reachable?"],
+ ["After re-flashing a Pi, SSH warns the host identification changed. What do you do?", ["Panic", "ssh-keygen -R trainpi.local, then connect again", "Re-flash again", "Turn off SSH"], 1, "Expected after a re-flash. If nobody re-flashed it, tell your coach."],
+ ["“Connection refused” means…", ["Nothing answered", "The Pi answered but SSH isn't running", "Wrong password", "Internet down"], 1, "Refused = reached the machine, no SSH service."],
+ ["What does tmux give you?", ["Faster Wi-Fi", "Sessions that keep running after you disconnect", "A new password", "File copying"], 1, "Detach, come back later."],
+ ["How do you copy app.log from pi-a to the folder you're in?", ["scp app.log pi-a", "scp pi-a:~/app.log .", "cp pi-a app.log", "ssh app.log"], 1, "scp source destination; the dot means here."],
+ ["Before switching off password login, you should…", ["Reboot", "Check your key works, and test in a second window", "Delete your key", "Turn off Tailscale"], 1, "Otherwise you can lock yourself out."]
 ],
 "phase-1/day-5.html": [
  ["In -rwxr-xr--, what can 'everyone else' do?", ["Read, write and run", "Read and run", "Read only", "Nothing"], 2, "The last three letters, r--, belong to everyone else: read only."],
  ["What number does rwx add up to?", ["4", "5", "6", "7"], 3, "r = 4, w = 2, x = 1, so rwx = 7."],
  ["A program can't write its log file. What is the right fix?", ["chmod 777 on the file", "Give the program's user ownership, or add it to the file's group", "Delete the log", "Run everything with sudo"], 1, "Fix the owner or group, not the whole world's rights."],
- ["Why is software from apt considered safe?", ["It's free", "It comes from the Raspberry Pi OS package servers, already checked", "It's small", "It never needs updates"], 1, "apt installs from trusted, checked package servers."]
+ ["Why is software from apt considered safe?", ["It's free", "It comes from the Raspberry Pi OS package servers, already checked", "It's small", "It never needs updates"], 1, "apt installs from trusted, checked package servers."],
+ ["What is 644 in letters?", ["rwxr-xr-x", "rw-r--r--", "rw-------", "rwxrwxrwx"], 1, "6 = rw, 4 = r, 4 = r."],
+ ["Which number for a private key file?", ["777", "755", "600", "644"], 2, "Only the owner can read or write it."],
+ ["Why always use -aG with usermod?", ["It's faster", "Without -a, the user loses all other groups", "It makes a new user", "It deletes the user"], 1, "-a adds; -G alone replaces."],
+ ["A user was just added to gpio but still gets permission denied. Why?", ["The Pi is broken", "Groups change only after logging in again", "GPIO needs 777", "Wrong Wi-Fi"], 1, "Log out and in, or reboot."],
+ ["Where are system settings usually kept?", ["/home", "/etc", "/tmp", "/var/log"], 1, "/etc holds configuration files."]
 ],
 "phase-1/day-6.html": [
  ["What does DHCP do?", ["Turns names into numbers", "Hands out IP addresses to devices", "Encrypts Wi-Fi", "Measures speed"], 1, "DHCP is how the router gives each device its IP address."],
@@ -138,31 +161,54 @@ window.QUIZ = {
  ["GPIO17 is on which physical pin?", ["Pin 17", "Pin 11", "Pin 1", "Pin 40"], 1, "Code uses GPIO numbers; GPIO17 sits at physical pin 11."],
  ["Which LED leg goes towards GPIO17 through the resistor?", ["The short leg", "The long leg", "Either", "Neither: it goes to 5V"], 1, "The long leg (+) goes towards the GPIO side; the short leg goes to ground."],
  ["Why is the 330 Ω resistor there?", ["To make the LED brighter", "To limit the current so the LED and pin aren't damaged", "To store power", "Decoration"], 1, "Without it, too much current flows through the LED and the pin."],
- ["The LED won't light. What is a good first step?", ["Buy a new Pi", "Check whether it's code or wiring, e.g. test the code another way", "Rewrite everything", "Use a bigger resistor"], 1, "Split the problem: software or wiring?"]
+ ["The LED won't light. What is a good first step?", ["Buy a new Pi", "Check whether it's code or wiring, e.g. test the code another way", "Rewrite everything", "Use a bigger resistor"], 1, "Split the problem: software or wiring?"],
+ ["Where do you look first in a Python traceback?", ["The first line", "The last line", "The middle", "Nowhere"], 1, "The last line says what went wrong."],
+ ["What voltage is safe on a Pi GPIO pin?", ["5 V", "12 V", "3.3 V", "Any"], 2, "GPIO pins are 3.3 V only."],
+ ["Why does a button between GPIO27 and GND need no resistor?", ["It does", "The Pi's built-in pull-up holds the pin high", "Buttons have resistors inside", "GND is a resistor"], 1, "Pressing joins the pin to GND."],
+ ["One press counts three times. Fix?", ["Use a bigger LED", "bounce_time on the Button", "Reboot", "A new Pi"], 1, "bounce_time ignores the extra contacts."],
+ ["Which class dims an LED?", ["LED", "PWMLED", "Button", "Buzzer"], 1, "PWM switches fast to set brightness (Physical AI Lesson 5)."]
 ],
 "phase-1/day-8.html": [
  ["Why does the LED strip get its own 5 V supply?", ["It looks tidier", "A strip draws amps; a GPIO pin only gives a few milliamps", "The Pi has no 5 V", "It's cheaper"], 1, "30 LEDs can draw about 1.8 A. The Pi only sends the data signal."],
  ["Why must the grounds be joined?", ["For safety colours", "The data signal needs a shared reference to be read", "To make it brighter", "They don't need to be"], 1, "Without a common ground the strip can't read the data correctly."],
  ["Which end of the strip do you connect to?", ["Either end", "The input end, following the arrows", "The middle", "The end closest to the wall"], 1, "Data flows one way; connect at DIN, where the arrows start."],
- ["Volts drop steadily from 5.0 V to 4.1 V along the strip. Likely cause?", ["Code bug", "Power: voltage drop", "Wrong Wi-Fi", "Bad SD card"], 1, "A steady drop along the strip is a power problem."]
+ ["Volts drop steadily from 5.0 V to 4.1 V along the strip. Likely cause?", ["Code bug", "Power: voltage drop", "Wrong Wi-Fi", "Bad SD card"], 1, "A steady drop along the strip is a power problem."],
+ ["How many bits does each WS2812 LED take?", ["8", "16", "24", "32"], 2, "8 bits each for green, red and blue."],
+ ["About how much current does 30 LEDs at full white draw?", ["30 mA", "180 mA", "1.8 A", "18 A"], 2, "30 × 60 mA = 1.8 A."],
+ ["You ask for red, you get green. Most likely?", ["Broken strip", "Wrong colour order setting", "No ground", "Too much power"], 1, "Change RGB/GRB in the code."],
+ ["Why does the far end turn yellow on white?", ["Old LEDs", "Voltage drop along the strip", "Wrong code", "Wi-Fi"], 1, "Inject power at the far end too."]
 ],
 "phase-1/day-9.html": [
  ["What starts your service at every boot?", ["cron", "systemd, with WantedBy=multi-user.target", "The browser", "You, by hand"], 1, "systemd starts enabled services at boot."],
  ["What does Restart=on-failure do?", ["Restarts the Pi", "Starts the program again if it crashes", "Deletes the logs", "Updates Linux"], 1, "If the program falls over, systemd brings it back."],
  ["Where do you read why a service failed?", ["journalctl -u NAME", "ls -la", "ping", "nano"], 0, "The journal is the logbook; journalctl reads it."],
- ["vcgencmd get_throttled shows 0x50005. What does that suggest?", ["All fine", "A power problem", "Disk full", "Wrong time zone"], 1, "Anything other than 0x0 points to power trouble."]
+ ["vcgencmd get_throttled shows 0x50005. What does that suggest?", ["All fine", "A power problem", "Disk full", "Wrong time zone"], 1, "Anything other than 0x0 points to power trouble."],
+ ["What does systemctl enable do?", ["Starts it now only", "Makes it start at every boot", "Deletes it", "Shows the log"], 1, "enable = at boot. Add --now to start it too."],
+ ["What must you run after editing a .service file?", ["sudo reboot", "sudo systemctl daemon-reload", "git push", "nothing"], 1, "Then restart the service."],
+ ["Which command shows only errors since boot?", ["journalctl -p err -b", "df -h", "ls /var", "systemctl enable"], 0, "-p err filters by priority."],
+ ["A service needs packages from a venv. ExecStart should use…", ["/usr/bin/python3", "the venv's python", "sudo", "bash"], 1, "Otherwise the packages aren't found."],
+ ["Which keeps a product running through small crashes?", ["Restart=always with RestartSec", "WantedBy", "Description", "User"], 0, "systemd restarts it after a pause."]
 ],
 "phase-1/day-10.html": [
  ["Put these in order:", ["push, commit, add", "add, commit, push", "commit, push, add", "push, add, commit"], 1, "add picks the changes, commit saves them, push shares them."],
  ["What does git status show?", ["The Pi's health", "Which files changed and where they are in Git", "Your GitHub password", "Internet speed"], 1, "git status tells you what's changed, staged or committed."],
  ["Your SD card dies. With a backup, what do you do?", ["Start setup from scratch", "Swap in the labelled backup card and boot", "Buy a new Pi", "Wait"], 1, "A backup turns a dead card into a quick swap."],
- ["Why write a clear commit message?", ["GitHub requires 100 words", "So you and the team know what changed and why", "It makes code faster", "It's a password"], 1, "Each commit is a note in the history; make it useful."]
+ ["Why write a clear commit message?", ["GitHub requires 100 words", "So you and the team know what changed and why", "It makes code faster", "It's a password"], 1, "Each commit is a note in the history; make it useful."],
+ ["Which command shares your commits with GitHub?", ["git add", "git commit", "git push", "git status"], 2, "push sends them up; pull brings others' down."],
+ ["Why must passwords never be committed?", ["They're too long", "Git keeps history: they stay even if the file is deleted later", "GitHub charges", "They break Git"], 1, "Treat any committed password as public."],
+ ["What does .gitignore do?", ["Deletes files", "Lists files Git should not track", "Hides GitHub", "Ignores errors"], 1, "Keep secrets and junk out of the repo."],
+ ["3-2-1 backups means…", ["3 Pis, 2 cards, 1 laptop", "3 copies, 2 kinds of storage, 1 somewhere else", "Back up every 3 days", "None of these"], 1, "Copies in different places survive different disasters."],
+ ["git push is rejected with “fetch first”. Next step?", ["Delete the repo", "git pull, then push", "Force push always", "Reboot"], 1, "Get the newer changes first."]
 ],
 "phase-1/day-11.html": [
  ["A Pi is broken. Which layer do you check first?", ["Logs", "Services", "Power", "Permissions"], 2, "Every check rests on the one below. Start with power."],
  ["The Pi has power and boots, but you can't SSH in. Which layer is next?", ["Network", "LED strip", "Python", "Git"], 0, "After power and the SD card comes the network."],
  ["What must you write after fixing the fault?", ["Nothing", "A support note: what you saw, tried, what fixed it, next time", "A poem", "A new guide for every command"], 1, "Notes become the DiGiKits knowledge base."],
- ["What goes on your 'shaky' list?", ["Things you'd rather skip forever", "Topics you want to go over with your coach", "Your passwords", "Other people's mistakes"], 1, "Knowing what you don't know yet is part of passing."]
+ ["What goes on your 'shaky' list?", ["Things you'd rather skip forever", "Topics you want to go over with your coach", "Your passwords", "Other people's mistakes"], 1, "Knowing what you don't know yet is part of passing."],
+ ["What's the right order to check a dead Pi?", ["Logs, then power", "Power, card, network, services, logs", "Code first", "Random"], 1, "Bottom up: no point reading logs without power."],
+ ["While fixing, how many changes at a time?", ["As many as possible", "One, then check", "None", "Three"], 1, "Otherwise you don't know what fixed it."],
+ ["What does a complete support note include?", ["Only the fix", "Symptom, checks, cause, fix, prevention", "Your mood", "The date only"], 1, "So anyone can repeat or prevent it."],
+ ["Which command lists every failed service?", ["systemctl --failed", "df -h", "ls", "git status"], 0, "Run it early on any sick Pi."]
 ],
 "phase-2/day-1.html": [
  ["What does the first line #!/bin/bash do?", ["It's a comment", "It says which program runs the script", "It deletes old files", "It prints the date"], 1, "The 'shebang' line picks the shell that runs the script."],
