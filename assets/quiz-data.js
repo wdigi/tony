@@ -214,49 +214,86 @@ window.QUIZ = {
  ["What does the first line #!/bin/bash do?", ["It's a comment", "It says which program runs the script", "It deletes old files", "It prints the date"], 1, "The 'shebang' line picks the shell that runs the script."],
  ["What does temp=$(command) do?", ["Runs the command and keeps its output in a variable", "Deletes temp", "Comments out the line", "Waits forever"], 0, "$( ... ) runs a command and captures what it prints."],
  ["What does a pipe | do?", ["Ends the script", "Passes one command's output into the next", "Makes a folder", "Runs as admin"], 1, "Commands can be chained: output of one is input of the next."],
- ["A script says 'Permission denied' when you run it. Fix?", ["chmod +x script.sh", "Delete it", "Reboot", "Rename it .txt"], 0, "Scripts need the run (x) permission."]
+ ["A script says 'Permission denied' when you run it. Fix?", ["chmod +x script.sh", "Delete it", "Reboot", "Rename it .txt"], 0, "Scripts need the run (x) permission."],
+ ["What does exit code 0 mean?", ["Failed", "Worked", "Not found", "Still running"], 1, "0 = success; anything else = a kind of failure."],
+ ["In cmd1 && cmd2, when does cmd2 run?", ["Always", "Only if cmd1 worked", "Only if cmd1 failed", "Never"], 1, "|| is the opposite."],
+ ["Why write \"$file\" in quotes?", ["Style only", "So values with spaces stay one word", "It's faster", "Bash needs it for numbers"], 1, "Unquoted variables split on spaces."],
+ ["Which shows each line of a script as it runs?", ["bash -x script.sh", "cat script.sh", "chmod +x", "man bash"], 0, "Great for finding where it goes wrong."],
+ ["“bad interpreter: /bin/bash^M” means…", ["Bash is missing", "Windows line endings in the file", "No permission", "Wrong Pi"], 1, "Strip the \\r characters."]
 ],
 "phase-2/day-2.html": [
  ["What does */10 * * * * mean in cron?", ["Every 10 hours", "Every 10 minutes", "At 10:00 every day", "10 times a minute"], 1, "The first field is minutes: every 10 minutes."],
  ["Your cron job never runs but works in the terminal. Likely cause?", ["Cron doesn't know your PATH or shortcuts: use full paths", "The Pi is too fast", "Cron only runs on Mondays", "The script is too short"], 0, "Cron runs with a minimal environment; use full paths."],
  ["What shows when each systemd timer runs next?", ["systemctl list-timers", "ls -la", "ping", "df -h"], 0, "list-timers shows last and next runs."],
- ["When is a timer better than cron?", ["Never", "For jobs customers depend on: logs, status, runs after boot", "Only for games", "When you have no Pi"], 1, "Timers give you logs, status and boot handling."]
+ ["When is a timer better than cron?", ["Never", "For jobs customers depend on: logs, status, runs after boot", "Only for games", "When you have no Pi"], 1, "Timers give you logs, status and boot handling."],
+ ["When does 0 9 * * 1-5 run?", ["Every 9 minutes", "09:00 Monday to Friday", "9th of each month", "Every Monday"], 1, "minute hour day month weekday."],
+ ["Why use full paths in cron jobs?", ["Cron is slow", "Cron has a very short PATH", "It looks nicer", "Cron can't read ~"], 1, "And ~ isn't expanded either: write /home/…"],
+ ["What does Persistent=true do on a timer?", ["Runs forever", "Catches up a run that was missed while the Pi was off", "Keeps logs", "Repeats every minute"], 1, "Good for shop opening-hour jobs."],
+ ["What keeps a log file from growing forever?", ["cron", "logrotate", "chmod", "git"], 1, "It starts new files and deletes old ones."],
+ ["The timer fires at the wrong hour. Check first…", ["Wi-Fi", "The time zone with timedatectl", "The power supply", "Docker"], 1, "Timers use the Pi's own clock."]
 ],
 "phase-2/day-3.html": [
  ["What is kiosk mode?", ["A browser showing only one page full screen, no desktop", "A shopping app", "A power-saving mode", "A type of cable"], 0, "Kiosk mode shows just the page, ready for customers."],
  ["Which file starts the browser at boot on labwc?", ["~/.config/labwc/autostart", "/etc/passwd", "README.md", "health.log"], 0, "The labwc autostart file runs programs when the desktop starts."],
  ["After boot the page says 'This site can't be reached', then works later. Why?", ["The browser started before the network was ready", "The TV is broken", "The page was deleted", "The SD card is full"], 0, "It's a race: make the browser wait for the network."],
- ["How do you test that a kiosk survives a power cut?", ["Pull the plug and plug it back in", "Turn off the TV only", "Restart the browser", "Ask the customer"], 0, "The real test is a real power cut."]
+ ["How do you test that a kiosk survives a power cut?", ["Pull the plug and plug it back in", "Turn off the TV only", "Restart the browser", "Ask the customer"], 0, "The real test is a real power cut."],
+ ["The desktop shows but no browser. Which link broke?", ["Power", "Auto-login", "Autostart / kiosk script", "The TV"], 2, "Find the last link that worked."],
+ ["Why does kiosk.sh loop with curl before starting the browser?", ["To download Chromium", "To wait until the page can be reached", "To update the Pi", "No reason"], 1, "Otherwise the browser wins the race and shows an error."],
+ ["What does --incognito help with?", ["Speed", "No “Restore pages?” bubble after power cuts", "Hides the mouse", "Security updates"], 1, "No saved session, nothing to restore."],
+ ["How can you see what a kiosk shows from home?", ["Ask the customer", "Take a screenshot over SSH with grim", "Reboot it", "You can't"], 1, "Then copy it to your laptop with scp."]
 ],
 "phase-2/day-4.html": [
  ["What does HDMI-CEC let the Pi do?", ["Charge the TV", "Switch the TV on and off over the HDMI cable", "Stream music", "Change TV channels only"], 1, "CEC sends control commands down the same cable as the picture."],
  ["The command echo 'standby 0' | cec-client -s -d 1 does what?", ["Turns the TV on", "Puts the TV in standby", "Scans for devices", "Reboots the Pi"], 1, "standby 0 switches device 0 (the TV) off."],
  ["What tells staff which mode the screen is in?", ["The LED next to the button", "The router lights", "The Pi's fan", "Nothing"], 0, "The LED shows the mode at a glance."],
- ["The screen is dark at 9:00. Which is NOT a likely cause?", ["Timer didn't run", "CEC failed", "TV on the wrong input", "Someone changed the GitHub username"], 3, "The other three are real suspects with remote tests."]
+ ["The screen is dark at 9:00. Which is NOT a likely cause?", ["Timer didn't run", "CEC failed", "TV on the wrong input", "Someone changed the GitHub username"], 3, "The other three are real suspects with remote tests."],
+ ["Which CEC address is always the TV?", ["0", "1", "4", "15"], 0, "The Pi is usually 4."],
+ ["The TV turns on but shows another input. Send…", ["standby 0", "as", "scan", "pow 0"], 1, "as = active source: switch to me."],
+ ["Why does modes.py set WAYLAND_DISPLAY?", ["For sound", "So a browser started from SSH or a service shows on the screen", "For Wi-Fi", "For CEC"], 1, "Without it the program doesn't know which display to use."],
+ ["Which command checks the TV's power state remotely?", ["echo 'pow 0' | cec-client -s -d 1", "ping tv", "df -h", "vcgencmd"], 0, "on or standby."]
 ],
 "phase-2/day-5.html": [
  ["An IP address is the building. What is a port?", ["The roof", "A door to one service", "The router", "The cable"], 1, "Each service listens on its own port."],
  ["What shows which ports are listening?", ["sudo ss -tlnp", "cat notes.txt", "df -h", "whoami"], 0, "ss -tlnp lists listening TCP ports and their programs."],
  ["Before running sudo ufw enable, what must you allow?", ["Port 80", "SSH", "Nothing", "Port 5000 only"], 1, "Allow SSH first, or you lock yourself out."],
- ["A server listens on 127.0.0.1. Who can reach it?", ["The whole network", "Only programs on the Pi itself", "Only the router", "Everyone on the internet"], 1, "127.0.0.1 is localhost; use 0.0.0.0 for the network."]
+ ["A server listens on 127.0.0.1. Who can reach it?", ["The whole network", "Only programs on the Pi itself", "Only the router", "Everyone on the internet"], 1, "127.0.0.1 is localhost; use 0.0.0.0 for the network."],
+ ["A service listens on 127.0.0.1:5000. Who can reach it?", ["Everyone", "Only programs on the Pi itself", "Only the laptop", "Nobody"], 1, "Use 0.0.0.0 to listen on all networks."],
+ ["Which port does SSH use?", ["22", "53", "80", "5000"], 0, "Web is 80/443, DNS 53."],
+ ["TCP is like…", ["A postcard", "A phone call: connected, in order, re-sent if lost", "A radio", "A letter with no address"], 1, "UDP is the postcard."],
+ ["What must you allow before ufw enable over SSH?", ["Port 80", "SSH", "Port 5000", "Nothing"], 1, "Or you lock yourself out."],
+ ["It works on the Pi by IP but not from the laptop. Suspect…", ["The code", "Firewall or network", "The LED", "Python version"], 1, "Near to far: the break is between the Pi and the laptop."]
 ],
 "phase-2/day-6.html": [
  ["About how much current do 120 WS2812 LEDs draw at full white?", ["0.7 A", "7.2 A", "72 A", "1.2 A"], 1, "120 × 0.06 A = 7.2 A worst case."],
  ["The far end of a long strip is dim and yellow. Fix?", ["Power injection at more points", "A faster Pi", "Shorter code", "A new Wi-Fi password"], 0, "Feed power in at several points to beat voltage drop."],
  ["Where does the fuse go?", ["Near the supply", "At the end of the strip", "Inside the Pi", "Nowhere"], 0, "A fuse near the supply protects the wiring."],
- ["Who works on 120 V mains wiring?", ["You", "A licensed electrician", "The customer", "Anyone careful"], 1, "You work on low voltage only."]
+ ["Who works on 120 V mains wiring?", ["You", "A licensed electrician", "The customer", "Anyone careful"], 1, "You work on low voltage only."],
+ ["120 LEDs at full white, worst case?", ["1.2 A", "7.2 A", "72 A", "0.7 A"], 1, "120 × 60 mA = 7.2 A."],
+ ["Which wire is thicker?", ["22 AWG", "14 AWG", "They're the same", "AWG isn't thickness"], 1, "Smaller AWG number = thicker wire."],
+ ["Where does the fuse go?", ["At the far end of the strip", "Near the supply", "In the data line", "Nowhere"], 1, "So it protects the whole wire run."],
+ ["Below about what voltage do WS2812 colours go wrong?", ["4.5 V", "3.3 V", "12 V", "1 V"], 0, "White turns yellow first."],
+ ["Why keep the data wire short?", ["Cheaper", "Long data wires pick up noise", "Faster colours", "Less heat"], 1, "Run the power long, keep data short."]
 ],
 "phase-2/day-7.html": [
  ["How is a microcontroller different from a Pi?", ["It's a full computer with Linux", "It runs one job, starts in a blink and rarely crashes", "It has no pins", "It needs a monitor"], 1, "A microcontroller is a tiny computer for one job."],
  ["How do you put the Pico into its file-copy mode?", ["Hold BOOTSEL while plugging in USB", "Press Ctrl+C", "Remove the SD card", "Shake it"], 0, "Hold BOOTSEL, plug in, release: a drive appears."],
  ["Which file runs automatically when the Pico powers on?", ["main.py", "start.txt", "index.html", "README.md"], 0, "Save your program as main.py on the board."],
- ["The Pico doesn't show up on USB. A common cause?", ["Charge-only USB cable", "Too much RAM", "Wrong time zone", "Firewall"], 0, "Some cables only carry power, not data."]
+ ["The Pico doesn't show up on USB. A common cause?", ["Charge-only USB cable", "Too much RAM", "Wrong time zone", "Firewall"], 0, "Some cables only carry power, not data."],
+ ["Which file runs by itself at power-on?", ["start.py", "main.py", "run.py", "code.txt"], 1, "main.py on the board."],
+ ["What is the REPL?", ["A cable", "A live prompt that runs Python lines on the board", "A file", "A Pi"], 1, "Test pins before writing a program."],
+ ["A Pico or a Pi: which starts in under a second?", ["Pi", "Pico", "Both", "Neither"], 1, "No operating system to load."],
+ ["The board resets when the strip goes white. Why?", ["Bad code", "Strip drawing power from the board's supply", "Wrong file name", "Wi-Fi"], 1, "Separate supply, shared ground."]
 ],
 "phase-2/day-8.html": [
  ["Image versus container?", ["Same thing", "Image is the package; container is a running copy", "Container is the package; image is running", "Images are only photos"], 1, "One image, many containers, like a recipe and the cakes."],
  ["In -p 8080:80, which number is inside the container?", ["8080", "80", "Both", "Neither"], 1, "Outside 8080 maps to inside 80."],
  ["What does a volume do?", ["Makes it louder", "Shares a folder between the Pi and the container", "Deletes the container", "Opens a port"], 1, "Volumes let a container use files from the host."],
- ["'Port is already allocated.' What does it mean?", ["Something else is already using that port", "The Pi is off", "Docker isn't installed", "The image is too big"], 0, "Find what holds the door with docker ps or ss -tlnp."]
+ ["'Port is already allocated.' What does it mean?", ["Something else is already using that port", "The Pi is off", "Docker isn't installed", "The image is too big"], 0, "Find what holds the door with docker ps or ss -tlnp."],
+ ["What happens to data inside a container when you rm it?", ["It's kept", "It's deleted", "It goes to GitHub", "It moves to /home"], 1, "Use volumes for data that must survive."],
+ ["“exec format error” usually means…", ["Wrong port", "Image built for a different CPU type", "No internet", "Disk full"], 1, "The Pi needs arm64 images."],
+ ["Which brings a container back after a reboot?", ["--restart unless-stopped", "-p 8080:80", "-v", "--name"], 0, "Like Restart=always."],
+ ["How do you open a shell inside the container web?", ["docker ps web", "docker exec -it web sh", "ssh web", "docker logs web"], 1, "exit to leave."],
+ ["Why avoid the latest tag in products?", ["It's slower", "It can change to a new version without you knowing", "It's paid", "It's not allowed"], 1, "Pin exact versions."]
 ],
 "phase-2/day-9.html": [
  ["What does docker compose up -d do?", ["Starts all services in the compose file in the background", "Deletes everything", "Updates Linux", "Opens a browser"], 0, "One file, one command, the whole app."],

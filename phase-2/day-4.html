@@ -34,12 +34,68 @@ echo 'on 0' | cec-client -s -d 1        # TV on</code></pre>
 <p>Use a timer from Day 2 to switch the TV on at 9:00 and off at 18:00.</p>
 <figure class="fig"><svg class="d" viewBox="0 0 680 140" role="img" aria-label="A day's schedule: TV on at 9:00, off at 18:00"><defs><marker id="k55n" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker><marker id="k55a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-a"/></marker><marker id="k55g" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-g"/></marker><marker id="k55r" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-r"/></marker><marker id="k55w" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-w"/></marker><marker id="k55v" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-v"/></marker></defs><rect x="30" y="50" width="620" height="30" rx="4" class="b-q" /><rect x="262.5" y="50" width="232.5" height="30" rx="4" class="b-g" /><text x="378.75" y="70" font-size="13" text-anchor="middle" class="g" font-weight="700">TV on</text><path d="M30.0 82V88" class="ln" /><text x="30.0" y="104" font-size="11" text-anchor="middle" class="q">0:00</text><path d="M107.5 82V88" class="ln" /><text x="107.5" y="104" font-size="11" text-anchor="middle" class="q">3:00</text><path d="M185.0 82V88" class="ln" /><text x="185.0" y="104" font-size="11" text-anchor="middle" class="q">6:00</text><path d="M262.5 82V88" class="ln" /><text x="262.5" y="104" font-size="11" text-anchor="middle" class="q">9:00</text><path d="M340.0 82V88" class="ln" /><text x="340.0" y="104" font-size="11" text-anchor="middle" class="q">12:00</text><path d="M417.5 82V88" class="ln" /><text x="417.5" y="104" font-size="11" text-anchor="middle" class="q">15:00</text><path d="M495.0 82V88" class="ln" /><text x="495.0" y="104" font-size="11" text-anchor="middle" class="q">18:00</text><path d="M572.5 82V88" class="ln" /><text x="572.5" y="104" font-size="11" text-anchor="middle" class="q">21:00</text><path d="M650.0 82V88" class="ln" /><text x="650.0" y="104" font-size="11" text-anchor="middle" class="q">24:00</text><text x="262.5" y="40" font-size="12" text-anchor="middle" class="g" font-weight="700">timer: on</text><text x="495.0" y="40" font-size="12" text-anchor="middle" class="r" font-weight="700">timer: standby</text><text x="340" y="132" font-size="12" text-anchor="middle" class="q mono">OnCalendar=*-*-* 09:00 and 18:00, two timers</text></svg><figcaption>Two timers from Day 2 run the TV like a shop's opening hours.</figcaption></figure>
 
+
+<h2 id="cec-more">CEC in more depth</h2>
+<p>Every device on the HDMI chain has a CEC address. The TV is always <strong>0</strong>; the Pi is usually a "playback device", <strong>4</strong>.</p>
+<pre><code>cec-client -l                          # list CEC adapters (a Pi 5 has one per HDMI port)
+echo 'pow 0' | cec-client -s -d 1      # ask the TV: on or standby? (great for remote checks)
+echo 'as' | cec-client -s -d 1         # "active source": switch the TV's input to the Pi</code></pre>
+<p>If the TV turns on but shows another input, send <code>as</code> after <code>on 0</code>.</p>
+<figure class="fig"><svg class="d" viewBox="0 0 680 118" role="img" aria-label="Remote morning check for a showroom screen"><defs><marker id="x7n" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker><marker id="x7a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-a"/></marker><marker id="x7g" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-g"/></marker><marker id="x7r" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-r"/></marker><marker id="x7w" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-w"/></marker><marker id="x7v" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-v"/></marker></defs><rect x="20.0" y="20.0" width="107.2" height="78.0" rx="8" class="b" /><text x="73.6" y="44.0" font-size="12.5" text-anchor="middle" font-weight="700">Pi online?</text><text x="73.6" y="64.0" font-size="11" text-anchor="middle" class="q">Tailscale</text><text x="73.6" y="78.8" font-size="11" text-anchor="middle" class="q">last seen</text><path d="M130.2 59.0L150.2 59.0" class="ln" marker-end="url(#x7n)"/><rect x="153.2" y="20.0" width="107.2" height="78.0" rx="8" class="b-v" /><text x="206.8" y="44.0" font-size="12.5" text-anchor="middle" class="v" font-weight="700">Timer ran?</text><text x="206.8" y="64.0" font-size="11" text-anchor="middle" class="q">list-timers,</text><text x="206.8" y="78.8" font-size="11" text-anchor="middle" class="q">journalctl -u tv-on</text><path d="M263.4 59.0L283.4 59.0" class="ln" marker-end="url(#x7n)"/><rect x="286.4" y="20.0" width="107.2" height="78.0" rx="8" class="b-a" /><text x="340.0" y="44.0" font-size="12.5" text-anchor="middle" class="a" font-weight="700">TV power?</text><text x="340.0" y="64.0" font-size="11" text-anchor="middle" class="q">pow 0 →</text><text x="340.0" y="78.8" font-size="11" text-anchor="middle" class="q">on / standby</text><path d="M396.6 59.0L416.6 59.0" class="ln" marker-end="url(#x7n)"/><rect x="419.6" y="20.0" width="107.2" height="78.0" rx="8" class="b-w" /><text x="473.2" y="44.0" font-size="12.5" text-anchor="middle" class="w" font-weight="700">Right input?</text><text x="473.2" y="64.0" font-size="11" text-anchor="middle" class="q">send 'as'</text><path d="M529.8 59.0L549.8 59.0" class="ln" marker-end="url(#x7n)"/><rect x="552.8" y="20.0" width="107.2" height="78.0" rx="8" class="b-g" /><text x="606.4" y="44.0" font-size="12.5" text-anchor="middle" class="g" font-weight="700">Right page?</text><text x="606.4" y="64.0" font-size="11" text-anchor="middle" class="q">grim screenshot</text></svg><figcaption>Five checks, all from your laptop. You'll often fix it before the store opens and the client never knows.</figcaption></figure><h2 id="mode-script">The mode button, complete</h2>
+<pre><code>#!/usr/bin/env python3
+# ~/bin/modes.py  - each press switches the page; the LED shows which one
+import os, subprocess
+from signal import pause
+from gpiozero import Button, LED
+
+PAGES = ["https://wdigi.github.io/tony/", "https://wdigi.github.io/tony/lessons.html"]
+env = dict(os.environ, WAYLAND_DISPLAY="wayland-0", XDG_RUNTIME_DIR=f"/run/user/{os.getuid()}")
+led, button = LED(17), Button(27, bounce_time=0.1)
+mode = 0
+
+def show(i):
+    subprocess.run(["pkill", "-f", "chromium"])
+    subprocess.Popen(["chromium", "--kiosk", "--incognito", PAGES[i]], env=env)
+    led.value = i                   # LED on = page 2
+
+def pressed():
+    global mode
+    mode = 1 - mode
+    show(mode)
+
+button.when_pressed = pressed
+show(mode)
+pause()</code></pre>
+<p>The <code>env</code> line matters: a script started from SSH or a service doesn't know about the screen unless you tell it which display to use.</p>
+
+<h2 id="tv-timers">Opening hours with timers</h2>
+<pre><code># /etc/systemd/system/tv-on.service
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c "echo 'on 0' | cec-client -s -d 1; sleep 5; echo 'as' | cec-client -s -d 1"
+
+# /etc/systemd/system/tv-on.timer
+[Timer]
+OnCalendar=Mon..Sat 08:55
+Persistent=true
+[Install]
+WantedBy=timers.target</code></pre>
+<p>Make a matching <code>tv-off</code> pair with <code>standby 0</code> at 18:05.</p>
+<h3>When CEC isn't available</h3>
+<p>Some TVs ignore CEC. Commercial displays usually have a better way: a network or RS-232 control port with documented commands. Last resort: the TV's own on/off timer, or a smart plug for the screen (not for the Pi).</p>
+
 <h2 id="done-when">Done when</h2>
-<ul class="check"><li>The TV turns on and off from a command</li><li>A button press switches the page and the LED shows the mode</li></ul>
+<ul class="check"><li>The TV turns on and off from a command</li><li>A button press switches the page and the LED shows the mode</li><li>You can ask the TV its power state with pow 0</li><li>Your mode script switches pages from a button, started without a keyboard</li><li>tv-on and tv-off timers are listed in systemctl list-timers</li></ul>
 <h2 id="support-drill">Support drill</h2>
 <p>"The screen won't turn on in the morning." List five possible causes and how you'd test each one remotely.</p>
 <figure class="fig"><svg class="d" viewBox="0 0 680 230" role="img" aria-label="Screen won't turn on in the morning: five suspects"><defs><marker id="k56n" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker><marker id="k56a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-a"/></marker><marker id="k56g" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-g"/></marker><marker id="k56r" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-r"/></marker><marker id="k56w" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-w"/></marker><marker id="k56v" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-v"/></marker></defs><rect x="250" y="14" width="180" height="44" rx="8" class="b-r" /><text x="340.0" y="40.34" font-size="14" text-anchor="middle" font-weight="600">Screen dark at 9:00</text><path d="M340 60L72 98" class="ln" marker-end="url(#k56n)"/><rect x="10" y="100" width="124" height="54" rx="8" class="b-w" /><text x="72.0" y="130.875" font-size="12.5" text-anchor="middle" font-weight="600">Pi off / no power</text><text x="72" y="178" font-size="12" text-anchor="middle" class="a">ping it</text><path d="M340 60L206 98" class="ln" marker-end="url(#k56n)"/><rect x="144" y="100" width="124" height="54" rx="8" class="b-w" /><text x="206.0" y="130.875" font-size="12.5" text-anchor="middle" font-weight="600">Timer didn't run</text><text x="206" y="178" font-size="12" text-anchor="middle" class="a"><tspan x="206" dy="0.0">list-timers,</tspan><tspan x="206" dy="15.6">journal</tspan></text><path d="M340 60L340 98" class="ln" marker-end="url(#k56n)"/><rect x="278" y="100" width="124" height="54" rx="8" class="b-w" /><text x="340.0" y="130.875" font-size="12.5" text-anchor="middle" font-weight="600">CEC failed</text><text x="340" y="178" font-size="12" text-anchor="middle" class="a"><tspan x="340" dy="0.0">run 'on 0'</tspan><tspan x="340" dy="15.6">by hand</tspan></text><path d="M340 60L474 98" class="ln" marker-end="url(#k56n)"/><rect x="412" y="100" width="124" height="54" rx="8" class="b-w" /><text x="474.0" y="130.875" font-size="12.5" text-anchor="middle" font-weight="600">TV input wrong</text><text x="474" y="178" font-size="12" text-anchor="middle" class="a"><tspan x="474" dy="0.0">CEC 'as'</tspan><tspan x="474" dy="15.6">command</tspan></text><path d="M340 60L608 98" class="ln" marker-end="url(#k56n)"/><rect x="546" y="100" width="124" height="54" rx="8" class="b-w" /><text x="608.0" y="130.875" font-size="12.5" text-anchor="middle" font-weight="600">Page error</text><text x="608" y="178" font-size="12" text-anchor="middle" class="a"><tspan x="608" dy="0.0">screenshot,</tspan><tspan x="608" dy="15.6">browser log</tspan></text></svg><figcaption>Each suspect has a remote test. Start with the cheapest one.</figcaption></figure>
 
+<h3>More cases</h3>
+<p>Try each one before you open the answer.</p>
+<details class="card"><summary><strong><code>cec-client</code> scan finds no TV.</strong></summary><p>Wrong adapter or HDMI port (<code>cec-client -l</code>), CEC switched off in the TV menu, or the cable/adapter doesn't carry CEC. Try the other HDMI port and a direct cable.</p></details>
+<details class="card"><summary><strong>The TV turns on, but shows the cable box.</strong></summary><p>Send <code>as</code> (active source) a few seconds after <code>on 0</code>.</p></details>
+<details class="card"><summary><strong>modes.py works from the Pi's own terminal, but from SSH the browser never appears.</strong></summary><p>The script doesn't know the display. Set <code>WAYLAND_DISPLAY</code> and <code>XDG_RUNTIME_DIR</code> as in the script above.</p></details>
+<details class="card"><summary><strong>The TV switched off at 18:05 Saturday, but not Sunday morning on.</strong></summary><p>Check the <code>OnCalendar</code> days: Mon..Sat doesn't include Sunday. <code>systemd-analyze calendar</code> shows the next run.</p></details>
 <div class="pager"><a href="day-3.html">← Day 3: The Big Screen, part 1: kiosk mode</a><a href="day-5.html">Day 5: Network services and ports →</a></div>
 <p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
 <section class="board">
