@@ -299,43 +299,71 @@ window.QUIZ = {
  ["What does docker compose up -d do?", ["Starts all services in the compose file in the background", "Deletes everything", "Updates Linux", "Opens a browser"], 0, "One file, one command, the whole app."],
  ["Which setting brings containers back after a reboot?", ["restart: unless-stopped", "ports:", "image:", "volumes:"], 0, "The restart policy handles reboots."],
  ["Why is indentation important in compose.yaml?", ["It isn't", "YAML uses indentation to know what belongs to what", "It saves disk space", "It's only for looks"], 1, "Wrong spaces change the meaning of a YAML file."],
- ["A container keeps restarting. First step?", ["Read its logs", "Delete the Pi", "Change the port", "Buy more RAM"], 0, "docker compose logs tells you why it falls over."]
+ ["A container keeps restarting. First step?", ["Read its logs", "Delete the Pi", "Change the port", "Buy more RAM"], 0, "docker compose logs tells you why it falls over."],
+ ["What does docker compose down -v also delete?", ["Nothing more", "Named volumes: the data", "The compose file", "Docker itself"], 1, "Almost never use -v on a customer system."],
+ ["Where do per-site settings and passwords go?", ["compose.yaml in Git", ".env, not committed", "The README", "Docker Hub"], 1, "Same compose file everywhere, different .env."],
+ ["How do you check a compose file before starting?", ["docker compose config", "cat", "git status", "docker ps"], 0, "It shows the exact problem line."],
+ ["An update went wrong. Fastest way back?", ["Re-flash the card", "Put the old tag back and up -d", "Delete volumes", "Reboot"], 1, "Data is in volumes; the version is just a tag."],
+ ["YAML indentation uses…", ["Tabs", "Spaces", "Either", "Nothing"], 1, "Tabs break YAML."]
 ],
 "phase-2/day-10.html": [
  ["Why work on a branch?", ["To hide work", "So changes are reviewed before they reach main", "Branches are faster", "GitHub charges for main"], 1, "Nobody edits main directly."],
  ["What closes issue #12 when the pull request merges?", ["Writing 'Fixes #12' in the PR", "Deleting the issue", "Pushing twice", "Renaming the branch"], 0, "'Fixes #N' links and closes the issue on merge."],
  ["Your push is rejected because the remote has new commits. Fix?", ["Force push over them", "git pull, fix any conflict, then push", "Delete the repo", "Wait a day"], 1, "Get teammates' changes first, then send yours."],
- ["What should a pull request description say?", ["Nothing", "What changed and why, in a line or two", "Your password", "A full novel"], 1, "Short and clear helps the reviewer."]
+ ["What should a pull request description say?", ["Nothing", "What changed and why, in a line or two", "Your password", "A full novel"], 1, "Short and clear helps the reviewer."],
+ ["Two people changed the same line. Git…", ["Picks the newest", "Marks a conflict for you to resolve", "Deletes both", "Crashes"], 1, "You choose, remove the markers, commit."],
+ ["The reviewer asked for a change. You…", ["Open a new PR", "Push a new commit to the same branch", "Delete the branch", "Merge anyway"], 1, "The PR updates itself."],
+ ["Which makes a bug report useful?", ["“It's broken”", "Steps, expected, actual, where, evidence", "Only a screenshot", "All capitals"], 1, "Someone else must be able to repeat it."],
+ ["Why keep pull requests small?", ["GitHub limit", "Faster, safer reviews", "Saves disk", "No reason"], 1, "One change, one reason."]
 ],
 "phase-2/day-11.html": [
  ["What goes at the top of a guide?", ["Your name only", "What it sets up, what you need, how long it takes", "The last step", "A joke"], 1, "The reader knows what they're in for before starting."],
  ["How many actions per numbered step?", ["One", "As many as fit", "Three", "Zero"], 0, "One action per step keeps people from skipping things."],
  ["What should come after important steps?", ["'You should see …'", "A new chapter", "Nothing", "A password"], 0, "Tell the reader what success looks like."],
- ["When is a guide finished?", ["When you finish writing it", "When someone else succeeds with it on a fresh card", "When it's long", "Never"], 1, "Test it on someone else and fix where they got stuck."]
+ ["When is a guide finished?", ["When you finish writing it", "When someone else succeeds with it on a fresh card", "When it's long", "Never"], 1, "Test it on someone else and fix where they got stuck."],
+ ["When is a guide finished?", ["When you've written it", "When someone else succeeded with it", "When it's long", "Never"], 1, "Test it on a fresh card."],
+ ["Where does a warning go?", ["At the end", "Before the risky step", "In a footnote", "Nowhere"], 1, "The reader must see it before acting."],
+ ["Which is the better step?", ["Configure Wi-Fi properly", "Run sudo nmtui → Activate a connection → DGK-LAB", "Just set it up", "Ensure connectivity"], 1, "One exact action."],
+ ["Can you publish an AI-drafted guide without testing?", ["Yes", "No: AI may invent menu names or options", "Only on Fridays", "If it's short"], 1, "Test every step yourself."]
 ],
 "phase-2/day-12.html": [
  ["Where do you give each Pi a short name for SSH?", ["~/.ssh/config", "/etc/hosts only", "README.md", "health.log"], 0, "Host entries in ~/.ssh/config make 'ssh screen1' work."],
  ["Why rsync instead of scp for a website folder?", ["rsync copies only what changed", "scp is illegal", "rsync deletes the Pi", "No difference"], 0, "Only changed files travel, which is much faster."],
  ["Your loop hangs on one dead machine. Fix?", ["ssh -o ConnectTimeout=5", "Remove the loop", "Use more Pis", "Turn off Wi-Fi"], 0, "A timeout lets the loop report the failure and move on."],
- ["What does for h in screen1 screen2; do ssh \"$h\" uptime; done do?", ["Runs uptime on both Pis, one after the other", "Deletes both", "Only checks screen1", "Nothing"], 0, "One loop, many machines."]
+ ["What does for h in screen1 screen2; do ssh \"$h\" uptime; done do?", ["Runs uptime on both Pis, one after the other", "Deletes both", "Only checks screen1", "Nothing"], 0, "One loop, many machines."],
+ ["What does BatchMode=yes do?", ["Faster ssh", "Fails instead of asking for a password", "Runs in parallel", "Copies keys"], 1, "So one machine can't stall the loop."],
+ ["What is a canary rollout?", ["Update all at once", "Update one first, watch, then the rest", "Never update", "Update at night"], 1, "A problem hits one, not all."],
+ ["Why is rsync --delete dangerous?", ["It's slow", "It deletes files on the target that aren't in the source", "It needs root", "It changes names"], 1, "Dry-run first."],
+ ["What is drift?", ["Wi-Fi moving", "Machines that should be the same slowly becoming different", "A slow disk", "Clock error"], 1, "Golden image + settings in Git prevent it."]
 ],
 "phase-2/day-13.html": [
  ["What is the goal of monitoring?", ["More emails", "Find problems before the customer calls", "Slow the Pi down", "Replace backups"], 1, "Good support is mostly invisible."],
  ["Why add retries before an alert?", ["To avoid false alarms from one lost packet", "To make alerts slower on purpose", "Kuma needs them", "No reason"], 0, "Retries stop jumpy alerts; too many make them slow."],
  ["Which reading should trigger a health warning?", ["Temperature over 75 °C", "Disk at 20%", "Power 0x0", "Uptime 3 days"], 0, "75 °C is the warning limit in your health script."],
- ["What does logrotate prevent?", ["Logs filling the disk", "Wi-Fi drops", "Power cuts", "Typos"], 0, "Old logs are compressed and removed on a schedule."]
+ ["What does logrotate prevent?", ["Logs filling the disk", "Wi-Fi drops", "Power cuts", "Typos"], 0, "Old logs are compressed and removed on a schedule."],
+ ["What is a push monitor?", ["Kuma pings the Pi", "The Pi calls Kuma; silence = alert", "A phone app", "A button"], 1, "Catches both dead and sick Pis."],
+ ["Why alert only after 2–3 failed checks?", ["To save power", "To avoid alerts for short blips", "Kuma requires it", "No reason"], 1, "Fewer false alarms."],
+ ["Kuma is green but the screen is blank. Why?", ["Kuma is broken", "It checks the server, not what the screen shows", "The TV is fine", "DNS"], 1, "Add a push check from the kiosk Pi."],
+ ["Who watches the monitoring Pi?", ["Nobody needs to", "Something outside it, e.g. a second check", "Itself", "The client"], 1, "Otherwise its death is silent."]
 ],
 "phase-2/day-14.html": [
  ["Which voltage range is your job?", ["5–24 V", "120 V", "240 V", "Any"], 0, "Low voltage only. Mains is for licensed electricians."],
  ["You smell burning near an LED supply. First step?", ["Power off now", "Take a video", "Keep testing", "Tap it"], 0, "Heat or smell: power off now, then investigate."],
  ["Before handling a bare board?", ["Touch grounded metal or wear a wrist strap", "Wash it", "Blow on it", "Nothing"], 0, "Static (ESD) can kill electronics."],
- ["A fix you can't undo on a customer's system. What do you do?", ["Stop and call your coach first", "Do it quickly", "Ask the customer to do it", "Skip the photo"], 0, "When in doubt, it's a stop."]
+ ["A fix you can't undo on a customer's system. What do you do?", ["Stop and call your coach first", "Do it quickly", "Ask the customer to do it", "Skip the photo"], 0, "When in doubt, it's a stop."],
+ ["What is the main danger of a big 5 V supply?", ["Electric shock", "Heat and fire from shorts", "Radiation", "None"], 1, "High current can melt wires."],
+ ["Why never measure current across a power supply?", ["It's slow", "On A, the meter is almost a wire: a short", "It's illegal", "It wastes battery"], 1, "Measure volts across a supply."],
+ ["Smoke from a strip. First step?", ["Take a photo", "Power off", "Call the client", "Touch it to check"], 1, "Then step back, then call."],
+ ["A client asks you to rewire an outlet.", ["Do it carefully", "Stop: that's a licensed electrician's job", "Do it with gloves", "Ask Claude how"], 1, "Mains is never our job."]
 ],
 "phase-2/day-15.html": [
  ["What do you follow to build the gate system?", ["Only your own written guide", "Your memory", "A video", "Your coach's hands"], 0, "The gate tests your guide as much as your skills."],
  ["What proves the system is ready?", ["It works after a power cut with no keyboard attached", "It looks nice", "It booted once", "The fan is quiet"], 0, "Customers' systems must recover on their own."],
  ["Where do alerts go?", ["Your phone", "A drawer", "The TV", "Nowhere"], 0, "Monitoring sends alerts to your phone."],
- ["You had to think during setup. What now?", ["Fix the guide at that step", "Ignore it", "Delete the guide", "Start Phase 3 anyway"], 0, "Every place you had to think is a place someone else will get stuck."]
+ ["You had to think during setup. What now?", ["Fix the guide at that step", "Ignore it", "Delete the guide", "Start Phase 3 anyway"], 0, "Every place you had to think is a place someone else will get stuck."],
+ ["What must work after a power cut?", ["Only the Pi", "Everything, with no keyboard", "Only monitoring", "Nothing"], 1, "That's what customers experience."],
+ ["Where do you post your evidence?", ["Email", "This lesson's message board", "Nowhere", "A USB stick"], 1, "Guide PR link, Kuma screenshot, one photo."],
+ ["Your guide made you think at step 9. What do you do?", ["Ignore it", "Fix the guide and merge the change", "Delete the step", "Tell nobody"], 1, "That's part of passing."]
 ],
 "phase-3/day-1.html": [
  ["The lobby screen is dark during opening hours. Severity?", ["1 · down", "2 · broken, workaround", "3 · question", "No ticket needed"], 0, "The customer can't use it at all: severity 1."],
