@@ -369,60 +369,99 @@ window.QUIZ = {
  ["The lobby screen is dark during opening hours. Severity?", ["1 · down", "2 · broken, workaround", "3 · question", "No ticket needed"], 0, "The customer can't use it at all: severity 1."],
  ["Which status means it's the customer's move?", ["Open", "Waiting on customer", "Fixed", "Closed"], 1, "The status says whose move it is."],
  ["When do you update the customer?", ["At every step, even with no news", "Only when fixed", "Never", "Once a month"], 0, "Silence feels like nobody's working."],
- ["What closes a ticket?", ["The customer confirms, and you write a support note", "Time passes", "You get bored", "A reboot"], 0, "Confirmed fix plus a note."]
+ ["What closes a ticket?", ["The customer confirms, and you write a support note", "Time passes", "You get bored", "A reboot"], 0, "Confirmed fix plus a note."],
+ ["A showroom screen is dark during opening hours. Severity?", ["1 · Down", "2", "3", "No ticket"], 0, "Customer-facing, no work-around."],
+ ["When is a case closed?", ["When it works", "When the customer confirms and the note is written", "After a week", "When you're tired"], 1, "Then the knowledge base gets better too."],
+ ["Monitoring shows a fault nobody reported. You…", ["Wait for a call", "Open a ticket yourself", "Ignore it", "Reboot everything"], 1, "The best cases are the ones we find first."],
+ ["Which belongs in Steps taken?", ["Fixed it", "Times and each check or change, in order", "Your mood", "Nothing"], 1, "Someone else must be able to follow it."]
 ],
 "phase-3/day-2.html": [
  ["What is the first step of the fault-finding method?", ["Reproduce: see the problem yourself", "Replace parts", "Reboot everything", "Write the report"], 0, "See it yourself before guessing."],
  ["Why ask 'What changed?'", ["Most faults follow a change", "To blame someone", "It's polite", "It fills time"], 0, "Updates, moves, power cuts and new cables cause most faults."],
  ["Why change one thing at a time?", ["So you know which change fixed it", "It's slower on purpose", "Rules are rules", "To save parts"], 0, "Otherwise you don't know why it works."],
- ["Six parts in a chain. With 'split in half', how many tests at most?", ["About 3", "6", "12", "1"], 0, "Each test throws away half the suspects."]
+ ["Six parts in a chain. With 'split in half', how many tests at most?", ["About 3", "6", "12", "1"], 0, "Each test throws away half the suspects."],
+ ["Which suspect do you test first?", ["The rarest", "Likely and easy to test", "The most expensive", "Random"], 1, "Cheap, likely checks first."],
+ ["What is a known-good swap?", ["Buying new parts", "Replacing one part with one you know works, to see if the fault moves", "Swapping customers", "Rebooting"], 1, "The fault follows the bad part."],
+ ["A fault happens every day at 18:00. Suspect…", ["The SD card", "Something on a schedule: a timer or cron job", "The LED colour", "Wi-Fi password"], 1, "Patterns point at causes."],
+ ["Why not change three things at once?", ["It's slow", "You won't know which one fixed it", "It's not allowed", "It uses more power"], 1, "No cause, no note, no prevention."]
 ],
 "phase-3/day-3.html": [
  ["Which line breaks the rules for customer replies?", ["'I'll check again tomorrow at 9:00.'", "'This will never happen again.'", "'Thanks for letting us know.'", "'I switched it back and it's showing.'"], 1, "Never promise perfect. Promise to catch problems fast."],
  ["What should every reply say?", ["What you found, what you did, what happens next with a time", "Only 'fixed'", "Technical details first", "Who caused it"], 0, "Customers calm down when they know what happens next."],
  ["The customer uses no technical words. You should…", ["Use plain words too", "Explain systemd in detail", "Paste the logs", "Use acronyms"], 0, "No jargon unless the customer uses it first."],
- ["You don't know the cause yet. What do you say?", ["'I'm looking into it and will update you by 3:00'", "A guess that sounds confident", "Nothing", "'It's your network'"], 0, "Never guess out loud; give a time for the next update."]
+ ["You don't know the cause yet. What do you say?", ["'I'm looking into it and will update you by 3:00'", "A guess that sounds confident", "Nothing", "'It's your network'"], 0, "Never guess out loud; give a time for the next update."],
+ ["Why repeat the problem back to the caller?", ["To fill time", "It shows you listened and catches misunderstandings", "It's polite only", "Required by law"], 1, "Fix the right thing."],
+ ["Which is the better question for a non-technical person?", ["Is the DHCP working?", "What does the screen show right now?", "Is it connected?", "Did you break it?"], 1, "Ask what they see."],
+ ["You have no news at the promised update time. You…", ["Wait until you do", "Send an update anyway with what you've ruled out", "Say it's fixed", "Ignore it"], 1, "Silence feels like nobody's working."],
+ ["Instead of “It won't happen again”, say…", ["Nothing", "We've added a check that alerts us if it happens again", "It might", "Not my fault"], 1, "Promise what you can keep."]
 ],
 "phase-3/day-4.html": [
  ["Before connecting to a customer's system you must…", ["Ask permission and tell them when you start", "Just connect", "Email your password", "Turn off their firewall"], 0, "Ask first, every time."],
  ["The customer emails you their password. What do you do?", ["Don't use it, ask them to change it, use the approved access method", "Use it once", "Save it for later", "Forward it to your coach"], 0, "A password in email is no longer secret."],
  ["What does 'least access' mean?", ["Touch only the system the ticket is about", "Look at everything while you're in", "Use the least time", "Use a small screen"], 0, "Having a way in doesn't mean you may look around."],
- ["What must you do at the end of a session?", ["Remove temporary access and confirm with the customer", "Leave it open for next time", "Copy their files", "Nothing"], 0, "Undo temporary access and tell them you're finished."]
+ ["What must you do at the end of a session?", ["Remove temporary access and confirm with the customer", "Leave it open for next time", "Copy their files", "Nothing"], 0, "Undo temporary access and tell them you're finished."],
+ ["What does the script command do?", ["Writes a Python script", "Records everything in the terminal to a file", "Runs a backup", "Shares the screen"], 1, "Your session log, automatically."],
+ ["Before editing a customer's config file, you…", ["Delete it", "Make a dated backup copy", "Reboot", "Email it"], 1, "So you can always put it back."],
+ ["You find a problem outside the ticket. You…", ["Fix it quietly", "Tell the customer and coach in writing", "Ignore it", "Post it on the board"], 1, "Least access: only the ticket's system."],
+ ["Can you reboot a showroom screen at noon without asking?", ["Yes", "No, ask first during opening hours", "Only on Fridays", "If it's quick"], 1, "The customer may have visitors."]
 ],
 "phase-3/day-5.html": [
  ["How should a knowledge-base title be written?", ["In the customer's words, e.g. 'Screen is dark after a power cut'", "As a code name", "In engineer terms only", "As short as possible: 'Bug'"], 0, "Write it the way a customer would search for it."],
  ["Why do clear articles matter so much at DiGiKits?", ["AI helpers answer customers from them", "They look good", "They're required by law", "They replace testing"], 0, "Better articles mean better AI answers and fewer tickets."],
  ["What section tells the customer what to send support?", ["If that didn't work", "Title", "Applies to", "Cause"], 0, "Every article ends with what to do if the fix fails."],
- ["The AI gave a wrong answer from your article. What do you fix?", ["The article", "The AI", "The customer", "Nothing"], 0, "If the AI misreads it, a tired customer will too."]
+ ["The AI gave a wrong answer from your article. What do you fix?", ["The article", "The AI", "The customer", "Nothing"], 0, "If the AI misreads it, a tired customer will too."],
+ ["Which title is better?", ["HDMI-CEC input selection failure", "Screen is black after a power cut", "Error 12", "Misc"], 1, "Use the customer's words."],
+ ["Where do SSH steps and IP addresses go?", ["The public article", "An internal article for support staff", "The title", "Nowhere"], 1, "Customers never see internal details."],
+ ["Why give articles a “last checked” date?", ["Decoration", "Out-of-date articles make the AI give wrong answers", "Law", "Sorting"], 1, "Review and retire old ones."],
+ ["Two articles disagree. What happens?", ["Nothing", "The AI may give conflicting answers", "Both are deleted", "Customers pick"], 1, "Merge them into one."]
 ],
 "phase-3/day-6.html": [
  ["Which is a good use of Claude in support?", ["Explaining an unfamiliar error message", "Pasting a customer's password", "Running any command it gives you with sudo", "Sending its reply without reading it"], 0, "Use it to explain, draft and suggest, then check."],
  ["What goes into a good support question to Claude?", ["Context, the exact symptom, evidence with secrets removed, what you tried, what you want", "Just 'it's broken'", "The customer's full files", "Only the device name"], 0, "The same facts you'd give a senior engineer."],
  ["Claude suggests a command you don't understand. You…", ["Don't run it until you understand it", "Run it with sudo", "Run it twice", "Paste it to the customer"], 0, "Never run what you don't understand, especially sudo or rm."],
- ["Who owns a reply that Claude drafted?", ["You: you send it, so read every word", "Claude", "Anthropic", "The customer"], 0, "You send it, so you own it."]
+ ["Who owns a reply that Claude drafted?", ["You: you send it, so read every word", "Claude", "Anthropic", "The customer"], 0, "You send it, so you own it."],
+ ["Which is a sign an AI answer may be wrong?", ["It asks a question", "It suggests chmod 777 or rm -rf", "It's short", "It lists checks first"], 1, "Big hammers are a warning."],
+ ["What do you replace before pasting a log?", ["Nothing", "Passwords, tokens, customer names, public IPs", "Dates", "Error codes"], 1, "Use placeholders like XXXX."],
+ ["Where do you test an AI's suggested fix first?", ["The customer's device", "Your own lab Pi", "Nowhere", "In production"], 1, "Then apply with a backup."],
+ ["Why ask for checks before fixes?", ["Faster", "You stay in control of what changes", "AI can't fix", "Cheaper"], 1, "Evidence first."]
 ],
 "phase-3/day-7.html": [
  ["How long should the daily check take?", ["About 5 minutes", "2 hours", "All day", "It's weekly"], 0, "Five minutes of checks saves hours of repair."],
  ["Updates are waiting on live systems. You…", ["Schedule them, don't run them blind", "Run them all now", "Ignore them forever", "Uninstall apt"], 0, "Plan updates for a safe time."],
  ["What goes in the operations log?", ["Date, what you checked, found and did", "Your lunch", "Passwords", "Only problems"], 0, "A record of every day's check."],
- ["What makes a daily-check script useful?", ["One summary line per Pi, so the odd one stands out", "Lots of colours", "Long output", "It runs once a year"], 0, "Your eye goes straight to the line that isn't OK."]
+ ["What makes a daily-check script useful?", ["One summary line per Pi, so the odd one stands out", "Lots of colours", "Long output", "It runs once a year"], 0, "Your eye goes straight to the line that isn't OK."],
+ ["What goes in the operations log?", ["Nothing", "Date, what you checked, what you found, what you did, ticket links", "Passwords", "Only problems you fixed"], 1, "So anyone can pick up where you left off."],
+ ["How often do you restore a backup for real?", ["Never", "Monthly", "Only after a disaster", "Every hour"], 1, "Untested backups are hopes."],
+ ["Disk slowly rising every day on one Pi. You…", ["Wait until it's full", "Find what's growing and fix it now", "Reboot daily", "Ignore"], 1, "Trends caught early stay small."],
+ ["What makes the spares shelf useful?", ["Lots of parts", "Known-good, labelled, tested spares", "Expensive parts", "Old parts"], 1, "For the known-good swap."]
 ],
 "phase-3/day-8.html": [
  ["Which situation do you escalate right away?", ["Smoke or heat near equipment", "A customer asks how to change the schedule", "A typo in a guide", "A green dashboard"], 0, "Safety always escalates."],
  ["First thing in an incident?", ["Make it safe", "Find the root cause", "Write the review", "Order parts"], 0, "Safety, then people, then the log, then the fix."],
  ["Restore service or find the root cause first?", ["Restore service first, root cause after", "Root cause first", "Neither", "Ask the customer"], 0, "Get the customer running, then investigate."],
- ["What kind of review follows an incident?", ["No blame: what let it happen and how to catch it faster", "Find who to blame", "No review", "A long apology only"], 0, "Ask 'what let this happen?', never 'who did it?'"]
+ ["What kind of review follows an incident?", ["No blame: what let it happen and how to catch it faster", "Find who to blame", "No review", "A long apology only"], 0, "Ask 'what let this happen?', never 'who did it?'"],
+ ["Possible break-in. What do you NOT do?", ["Disconnect it from the network", "Delete suspicious files", "Call your coach", "Note the time"], 1, "Logs and files are evidence."],
+ ["What are the four lines of a status update?", ["Hello, sorry, thanks, bye", "Affected, known, doing, next update", "Cause, blame, cost, date", "Only the fix"], 1, "Numbered, every time."],
+ ["Restore service or find the root cause first?", ["Root cause", "Restore service, then find the cause", "Neither", "Both at once"], 1, "Customer first; cause after."],
+ ["A blameless review asks…", ["Who did it?", "What let this happen, and what changes?", "How much it cost", "Nothing"], 1, "Fix the process, not the person."]
 ],
 "phase-3/day-9.html": [
  ["In a shadow case, who does the work?", ["You, with your coach watching", "Your coach", "Claude alone", "The customer"], 0, "You drive; your coach steps in only if something could go wrong."],
  ["What happens after each shadow case?", ["A 5-minute review: what went well, one thing to do better", "Nothing", "A test", "A day off"], 0, "Short reviews make each case better than the last."],
- ["Which steps does a shadow case follow?", ["The full flow: ticket, diagnose, fix or escalate, reply, close, note", "Only the fix", "Only the reply", "Only the note"], 0, "Real cases, the full flow."]
+ ["Which steps does a shadow case follow?", ["The full flow: ticket, diagnose, fix or escalate, reply, close, note", "Only the fix", "Only the reply", "Only the note"], 0, "Real cases, the full flow."],
+ ["What is the signal word for?", ["Ending the day", "Your coach steps in right away, no questions", "Calling the customer", "Rebooting"], 1, "Using it is a good call."],
+ ["Before starting a real case, you read…", ["Nothing", "The customer's past tickets", "Only the title", "The news"], 1, "Has this happened before?"],
+ ["You don't know the answer. You say…", ["I don't know", "I'll check and get back to you by a set time", "Nothing", "Guess"], 1, "Honest, with a time."],
+ ["Why plan out loud?", ["To sound smart", "Your coach can catch a problem before it happens", "It's faster", "It's required"], 1, "Without taking over."]
 ],
 "phase-3/day-10.html": [
  ["How many real cases does the gate ask for?", ["5", "1", "10", "20"], 0, "Five real cases, start to finish."],
  ["Which is NOT a check for each case?", ["Correct severity", "Replies on time", "A clear log", "Fixed in under 5 minutes"], 3, "Speed isn't the test; doing it right is."],
  ["At least one case must be…", ["Fixed remotely, by the rules", "Escalated", "Closed without the customer", "Done on a weekend"], 0, "Remote support done properly is core to the job."],
- ["What else must come out of these cases?", ["At least one knowledge-base article written or improved", "A new product", "A blog post", "Nothing"], 0, "Every case should make the next one faster."]
+ ["What else must come out of these cases?", ["At least one knowledge-base article written or improved", "A new product", "A blog post", "Nothing"], 0, "Every case should make the next one faster."],
+ ["Which is an automatic fail, even if the case is fixed?", ["A slow reply", "An unsafe shortcut, like pasting a password", "A long note", "Asking for help"], 1, "Safety and trust come first."],
+ ["A case needs mains work. Does escalating hurt your gate?", ["Yes", "No: knowing when to stop is part of it", "Only on Mondays", "Depends on the customer"], 1, "Hand it over correctly."],
+ ["What do you post as evidence?", ["Customer names", "Ticket numbers, article link, lessons learned", "Passwords used", "Nothing"], 1, "No customer details on the board."]
 ],
 "phase-4/day-1.html": [
  ["In most CAD tools, which axis points up?", ["X", "Y", "Z", "W"], 2, "X left–right, Y front–back, Z up."],
