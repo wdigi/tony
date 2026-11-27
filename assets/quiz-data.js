@@ -121,7 +121,14 @@ window.QUIZ = {
  ["What does DHCP do?", ["Turns names into numbers", "Hands out IP addresses to devices", "Encrypts Wi-Fi", "Measures speed"], 1, "DHCP is how the router gives each device its IP address."],
  ["What does DNS do?", ["Turns a name like google.com into a number", "Charges the Pi", "Blocks ports", "Saves files"], 0, "DNS is the internet's phone book."],
  ["ping 8.8.8.8 works but ping google.com fails. What is broken?", ["The Wi-Fi password", "The power supply", "DNS", "The SD card"], 2, "The internet is reachable by number, so only the name lookup (DNS) is failing."],
- ["How do you make the Pi always get the same IP address?", ["Reboot it often", "A DHCP reservation in the router", "Change its hostname", "Unplug the router"], 1, "A reservation ties the Pi's hardware ID to one address."]
+ ["How do you make the Pi always get the same IP address?", ["Reboot it often", "A DHCP reservation in the router", "Change its hostname", "Unplug the router"], 1, "A reservation ties the Pi's MAC address to one IP address."],
+ ["Which address is set at the factory and never changes?", ["The IP address", "The MAC address", "The hostname", "The gateway"], 1, "The MAC belongs to the network chip. The IP is lent by the router."],
+ ["What does the first half of a MAC address tell you?", ["The device's IP", "Who made the network chip", "The Wi-Fi password", "How old the device is"], 1, "The first three bytes are the maker code (OUI), e.g. dc:a6:32 for Raspberry Pi."],
+ ["The Pi has a reservation, but today it got a different IP. Most likely?", ["The router is broken", "It's on Wi-Fi, and the reservation is for the Ethernet MAC", "DNS failed", "The SD card is full"], 1, "Ethernet and Wi-Fi each have their own MAC; a reservation covers only one."],
+ ["A device shows 169.254.8.12. What happened?", ["It's working fine", "No router answered its request for an address", "It's on the internet directly", "It's using IPv6"], 1, "169.254.x.x is a self-made address when DHCP gets no answer."],
+ ["Can 192.168.0.50 talk directly to 192.168.1.40 (both /24)?", ["Yes, always", "No, they are on different subnets", "Only on Wi-Fi", "Only if both are Pis"], 1, "With /24 the first three numbers must match to talk directly."],
+ ["Why can't a client's iPad on guest Wi-Fi find the LED controller?", ["iPads can't use Wi-Fi", "Guest Wi-Fi isolates devices and is often a different subnet", "The controller is too far", "DNS is broken"], 1, "Put the iPad on the same network as the controller."],
+ ["Is blocking unknown MAC addresses good security?", ["Yes, MACs can't be faked", "No, a MAC can be copied easily", "Only on 5 GHz", "Only for Pis"], 1, "Real security is a strong password, updates and closed ports."]
 ],
 "phase-1/day-7.html": [
  ["GPIO17 is on which physical pin?", ["Pin 17", "Pin 11", "Pin 1", "Pin 40"], 1, "Code uses GPIO numbers; GPIO17 sits at physical pin 11."],

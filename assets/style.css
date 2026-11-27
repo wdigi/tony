@@ -244,3 +244,9 @@ ul.check.live input:checked + span { color: var(--muted); text-decoration: line-
 .lesson-row li.on { color: var(--muted); }
 .lesson-row .when { color: var(--muted); font-size: 13px; padding: 0 12px 10px; margin: 0; }
 .lesson-row.none > summary { cursor: default; opacity: .65; }
+
+/* ---------- Fold-out answers in support drills ---------- */
+details.card > summary { cursor: pointer; }
+details.card > summary::marker { color: var(--muted); }
+details.card[open] > summary { margin-bottom: 8px; }
+details.card p { margin: 0; }
