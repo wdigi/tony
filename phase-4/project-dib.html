@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Your project: Virtual Driving School (DIB) · DiGiKits Support Training</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html">DiGiKits Support Training</a>
+<nav><a href="../index.html">Plan</a><a href="../lessons.html">Lessons</a><a href="../coop.html">Co-op</a><a href="../kit.html">Kit</a><a href="../tools.html">Tools</a><a href="../board.html">Board</a><a href="../search.html">Search</a></nav>
+</div></header>
+<main><div class="wrap">
+<p style="color:var(--muted);margin:0">Phase 4 · Your project</p><h1>Virtual Driving School (DIB)</h1>
+<p class="lead">Your Phase 4 project, chosen by your coach: build the 3D model city where learner drivers practise, step by step, using everything from the 3D track.</p>
+<p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
+
+<h2 id="what-it-is">What it is</h2>
+<p><strong>DIB</strong> (Driving school in a Box) is a DiGiKits idea for helping new drivers build muscle memory before, and between, real lessons with an instructor: practise the moves, the checks and the rules in a model city until they come naturally. Your part is the <strong>virtual model city</strong>: a 3D town in the browser where a learner drives a car and the system notices what they did right and wrong.</p>
+<p class="quiet-note">This page covers your technical work only. The wider DIB plan stays with your coach.</p>
+<figure class="fig"><svg class="d" viewBox="0 0 680 118" role="img" aria-label="Where your part fits"><defs><marker id="x1n" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker><marker id="x1a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-a"/></marker><marker id="x1g" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-g"/></marker><marker id="x1r" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-r"/></marker><marker id="x1w" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-w"/></marker><marker id="x1v" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-v"/></marker></defs><rect x="20.0" y="20.0" width="107.2" height="78.0" rx="8" class="b-a" /><text x="73.6" y="44.0" font-size="12.5" text-anchor="middle" class="a" font-weight="700">City data</text><text x="73.6" y="64.0" font-size="11" text-anchor="middle" class="q">roads, lights,</text><text x="73.6" y="78.8" font-size="11" text-anchor="middle" class="q">houses in a file</text><path d="M130.2 59.0L150.2 59.0" class="ln" marker-end="url(#x1n)"/><rect x="153.2" y="20.0" width="107.2" height="78.0" rx="8" class="b-v" /><text x="206.8" y="44.0" font-size="12.5" text-anchor="middle" class="v" font-weight="700">3D scene</text><text x="206.8" y="64.0" font-size="11" text-anchor="middle" class="q">Three.js builds the</text><text x="206.8" y="78.8" font-size="11" text-anchor="middle" class="q">city at real scale</text><path d="M263.4 59.0L283.4 59.0" class="ln" marker-end="url(#x1n)"/><rect x="286.4" y="20.0" width="107.2" height="78.0" rx="8" class="b-g" /><text x="340.0" y="44.0" font-size="12.5" text-anchor="middle" class="g" font-weight="700">Drive</text><text x="340.0" y="64.0" font-size="11" text-anchor="middle" class="q">keyboard, then a</text><text x="340.0" y="78.8" font-size="11" text-anchor="middle" class="q">game controller</text><path d="M396.6 59.0L416.6 59.0" class="ln" marker-end="url(#x1n)"/><rect x="419.6" y="20.0" width="107.2" height="78.0" rx="8" class="b-w" /><text x="473.2" y="44.0" font-size="12.5" text-anchor="middle" class="w" font-weight="700">Rules check</text><text x="473.2" y="64.0" font-size="11" text-anchor="middle" class="q">red lights, stops,</text><text x="473.2" y="78.8" font-size="11" text-anchor="middle" class="q">speed: a score</text><path d="M529.8 59.0L549.8 59.0" class="ln" marker-end="url(#x1n)"/><rect x="552.8" y="20.0" width="107.2" height="78.0" rx="8" class="b" /><text x="606.4" y="44.0" font-size="12.5" text-anchor="middle" font-weight="700">Big Screen</text><text x="606.4" y="64.0" font-size="11" text-anchor="middle" class="q">kiosk mode,</text><text x="606.4" y="78.8" font-size="11" text-anchor="middle" class="q">Phase 2</text></svg><figcaption>Each box is one milestone's worth of work. You'll use Phase 4 Days 1–7 for the 3D, Phase 2 for the kiosk, and Phase 3's habits for testing and writing it up.</figcaption></figure>
+<h2 id="look">How the city should look</h2>
+<figure class="fig"><svg class="d" viewBox="0 0 680 246" role="img" aria-label="Design rules for the model city"><defs><marker id="x2n" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker><marker id="x2a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-a"/></marker><marker id="x2g" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-g"/></marker><marker id="x2r" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-r"/></marker><marker id="x2w" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-w"/></marker><marker id="x2v" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-v"/></marker></defs><rect x="20.0" y="14.0" width="202.7" height="95.0" rx="10" class="b-w" /><text x="121.3" y="40.0" font-size="13.5" text-anchor="middle" class="w" font-weight="700">Sunny, outdoors</text><text x="121.3" y="62.0" font-size="12" text-anchor="middle" class="q">bright daylight and</text><text x="121.3" y="78.2" font-size="12" text-anchor="middle" class="q">soft shadows, always</text><rect x="238.7" y="14.0" width="202.7" height="95.0" rx="10" class="b-a" /><text x="340.0" y="40.0" font-size="13.5" text-anchor="middle" class="a" font-weight="700">Uptown, low-rise</text><text x="340.0" y="62.0" font-size="12" text-anchor="middle" class="q">houses and small</text><text x="340.0" y="78.2" font-size="12" text-anchor="middle" class="q">shops; no towers</text><rect x="457.3" y="14.0" width="202.7" height="95.0" rx="10" class="b-g" /><text x="558.7" y="40.0" font-size="13.5" text-anchor="middle" class="g" font-weight="700">Only city</text><text x="558.7" y="62.0" font-size="12" text-anchor="middle" class="q">no table, no room:</text><text x="558.7" y="78.2" font-size="12" text-anchor="middle" class="q">the city is everything</text><text x="558.7" y="94.4" font-size="12" text-anchor="middle" class="q">you see</text><rect x="20.0" y="125.0" width="202.7" height="95.0" rx="10" class="b-v" /><text x="121.3" y="151.0" font-size="13.5" text-anchor="middle" class="v" font-weight="700">Real scale</text><text x="121.3" y="173.0" font-size="12" text-anchor="middle" class="q">metres: lanes 3.5 m,</text><text x="121.3" y="189.2" font-size="12" text-anchor="middle" class="q">car about 4.5 m</text><rect x="238.7" y="125.0" width="202.7" height="95.0" rx="10" class="b-r" /><text x="340.0" y="151.0" font-size="13.5" text-anchor="middle" class="r" font-weight="700">Real rules</text><text x="340.0" y="173.0" font-size="12" text-anchor="middle" class="q">Ontario Driver's</text><text x="340.0" y="189.2" font-size="12" text-anchor="middle" class="q">Handbook: signs,</text><text x="340.0" y="205.4" font-size="12" text-anchor="middle" class="q">lights, right of way</text><rect x="457.3" y="125.0" width="202.7" height="95.0" rx="10" class="b" /><text x="558.7" y="151.0" font-size="13.5" text-anchor="middle" font-weight="700">Data-driven</text><text x="558.7" y="173.0" font-size="12" text-anchor="middle" class="q">the layout lives in</text><text x="558.7" y="189.2" font-size="12" text-anchor="middle" class="q">a file, not in code</text></svg><figcaption>Script-driven and at real scale, the DiGiKits 3D Concept way (Phase 4 Days 4–5): change the file, the city changes.</figcaption></figure>
+<h2 id="city-file">Start from a city file</h2>
+<pre><code>// city.json  - the whole city is data; the code just builds what's listed
+{
+  "units": "metres",
+  "lane_width": 3.5,
+  "roads": [
+    { "from": [0, 0],   "to": [200, 0],   "lanes": 2, "speed_limit": 50 },
+    { "from": [100, -80], "to": [100, 80], "lanes": 2, "speed_limit": 40 }
+  ],
+  "intersections": [ { "at": [100, 0], "control": "traffic_light" } ],
+  "buildings": [ { "at": [40, 20], "size": [12, 10, 7], "type": "house" } ],
+  "trees":     [ [30, -12], [55, -12], [150, 14] ]
+}</code></pre>
+<p>Your code reads this file and builds roads, buildings and trees from it. Adding a street means adding a line, not writing new code. Later the same file can drive a route library ("road-test routes") and a physical scale model.</p>
+
+<h2 id="milestones">Milestones</h2>
+<div class="table-scroll"><table>
+<tr><th>#</th><th>Milestone</th><th>Done when</th><th>Builds on</th></tr>
+<tr><td>1</td><td>One sunny city block</td><td>Roads, 5 houses, trees from city.json; sun and shadows; orbit camera</td><td>Phase 4 Days 6–7</td></tr>
+<tr><td>2</td><td>Drive a car</td><td>Arrow keys drive a 4.5 m car; follow camera behind it; it can't drive through houses</td><td>Days 5–6</td></tr>
+<tr><td>3</td><td>Traffic lights and stop signs</td><td>Lights cycle on a timer; a stop sign at one corner</td><td>Physical AI Lesson 3 (timing)</td></tr>
+<tr><td>4</td><td>Rule checks and a score</td><td>Running a red, rolling a stop or speeding shows a message and costs points</td><td>Python/JS logic</td></tr>
+<tr><td>5</td><td>Game controller</td><td>A gamepad (or steering wheel) drives the car through the browser's Gamepad API</td><td>Day 6</td></tr>
+<tr><td>6</td><td>On the Big Screen</td><td>Runs full screen on the kiosk Pi, smooth enough to drive</td><td>Phase 2 Days 3–4</td></tr>
+</table></div>
+<p>One milestone at a time, as a thin slice (Day 9): each one runs end to end before the next starts. Your coach may reorder them.</p>
+
+<h2 id="brief">Your one-page brief</h2>
+<pre><code>Project name:  DIB model city (dib-city)
+What it does:  A sunny low-rise 3D town in the browser where a learner drives a car
+               and gets told when they break a rule.
+Who uses it:   Learner drivers practising; DiGiKits as a demo on the Big Screen.
+Done when:     1. The city builds from city.json at real scale
+               2. A learner can drive around it with keyboard or game controller
+               3. Red lights, stop signs and speed are checked and scored
+First milestone (one week): Milestone 1, one sunny city block.</code></pre>
+<p>Create a GitHub repo called <code>dib-city</code>, put this brief in its README, and add each milestone as an issue (Phase 2 Day 10).</p>
+
+<h2 id="done-when">Done when</h2>
+<ul class="check"><li>Milestone 1: one sunny city block from city.json</li><li>Milestone 2: drive a car with the arrow keys</li><li>Milestone 3: traffic lights and a stop sign</li><li>Milestone 4: rule checks and a score</li><li>Milestone 5: game controller</li><li>Milestone 6: runs on the Big Screen</li><li>The dib-city repo has the brief, the issues and a README a newcomer can follow</li></ul>
+<h2 id="support-drill">Working tips</h2>
+<p>Try each one before you open the answer.</p>
+<details class="card"><summary><strong>The car looks tiny, or the houses look huge.</strong></summary><p>Something isn't in metres. Check every size against real life: lane 3.5 m, car 4.5 × 1.8 m, a house about 10 m wide (Day 1).</p></details>
+<details class="card"><summary><strong>It's smooth on the laptop and jerky on the Pi.</strong></summary><p>Too many triangles or shadows. Simplify buildings to boxes with good colours, limit shadows to the sun, and test on the Pi every milestone, not at the end.</p></details>
+<details class="card"><summary><strong>You want to add a feature that isn't on the list.</strong></summary><p>Write it down as a GitHub issue labelled "later" and keep going with the current milestone. Ask your coach before switching.</p></details>
+<details class="card"><summary><strong>Claude wrote the whole car physics for you, and it almost works.</strong></summary><p>Ask for smaller pieces you can understand: first just moving forward, then turning, then stopping at houses. Test each before the next (Phase 3 Day 6).</p></details>
+
+<div class="pager"><a href="day-8.html">← Day 8: Choose your project</a><a href="day-9.html">Day 9: Project: first milestone →</a></div>
+<p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
+<section class="board">
+<h2 id="how-did-it-feel">How did this lesson feel?</h2>
+<div class="card feel"><p><strong>Too much, just right, or too easy?</strong> Tell me in a line or two below, and ask anything that wasn't clear. For example: <em>“DIB project: just right. The drawings helped, the second part was hard.”</em></p><p>Be honest. If a lesson is too much, we change the lesson, not you. Take your time; there is no rush.</p><p class="sign">Your coach</p></div>
+<p class="quiet-note">Sign in with your GitHub account to post, or just tap a reaction. Posts are public, so never share passwords or personal details.</p>
+<script src="https://giscus.app/client.js"
+ data-repo="wdigi/tony" data-repo-id="R_kgDOV5dORw"
+ data-category="Announcements" data-category-id="DIC_kwDOV5dOR84DL1hi"
+ data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0"
+ data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy"
+ crossorigin="anonymous" async></script>
+</section>
+</div></main>
+<footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
+<script src="../assets/quiz-data.js" defer></script>
+<script src="../assets/quiz.js" defer></script>
+<script src="../assets/progress-config.js" defer></script>
+<script src="../assets/account.js" defer></script>
+<script src="../assets/progress.js" defer></script>
+</body>
+</html>
