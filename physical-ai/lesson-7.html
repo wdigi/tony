@@ -64,17 +64,17 @@
 <div class="card"><p style="margin:0"><strong>Support tip:</strong> if a serial console shows garbage like <code>ÿ~€x</code>, the wires are usually fine. The baud rate is wrong. Tick the box above to see why: the receiver reads the bits at the wrong moments and gets a different byte.</p></div>
 
 <h2 id="i2c">Many devices on two wires: I²C</h2>
-<p><strong>I²C</strong> (say “I-squared-C”) lets one controller talk to many small devices over just two wires: <strong>SDA</strong> (data) and <strong>SCL</strong> (clock). Every device has an <strong>address</strong>, the hex numbers you met in Lessons 2 and 5. The Pi calls out an address; only that device answers. Click a device.</p>
+<p><strong>I²C</strong> (say “I-squared-C”) lets one controller talk to many small devices over just two wires: <strong>SDA</strong> (data) and <strong>SCL</strong> (clock). Every device has an <strong>address</strong>, the hex numbers you met in Lessons 2 and 5. The microcontroller calls out an address; only that device answers. Click a device.</p>
 <div class="demo" id="i2c">
-<div class="d-head"><span class="d-title">I²C bus: the Pi calls a device</span></div>
-<svg class="d" viewBox="0 0 600 210" role="img" aria-label="A Raspberry Pi and three devices on an I2C bus">
-<rect x="10" y="40" width="110" height="70" rx="10" class="b-a"/><text x="65" y="72" font-size="13.5" text-anchor="middle" font-weight="600">Raspberry Pi</text><text x="65" y="90" font-size="12" text-anchor="middle" fill="var(--muted)">controller</text>
+<div class="d-head"><span class="d-title">I²C bus: the microcontroller calls a device</span></div>
+<svg class="d" viewBox="0 0 600 210" role="img" aria-label="A Pico 2 and three devices on an I2C bus">
+<rect x="10" y="40" width="110" height="70" rx="10" class="b-a"/><text x="65" y="72" font-size="13.5" text-anchor="middle" font-weight="600">Pico 2</text><text x="65" y="90" font-size="12" text-anchor="middle" fill="var(--muted)">controller</text>
 <line x1="120" y1="62" x2="590" y2="62" stroke="var(--wire-data)" stroke-width="3"/><text x="128" y="56" font-size="12" fill="var(--muted)">SDA (data)</text>
 <line x1="120" y1="88" x2="590" y2="88" stroke="var(--wire-yel)" stroke-width="3"/><text x="128" y="104" font-size="12" fill="var(--muted)">SCL (clock)</text>
 <g id="devs"></g>
 <circle id="pkt" class="pkt" cx="120" cy="62" r="7" opacity="0"/>
 </svg>
-<p class="say" id="iSay" aria-live="polite">Click a device to have the Pi call its address.</p>
+<p class="say" id="iSay" aria-live="polite">Click a device to have the Pico call its address.</p>
 </div>
 
 <h2 id="spi">Fast and simple: SPI</h2>
@@ -113,7 +113,7 @@
 <tr><th>What you see</th><th>Likely cause</th><th>First check</th></tr>
 <tr><td>Serial console shows garbage characters</td><td>Wrong baud rate</td><td>Set both sides to the same speed (often 115200)</td></tr>
 <tr><td>Serial shows nothing at all</td><td>TX and RX not crossed, or no common ground</td><td>TX → RX, RX → TX, ground → ground</td></tr>
-<tr><td>I²C device missing</td><td>Wiring, power, wrong address, or I²C not enabled</td><td><code>i2cdetect -y 1</code>; enable I²C in <code>raspi-config</code></td></tr>
+<tr><td>I²C device missing</td><td>Wiring, power, wrong address, or I²C not enabled</td><td>Run the I²C scan sketch below; check SDA and SCL pins</td></tr>
 <tr><td>Two I²C devices clash</td><td>Same address on the same bus</td><td>Change one device's address jumper, or use a second bus</td></tr>
 <tr><td>RS-485 or CAN errors on long runs</td><td>Missing terminators, untwisted cable</td><td>120 Ω at both ends; twisted-pair cable</td></tr>
 <tr><td>Device online but no MQTT messages</td><td>Broker down, wrong topic, wrong password</td><td>Is the broker running? Is the topic spelled exactly the same?</td></tr>
@@ -123,10 +123,23 @@
 <h3 id="uart-play">1. Read a frame</h3>
 <p>Send your initial in the UART drawing. Write down its 10 bits (start, 8 data, stop). Then tick the wrong-baud box and note which character arrives instead.</p>
 <h3 id="i2c-pi">2. Scan the I²C bus</h3>
-<p>On the Pi, enable I²C (<code>sudo raspi-config</code> → Interface Options → I2C), then:</p>
-<pre><code>sudo apt install -y i2c-tools
-i2cdetect -y 1          # a grid of addresses; a number means a device answered</code></pre>
-<p>With nothing connected the grid is empty, and that's a correct result too. If your kit has an I²C sensor or display, connect it and scan again.</p>
+<p>On your controller's Pico 2, upload this scan sketch with PlatformIO and open the Serial Monitor. The Pico's first I²C bus uses <strong>GP4 (SDA)</strong> and <strong>GP5 (SCL)</strong>:</p>
+<pre><code>#include &lt;Arduino.h&gt;
+#include &lt;Wire.h&gt;
+
+void setup() {
+  Serial.begin(115200);
+  delay(2000);                           // time to open the Serial Monitor
+  Wire.begin();
+  for (int addr = 1; addr &lt; 127; addr++) {
+    Wire.beginTransmission(addr);
+    if (Wire.endTransmission() == 0) Serial.printf("found device at 0x%02X\n", addr);
+  }
+  Serial.println("scan done");
+}
+
+void loop() {}</code></pre>
+<p>With nothing connected you see only "scan done", and that's a correct result too. If your kit has an I²C sensor or display, connect it (3.3 V, GND, SDA, SCL) and scan again. Upload your controller firmware again afterwards.</p>
 <h3 id="map-system">3. Map a system</h3>
 <p>Pick a DiGiKits system you know (like the Big Screen or the LED controller) or any smart device at home. Draw the boxes and label each link with the protocol you think it uses. Post your drawing or a description on the board below.</p>
 
@@ -144,7 +157,7 @@ i2cdetect -y 1          # a grid of addresses; a number means a device answered<
 <li>I can explain what a protocol is and why both sides must follow the same rules</li>
 <li>I can name the three families by distance, with two examples each</li>
 <li>I can explain a UART frame and why a wrong baud rate gives garbage</li>
-<li>I can explain I²C addresses and use <code>i2cdetect</code></li>
+<li>I can explain I²C addresses and run an I²C scan on the microcontroller</li>
 <li>I can explain MQTT publish, subscribe and broker</li>
 <li>I posted my system map on the board</li>
 <li>Gate: I drew the full loop for one DiGiKits system and explained it to my coach</li>
@@ -213,7 +226,7 @@ i2cdetect -y 1          # a grid of addresses; a number means a device answered<
 /* I2C bus */
 (function () {
   var $ = function (id) { return document.getElementById(id); }, reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var devs = [{ x: 190, addr: "0x3C", name: "Display", reply: "shows the text the Pi sends" }, { x: 330, addr: "0x48", name: "ADC chip", reply: "replies with a reading, e.g. 0x0800" }, { x: 470, addr: "0x76", name: "Temp sensor", reply: "replies with the temperature" }];
+  var devs = [{ x: 190, addr: "0x3C", name: "Display", reply: "shows the text the Pico sends" }, { x: 330, addr: "0x48", name: "ADC chip", reply: "replies with a reading, e.g. 0x0800" }, { x: 470, addr: "0x76", name: "Temp sensor", reply: "replies with the temperature" }];
   var g = $("devs"), h = "";
   devs.forEach(function (d, i) {
     h += '<line x1="' + (d.x + 40) + '" y1="62" x2="' + (d.x + 40) + '" y2="140" stroke="var(--wire-data)" stroke-width="2"/><line x1="' + (d.x + 52) + '" y1="88" x2="' + (d.x + 52) + '" y2="140" stroke="var(--wire-yel)" stroke-width="2"/>';
@@ -224,7 +237,7 @@ i2cdetect -y 1          # a grid of addresses; a number means a device answered<
   function call(i) {
     var d = devs[i];
     els.forEach(function (e) { e.classList.remove("on", "no"); });
-    $("iSay").textContent = "Pi: “Device " + d.addr + ", are you there?” Every device hears it…";
+    $("iSay").textContent = "Pico: “Device " + d.addr + ", are you there?” Every device hears it…";
     var t0 = null, dur = 900, xEnd = d.x + 40;
     function done() {
       els.forEach(function (e, j) { e.classList.add(j === i ? "on" : "no"); });

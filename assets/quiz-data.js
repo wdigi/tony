@@ -47,8 +47,8 @@ window.QUIZ = {
  ["What does an ADC do?", ["Turns a smooth voltage into a number", "Turns numbers into sound", "Stores files", "Connects to Wi-Fi"], 0, "Analog in, digital number out."],
  ["A 12-bit ADC with a 3.3 V range reads 1.65 V. About what number does it give?", ["165", "1024", "2048", "4095"], 2, "Half of 3.3 V is half of 4095, about 2048."],
  ["You lower the resolution from 12 bits to 3 bits. What happens?", ["It can tell only 8 steps apart, so detail is lost", "It samples faster", "Nothing changes", "The voltage goes up"], 0, "3 bits give 2³ = 8 levels instead of 4096."],
- ["A customer wired an analog light sensor straight to a Pi GPIO pin. Why won't it give a reading?", ["The Pi's GPIO pins are digital only; it has no ADC", "The sensor needs Wi-Fi", "GPIO pins only work at night", "The Pi needs more RAM"], 0, "Use an ADC chip, a microcontroller, or a digital sensor."],
- ["What's the highest voltage you may connect to an ADC or GPIO pin on a Pi or Pico?", ["12 V", "5 V", "3.3 V", "Any voltage"], 2, "Above 3.3 V can damage the pin or the chip; use a divider or level shifter."]
+ ["A customer wired an analog light sensor straight to a Pi GPIO pin. Why won't it give a reading?", ["The Pi's GPIO pins are digital only; it has no ADC", "The sensor needs Wi-Fi", "GPIO pins only work at night", "The Pi needs more RAM"], 0, "At DiGiKits, sensors connect to the controller's microcontroller, never to the Pi."],
+ ["What's the highest voltage you may connect to an ADC or GPIO pin on a Pico?", ["12 V", "5 V", "3.3 V", "Any voltage"], 2, "Above 3.3 V can damage the pin or the chip; use a divider or level shifter."]
 ],
 "physical-ai/lesson-3.html": [
  ["Two switches wired in series behave like which gate?", ["OR", "AND", "NOT", "None"], 1, "Current must pass through both, so both must be closed: AND."],
@@ -137,7 +137,7 @@ window.QUIZ = {
  ["What is 644 in letters?", ["rwxr-xr-x", "rw-r--r--", "rw-------", "rwxrwxrwx"], 1, "6 = rw, 4 = r, 4 = r."],
  ["Which number for a private key file?", ["777", "755", "600", "644"], 2, "Only the owner can read or write it."],
  ["Why always use -aG with usermod?", ["It's faster", "Without -a, the user loses all other groups", "It makes a new user", "It deletes the user"], 1, "-a adds; -G alone replaces."],
- ["A user was just added to gpio but still gets permission denied. Why?", ["The Pi is broken", "Groups change only after logging in again", "GPIO needs 777", "Wrong Wi-Fi"], 1, "Log out and in, or reboot."],
+ ["A user was just added to dialout but still gets permission denied. Why?", ["The Pi is broken", "Groups change only after logging in again", "dialout needs 777", "Wrong Wi-Fi"], 1, "Log out and in, or reboot."],
  ["Where are system settings usually kept?", ["/home", "/etc", "/tmp", "/var/log"], 1, "/etc holds configuration files."]
 ],
 "phase-1/day-6.html": [
@@ -158,19 +158,15 @@ window.QUIZ = {
  ["Which router feature should be off on a DiGiKits-managed network?", ["DHCP", "WPS and remote management", "Wi-Fi", "The firewall"], 1, "They make attacks easier. We use Tailscale for remote access."]
 ],
 "phase-1/day-7.html": [
- ["GPIO17 is on which physical pin?", ["Pin 17", "Pin 11", "Pin 1", "Pin 40"], 1, "Code uses GPIO numbers; GPIO17 sits at physical pin 11."],
- ["Which LED leg goes towards GPIO17 through the resistor?", ["The short leg", "The long leg", "Either", "Neither: it goes to 5V"], 1, "The long leg (+) goes towards the GPIO side; the short leg goes to ground."],
- ["Why is the 330 Ω resistor there?", ["To make the LED brighter", "To limit the current so the LED and pin aren't damaged", "To store power", "Decoration"], 1, "Without it, too much current flows through the LED and the pin."],
- ["The LED won't light. What is a good first step?", ["Buy a new Pi", "Check whether it's code or wiring, e.g. test the code another way", "Rewrite everything", "Use a bigger resistor"], 1, "Split the problem: software or wiring?"],
- ["Where do you look first in a Python traceback?", ["The first line", "The last line", "The middle", "Nowhere"], 1, "The last line says what went wrong."],
- ["What voltage is safe on a Pi GPIO pin?", ["5 V", "12 V", "3.3 V", "Any"], 2, "GPIO pins are 3.3 V only."],
- ["Why does a button between GPIO27 and GND need no resistor?", ["It does", "The Pi's built-in pull-up holds the pin high", "Buttons have resistors inside", "GND is a resistor"], 1, "Pressing joins the pin to GND."],
- ["One press counts three times. Fix?", ["Use a bigger LED", "bounce_time on the Button", "Reboot", "A new Pi"], 1, "bounce_time ignores the extra contacts."],
- ["Which class dims an LED?", ["LED", "PWMLED", "Button", "Buzzer"], 1, "PWM switches fast to set brightness (Physical AI Lesson 5)."],
- ["Which language is DiGiKits firmware written in?", ["MicroPython", "C/C++", "JavaScript", "Bash"], 1, "Compiled C/C++ with the Arduino framework, built with PlatformIO."],
- ["What does PlatformIO add?", ["A new chip", "Builds and uploads firmware; one platformio.ini fixes board, framework and library versions", "A web browser", "Wi-Fi"], 1, "And that file lives in Git."],
+ ["At DiGiKits, what connects to the Pi's GPIO pins?", ["LEDs", "Buttons", "Nothing: hardware goes to a microcontroller", "Sensors"], 2, "The Pi talks to controllers over the network only."],
+ ["What is inside a DiGiKits LED Controller?", ["A Raspberry Pi", "A network module and a microcontroller", "Only a power supply", "A router"], 1, "Computer → network → [network module + microcontroller]."],
+ ["Which language is DiGiKits firmware written in?", ["MicroPython", "C/C++", "JavaScript", "Bash"], 1, "C/C++ with the Arduino framework, built with PlatformIO."],
+ ["What does PlatformIO add?", ["A new chip", "Builds and uploads firmware; platformio.ini fixes board, framework and library versions", "A web browser", "Wi-Fi"], 1, "And that file lives in Git."],
  ["In Arduino code, how often does setup() run?", ["Every loop", "Once at power-on", "Never", "Every second"], 1, "loop() runs over and over."],
- ["In the example, who drives the LED timing?", ["The Pi", "The Pico", "The laptop", "The router"], 1, "The Pi sends commands; the Pico does the exact timing."]
+ ["Serial Monitor works; over the network you get no reply. Check first…", ["The LED", "TX/RX wiring, grounds and baud between module and Pico", "Python version", "The SD card"], 1, "The firmware is proven; the break is after it."],
+ ["“Connection refused” from the Pi means…", ["Nothing answered", "The module answered but nothing listens on that port", "Wrong LED", "No power"], 1, "Check TCP server mode and port 5000."],
+ ["Where do you look first in a Python traceback?", ["The first line", "The last line", "The middle", "Nowhere"], 1, "The last line says what went wrong."],
+ ["What voltage is safe on a Pico pin?", ["5 V", "12 V", "3.3 V", "Any"], 2, "Pico pins are 3.3 V only."]
 ],
 "phase-1/day-8.html": [
  ["Why does the LED strip get its own 5 V supply?", ["It looks tidier", "A strip draws amps; a GPIO pin only gives a few milliamps", "The Pi has no 5 V", "It's cheaper"], 1, "30 LEDs can draw about 1.8 A. The Pi only sends the data signal."],
@@ -279,13 +275,13 @@ window.QUIZ = {
  ["Why keep the data wire short?", ["Cheaper", "Long data wires pick up noise", "Faster colours", "Less heat"], 1, "Run the power long, keep data short."]
 ],
 "phase-2/day-7.html": [
- ["Which language does DiGiKits use for microcontroller firmware?", ["MicroPython", "C/C++ with the Arduino framework", "Bash", "JavaScript"], 1, "Built and uploaded with PlatformIO in VS Code."],
+ ["Which language does DiGiKits use for controller firmware?", ["MicroPython", "C/C++ with the Arduino framework", "Bash", "JavaScript"], 1, "Built and uploaded with PlatformIO in VS Code."],
  ["Which file must be committed so the firmware builds the same everywhere?", ["The .pio folder", "platformio.ini", "The .uf2", "None"], 1, "Board, framework and library versions; .pio/ stays out of Git."],
- ["How often does setup() run?", ["Every loop", "Once at power-on", "Every second", "Never"], 1, "loop() runs over and over."],
  ["Why use millis() instead of delay() in loop()?", ["It's shorter", "delay() freezes the board, so commands aren't read", "millis() is more accurate", "No reason"], 1, "Firmware must stay responsive."],
- ["When do you need to hold BOOTSEL?", ["Every upload", "The first upload (or if the firmware is badly stuck)", "Never", "To reset the strip"], 1, "After that, uploads work over USB."],
- ["bridge.py says the serial port is busy. Most likely?", ["Broken Pico", "The Serial Monitor still has it open", "Wrong colour", "Firewall"], 1, "Only one program can use a port at a time."],
- ["The board resets when the strip goes white. Why?", ["Bad code", "The strip draws power through the board's supply", "Wrong file name", "Wi-Fi"], 1, "Separate supply, shared ground."]
+ ["Serial1 in the firmware talks to…", ["The Pi's GPIO", "The network module", "The LED strip", "The laptop's USB"], 1, "Serial is USB for bench tests; Serial1 is the network module."],
+ ["Which test proves the network module and port are reachable?", ["pio run", "nc -zv 192.168.50.60 5000", "df -h", "git status"], 1, "Then check the serial side and the firmware."],
+ ["The board resets when the strip goes white. Why?", ["Bad code", "The strip draws power through the board's supply", "Wrong file name", "Wi-Fi"], 1, "Separate supply, shared ground."],
+ ["After a power cut the controller got a new IP. Fix?", ["Reboot the Pi", "Reserve the module's IP in the router", "Reflash the firmware", "Change the port"], 1, "Phase 1 Day 6."]
 ],
 "phase-2/day-8.html": [
  ["Image versus container?", ["Same thing", "Image is the package; container is a running copy", "Container is the package; image is running", "Images are only photos"], 1, "One image, many containers, like a recipe and the cakes."],

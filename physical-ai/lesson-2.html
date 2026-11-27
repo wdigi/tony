@@ -93,8 +93,8 @@
 <div class="table-scroll"><table>
 <tr><th>Rung</th><th>What it looks like</th><th>Who writes it</th></tr>
 <tr><td>Plain English</td><td><em>“Turn on the LED on pin 17.”</em></td><td>You, to Claude</td></tr>
-<tr><td>Python (on the Pi)</td><td><code>LED(17).on()</code></td><td>People or AI; run by the Python interpreter</td></tr>
-<tr><td>C (firmware on a microcontroller)</td><td><code>gpio_put(17, 1);</code></td><td>People or AI; turned into machine code by a compiler</td></tr>
+<tr><td>Python (on the Pi)</td><td><code>send(f, "LED 1")</code></td><td>People or AI; run by the Python interpreter. The Pi asks the controller over the network.</td></tr>
+<tr><td>C/C++ (firmware on the controller's microcontroller)</td><td><code>digitalWrite(15, HIGH);</code></td><td>People or AI; turned into machine code by a compiler</td></tr>
 <tr><td>Assembly (simplified)</td><td><code>MOV r0, #1</code> … <code>STR r0, [r1]</code></td><td>Rarely written by hand now; produced by the compiler</td></tr>
 <tr><td>Machine code</td><td>bytes like <code>01 20 08 60</code> (illustration; real examples in the live session)</td><td>Never written by hand; this is what the CPU reads</td></tr>
 </table></div>

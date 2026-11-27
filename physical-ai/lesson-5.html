@@ -91,29 +91,17 @@
 </div>
 <div class="card accent"><p style="margin:0"><strong>Same idea everywhere.</strong> A phone microphone samples sound about 48,000 times per second at 16 bits or more. A thermostat might sample once a second, because room temperature changes slowly. Choosing “fast enough and fine enough, but no more” is an everyday engineering decision.</p></div>
 
-<h2 id="pi-and-adc">Important for support: the Pi has no ADC</h2>
-<p>A Raspberry Pi's GPIO pins are <strong>digital only</strong>: each one reads just high or low. To read an analog sensor, a DiGiKits system uses one of three routes:</p>
-<figure class="fig"><svg class="d" viewBox="0 0 680 230" role="img" aria-label="Three ways to get an analog reading into a Raspberry Pi: an ADC chip over I2C, a microcontroller with a built-in ADC, or a digital sensor with its own ADC inside"><defs><marker id="l4b" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
-<g font-size="13">
-<rect x="10" y="14" width="150" height="50" rx="8" class="b-v"/><text x="85" y="44" text-anchor="middle" font-weight="600">Analog sensor</text>
-<rect x="230" y="14" width="200" height="50" rx="8" class="b-w"/><text x="330" y="36" text-anchor="middle" font-weight="600">ADC chip</text><text x="330" y="54" text-anchor="middle" font-size="12" class="q">e.g. ADS1115, I²C 0x48</text>
-<rect x="10" y="88" width="150" height="50" rx="8" class="b-v"/><text x="85" y="118" text-anchor="middle" font-weight="600">Analog sensor</text>
-<rect x="230" y="88" width="200" height="50" rx="8" class="b-w"/><text x="330" y="110" text-anchor="middle" font-weight="600">Microcontroller</text><text x="330" y="128" text-anchor="middle" font-size="12" class="q">RP2350 / Pico, ADC built in</text>
-<rect x="10" y="162" width="420" height="50" rx="8" class="b-w"/><text x="220" y="184" text-anchor="middle" font-weight="600">Digital sensor (ADC inside the sensor)</text><text x="220" y="202" text-anchor="middle" font-size="12" class="q">e.g. a temperature and humidity sensor on I²C 0x76</text>
-<rect x="520" y="70" width="150" height="90" rx="10" class="b-a"/><text x="595" y="112" text-anchor="middle" font-weight="600">Raspberry Pi</text><text x="595" y="130" text-anchor="middle" font-size="12" class="q">digital only</text>
-</g>
-<g stroke="var(--muted)" stroke-width="1.5" fill="none"><line x1="161" y1="39" x2="227" y2="39" marker-end="url(#l4b)"/><line x1="161" y1="113" x2="227" y2="113" marker-end="url(#l4b)"/>
-<path d="M431 39 H480 V95 H516" marker-end="url(#l4b)"/><line x1="431" y1="113" x2="516" y2="113" marker-end="url(#l4b)"/><path d="M431 187 H480 V135 H516" marker-end="url(#l4b)"/></g>
-<g font-size="12" class="q"><text x="194" y="32" text-anchor="middle">volts</text><text x="194" y="106" text-anchor="middle">volts</text><text x="474" y="30">I²C</text><text x="438" y="106">USB/serial</text><text x="438" y="180">I²C</text></g>
-</svg><figcaption>Something has to do the analog-to-digital step before the Pi sees a number.</figcaption></figure>
+<h2 id="pi-and-adc">Important for support: sensors go to the microcontroller</h2>
+<p>A Raspberry Pi has no ADC at all, and at DiGiKits the Pi never connects to hardware anyway. Every sensor connects to the <strong>microcontroller</strong> inside a controller, which reads it and reports the value over the network. The microcontroller can get an analog reading three ways:</p>
+<figure class="fig"><svg class="d" viewBox="0 0 680 135" role="img" aria-label="Three ways a controller&#x27;s microcontroller reads an analog sensor"><defs><marker id="x7n" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker><marker id="x7a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-a"/></marker><marker id="x7g" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-g"/></marker><marker id="x7r" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-r"/></marker><marker id="x7w" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-w"/></marker><marker id="x7v" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-v"/></marker></defs><rect x="20.0" y="14.0" width="202.7" height="95.0" rx="10" class="b-g" /><text x="121.3" y="40.0" font-size="13.5" text-anchor="middle" class="g" font-weight="700">Built-in ADC</text><text x="121.3" y="62.0" font-size="12" text-anchor="middle" class="q">the RP2350 has ADC</text><text x="121.3" y="78.2" font-size="12" text-anchor="middle" class="q">inputs (Pico 2: GP26,</text><text x="121.3" y="94.4" font-size="12" text-anchor="middle" class="q">GP27, GP28)</text><rect x="238.7" y="14.0" width="202.7" height="95.0" rx="10" class="b-a" /><text x="340.0" y="40.0" font-size="13.5" text-anchor="middle" class="a" font-weight="700">ADC chip</text><text x="340.0" y="62.0" font-size="12" text-anchor="middle" class="q">e.g. a 16-bit chip on</text><text x="340.0" y="78.2" font-size="12" text-anchor="middle" class="q">the microcontroller's</text><text x="340.0" y="94.4" font-size="12" text-anchor="middle" class="q">I²C bus (Lesson 7)</text><rect x="457.3" y="14.0" width="202.7" height="95.0" rx="10" class="b-v" /><text x="558.7" y="40.0" font-size="13.5" text-anchor="middle" class="v" font-weight="700">Digital sensor</text><text x="558.7" y="62.0" font-size="12" text-anchor="middle" class="q">has its own ADC inside</text><text x="558.7" y="78.2" font-size="12" text-anchor="middle" class="q">and sends numbers</text><text x="558.7" y="94.4" font-size="12" text-anchor="middle" class="q">over I²C or UART</text></svg><figcaption>Whichever way, the computer only ever sees numbers arriving over the network from the controller.</figcaption></figure>
 <div class="table-scroll"><table>
 <tr><th>What the customer sees</th><th>Likely cause</th><th>First check</th></tr>
 <tr><td>Reading stuck at 0</td><td>Sensor not powered, or signal wire loose</td><td>Power and wiring; measure the voltage with a meter</td></tr>
 <tr><td>Reading stuck at maximum (4095 or 65535)</td><td>Signal wire touching the supply, or the sensor's ground wire missing</td><td>Wiring and ground; measure the signal voltage with a meter</td></tr>
 <tr><td>Reading jumps around a lot</td><td>Signal wire disconnected (a “floating” input), electrical noise, long wires</td><td>Shorter wires, common ground, average several samples</td></tr>
-<tr><td>“No device” on the I²C bus</td><td>Wrong address or wiring (SDA/SCL swapped)</td><td><code>i2cdetect -y 1</code> on the Pi to list addresses</td></tr>
+<tr><td>“No device” on the I²C bus</td><td>Wrong address or wiring (SDA/SCL swapped)</td><td>Run the I²C scan sketch (Lesson 7) on the microcontroller to list addresses</td></tr>
 </table></div>
-<div class="card"><p style="margin:0"><strong>Safety for the hardware:</strong> never connect more than 3.3 V to an ADC or GPIO pin on a Pi, Pico or RP2350. A 5 V or 12 V sensor needs a voltage divider or a level shifter first, or the pin (and sometimes the whole chip) is damaged.</p></div>
+<div class="card"><p style="margin:0"><strong>Safety for the hardware:</strong> never connect more than 3.3 V to an ADC or GPIO pin on a Pico or RP2350. A 5 V or 12 V sensor needs a voltage divider or a level shifter first, or the pin (and sometimes the whole chip) is damaged.</p></div>
 
 <h2 id="hands-on">Hands-on</h2>
 <h3 id="calc">1. Do the ADC's job</h3>
@@ -142,7 +130,7 @@ void loop() {
 <li>I can explain what an ADC does in one sentence</li>
 <li>I can work out a 12-bit ADC number from a voltage</li>
 <li>I can explain sample rate and resolution, and what happens when each is too low</li>
-<li>I know the Pi has no ADC, and the three ways DiGiKits reads analog sensors</li>
+<li>I know sensors connect to the controller's microcontroller, never to the Pi, and the three ways it reads analog sensors</li>
 <li>I know never to put more than 3.3 V on an ADC or GPIO pin</li>
 <li>I posted my “break the copy” numbers on the board</li>
 </ul>

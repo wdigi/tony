@@ -62,7 +62,7 @@
 </table></div>
 
 <h2 id="pwm">PWM: dimming with only on and off</h2>
-<p>A GPIO pin can only be fully on (3.3 V) or fully off (0 V). So how do you make an LED glow at half brightness? You switch it on and off <strong>very fast</strong>, hundreds or thousands of times a second. Your eye, or the motor, can't follow the flicker and only feels the <strong>average</strong>. The share of time it's on is called the <strong>duty cycle</strong>. That's <strong>PWM</strong>: pulse-width modulation.</p>
+<p>A microcontroller's GPIO pin can only be fully on (3.3 V) or fully off (0 V). So how do you make an LED glow at half brightness? You switch it on and off <strong>very fast</strong>, hundreds or thousands of times a second. Your eye, or the motor, can't follow the flicker and only feels the <strong>average</strong>. The share of time it's on is called the <strong>duty cycle</strong>. That's <strong>PWM</strong>: pulse-width modulation.</p>
 <div class="demo" id="pwm">
 <div class="d-title">PWM: drag the duty cycle</div>
 <svg viewBox="0 0 600 170" role="img" aria-label="A PWM square wave, an LED and a motor responding to the duty cycle">
@@ -110,9 +110,9 @@
 </div>
 
 <h2 id="power">The pin gives the order; a driver does the lifting</h2>
-<p>A GPIO pin can only supply a tiny current, a few milliamps. That's enough for one small LED, but a motor, a strip of LEDs or a solenoid needs hundreds or thousands of times more. Connecting one straight to a pin can destroy the Pi or the microcontroller. So every real actuator sits behind a <strong>driver</strong>.</p>
+<p>A microcontroller's GPIO pin can only supply a tiny current, a few milliamps. That's enough for one small LED, but a motor, a strip of LEDs or a solenoid needs hundreds or thousands of times more. Connecting one straight to a pin can destroy the Pi or the microcontroller. So every real actuator sits behind a <strong>driver</strong>.</p>
 <figure class="fig"><svg class="d" viewBox="0 0 680 190" role="img" aria-label="The GPIO pin sends a small signal to a driver; the driver switches power from a separate supply to the motor; all grounds are joined"><defs><marker id="l5b" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker></defs>
-<rect x="10" y="40" width="150" height="60" rx="8" class="b-a"/><text x="85" y="66" font-size="13.5" text-anchor="middle" font-weight="600">Pi / RP2350</text><text x="85" y="84" font-size="12" text-anchor="middle" class="q">GPIO: small signal</text>
+<rect x="10" y="40" width="150" height="60" rx="8" class="b-a"/><text x="85" y="66" font-size="13.5" text-anchor="middle" font-weight="600">Pico / RP2350</text><text x="85" y="84" font-size="12" text-anchor="middle" class="q">pin: small signal</text>
 <rect x="250" y="40" width="160" height="60" rx="8" class="b-w"/><text x="330" y="66" font-size="13.5" text-anchor="middle" font-weight="600">Driver</text><text x="330" y="84" font-size="12" text-anchor="middle" class="q">MOSFET, motor driver</text>
 <rect x="500" y="40" width="160" height="60" rx="8" class="b-g"/><text x="580" y="66" font-size="13.5" text-anchor="middle" font-weight="600">Motor / LED strip</text><text x="580" y="84" font-size="12" text-anchor="middle" class="q">the heavy load</text>
 <rect x="250" y="130" width="160" height="44" rx="8" class="b-v"/><text x="330" y="157" font-size="13" text-anchor="middle" font-weight="600">Separate power supply</text>
@@ -143,18 +143,22 @@
 <h2 id="hands-on">Hands-on</h2>
 <h3 id="pwm-math">1. Duty cycle maths</h3>
 <p>At 3.3 V, what average voltage do you get at 25%, 50% and 75% duty? What 8-bit value is each? Check with the slider.</p>
-<h3 id="pwm-pi">2. Fade an LED on the Pi</h3>
-<p>With the LED on GPIO17 from <a href="../phase-1/day-7.html">Phase 1, Day 7</a>:</p>
-<pre><code>from gpiozero import PWMLED
-from time import sleep
+<h3 id="pwm-pi">2. Fade an LED on the controller</h3>
+<p>With the LED on GP15 of your controller from <a href="../phase-1/day-7.html#pico-example">Phase 1, Day 7</a>, upload this small test firmware with PlatformIO:</p>
+<pre><code>#include &lt;Arduino.h&gt;
 
-led = PWMLED(17)
-for step in range(0, 101, 10):
-    led.value = step / 100        # duty cycle from 0.0 to 1.0
-    print(step, "%")
-    sleep(0.5)
-led.pulse()                       # breathe in and out on its own
-input("Press Enter to stop")</code></pre>
+const int LED_PIN = 15;
+
+void setup() { Serial.begin(115200); }
+
+void loop() {
+  for (int duty = 0; duty &lt;= 255; duty += 25) {
+    analogWrite(LED_PIN, duty);        // PWM: 0 = off, 255 = fully on
+    Serial.printf("%d of 255\n", duty);
+    delay(500);
+  }
+}</code></pre>
+<p>Watch the brightness and the Serial Monitor together. Afterwards, upload your Day 7 controller firmware again.</p>
 <h3 id="spot-actuators">3. Spot the actuators</h3>
 <p>Find three actuators at home (a phone vibrating, a car window, a fridge fan…). For each, guess whether it's on/off, PWM or an exact position. Post one on the board below.</p>
 
