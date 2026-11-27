@@ -37,6 +37,24 @@ pause()</code></pre>
 
 <p>Save as <code>~/practice/blink.py</code> and run <code>python3 ~/practice/blink.py</code>. Ctrl+C to stop.</p>
 
+
+<h2 id="which-language">Python, MicroPython, C/C++: which one where?</h2>
+<p>You'll hear three names. They are not the same thing, and DiGiKits uses them in different places:</p>
+<div class="table-scroll"><table>
+<tr><th>Language</th><th>What it is</th><th>Runs on</th><th>At DiGiKits</th></tr>
+<tr><td><strong>Python</strong></td><td>An easy-to-read language. Runs inside an operating system.</td><td>The Pi, laptops, servers</td><td><strong>Yes</strong>: scripts, tests, tools, talking to boards, today's GPIO work</td></tr>
+<tr><td><strong>MicroPython</strong></td><td>A small version of Python squeezed onto a microcontroller</td><td>Pico and similar boards</td><td><strong>No.</strong> It's popular for learning; you'll see it online. You don't have to use it, and we don't.</td></tr>
+<tr><td><strong>C/C++</strong></td><td>The classic language for hardware. Compiled into firmware the chip runs directly.</td><td>Microcontrollers (Pico 2, RP2350, ESP32…)</td><td><strong>Yes</strong>: all DiGiKits firmware, such as the LED controller</td></tr>
+</table></div>
+<figure class="fig"><svg class="d" viewBox="0 0 680 135" role="img" aria-label="Why DiGiKits firmware is written in C/C++"><defs><marker id="x1n" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker><marker id="x1a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-a"/></marker><marker id="x1g" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-g"/></marker><marker id="x1r" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-r"/></marker><marker id="x1w" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-w"/></marker><marker id="x1v" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-v"/></marker></defs><rect x="20.0" y="14.0" width="148.0" height="95.0" rx="10" class="b-a" /><text x="94.0" y="40.0" font-size="13.5" text-anchor="middle" class="a" font-weight="700">Fast and exact</text><text x="94.0" y="62.0" font-size="12" text-anchor="middle" class="q">LED data needs timing</text><text x="94.0" y="78.2" font-size="12" text-anchor="middle" class="q">in millionths of a</text><text x="94.0" y="94.4" font-size="12" text-anchor="middle" class="q">second</text><rect x="184.0" y="14.0" width="148.0" height="95.0" rx="10" class="b-g" /><text x="258.0" y="40.0" font-size="13.5" text-anchor="middle" class="g" font-weight="700">Small and steady</text><text x="258.0" y="62.0" font-size="12" text-anchor="middle" class="q">no interpreter on</text><text x="258.0" y="78.2" font-size="12" text-anchor="middle" class="q">the chip: starts at</text><text x="258.0" y="94.4" font-size="12" text-anchor="middle" class="q">once, runs for years</text><rect x="348.0" y="14.0" width="148.0" height="95.0" rx="10" class="b-v" /><text x="422.0" y="40.0" font-size="13.5" text-anchor="middle" class="v" font-weight="700">Portable</text><text x="422.0" y="62.0" font-size="12" text-anchor="middle" class="q">Pico 2 today, another</text><text x="422.0" y="78.2" font-size="12" text-anchor="middle" class="q">board tomorrow, few</text><text x="422.0" y="94.4" font-size="12" text-anchor="middle" class="q">changes</text><rect x="512.0" y="14.0" width="148.0" height="95.0" rx="10" class="b-w" /><text x="586.0" y="40.0" font-size="13.5" text-anchor="middle" class="w" font-weight="700">Huge library</text><text x="586.0" y="62.0" font-size="12" text-anchor="middle" class="q">proven libraries for</text><text x="586.0" y="78.2" font-size="12" text-anchor="middle" class="q">LEDs, sensors,</text><text x="586.0" y="94.4" font-size="12" text-anchor="middle" class="q">motors, networks</text></svg><figcaption>MicroPython is fine for trying things out. A product that runs in a client's showroom for years gets compiled C/C++ firmware.</figcaption></figure>
+<h3>The tools: Arduino, PlatformIO and VS Code</h3>
+<ul>
+<li><strong>Arduino</strong> is two things: a simple <em>framework</em> (ready-made functions like <code>setup()</code>, <code>loop()</code>, <code>digitalWrite()</code>, <code>Serial.println()</code>) and a beginner IDE. We use the <strong>framework</strong>, so code looks like Arduino code you find online.</li>
+<li><strong>VS Code</strong> is the code editor (free, from Microsoft) on your laptop.</li>
+<li><strong>PlatformIO</strong> is an extension for VS Code that builds and uploads firmware. One file, <code>platformio.ini</code>, says which board, which framework and which library versions. That file goes in Git, so the same firmware builds the same way on any computer, years later.</li>
+</ul>
+<p>You'll learn C/C++ properly in Phase 2 Day 7. Today you just see the whole chain work once.</p>
+
 <h2 id="python-tour">Just enough Python</h2>
 <p>You don't need to be a programmer to support DiGiKits devices, but you must read a short script and spot what it does. Five ideas cover most of it:</p>
 <pre><code>count = 0                     # a variable: a named box holding a value
@@ -62,8 +80,83 @@ print("count is", count)      # show something in the terminal</code></pre>
 <h3>How the button input works</h3>
 <p><code>Button(27)</code> turns on the Pi's built-in <strong>pull-up</strong>: GPIO27 is held at 3.3 V (reads "not pressed") until the button joins it to GND (reads "pressed"). That's why the button goes between the pin and GND, with no resistor. Real buttons also "bounce": one press makes several quick contacts. <code>bounce_time</code> ignores the extras.</p>
 <figure class="fig"><svg class="d" viewBox="0 0 680 135" role="img" aria-label="Three GPIO rules that protect the Pi"><defs><marker id="x2n" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker><marker id="x2a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-a"/></marker><marker id="x2g" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-g"/></marker><marker id="x2r" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-r"/></marker><marker id="x2w" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-w"/></marker><marker id="x2v" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-v"/></marker></defs><rect x="20.0" y="14.0" width="202.7" height="95.0" rx="10" class="b-r" /><text x="121.3" y="40.0" font-size="13.5" text-anchor="middle" class="r" font-weight="700">3.3 V only</text><text x="121.3" y="62.0" font-size="12" text-anchor="middle" class="q">never put 5 V on</text><text x="121.3" y="78.2" font-size="12" text-anchor="middle" class="q">a GPIO pin. It</text><text x="121.3" y="94.4" font-size="12" text-anchor="middle" class="q">damages the chip.</text><rect x="238.7" y="14.0" width="202.7" height="95.0" rx="10" class="b-w" /><text x="340.0" y="40.0" font-size="13.5" text-anchor="middle" class="w" font-weight="700">Small current</text><text x="340.0" y="62.0" font-size="12" text-anchor="middle" class="q">a pin gives a few</text><text x="340.0" y="78.2" font-size="12" text-anchor="middle" class="q">milliamps: one LED,</text><text x="340.0" y="94.4" font-size="12" text-anchor="middle" class="q">not a motor.</text><rect x="457.3" y="14.0" width="202.7" height="95.0" rx="10" class="b-g" /><text x="558.7" y="40.0" font-size="13.5" text-anchor="middle" class="g" font-weight="700">Power off to wire</text><text x="558.7" y="62.0" font-size="12" text-anchor="middle" class="q">check the pin twice,</text><text x="558.7" y="78.2" font-size="12" text-anchor="middle" class="q">then power on.</text><text x="558.7" y="94.4" font-size="12" text-anchor="middle" class="q">Wrong pin = no harm.</text></svg><figcaption>Bigger loads (motors, strips, relays) need their own power and a driver. The Pi only sends the signal.</figcaption></figure>
+
+<h2 id="pico-example">Example: Pi + Pico 2 + WS2812</h2>
+<p>This is how DiGiKits lighting is built: the <strong>Pi</strong> does the thinking and talks to the network, the <strong>microcontroller</strong> drives the LEDs with exact timing. They talk over a USB cable using short text commands, one per line.</p>
+<figure class="fig"><svg class="d" viewBox="0 0 680 118" role="img" aria-label="Pi sends text commands over USB to the Pico, which drives the LED strip"><defs><marker id="x2n" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker><marker id="x2a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-a"/></marker><marker id="x2g" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-g"/></marker><marker id="x2r" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-r"/></marker><marker id="x2w" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-w"/></marker><marker id="x2v" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-v"/></marker></defs><rect x="20.0" y="20.0" width="140.5" height="78.0" rx="8" class="b-a" /><text x="90.2" y="44.0" font-size="13.5" text-anchor="middle" class="a" font-weight="700">Pi · Python</text><text x="90.2" y="64.0" font-size="12" text-anchor="middle" class="q">decides the colour,</text><text x="90.2" y="80.2" font-size="12" text-anchor="middle" class="q">sends "RGB 255 0 0"</text><path d="M163.5 59.0L183.5 59.0" class="ln-a" marker-end="url(#x2a)"/><rect x="186.5" y="20.0" width="140.5" height="78.0" rx="8" class="b" /><text x="256.8" y="44.0" font-size="13.5" text-anchor="middle" font-weight="700">USB serial</text><text x="256.8" y="64.0" font-size="12" text-anchor="middle" class="q">one line per</text><text x="256.8" y="80.2" font-size="12" text-anchor="middle" class="q">command (ttyACM0)</text><path d="M330.0 59.0L350.0 59.0" class="ln-a" marker-end="url(#x2a)"/><rect x="353.0" y="20.0" width="140.5" height="78.0" rx="8" class="b-v" /><text x="423.2" y="44.0" font-size="13.5" text-anchor="middle" class="v" font-weight="700">Pico 2 · C++</text><text x="423.2" y="64.0" font-size="12" text-anchor="middle" class="q">reads the line,</text><text x="423.2" y="80.2" font-size="12" text-anchor="middle" class="q">replies "OK …"</text><path d="M496.5 59.0L516.5 59.0" class="ln-a" marker-end="url(#x2a)"/><rect x="519.5" y="20.0" width="140.5" height="78.0" rx="8" class="b-g" /><text x="589.8" y="44.0" font-size="13.5" text-anchor="middle" class="g" font-weight="700">WS2812 strip</text><text x="589.8" y="64.0" font-size="12" text-anchor="middle" class="q">shows the colour;</text><text x="589.8" y="80.2" font-size="12" text-anchor="middle" class="q">own 5 V supply</text></svg><figcaption>Each side does what it's best at. The Pico never forgets its job; the Pi can be updated, restarted or replaced without the lights caring.</figcaption></figure>
+<h3>1 · Set up the tools (laptop, once)</h3>
+<ol>
+<li>Install <strong>VS Code</strong> (code.visualstudio.com).</li>
+<li>In VS Code: Extensions (the four-squares icon) → search <strong>PlatformIO IDE</strong> → Install. Wait until it finishes and asks you to reload.</li>
+<li>PlatformIO's home page → <strong>New Project</strong> → name <code>pico-leds</code>, board <em>Raspberry Pi Pico</em>, framework <em>Arduino</em> → Finish.</li>
+<li>Open <code>platformio.ini</code> and replace everything in it with the lines below. They switch the project to the <strong>Pico 2</strong> (RP2350) and the community Arduino core that supports it, and add the LED library with a fixed version:</li>
+</ol>
+<pre><code>[env:pico2]
+platform = https://github.com/maxgerhardt/platform-raspberrypi.git
+board = rpipico2
+framework = arduino
+board_build.core = earlephilhower
+lib_deps = adafruit/Adafruit NeoPixel@^1.12.0
+monitor_speed = 115200</code></pre>
+
+<h3>2 · The firmware: src/main.cpp</h3>
+<pre><code>#include &lt;Arduino.h&gt;
+#include &lt;Adafruit_NeoPixel.h&gt;
+
+const int LED_PIN  = 0;     // GP0 → 330 Ω → strip DIN
+const int NUM_LEDS = 30;
+Adafruit_NeoPixel strip(NUM_LEDS, LED_PIN, NEO_GRB + NEO_KHZ800);
+
+void setup() {                       // runs once at power-on
+  Serial.begin(115200);              // USB serial link to the Pi
+  strip.begin();
+  strip.setBrightness(40);           // about 15 %: low current while learning
+  strip.show();                      // all off
+}
+
+void loop() {                        // runs again and again, forever
+  if (!Serial.available()) return;
+  String cmd = Serial.readStringUntil('\n');
+  cmd.trim();
+  int r, g, b;
+  if (cmd == "OFF") {
+    strip.clear();
+  } else if (sscanf(cmd.c_str(), "RGB %d %d %d", &amp;r, &amp;g, &amp;b) == 3) {
+    strip.fill(strip.Color(r, g, b));
+  } else {
+    Serial.println("ERR " + cmd);
+    return;
+  }
+  strip.show();
+  Serial.println("OK " + cmd);
+}</code></pre>
+<p>Read it like a recipe: <code>setup()</code> runs once when the board powers on; <code>loop()</code> runs again and again. Each time round, if a line has arrived from the Pi, it changes the colours and answers <code>OK</code>.</p>
+
+<h3>3 · Wire it (power off)</h3>
+<p>Same three wires as <a href="day-8.html">Day 8</a>, but from the Pico: <strong>GP0</strong> → 330 Ω resistor → strip <strong>DIN</strong>; strip <strong>5 V</strong> and <strong>GND</strong> to the strip's own 5 V supply; Pico <strong>GND</strong> joined to the supply's GND. The Pico is powered by its USB cable from the Pi. Haven't got the strip parts yet? Do steps 1–2 and 4 now, and the wiring after Day 8.</p>
+
+<h3>4 · Upload and test</h3>
+<ol>
+<li>First upload only: hold the Pico's <strong>BOOTSEL</strong> button while plugging its USB cable into your laptop, then let go.</li>
+<li>Click the <strong>→ Upload</strong> arrow in VS Code's bottom bar. PlatformIO downloads the tools the first time (a few minutes), compiles and uploads. After this, uploads work without BOOTSEL.</li>
+<li>Click the <strong>plug icon</strong> (Serial Monitor). Type <code>RGB 0 40 0</code> and press Enter. The strip turns green and the monitor shows <code>OK RGB 0 40 0</code>.</li>
+</ol>
+
+<h3>5 · Let the Pi drive it</h3>
+<p>Close the Serial Monitor (only one program can use the port at a time), move the Pico's USB cable to the Pi, and run this on the Pi:</p>
+<pre><code># on the Pi:  sudo apt install -y python3-serial
+import serial, time
+
+pico = serial.Serial("/dev/ttyACM0", 115200, timeout=2)
+time.sleep(2)                                   # give the Pico a moment after connecting
+for cmd in ["RGB 255 0 0", "RGB 0 0 255", "RGB 255 140 60", "OFF"]:
+    pico.write((cmd + "\n").encode())
+    print(cmd, "→", pico.readline().decode().strip())   # expect: OK …
+    time.sleep(1)</code></pre>
+<p>Your user needs the <code>dialout</code> group to open <code>/dev/ttyACM0</code> (<a href="day-5.html">Day 5</a>). Phase 2 extends this chain: commands from the network to the Pi, to the Pico, to the lights.</p>
+
 <h2 id="done-when">Done when</h2>
-<ul class="check"><li>The button turns the LED on and off</li><li>You write two more scripts of your own (e.g. the LED blinks faster on each press)</li><li>You can read a traceback: what went wrong, and on which line</li><li>You made an LED fade with PWMLED</li><li>You can explain why the button needs no resistor (pull-up)</li></ul>
+<ul class="check"><li>The button turns the LED on and off</li><li>You write two more scripts of your own (e.g. the LED blinks faster on each press)</li><li>You can read a traceback: what went wrong, and on which line</li><li>You made an LED fade with PWMLED</li><li>You can explain why the button needs no resistor (pull-up)</li><li>You can explain Python, MicroPython and C/C++, and which DiGiKits uses where</li><li>You can say what Arduino, PlatformIO and VS Code each do</li><li>Your Pico firmware answers <code>OK</code> in the Serial Monitor</li><li>A Python script on the Pi changes the strip's colour through the Pico</li></ul>
 <h2 id="support-drill">Support drill</h2>
 <p>The LED won't light. Is it the code, the pin number, the LED direction, or a loose wire? Find it.</p>
 <figure class="fig"><svg class="d" viewBox="0 0 680 190" role="img" aria-label="LED won't light: four suspects"><defs><marker id="k30n" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker><marker id="k30a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-a"/></marker><marker id="k30g" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-g"/></marker><marker id="k30r" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-r"/></marker><marker id="k30w" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-w"/></marker><marker id="k30v" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-v"/></marker></defs><rect x="14" y="20" width="152" height="130" rx="8" class="b-a" /><text x="90" y="52" font-size="15" text-anchor="middle" class="a" font-weight="700">Code</text><text x="90" y="84" font-size="12.5" text-anchor="middle"><tspan x="90" dy="0.0">error when you run it?</tspan><tspan x="90" dy="16.2">right pin number?</tspan></text><circle cx="32" cy="20" r="11" class="f-a"/><text x="32" y="24.18" font-size="12.100000000000001" text-anchor="middle" class="on-dark" font-weight="700">1</text><rect x="180" y="20" width="152" height="130" rx="8" class="b-v" /><text x="256" y="52" font-size="15" text-anchor="middle" class="v" font-weight="700">Pin</text><text x="256" y="84" font-size="12.5" text-anchor="middle"><tspan x="256" dy="0.0">GPIO17 is pin 11,</tspan><tspan x="256" dy="16.2">not pin 17</tspan></text><circle cx="198" cy="20" r="11" class="f-v"/><text x="198" y="24.18" font-size="12.100000000000001" text-anchor="middle" class="on-dark" font-weight="700">2</text><rect x="346" y="20" width="152" height="130" rx="8" class="b-w" /><text x="422" y="52" font-size="15" text-anchor="middle" class="w" font-weight="700">LED direction</text><text x="422" y="84" font-size="12.5" text-anchor="middle"><tspan x="422" dy="0.0">flip it: long leg</tspan><tspan x="422" dy="16.2">towards the resistor</tspan></text><circle cx="364" cy="20" r="11" class="f-w"/><text x="364" y="24.18" font-size="12.100000000000001" text-anchor="middle" class="on-dark" font-weight="700">3</text><rect x="512" y="20" width="152" height="130" rx="8" class="b-r" /><text x="588" y="52" font-size="15" text-anchor="middle" class="r" font-weight="700">Loose wire</text><text x="588" y="84" font-size="12.5" text-anchor="middle"><tspan x="588" dy="0.0">wiggle, reseat,</tspan><tspan x="588" dy="16.2">multimeter</tspan></text><circle cx="530" cy="20" r="11" class="f-r"/><text x="530" y="24.18" font-size="12.100000000000001" text-anchor="middle" class="on-dark" font-weight="700">4</text><text x="340" y="178" font-size="12.5" text-anchor="middle" class="q">Test the code with the on-board LED or a print() first: then you know it's hardware.</text></svg><figcaption>Split the problem: is it <b>software</b> or <b>wiring</b>?</figcaption></figure>
@@ -74,6 +167,12 @@ print("count is", count)      # show something in the terminal</code></pre>
 <details class="card"><summary><strong>“IndentationError: unexpected indent” on line 6.</strong></summary><p>Line 6 has extra spaces or a tab where Python didn't expect them. Make the indentation match the lines around it, 4 spaces per level.</p></details>
 <details class="card"><summary><strong>Each button press counts 2 or 3 times.</strong></summary><p>Contact bounce. Use <code>Button(27, bounce_time=0.05)</code>.</p></details>
 <details class="card"><summary><strong>The script works with sudo but not without.</strong></summary><p>Permission on the GPIO device: the user isn't in the <code>gpio</code> group (Day 5). Fix the group; don't run it as root.</p></details>
+<h3>Pico example cases</h3>
+<p>Try each one before you open the answer.</p>
+<details class="card"><summary><strong>The upload fails: “no device found” or it hangs waiting for the board.</strong></summary><p>First upload needs BOOTSEL held while plugging in. Also try another USB cable: some only charge and carry no data.</p></details>
+<details class="card"><summary><strong>On the Pi: “could not open port /dev/ttyACM0: Permission denied”.</strong></summary><p>Add the user to <code>dialout</code> and log in again: <code>sudo usermod -aG dialout $USER</code>.</p></details>
+<details class="card"><summary><strong>On the Pi: “Device or resource busy”.</strong></summary><p>Another program has the port open, usually a Serial Monitor or a second copy of the script. Close it, then try again.</p></details>
+<details class="card"><summary><strong>The Pico answers OK, but the strip stays dark.</strong></summary><p>The firmware works, so look at the wiring: strip supply on? Grounds joined? Data into the DIN end (arrows)? GP0 really the pin you used?</p></details>
 <div class="pager"><a href="day-6.html">← Day 6: Networking basics</a><a href="day-8.html">Day 8: LED strip →</a></div>
 <p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
 <section class="board">

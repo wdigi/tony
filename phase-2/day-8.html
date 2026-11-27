@@ -67,7 +67,7 @@ docker stop web &amp;&amp; docker rm web</code></pre>
 <details class="card"><summary><strong>“permission denied while trying to connect to the Docker daemon socket”.</strong></summary><p>Your user isn't in the <code>docker</code> group yet, or you didn't log in again after adding it.</p></details>
 <details class="card"><summary><strong>The container is gone after a reboot.</strong></summary><p>It was started without a restart policy. Run it again with <code>--restart unless-stopped</code> (Day 9 puts this in a Compose file).</p></details>
 <details class="card"><summary><strong>You edited a file inside the container, then removed it; the change is lost.</strong></summary><p>That's how containers work. Put files that must survive in a volume, or change the image itself.</p></details>
-<div class="pager"><a href="day-7.html">← Day 7: Microcontrollers and MicroPython</a><a href="day-9.html">Day 9: Docker, part 2: Compose →</a></div>
+<div class="pager"><a href="day-7.html">← Day 7: Microcontrollers in C++ (PlatformIO)</a><a href="day-9.html">Day 9: Docker, part 2: Compose →</a></div>
 <p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
 <section class="board">
 <h2 id="how-did-it-feel">How did this lesson feel?</h2>

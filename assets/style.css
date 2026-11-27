@@ -284,3 +284,6 @@ details.card p { margin: 0; }
 .rs-time { color: var(--term-dim); }
 .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
 .rs-input { font: inherit; font-size: 13.5px; width: 9em; padding: 3px 6px; border: 1px solid var(--accent); border-radius: 6px; background: var(--surface); color: var(--ink); }
+
+/* Interactive demos: let wide drawings scroll inside the box on phones */
+.demo { overflow-x: auto; }

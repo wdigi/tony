@@ -120,18 +120,22 @@
 <p>For a 12-bit ADC with a 3.3 V range, work out the number for 0 V, 0.825 V, 1.65 V and 3.3 V. Then check with the slider above. (Hint: they're a quarter apart.)</p>
 <h3 id="break-it">2. Break the copy</h3>
 <p>In the sampling explorer, find the lowest sample rate and the fewest bits where you can still recognise the wave. Post your two numbers on the board below.</p>
-<h3 id="micropython">3. Read a real sensor (with your coach or after Phase 2, Day 7)</h3>
-<p>On a Pico or RP2350 board with a knob (potentiometer) wired to pin GP26, in MicroPython:</p>
-<pre><code>from machine import ADC
-import time
+<h3 id="read-sensor">3. Read a real sensor (with your coach or after Phase 2, Day 7)</h3>
+<p>On a Pico 2 with a knob (potentiometer) wired to pin GP26, in C++ with PlatformIO (the same project setup as <a href="../phase-1/day-7.html#pico-example">Phase 1 Day 7</a>):</p>
+<pre><code>#include &lt;Arduino.h&gt;
 
-knob = ADC(26)                     # GP26 is ADC input 0
-while True:
-    raw = knob.read_u16()          # MicroPython scales it to 0–65535
-    volts = raw * 3.3 / 65535
-    print(raw, round(volts, 2), "V")
-    time.sleep(0.5)</code></pre>
-<p>Turn the knob and watch the numbers follow.</p>
+void setup() {
+  Serial.begin(115200);
+  analogReadResolution(12);          // 0–4095: the Pico's real 12-bit ADC
+}
+
+void loop() {
+  int raw = analogRead(26);          // GP26 is ADC input 0
+  float volts = raw * 3.3 / 4095;
+  Serial.printf("%d %.2f V\n", raw, volts);
+  delay(500);                        // fine here: this sketch does nothing else
+}</code></pre>
+<p>Open the Serial Monitor, turn the knob and watch the numbers follow. Notice the raw numbers stop at 4095: that's the 12 bits from this lesson.</p>
 
 <h2 id="done-when">Done when</h2>
 <ul class="check">

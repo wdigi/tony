@@ -166,7 +166,11 @@ window.QUIZ = {
  ["What voltage is safe on a Pi GPIO pin?", ["5 V", "12 V", "3.3 V", "Any"], 2, "GPIO pins are 3.3 V only."],
  ["Why does a button between GPIO27 and GND need no resistor?", ["It does", "The Pi's built-in pull-up holds the pin high", "Buttons have resistors inside", "GND is a resistor"], 1, "Pressing joins the pin to GND."],
  ["One press counts three times. Fix?", ["Use a bigger LED", "bounce_time on the Button", "Reboot", "A new Pi"], 1, "bounce_time ignores the extra contacts."],
- ["Which class dims an LED?", ["LED", "PWMLED", "Button", "Buzzer"], 1, "PWM switches fast to set brightness (Physical AI Lesson 5)."]
+ ["Which class dims an LED?", ["LED", "PWMLED", "Button", "Buzzer"], 1, "PWM switches fast to set brightness (Physical AI Lesson 5)."],
+ ["Which language is DiGiKits firmware written in?", ["MicroPython", "C/C++", "JavaScript", "Bash"], 1, "Compiled C/C++ with the Arduino framework, built with PlatformIO."],
+ ["What does PlatformIO add?", ["A new chip", "Builds and uploads firmware; one platformio.ini fixes board, framework and library versions", "A web browser", "Wi-Fi"], 1, "And that file lives in Git."],
+ ["In Arduino code, how often does setup() run?", ["Every loop", "Once at power-on", "Never", "Every second"], 1, "loop() runs over and over."],
+ ["In the example, who drives the LED timing?", ["The Pi", "The Pico", "The laptop", "The router"], 1, "The Pi sends commands; the Pico does the exact timing."]
 ],
 "phase-1/day-8.html": [
  ["Why does the LED strip get its own 5 V supply?", ["It looks tidier", "A strip draws amps; a GPIO pin only gives a few milliamps", "The Pi has no 5 V", "It's cheaper"], 1, "30 LEDs can draw about 1.8 A. The Pi only sends the data signal."],
@@ -275,14 +279,13 @@ window.QUIZ = {
  ["Why keep the data wire short?", ["Cheaper", "Long data wires pick up noise", "Faster colours", "Less heat"], 1, "Run the power long, keep data short."]
 ],
 "phase-2/day-7.html": [
- ["How is a microcontroller different from a Pi?", ["It's a full computer with Linux", "It runs one job, starts in a blink and rarely crashes", "It has no pins", "It needs a monitor"], 1, "A microcontroller is a tiny computer for one job."],
- ["How do you put the Pico into its file-copy mode?", ["Hold BOOTSEL while plugging in USB", "Press Ctrl+C", "Remove the SD card", "Shake it"], 0, "Hold BOOTSEL, plug in, release: a drive appears."],
- ["Which file runs automatically when the Pico powers on?", ["main.py", "start.txt", "index.html", "README.md"], 0, "Save your program as main.py on the board."],
- ["The Pico doesn't show up on USB. A common cause?", ["Charge-only USB cable", "Too much RAM", "Wrong time zone", "Firewall"], 0, "Some cables only carry power, not data."],
- ["Which file runs by itself at power-on?", ["start.py", "main.py", "run.py", "code.txt"], 1, "main.py on the board."],
- ["What is the REPL?", ["A cable", "A live prompt that runs Python lines on the board", "A file", "A Pi"], 1, "Test pins before writing a program."],
- ["A Pico or a Pi: which starts in under a second?", ["Pi", "Pico", "Both", "Neither"], 1, "No operating system to load."],
- ["The board resets when the strip goes white. Why?", ["Bad code", "Strip drawing power from the board's supply", "Wrong file name", "Wi-Fi"], 1, "Separate supply, shared ground."]
+ ["Which language does DiGiKits use for microcontroller firmware?", ["MicroPython", "C/C++ with the Arduino framework", "Bash", "JavaScript"], 1, "Built and uploaded with PlatformIO in VS Code."],
+ ["Which file must be committed so the firmware builds the same everywhere?", ["The .pio folder", "platformio.ini", "The .uf2", "None"], 1, "Board, framework and library versions; .pio/ stays out of Git."],
+ ["How often does setup() run?", ["Every loop", "Once at power-on", "Every second", "Never"], 1, "loop() runs over and over."],
+ ["Why use millis() instead of delay() in loop()?", ["It's shorter", "delay() freezes the board, so commands aren't read", "millis() is more accurate", "No reason"], 1, "Firmware must stay responsive."],
+ ["When do you need to hold BOOTSEL?", ["Every upload", "The first upload (or if the firmware is badly stuck)", "Never", "To reset the strip"], 1, "After that, uploads work over USB."],
+ ["bridge.py says the serial port is busy. Most likely?", ["Broken Pico", "The Serial Monitor still has it open", "Wrong colour", "Firewall"], 1, "Only one program can use a port at a time."],
+ ["The board resets when the strip goes white. Why?", ["Bad code", "The strip draws power through the board's supply", "Wrong file name", "Wi-Fi"], 1, "Separate supply, shared ground."]
 ],
 "phase-2/day-8.html": [
  ["Image versus container?", ["Same thing", "Image is the package; container is a running copy", "Container is the package; image is running", "Images are only photos"], 1, "One image, many containers, like a recipe and the cakes."],
