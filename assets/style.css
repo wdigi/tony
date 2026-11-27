@@ -250,3 +250,37 @@ details.card > summary { cursor: pointer; }
 details.card > summary::marker { color: var(--muted); }
 details.card[open] > summary { margin-bottom: 8px; }
 details.card p { margin: 0; }
+
+/* ---------- Router admin mock-up (Phase 1 Day 6) ---------- */
+.router-sim { border: 1px solid var(--line-strong); border-radius: 12px; overflow: hidden; margin: 20px 0; background: var(--surface); font-size: 14.5px; }
+.rs-top { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 10px 14px; background: var(--chip); color: #e8e6e1; }
+.rs-brand { font-weight: 700; }
+.rs-url { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; opacity: .8; }
+.rs-tabs { display: flex; flex-wrap: wrap; gap: 4px; padding: 8px 10px; border-bottom: 1px solid var(--line); background: var(--code-bg); }
+.rs-btn { font: inherit; font-size: 13.5px; font-weight: 600; padding: 5px 10px; border-radius: 6px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); cursor: pointer; }
+.rs-tabs .rs-btn.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.rs-btn.warn { border-color: var(--amber); background: var(--amber-soft); }
+.rs-btn.ok { border-color: var(--good); background: var(--good-soft); }
+.rs-btn.link { border: 0; background: none; color: var(--accent); padding: 0 0 0 6px; font-weight: 500; text-decoration: underline; }
+.rs-body { padding: 12px 14px 14px; }
+.rs-card { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; margin: 0 0 10px; }
+.rs-card h4 { margin: 0 0 6px; font-size: 14px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+.rs-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 5px 0; border-top: 1px solid var(--line); flex-wrap: wrap; }
+.rs-row:first-of-type { border-top: 0; }
+.rs-k { color: var(--muted); }
+.rs-v { text-align: right; }
+.rs-v.good, .good { color: var(--good); font-weight: 600; }
+.rs-v.bad { color: var(--bad); font-weight: 600; }
+.rs-hint { color: var(--muted); font-size: 13.5px; margin: 8px 0 0; }
+.rs-table { font-size: 13.5px; }
+.rs-table td, .rs-table th { vertical-align: top; }
+.rs-table tr.blocked td { opacity: .5; text-decoration: line-through; }
+.rs-table tr.blocked td.rs-actions { opacity: 1; text-decoration: none; }
+.rs-sub { color: var(--muted); font-size: 12px; }
+.rs-actions { white-space: nowrap; }
+.rs-actions .rs-btn { margin: 0 4px 4px 0; }
+.rs-log { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; background: var(--term-bg); color: var(--term-ink); border-radius: 8px; padding: 10px 12px; max-height: 260px; overflow: auto; }
+.rs-log div { padding: 2px 0; }
+.rs-time { color: var(--term-dim); }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.rs-input { font: inherit; font-size: 13.5px; width: 9em; padding: 3px 6px; border: 1px solid var(--accent); border-radius: 6px; background: var(--surface); color: var(--ink); }

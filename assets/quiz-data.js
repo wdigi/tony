@@ -128,7 +128,11 @@ window.QUIZ = {
  ["A device shows 169.254.8.12. What happened?", ["It's working fine", "No router answered its request for an address", "It's on the internet directly", "It's using IPv6"], 1, "169.254.x.x is a self-made address when DHCP gets no answer."],
  ["Can 192.168.0.50 talk directly to 192.168.1.40 (both /24)?", ["Yes, always", "No, they are on different subnets", "Only on Wi-Fi", "Only if both are Pis"], 1, "With /24 the first three numbers must match to talk directly."],
  ["Why can't a client's iPad on guest Wi-Fi find the LED controller?", ["iPads can't use Wi-Fi", "Guest Wi-Fi isolates devices and is often a different subnet", "The controller is too far", "DNS is broken"], 1, "Put the iPad on the same network as the controller."],
- ["Is blocking unknown MAC addresses good security?", ["Yes, MACs can't be faked", "No, a MAC can be copied easily", "Only on 5 GHz", "Only for Pis"], 1, "Real security is a strong password, updates and closed ports."]
+ ["Is blocking unknown MAC addresses good security?", ["Yes, MACs can't be faked", "No, a MAC can be copied easily", "Only on 5 GHz", "Only for Pis"], 1, "Real security is a strong password, updates and closed ports."],
+ ["Where do you look up which IP and MAC each device has?", ["The router's Devices (client list) page", "The Wi-Fi password page", "The firmware page", "The Pi's SD card"], 0, "The router keeps a list of every device it gave an address to."],
+ ["Your lab router's WAN got 192.168.1.73. What should its LAN be?", ["192.168.1.1", "A different street, like 192.168.50.1", "8.8.8.8", "Nothing"], 1, "WAN and LAN must be on different subnets or the router can't route between them."],
+ ["A Wi-Fi device shows signal −82 dBm. What do you expect?", ["Perfect connection", "Dropouts: it's weak", "Faster speed", "Nothing, dBm is the battery"], 1, "Closer to 0 is stronger. Below about −75 expect trouble."],
+ ["Which router feature should be off on a DiGiKits-managed network?", ["DHCP", "WPS and remote management", "Wi-Fi", "The firewall"], 1, "They make attacks easier. We use Tailscale for remote access."]
 ],
 "phase-1/day-7.html": [
  ["GPIO17 is on which physical pin?", ["Pin 17", "Pin 11", "Pin 1", "Pin 40"], 1, "Code uses GPIO numbers; GPIO17 sits at physical pin 11."],

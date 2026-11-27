@@ -126,8 +126,106 @@ sudo nmap -sn 192.168.1.0/24     # list every device on your network, with MAC a
 </table></div>
 <div class="card accent"><strong>Keep real network sheets private.</strong> They go in DiGiKits' private files, never on this public site or the message board.</div>
 
+<h2 id="router-admin">A home router's admin pages</h2>
+<p>Every home router has a small website inside it: the <strong>admin pages</strong>. You open it in a browser at the router's IP (usually <code>192.168.0.1</code>, <code>192.168.1.1</code> or a web name printed on the router's label) and log in with the admin password. Brands lay it out differently, but the same pages are always there.</p>
+<p>Try the mock-up below. It is set up exactly like the lab you'll build today. Click the tabs, reserve the desktop's IP, block the unknown device, switch off WPS, change the admin password, then look at <em>Logs</em>.</p>
+<div class="router-sim"><p class="quiet-note" style="padding:12px">Loading the router mock-up…</p></div>
+<div class="table-scroll"><table>
+<tr><th>Page</th><th>Often called</th><th>What a support person does there</th></tr>
+<tr><td>Status</td><td>Dashboard, Overview, Network map</td><td>Is the internet up? What WAN IP did we get? How many devices? Firmware version.</td></tr>
+<tr><td>Devices</td><td>Clients, Attached devices, DHCP client list</td><td>Find a device's IP and MAC; see wired or Wi-Fi, signal strength and live traffic; rename, block.</td></tr>
+<tr><td>DHCP</td><td>LAN setup, Address reservation, Static leases</td><td>See the pool, add and remove reservations.</td></tr>
+<tr><td>Wi-Fi</td><td>Wireless, WLAN</td><td>Network name, password, 2.4/5 GHz, guest network and its isolation.</td></tr>
+<tr><td>Security</td><td>Administration, System tools, Advanced</td><td>Admin password, firmware updates, remote management, WPS, UPnP, port forwarding, backup and restore.</td></tr>
+<tr><td>Logs</td><td>System log, Event log</td><td>What happened and when: new devices, lost internet, logins, reboots.</td></tr>
+</table></div>
+<h3>Monitoring: what to look at</h3>
+<ul>
+<li><strong>Signal</strong> (Wi-Fi devices) in dBm. Closer to 0 is stronger: −50 is great, −65 is fine, below −75 expect dropouts. A weak LED controller behind a metal cabinet shows up here first.</li>
+<li><strong>Traffic</strong>: who is using the bandwidth right now. Useful when "the internet is slow".</li>
+<li><strong>Uptime</strong> of the router: if it restarted at 3 a.m., that's your answer to "everything went offline last night".</li>
+<li><strong>The log</strong>: a device that joins and leaves every few minutes has a power or signal problem.</li>
+</ul>
+<h3>Router safety checklist</h3>
+<ul>
+<li>Change the admin password from the default.</li>
+<li>Remote management (admin from the internet): off.</li>
+<li>WPS: off. UPnP: off unless something really needs it.</li>
+<li>No port forwarding. We reach devices through Tailscale.</li>
+<li>Firmware up to date. Back up the settings after changes.</li>
+</ul>
+
+<h2 id="router-lab">Lab: build your own network</h2>
+<p>Today you become the admin of a small network of your own. A <strong>lab router</strong> sits behind the home router, so nothing you do can break the family's internet.</p>
+<figure class="fig"><svg class="d" viewBox="0 0 680 344" role="img" aria-label="Lab network: the lab router plugs into the home router and serves two Pis, a desktop and a laptop"><defs><marker id="m66n" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker><marker id="m66a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-a"/></marker><marker id="m66g" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-g"/></marker><marker id="m66v" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-v"/></marker></defs><rect x="150" y="8" width="510" height="92" rx="12" class="b-q dash" /><text x="645" y="30" font-size="12.5" text-anchor="end" class="q" font-weight="700">Home network · 192.168.1.x</text><text x="645" y="50" font-size="12" text-anchor="end" class="q">family phones, TV, …</text><path d="M40 70C14 70 14 38 40 40C42 18 74 14 84 34C100 22 124 36 118 50C134 54 130 72 116 70Z" class="b-q" /><text x="74" y="58" font-size="13" text-anchor="middle" font-weight="600">Internet</text><path d="M128 54H164" class="ln" marker-end="url(#m66n)"/><rect x="170" y="24" width="190" height="56" rx="8" class="b" /><text x="265" y="47" font-size="14" text-anchor="middle" font-weight="700">Home router</text><text x="265" y="66" font-size="11.5" text-anchor="middle" class="q">192.168.1.1 · leave it alone</text><path d="M265 80V140" class="ln" stroke-width="3"/><text x="275" y="112" font-size="12" text-anchor="start" class="q" font-weight="600">cable: home LAN port → lab WAN port</text><rect x="20" y="124" width="640" height="212" rx="12" class="b-g" /><text x="645" y="148" font-size="13" text-anchor="end" class="g" font-weight="700">Lab network · 192.168.50.x</text><text x="645" y="166" font-size="12" text-anchor="end" class="q">you are the admin here</text><rect x="170" y="140" width="190" height="60" rx="8" class="b-v" /><text x="265" y="163" font-size="14" text-anchor="middle" class="v" font-weight="700">Lab router</text><text x="265" y="182" font-size="12" text-anchor="middle" class="mono">WAN .1.73 · LAN .50.1</text><path d="M265 200C265 226 100 222 100 262" class="ln" marker-end="url(#m66n)"/><rect x="36" y="266" width="128" height="54" rx="8" class="b-a" /><text x="100" y="289" font-size="14" text-anchor="middle" font-weight="700">pi-a</text><text x="100" y="308" font-size="12" text-anchor="middle" class="q mono">wired · .50</text><path d="M265 200C265 226 260 222 260 262" class="ln" marker-end="url(#m66n)"/><rect x="196" y="266" width="128" height="54" rx="8" class="b" /><text x="260" y="289" font-size="14" text-anchor="middle" font-weight="700">desktop</text><text x="260" y="308" font-size="12" text-anchor="middle" class="q mono">wired · .1xx</text><path d="M265 200C265 226 420 222 420 262" class="ln-v dash" marker-end="url(#m66v)"/><rect x="356" y="266" width="128" height="54" rx="8" class="b-a" /><text x="420" y="289" font-size="14" text-anchor="middle" font-weight="700">pi-b</text><text x="420" y="308" font-size="12" text-anchor="middle" class="q mono">Wi-Fi · .51</text><path d="M265 200C265 226 580 222 580 262" class="ln-v dash" marker-end="url(#m66v)"/><rect x="516" y="266" width="128" height="54" rx="8" class="b" /><text x="580" y="289" font-size="14" text-anchor="middle" font-weight="700">laptop</text><text x="580" y="308" font-size="12" text-anchor="middle" class="q mono">Wi-Fi · .1xx</text><text x="36" y="226" font-size="11.5" text-anchor="start" class="q">LAN 1, LAN 2 cables</text><text x="645" y="226" font-size="11.5" text-anchor="end" class="v" font-weight="600">Wi-Fi DGK-LAB</text></svg><figcaption>The lab router gets internet from your home router (its <b>WAN</b> side) and runs its own network for your four devices (its <b>LAN</b> side). Two routers, two streets.</figcaption></figure>
+<h3>You need</h3>
+<ul>
+<li>A lab router: any home Wi-Fi router with a <strong>WAN</strong> (or "Internet") port and LAN ports. An old one is fine. Your coach will tell you which one to use.</li>
+<li>Your two Pis, your laptop and your desktop.</li>
+<li>Three Ethernet cables: home router to lab router, lab router to pi-a, lab router to desktop.</li>
+</ul>
+<div class="card accent"><strong>Don't touch the home router's settings.</strong> You only plug a cable into one of its spare LAN ports. Everything you change today is on the lab router.</div>
+
+<h3>Part A · Start clean (20 min)</h3>
+<ol>
+<li>Power on the lab router <em>without</em> the WAN cable. If it was used before, hold the <strong>reset</strong> pinhole for about 10 seconds to return it to factory settings.</li>
+<li>Read the label underneath: default Wi-Fi name and password, admin address, admin login. Take a photo for yourself (not the message board).</li>
+<li>Plug the laptop into a LAN port, or join the default Wi-Fi. Open the admin address in a browser.</li>
+</ol>
+
+<h3>Part B · First setup (30 min)</h3>
+<ol>
+<li>Set a strong <strong>admin password</strong> when the setup wizard asks.</li>
+<li>Internet / WAN type: <strong>Dynamic IP</strong> (also called DHCP or Automatic). The home router will give it an address.</li>
+<li>Check the operating mode is <strong>Router</strong>, not "Access point" or "Bridge".</li>
+<li>LAN settings: change the router's IP to <code>192.168.50.1</code> (mask 255.255.255.0). Set the DHCP pool to <code>.100</code> to <code>.199</code>. The router restarts; browse to <code>http://192.168.50.1</code> again.</li>
+<li>Wi-Fi: name <code>DGK-LAB</code>, WPA2/WPA3, a new password.</li>
+<li>Now plug the cable from a spare LAN port of the home router into the lab router's <strong>WAN</strong> port.</li>
+</ol>
+<p><strong>Why change to 192.168.50.x?</strong> Many routers come set to the same addresses as your home router. If the lab router's WAN and LAN are on the same street, it can't route between them and nothing gets internet. Different streets fix it.</p>
+
+<h3>Part C · Join the four devices (30 min)</h3>
+<ol>
+<li>pi-a and the desktop: Ethernet cables into LAN 1 and LAN 2.</li>
+<li>pi-b: join <code>DGK-LAB</code> with <code>sudo nmtui</code> → <em>Activate a connection</em>. If pi-b was on Ethernet before, unplug that cable.</li>
+<li>Laptop: join <code>DGK-LAB</code> Wi-Fi.</li>
+<li>On each Pi, check it landed on the lab street and reaches the internet through <em>two</em> routers:
+<pre><code>hostname -I                 # 192.168.50.x
+ip route                    # default via 192.168.50.1
+ping -c 3 8.8.8.8
+sudo apt install -y traceroute
+traceroute -n 8.8.8.8       # hop 1: 192.168.50.1 (lab), hop 2: 192.168.1.1 (home)</code></pre></li>
+</ol>
+
+<h3>Part D · Manage (60 min)</h3>
+<ol>
+<li>Open <em>Devices</em>. Find all four. Match each line to a device using the MACs you read with <code>cat /sys/class/net/eth0/address</code> (pi-a) and <code>…/wlan0/address</code> (pi-b). Rename them: pi-a, pi-b, desktop, laptop.</li>
+<li>Any line you can't match? Find it (often a phone that joined by itself) or block it.</li>
+<li>Add reservations outside the pool: pi-a → <code>192.168.50.50</code> (its <em>Ethernet</em> MAC), pi-b → <code>192.168.50.51</code> (its <em>Wi-Fi</em> MAC).</li>
+<li>Reboot both Pis (<code>sudo reboot</code>). Check they came back on .50 and .51.</li>
+<li>From the laptop: <code>ssh pi-a@192.168.50.50</code> (use your Pi's user name). From pi-a: <code>ping 192.168.50.51</code>.</li>
+<li>Go through the safety checklist above.</li>
+</ol>
+
+<h3>Part E · Monitor (45 min)</h3>
+<ol>
+<li>Start a big download on pi-a, then watch the router's traffic numbers:
+<pre><code>curl -o /dev/null https://speed.cloudflare.com/__down?bytes=200000000</code></pre>
+pi-a should jump to the top. Stop it with <kbd>Ctrl</kbd>+<kbd>C</kbd>.</li>
+<li>Note pi-b's Wi-Fi <strong>signal</strong>. Carry pi-b to the far end of the home (or behind a closed door) and check again.</li>
+<li>Unplug pi-a's cable for a minute, plug it back. Find both events in the <strong>log</strong>.</li>
+<li>Block the laptop. Try a website on it. Unblock it.</li>
+<li>Turn on the <strong>guest network</strong> with isolation. Move the laptop to it and try <code>ping 192.168.50.50</code>. It fails: that is the client-site guest Wi-Fi problem, now you've seen it yourself. Move the laptop back.</li>
+</ol>
+
+<h3>Part F · Prove the walls (15 min)</h3>
+<ol>
+<li>From a phone on the <em>home</em> Wi-Fi, try to open <code>http://192.168.50.1</code> or ping pi-a. It doesn't work: the lab router hides the lab street behind its one WAN address (this is called <strong>NAT</strong>). That's also why nobody on the internet can reach your Pi, and why we use Tailscale instead of opening ports.</li>
+<li>Back up the router settings. Fill in a network sheet for the lab (keep it private).</li>
+</ol>
+
 <h2 id="done-when">Done when</h2>
-<ul class="check"><li>You can explain: IP address, router, DHCP, DNS</li><li>You can explain MAC vs IP, and why your Pi has two MACs</li><li>You found your Pi's Ethernet and Wi-Fi MACs, and the maker code says Raspberry Pi</li><li>You can read your router's device list and match every line to a real device</li><li>Your Pi keeps the same IP after a reboot (a reservation by MAC)</li><li>You can say what 169.254.x.x means, and why 192.168.0.x can't reach 192.168.1.x</li><li>You made a network sheet for your home network (kept private)</li></ul>
+<ul class="check"><li>You can explain: IP address, router, DHCP, DNS</li><li>You can explain MAC vs IP, and why your Pi has two MACs</li><li>You found your Pi's Ethernet and Wi-Fi MACs, and the maker code says Raspberry Pi</li><li>You can read your router's device list and match every line to a real device</li><li>Your Pi keeps the same IP after a reboot (a reservation by MAC)</li><li>You can say what 169.254.x.x means, and why 192.168.0.x can't reach 192.168.1.x</li><li>You made a network sheet for your home network (kept private)</li><li>You can name the six admin pages and what each is for</li><li>Your lab router runs 192.168.50.x behind the home router, admin password changed</li><li>All four devices are named on the router; pi-a and pi-b keep .50 and .51 after a reboot</li><li>traceroute from a Pi shows two hops: lab router, then home router</li><li>You watched traffic, signal and the log, and you blocked and unblocked a device</li><li>You showed that guest Wi-Fi can't reach the Pis</li></ul>
 <h2 id="support-drill">Support drill</h2>
 <p>The Pi can ping 8.8.8.8 but not google.com. What is broken? Fix it.</p>
 <figure class="fig"><svg class="d" viewBox="0 0 680 200" role="img" aria-label="Three pings tell you which part of the network is broken"><defs><marker id="k26n" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar"/></marker><marker id="k26a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-a"/></marker><marker id="k26g" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-g"/></marker><marker id="k26r" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-r"/></marker><marker id="k26w" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-w"/></marker><marker id="k26v" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ar-v"/></marker></defs><rect x="20" y="24" width="200" height="54" rx="8" class="b-a" /><text x="120.0" y="47.505" font-size="13.5" text-anchor="middle" class="mono" font-weight="600">ping 192.168.1.1</text><text x="120.0" y="63.35999999999999" font-size="12" text-anchor="middle" class="q">router reachable?</text><circle cx="50" cy="112" r="11" class="f-r" /><path d="M45.6 107.6L54.4 116.4M54.4 107.6L45.6 116.4" class="" style="stroke:#fff;stroke-width:2.4;stroke-linecap:round"/><text x="68" y="117" font-size="12" text-anchor="start" class="r">fails → Wi-Fi / cable / password</text><path d="M222 51L238 51" class="ln-g" marker-end="url(#k26g)"/><circle cx="50" cy="150" r="11" class="f-g" /><path d="M45.05 150L48.9 154.18L55.5 145.82" class="" style="stroke:#fff;stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round"/><text x="68" y="155" font-size="12" text-anchor="start" class="g">works → next test</text><rect x="240" y="24" width="200" height="54" rx="8" class="b-a" /><text x="340.0" y="47.505" font-size="13.5" text-anchor="middle" class="mono" font-weight="600">ping 8.8.8.8</text><text x="340.0" y="63.35999999999999" font-size="12" text-anchor="middle" class="q">internet reachable?</text><circle cx="270" cy="112" r="11" class="f-r" /><path d="M265.6 107.6L274.4 116.4M274.4 107.6L265.6 116.4" class="" style="stroke:#fff;stroke-width:2.4;stroke-linecap:round"/><text x="288" y="117" font-size="12" text-anchor="start" class="r">fails → router or internet line</text><path d="M442 51L458 51" class="ln-g" marker-end="url(#k26g)"/><circle cx="270" cy="150" r="11" class="f-g" /><path d="M265.05 150L268.9 154.18L275.5 145.82" class="" style="stroke:#fff;stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round"/><text x="288" y="155" font-size="12" text-anchor="start" class="g">works → next test</text><rect x="460" y="24" width="200" height="54" rx="8" class="b-a" /><text x="560.0" y="47.505" font-size="13.5" text-anchor="middle" class="mono" font-weight="600">ping google.com</text><text x="560.0" y="63.35999999999999" font-size="12" text-anchor="middle" class="q">DNS working?</text><circle cx="490" cy="112" r="11" class="f-r" /><path d="M485.6 107.6L494.4 116.4M494.4 107.6L485.6 116.4" class="" style="stroke:#fff;stroke-width:2.4;stroke-linecap:round"/><text x="508" y="117" font-size="12" text-anchor="start" class="r">fails → DNS settings</text><text x="340" y="192" font-size="13" text-anchor="middle" font-weight="700">The drill: 8.8.8.8 works but google.com fails → it's DNS</text></svg><figcaption>Go from near to far. The first ping that fails points straight at the broken part.</figcaption></figure>
@@ -139,6 +237,8 @@ sudo nmap -sn 192.168.1.0/24     # list every device on your network, with MAC a
 <details class="card"><summary><strong>A new controller shows 169.254.12.7.</strong></summary><p>No router answered. Check the Wi-Fi name and password, and that the network is 2.4 GHz if the controller needs it. For Ethernet, check the cable and the switch port lights.</p></details>
 <details class="card"><summary><strong>Two devices keep dropping off every few minutes.</strong></summary><p>Probably an IP conflict: someone gave one of them a static IP inside the DHCP pool. Find both MACs with <code>ip neigh</code> or a scan, then reserve or move one outside the pool.</p></details>
 
+<details class="card"><summary><strong>Lab router set up, but no device behind it gets internet.</strong></summary><p>Open <em>Status</em>. No WAN IP: check the cable goes into the <strong>WAN</strong> port and WAN type is Dynamic IP. WAN IP on the same street as the LAN (both 192.168.1.x): change the LAN to 192.168.50.x.</p></details>
+<details class="card"><summary><strong>“I can't open the router page any more.”</strong></summary><p>Check your device's IP and gateway first (<code>ip route</code>, or the Wi-Fi details on a laptop). You must be on the router's own network, and the address is the gateway. After a LAN IP change the old address no longer works. Last resort: factory reset, then set it up again from your notes.</p></details>
 <div class="pager"><a href="day-5.html">← Day 5: Users, permissions, packages</a><a href="day-7.html">Day 7: Python and GPIO →</a></div>
 <p class="reminder"><span class="r-icon" aria-hidden="true">📝</span><a href="#how-did-it-feel">Update progress on the message board below ↓</a></p>
 <section class="board">
@@ -154,6 +254,7 @@ sudo nmap -sn 192.168.1.0/24     # list every device on your network, with MAC a
 </section>
 </div></main>
 <footer><div class="wrap">DiGiKits Inc. · Training materials · Work at your own pace.</div></footer>
+<script src="../assets/router-sim.js" defer></script>
 <script src="../assets/quiz-data.js" defer></script>
 <script src="../assets/quiz.js" defer></script>
 <script src="../assets/progress-config.js" defer></script>
