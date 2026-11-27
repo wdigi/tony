@@ -467,60 +467,97 @@ window.QUIZ = {
  ["In most CAD tools, which axis points up?", ["X", "Y", "Z", "W"], 2, "X left–right, Y front–back, Z up."],
  ["A 1 m desk in a DiGiKits model is…", ["1 unit", "100 mm", "1000 mm", "10 mm"], 2, "DiGiKits works in millimetres at real scale."],
  ["Which file type is exact CAD for making parts?", ["STEP", "STL", "GLB", "JPG"], 0, "STEP keeps exact shapes; STL and GLB are meshes."],
- ["Which file type is best for showing a coloured model on the web?", ["GLB / glTF", "STEP", "TXT", "DWG"], 0, "GLB is a mesh with colours, made for the web."]
+ ["Which file type is best for showing a coloured model on the web?", ["GLB / glTF", "STEP", "TXT", "DWG"], 0, "GLB is a mesh with colours, made for the web."],
+ ["Which axis is up in Three.js?", ["X", "Y", "Z", "None"], 1, "CAD tools usually use Z up."],
+ ["What units does glTF use?", ["Millimetres", "Inches", "Metres", "Pixels"], 2, "100 mm becomes 0.1."],
+ ["A printed hole exactly as big as the pin will…", ["Fit perfectly", "Probably be too tight", "Be loose", "Melt"], 1, "Add clearance."],
+ ["More triangles means…", ["Faster", "Smoother but bigger and slower", "Smaller files", "Nothing"], 1, "Keep web scenes light."]
 ],
 "phase-4/day-2.html": [
  ["What does 'fully constrained' mean?", ["Every size and position in the sketch is fixed", "The file is locked", "The part is finished", "It's printed"], 0, "FreeCAD changes the colour when nothing can move any more."],
  ["What does Pad do?", ["Turns a flat sketch into a solid with thickness", "Deletes a sketch", "Adds colour", "Exports STL"], 0, "Pad extrudes the sketch, e.g. 3 mm."],
  ["The holes are 3.2 mm across. Why that size?", ["To fit M3 screws with a little clearance", "It's random", "It's the biggest drill", "To save weight"], 0, "3.2 mm gives an M3 screw room to pass."],
- ["Which two formats do you export?", ["STEP and STL", "JPG and PNG", "DOC and PDF", "MP3 and MP4"], 0, "STEP for CAD, STL for printing."]
+ ["Which two formats do you export?", ["STEP and STL", "JPG and PNG", "DOC and PDF", "MP3 and MP4"], 0, "STEP for CAD, STL for printing."],
+ ["What does fully constrained mean?", ["The sketch is red", "Every size and position is fixed by you", "It's exported", "It's 3D"], 1, "Zero degrees of freedom."],
+ ["Why add fillets last?", ["They're slow", "They break first when earlier features change", "FreeCAD requires it", "They look better"], 1, "They depend on edges from earlier features."],
+ ["Which constraint keeps four holes the same size?", ["Coincident", "Equal", "Horizontal", "Distance"], 1, "Dimension one; Equal the rest."],
+ ["Pad fails with “Wire is not closed”. Check…", ["The export", "Gaps in the sketch outline", "The units", "Your mouse"], 1, "Coincident corners or Validate sketch."]
 ],
 "phase-4/day-3.html": [
  ["What holds the Pi off the bottom of the enclosure?", ["Standoffs at its mounting holes", "Glue", "Tape", "Nothing"], 0, "Standoffs line up with the Pi's holes."],
  ["The Pi 5's mounting holes are how far apart the long way?", ["58 mm", "85 mm", "49 mm", "100 mm"], 0, "58 mm by 49 mm, 3.5 mm from the edges."],
  ["You change the wall thickness. What should happen?", ["The whole model updates", "Nothing", "The file breaks", "You redraw everything"], 0, "That's the point of a well-built parametric model."],
- ["Where should the measurements come from?", ["Your real Pi or its official drawing", "A guess", "A photo", "Memory"], 0, "Measure twice, model once."]
+ ["Where should the measurements come from?", ["Your real Pi or its official drawing", "A guess", "A photo", "Memory"], 0, "Measure twice, model once."],
+ ["Pi 5 mounting hole spacing?", ["58 × 49 mm", "85 × 56 mm", "50 × 50 mm", "65 × 30 mm"], 0, "85 × 56 is the board."],
+ ["Where do vents go?", ["Nowhere", "Low on one side, high on the other", "Only on the lid", "Only on the bottom"], 1, "Air flows through."],
+ ["Why put a version number on the part?", ["Decoration", "To know which design a printed part is", "Required", "It's stronger"], 1, "Prints get mixed up."],
+ ["The plug won't fit the opening. Why?", ["Wrong Pi", "Opening sized for the socket, not the plug body", "Too much clearance", "STL error"], 1, "Test with the real cable."]
 ],
 "phase-4/day-4.html": [
  ["Why build 3D models from code?", ["Change one number, keep it on GitHub, check it automatically, let AI help write it", "Code looks cool", "It's the only way", "It's always faster for beginners"], 0, "That's how DiGiKits makes fast, exact concepts."],
  ["In CadQuery, what does .hole(3.2) do?", ["Drills 3.2 mm holes at the selected points", "Makes a 3.2 mm thick plate", "Rounds corners", "Exports a file"], 0, "Each line of code is one step of the shape."],
  ["What does .edges(\"|Z\").fillet(2) do?", ["Rounds the vertical edges by 2 mm", "Cuts the part in half", "Adds 2 holes", "Moves the part up"], 0, "Selects edges parallel to Z and rounds them."],
- ["You change box(100, 60, 3) to box(120, 60, 3). Result?", ["The plate becomes 120 mm long", "Nothing", "The holes vanish", "An error"], 0, "Edit one number, get a new part."]
+ ["You change box(100, 60, 3) to box(120, 60, 3). Result?", ["The plate becomes 120 mm long", "Nothing", "The holes vanish", "An error"], 0, "Edit one number, get a new part."],
+ ["What does faces(\">Z\") select?", ["The bottom face", "The top face", "All faces", "Edges"], 1, "Furthest along +Z."],
+ ["Why put sizes as named parameters at the top?", ["Faster to run", "Change one number and the part follows", "Python needs it", "Smaller files"], 1, "No magic numbers."],
+ ["How can a script check its own part?", ["It can't", "Bounding box plus assert", "Printing it", "Asking Claude"], 1, "Stop if it's wrong."],
+ ["Claude wrote your CadQuery. Next?", ["Commit straight away", "Run it and check the sizes first", "Print it", "Delete it"], 1, "AI drafts; you verify."]
 ],
 "phase-4/day-5.html": [
  ["Why put every size in variables at the top?", ["One place to change, no hidden numbers", "Python requires it", "It's faster to run", "To make the file longer"], 0, "No magic numbers buried in the code."],
  ["How do you check the board doesn't collide with the enclosure?", ["Intersect them and confirm the result is empty", "Look at it", "Print it", "Ask Claude to guess"], 0, "An empty intersection means no collision."],
  ["The intersection isn't empty. What does it mean?", ["Parts overlap: fix before making anything", "Everything is fine", "The file is corrupt", "The Pi is broken"], 0, "A clash found in code saves a failed print."],
- ["What goes in the README?", ["What each variable means", "Your password", "Nothing", "Only the date"], 0, "Someone else should be able to change it safely."]
+ ["What goes in the README?", ["What each variable means", "Your password", "Nothing", "Only the date"], 0, "Someone else should be able to change it safely."],
+ ["What does an intersect volume of 0 mean?", ["Collision", "No collision", "Error", "Wrong units"], 1, "Nothing overlaps."],
+ ["Why check the board plus its gap?", ["Faster", "It proves no collision and the planned clearance at once", "Smaller file", "Looks nicer"], 1, "Two checks in one."],
+ ["The 3D Concept method happens…", ["After buying parts", "Before CAD details and buying parts", "Never", "During printing"], 1, "Mistakes are free to fix early."],
+ ["Check says OK, but the real board won't fit. Likely?", ["Bad printer", "The model is missing a real part, like a connector", "Wrong colour", "Git"], 1, "Model what's really there."]
 ],
 "phase-4/day-6.html": [
  ["What draws the scene onto the page?", ["The renderer", "The camera", "The light", "The mesh"], 0, "The renderer films what the camera sees."],
  ["A mesh is made of…", ["Geometry and material", "Only colour", "A camera and a light", "HTML"], 0, "Geometry is the shape, material is how it looks."],
  ["What does camera.lookAt(0, 0, 0) do?", ["Points the camera at the middle of the scene", "Moves the box", "Turns off lights", "Saves the page"], 0, "The camera aims at the origin."],
- ["Why open the page through python3 -m http.server?", ["Browsers block some features on plain files; a local server avoids that", "It makes 3D faster", "It's required for colours", "No reason"], 0, "Modules and loading files work properly from a server."]
+ ["Why open the page through python3 -m http.server?", ["Browsers block some features on plain files; a local server avoids that", "It makes 3D faster", "It's required for colours", "No reason"], 0, "Modules and loading files work properly from a server."],
+ ["A MeshStandardMaterial box is black. Why?", ["Wrong colour", "No light in the scene", "Wrong camera", "No internet"], 1, "Standard materials need light."],
+ ["Which light is like the sun?", ["Ambient", "Directional", "Point", "Spot"], 1, "Parallel rays from far away."],
+ ["Where do you look first when the 3D page is blank?", ["The HTML", "The browser console", "GitHub", "The GPU"], 1, "Errors appear in red with a line number."],
+ ["Why not open the page as file://?", ["It's slow", "Browsers block module loading from files", "No colours", "It's insecure"], 1, "Use a local server."]
 ],
 "phase-4/day-7.html": [
  ["Which file format do you load with GLTFLoader?", ["GLB / glTF", "STEP", "DOCX", "CSV"], 0, "GLB is the web-friendly mesh format."],
  ["What does OrbitControls give the viewer?", ["Rotate, zoom and pan with mouse or touch", "Sound", "Faster loading", "A login page"], 0, "Drag to rotate, scroll or pinch to zoom, right-drag to pan."],
  ["Where can you publish the page for free?", ["GitHub Pages", "Your SD card", "A USB stick", "Email"], 0, "This training site uses GitHub Pages too."],
- ["How do you show it on the Big Screen?", ["Kiosk mode pointing at the page's address", "Copy the GLB to the TV", "Print it", "Use CEC only"], 0, "Your Phase 2 kiosk can show any web page."]
+ ["How do you show it on the Big Screen?", ["Kiosk mode pointing at the page's address", "Copy the GLB to the TV", "Print it", "Use CEC only"], 0, "Your Phase 2 kiosk can show any web page."],
+ ["The model 404s only on GitHub Pages. Likely?", ["Server down", "Upper/lower case in the file name", "Too big", "Wrong colour"], 1, "Linux and GitHub Pages are case-sensitive."],
+ ["Why centre and fit the camera in code?", ["Looks nicer", "Any model shows up, big or small", "Required by GLB", "Faster"], 1, "No more invisible models."],
+ ["What does controls.autoRotate do?", ["Spins the model when idle", "Rotates the Pi", "Turns the TV", "Nothing"], 0, "Catches visitors' eyes."],
+ ["Where must you test a kiosk 3D page?", ["Laptop only", "On the Pi that drives the screen", "Phone", "Nowhere"], 1, "The Pi's GPU is much weaker."]
 ],
 "phase-4/day-8.html": [
  ["A good project sits where…", ["What you care about meets what DiGiKits can use", "It's the biggest idea", "It's the easiest", "Nobody will see it"], 0, "Pick from the overlap and you'll keep going."],
  ["How long is the first milestone?", ["One week", "One day", "Six months", "No milestone"], 0, "The brief sets a one-week first milestone."],
  ["How many 'done when' checks go in the brief?", ["Three", "One", "Ten", "None"], 0, "Three clear checks."],
- ["Where is the brief saved?", ["In a new GitHub repo", "On paper only", "In an email", "Nowhere"], 0, "Everything lives on GitHub."]
+ ["Where is the brief saved?", ["In a new GitHub repo", "On paper only", "In an email", "Nowhere"], 0, "Everything lives on GitHub."],
+ ["Which pile goes in the first milestone?", ["Must", "Nice", "Later", "All"], 0, "Only what it can't work without."],
+ ["Which part do you build first?", ["The easiest", "The riskiest", "The prettiest", "The README"], 1, "Find problems early."],
+ ["How long is the brief?", ["One page", "Ten pages", "One line", "No brief"], 0, "If it doesn't fit, the version is too big."]
 ],
 "phase-4/day-9.html": [
  ["What should the first milestone look like?", ["A thin version that works end to end", "One perfect part, nothing else working", "Only plans", "A finished product"], 0, "Everything works a little, then improve each part."],
  ["How often do you commit?", ["At least once a day", "Once at the end", "Never", "Once a month"], 0, "Small, regular commits with clear messages."],
  ["Claude writes code for your project. You…", ["Check and understand it before using it", "Paste it unread", "Delete it", "Send it to customers"], 0, "Day 2 rules: check its work like a machine."],
- ["What do you post on the message board?", ["One screenshot and one line", "Your full code", "Nothing", "Passwords"], 0, "Short progress posts keep your coach in the loop."]
+ ["What do you post on the message board?", ["One screenshot and one line", "Your full code", "Nothing", "Passwords"], 0, "Short progress posts keep your coach in the loop."],
+ ["What is a thin slice?", ["A tiny model", "A version that runs end to end from the start", "One layer done well", "A bug"], 1, "Then keep it working as it grows."],
+ ["How do you close an issue from a commit?", ["Email", "Write Fixes #3 in the message", "Delete it", "Ask the coach"], 1, "GitHub links them."],
+ ["Stuck for 30 minutes. Next?", ["Keep going all day", "Ask a small, specific question with what you tried", "Give up", "Start a new project"], 1, "Ask early, ask clearly."]
 ],
 "phase-4/day-10.html": [
  ["How long is the demo?", ["5 minutes", "1 hour", "30 seconds", "A full day"], 0, "Five minutes: what, how, next."],
  ["What should the demo start with?", ["The project running", "Slides about yourself", "An apology", "The code"], 0, "Show the running thing first."],
  ["What must the README contain?", ["What it is, how to run it, what's next", "Only the title", "Your passwords", "Nothing"], 0, "Someone else should be able to run it."],
- ["What setup is allowed during the demo?", ["None: it runs without setup", "Install everything live", "Reboot twice", "Borrow a laptop"], 0, "Prepare beforehand so the demo just runs."]
+ ["What setup is allowed during the demo?", ["None: it runs without setup", "Install everything live", "Reboot twice", "Borrow a laptop"], 0, "Prepare beforehand so the demo just runs."],
+ ["How should a demo start?", ["Slides", "The project running", "Code", "Apologies"], 1, "The wow first."],
+ ["Why record a video the day before?", ["For YouTube", "A plan B if something fails live", "Required", "No reason"], 1, "Show it and carry on."],
+ ["What's the README test?", ["It's long", "Someone new can run it in 5 minutes", "It has emojis", "It's in English"], 1, "Run it with someone who's never seen it."]
 ]
 };
