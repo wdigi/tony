@@ -470,7 +470,9 @@ window.QUIZ = {
  ["Which axis is up in Three.js?", ["X", "Y", "Z", "None"], 1, "CAD tools usually use Z up."],
  ["What units does glTF use?", ["Millimetres", "Inches", "Metres", "Pixels"], 2, "100 mm becomes 0.1."],
  ["A printed hole exactly as big as the pin will…", ["Fit perfectly", "Probably be too tight", "Be loose", "Melt"], 1, "Add clearance."],
- ["More triangles means…", ["Faster", "Smoother but bigger and slower", "Smaller files", "Nothing"], 1, "Keep web scenes light."]
+ ["More triangles means…", ["Faster", "Smoother but bigger and slower", "Smaller files", "Nothing"], 1, "Keep web scenes light."],
+ ["At DiGiKits, how does a 3D idea usually start?", ["Clicking shapes in CAD", "Described in words; Claude builds a script-driven model", "Buying parts", "A 3D print"], 1, "Talk, build, look, check, revise, commit."],
+ ["Why ask Claude to list every size it guessed?", ["To be polite", "So you can replace guesses with real numbers", "It's required", "To make the page longer"], 1, "Guesses are where wrong sizes hide."]
 ],
 "phase-4/day-2.html": [
  ["What does 'fully constrained' mean?", ["Every size and position in the sketch is fixed", "The file is locked", "The part is finished", "It's printed"], 0, "FreeCAD changes the colour when nothing can move any more."],
@@ -480,7 +482,9 @@ window.QUIZ = {
  ["What does fully constrained mean?", ["The sketch is red", "Every size and position is fixed by you", "It's exported", "It's 3D"], 1, "Zero degrees of freedom."],
  ["Why add fillets last?", ["They're slow", "They break first when earlier features change", "FreeCAD requires it", "They look better"], 1, "They depend on edges from earlier features."],
  ["Which constraint keeps four holes the same size?", ["Coincident", "Equal", "Horizontal", "Distance"], 1, "Dimension one; Equal the rest."],
- ["Pad fails with “Wire is not closed”. Check…", ["The export", "Gaps in the sketch outline", "The units", "Your mouse"], 1, "Coincident corners or Validate sketch."]
+ ["Pad fails with “Wire is not closed”. Check…", ["The export", "Gaps in the sketch outline", "The units", "Your mouse"], 1, "Coincident corners or Validate sketch."],
+ ["What helps Claude most when FreeCAD shows an error?", ["“It doesn't work”", "A screenshot plus version, what you drew and the exact message", "Your password", "Nothing"], 1, "Give it the client file."],
+ ["Claude's steps name a menu you can't find. Likely?", ["You're wrong", "Written for another FreeCAD version: tell it yours", "FreeCAD is broken", "Reinstall"], 1, "Menus move between versions."]
 ],
 "phase-4/day-3.html": [
  ["What holds the Pi off the bottom of the enclosure?", ["Standoffs at its mounting holes", "Glue", "Tape", "Nothing"], 0, "Standoffs line up with the Pi's holes."],
@@ -490,7 +494,9 @@ window.QUIZ = {
  ["Pi 5 mounting hole spacing?", ["58 × 49 mm", "85 × 56 mm", "50 × 50 mm", "65 × 30 mm"], 0, "85 × 56 is the board."],
  ["Where do vents go?", ["Nowhere", "Low on one side, high on the other", "Only on the lid", "Only on the bottom"], 1, "Air flows through."],
  ["Why put a version number on the part?", ["Decoration", "To know which design a printed part is", "Required", "It's stronger"], 1, "Prints get mixed up."],
- ["The plug won't fit the opening. Why?", ["Wrong Pi", "Opening sized for the socket, not the plug body", "Too much clearance", "STL error"], 1, "Test with the real cable."]
+ ["The plug won't fit the opening. Why?", ["Wrong Pi", "Opening sized for the socket, not the plug body", "Too much clearance", "STL error"], 1, "Test with the real cable."],
+ ["What should you give Claude for a design review?", ["Only a photo", "The real numbers in mm, plus what to check", "Your login", "Nothing"], 1, "It checks sums and rules well; it can't measure a photo."],
+ ["Who decides which review fixes to make?", ["Claude", "You, the designer", "Nobody", "The printer"], 1, "Claude reviews; you decide."]
 ],
 "phase-4/day-4.html": [
  ["Why build 3D models from code?", ["Change one number, keep it on GitHub, check it automatically, let AI help write it", "Code looks cool", "It's the only way", "It's always faster for beginners"], 0, "That's how DiGiKits makes fast, exact concepts."],
@@ -500,7 +506,9 @@ window.QUIZ = {
  ["What does faces(\">Z\") select?", ["The bottom face", "The top face", "All faces", "Edges"], 1, "Furthest along +Z."],
  ["Why put sizes as named parameters at the top?", ["Faster to run", "Change one number and the part follows", "Python needs it", "Smaller files"], 1, "No magic numbers."],
  ["How can a script check its own part?", ["It can't", "Bounding box plus assert", "Printing it", "Asking Claude"], 1, "Stop if it's wrong."],
- ["Claude wrote your CadQuery. Next?", ["Commit straight away", "Run it and check the sizes first", "Print it", "Delete it"], 1, "AI drafts; you verify."]
+ ["Claude wrote your CadQuery. Next?", ["Commit straight away", "Run it and check the sizes first", "Print it", "Delete it"], 1, "AI drafts; you verify."],
+ ["Which is NOT one of the five parts of a 3D script request?", ["Real numbers", "Self-check", "Your favourite colour", "Output files"], 2, "Goal, numbers, structure, self-check, output."],
+ ["What can Claude Code do that a chat can't?", ["Nothing", "Run the script, read errors, fix and commit", "Print parts", "Measure the board"], 1, "You still direct and review."]
 ],
 "phase-4/day-5.html": [
  ["Why put every size in variables at the top?", ["One place to change, no hidden numbers", "Python requires it", "It's faster to run", "To make the file longer"], 0, "No magic numbers buried in the code."],
@@ -510,7 +518,9 @@ window.QUIZ = {
  ["What does an intersect volume of 0 mean?", ["Collision", "No collision", "Error", "Wrong units"], 1, "Nothing overlaps."],
  ["Why check the board plus its gap?", ["Faster", "It proves no collision and the planned clearance at once", "Smaller file", "Looks nicer"], 1, "Two checks in one."],
  ["The 3D Concept method happens…", ["After buying parts", "Before CAD details and buying parts", "Never", "During printing"], 1, "Mistakes are free to fix early."],
- ["Check says OK, but the real board won't fit. Likely?", ["Bad printer", "The model is missing a real part, like a connector", "Wrong colour", "Git"], 1, "Model what's really there."]
+ ["Check says OK, but the real board won't fit. Likely?", ["Bad printer", "The model is missing a real part, like a connector", "Wrong colour", "Git"], 1, "Model what's really there."],
+ ["What does Claude do first in a 3D Concept session?", ["Builds the page", "Lists its assumptions and questions", "Orders parts", "Prints"], 1, "Guesses become visible."],
+ ["Best way to send review changes?", ["One per message, many rounds", "All together in one message", "Never change it", "By phone call"], 1, "One round of many changes is faster."]
 ],
 "phase-4/day-6.html": [
  ["What draws the scene onto the page?", ["The renderer", "The camera", "The light", "The mesh"], 0, "The renderer films what the camera sees."],
@@ -520,7 +530,9 @@ window.QUIZ = {
  ["A MeshStandardMaterial box is black. Why?", ["Wrong colour", "No light in the scene", "Wrong camera", "No internet"], 1, "Standard materials need light."],
  ["Which light is like the sun?", ["Ambient", "Directional", "Point", "Spot"], 1, "Parallel rays from far away."],
  ["Where do you look first when the 3D page is blank?", ["The HTML", "The browser console", "GitHub", "The GPU"], 1, "Errors appear in red with a line number."],
- ["Why not open the page as file://?", ["It's slow", "Browsers block module loading from files", "No colours", "It's insecure"], 1, "Use a local server."]
+ ["Why not open the page as file://?", ["It's slow", "Browsers block module loading from files", "No colours", "It's insecure"], 1, "Use a local server."],
+ ["The 3D page is blank. What do you send Claude?", ["“It's blank”", "The exact red console error and the line", "A screenshot of the desktop", "Nothing"], 1, "Exact errors get exact fixes."],
+ ["Why say what must NOT change?", ["Politeness", "Otherwise Claude may change things you liked", "It's faster", "Required"], 1, "Ambitious, with boundaries."]
 ],
 "phase-4/day-7.html": [
  ["Which file format do you load with GLTFLoader?", ["GLB / glTF", "STEP", "DOCX", "CSV"], 0, "GLB is the web-friendly mesh format."],
@@ -530,7 +542,9 @@ window.QUIZ = {
  ["The model 404s only on GitHub Pages. Likely?", ["Server down", "Upper/lower case in the file name", "Too big", "Wrong colour"], 1, "Linux and GitHub Pages are case-sensitive."],
  ["Why centre and fit the camera in code?", ["Looks nicer", "Any model shows up, big or small", "Required by GLB", "Faster"], 1, "No more invisible models."],
  ["What does controls.autoRotate do?", ["Spins the model when idle", "Rotates the Pi", "Turns the TV", "Nothing"], 0, "Catches visitors' eyes."],
- ["Where must you test a kiosk 3D page?", ["Laptop only", "On the Pi that drives the screen", "Phone", "Nowhere"], 1, "The Pi's GPU is much weaker."]
+ ["Where must you test a kiosk 3D page?", ["Laptop only", "On the Pi that drives the screen", "Phone", "Nowhere"], 1, "The Pi's GPU is much weaker."],
+ ["Why ask Claude to “explain every change in one line”?", ["To slow it down", "Each answer becomes a small lesson you can check", "It's required", "Fewer tokens"], 1, "You learn and catch mistakes."],
+ ["Claude wrote a test plan. Next?", ["Trust it", "Run it on the real Pi", "Delete it", "Post it publicly"], 1, "Plans are only useful when run."]
 ],
 "phase-4/day-8.html": [
  ["A good project sits where…", ["What you care about meets what DiGiKits can use", "It's the biggest idea", "It's the easiest", "Nobody will see it"], 0, "Pick from the overlap and you'll keep going."],
@@ -539,7 +553,9 @@ window.QUIZ = {
  ["Where is the brief saved?", ["In a new GitHub repo", "On paper only", "In an email", "Nowhere"], 0, "Everything lives on GitHub."],
  ["Which pile goes in the first milestone?", ["Must", "Nice", "Later", "All"], 0, "Only what it can't work without."],
  ["Which part do you build first?", ["The easiest", "The riskiest", "The prettiest", "The README"], 1, "Find problems early."],
- ["How long is the brief?", ["One page", "Ten pages", "One line", "No brief"], 0, "If it doesn't fit, the version is too big."]
+ ["How long is the brief?", ["One page", "Ten pages", "One line", "No brief"], 0, "If it doesn't fit, the version is too big."],
+ ["How should Claude help you plan a project?", ["Agree with everything", "Interview you and push back on scope and risk", "Write it without asking", "Pick for you"], 1, "Good questions first."],
+ ["Who owns the final brief?", ["Claude", "You (agreed with your coach)", "GitHub", "Nobody"], 1, "Claude asks; you decide."]
 ],
 "phase-4/day-9.html": [
  ["What should the first milestone look like?", ["A thin version that works end to end", "One perfect part, nothing else working", "Only plans", "A finished product"], 0, "Everything works a little, then improve each part."],
@@ -548,7 +564,9 @@ window.QUIZ = {
  ["What do you post on the message board?", ["One screenshot and one line", "Your full code", "Nothing", "Passwords"], 0, "Short progress posts keep your coach in the loop."],
  ["What is a thin slice?", ["A tiny model", "A version that runs end to end from the start", "One layer done well", "A bug"], 1, "Then keep it working as it grows."],
  ["How do you close an issue from a commit?", ["Email", "Write Fixes #3 in the message", "Delete it", "Ask the coach"], 1, "GitHub links them."],
- ["Stuck for 30 minutes. Next?", ["Keep going all day", "Ask a small, specific question with what you tried", "Give up", "Start a new project"], 1, "Ask early, ask clearly."]
+ ["Stuck for 30 minutes. Next?", ["Keep going all day", "Ask a small, specific question with what you tried", "Give up", "Start a new project"], 1, "Ask early, ask clearly."],
+ ["Why keep a NOTES.md in the project?", ["For GitHub", "Claude starts fresh each session; the notes are its client file", "It's required", "Decoration"], 1, "Memory is reading."],
+ ["How do you check Claude only changed what you asked?", ["Trust it", "git diff --stat", "Reboot", "Ask it again"], 1, "Look at the actual changes."]
 ],
 "phase-4/day-10.html": [
  ["How long is the demo?", ["5 minutes", "1 hour", "30 seconds", "A full day"], 0, "Five minutes: what, how, next."],
@@ -557,6 +575,7 @@ window.QUIZ = {
  ["What setup is allowed during the demo?", ["None: it runs without setup", "Install everything live", "Reboot twice", "Borrow a laptop"], 0, "Prepare beforehand so the demo just runs."],
  ["How should a demo start?", ["Slides", "The project running", "Code", "Apologies"], 1, "The wow first."],
  ["Why record a video the day before?", ["For YouTube", "A plan B if something fails live", "Required", "No reason"], 1, "Show it and carry on."],
- ["What's the README test?", ["It's long", "Someone new can run it in 5 minutes", "It has emojis", "It's in English"], 1, "Run it with someone who's never seen it."]
+ ["What's the README test?", ["It's long", "Someone new can run it in 5 minutes", "It has emojis", "It's in English"], 1, "Run it with someone who's never seen it."],
+ ["In your demo, what do you say about Claude's part?", ["Hide it", "Say honestly what Claude wrote and how you checked it", "Say Claude did everything", "Nothing"], 1, "At DiGiKits that's a strength."]
 ]
 };
