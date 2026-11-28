@@ -471,7 +471,7 @@ window.QUIZ = {
  ["What units does glTF use?", ["Millimetres", "Inches", "Metres", "Pixels"], 2, "100 mm becomes 0.1."],
  ["A printed hole exactly as big as the pin will…", ["Fit perfectly", "Probably be too tight", "Be loose", "Melt"], 1, "Add clearance."],
  ["More triangles means…", ["Faster", "Smoother but bigger and slower", "Smaller files", "Nothing"], 1, "Keep web scenes light."],
- ["At DiGiKits, how does a 3D idea usually start?", ["Clicking shapes in CAD", "Described in words; Claude builds a script-driven model", "Buying parts", "A 3D print"], 1, "Talk, build, look, check, revise, commit."],
+ ["When Claude writes a 3D script for you, who checks the sizes?", ["Claude", "You, against real measurements", "Nobody", "The printer"], 1, "Claude can be wrong about a size and sound sure."],
  ["Why ask Claude to list every size it guessed?", ["To be polite", "So you can replace guesses with real numbers", "It's required", "To make the page longer"], 1, "Guesses are where wrong sizes hide."]
 ],
 "phase-4/day-2.html": [
@@ -517,9 +517,9 @@ window.QUIZ = {
  ["What goes in the README?", ["What each variable means", "Your password", "Nothing", "Only the date"], 0, "Someone else should be able to change it safely."],
  ["What does an intersect volume of 0 mean?", ["Collision", "No collision", "Error", "Wrong units"], 1, "Nothing overlaps."],
  ["Why check the board plus its gap?", ["Faster", "It proves no collision and the planned clearance at once", "Smaller file", "Looks nicer"], 1, "Two checks in one."],
- ["The 3D Concept method happens…", ["After buying parts", "Before CAD details and buying parts", "Never", "During printing"], 1, "Mistakes are free to fix early."],
+ ["Why check a layout for clashes in code?", ["It's faster to print", "Overlaps are found on screen, before anything is made", "It changes the colour", "It's required by FreeCAD"], 1, "Mistakes are free to fix on screen."],
  ["Check says OK, but the real board won't fit. Likely?", ["Bad printer", "The model is missing a real part, like a connector", "Wrong colour", "Git"], 1, "Model what's really there."],
- ["What does Claude do first in a 3D Concept session?", ["Builds the page", "Lists its assumptions and questions", "Orders parts", "Prints"], 1, "Guesses become visible."],
+ ["Before Claude writes a layout script, what should it list?", ["Its favourite parts", "The sizes it has to guess", "Nothing", "Prices"], 1, "Then you replace each guess with a real number."],
  ["Best way to send review changes?", ["One per message, many rounds", "All together in one message", "Never change it", "By phone call"], 1, "One round of many changes is faster."]
 ],
 "phase-4/day-6.html": [
