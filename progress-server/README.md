@@ -5,7 +5,7 @@ Saves each trainee's lesson tick boxes under their GitHub sign-in, so ticks foll
 ```mermaid
 flowchart LR
   T["Trainee<br/>lesson page"] -- "1 · Sign in with GitHub" --> G["GitHub"]
-  G -- "2 · who they are" --> S["Progress server<br/>progress.digikits.com<br/>(market-server)"]
+  G -- "2 · who they are" --> S["Progress server<br/>progress.digikits.com"]
   T -- "3 · each tick" --> S
   S --> D[("progress.json")]
   C["Coach<br/>coach.html"] -- "all trainees' ticks,<br/>add / remove trainees" --> S
@@ -17,11 +17,11 @@ flowchart LR
 
 ## One-time setup
 
-You need about 20 minutes and SSH access to market-server.
+You need about 20 minutes and SSH access to the company server.
 
 ### 1. Point a subdomain at the server
 
-Wherever digikits.com's DNS is managed (Hover), add an **A record**: name `progress`, value = market-server's IP address.
+Where digikits.com's DNS is managed, add an **A record**: name `progress`, value = the server's IP address.
 
 ### 2. Register a GitHub OAuth app
 
@@ -35,7 +35,7 @@ GitHub → Settings → Developer settings → OAuth Apps → **New OAuth App**
 
 Click **Register**, then **Generate a new client secret**. Keep the Client ID and secret for step 3. Never put the secret in this repo.
 
-### 3. Start the server on market-server
+### 3. Start the server
 
 ```bash
 git clone https://github.com/wdigi/tony.git
